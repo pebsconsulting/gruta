@@ -44,7 +44,7 @@ use Grutatxt;
 
 $|++;
 
-$VERSION = "0.7.2beta (".$Grutatxt::VERSION.")";
+$VERSION = "0.8beta (".$Grutatxt::VERSION.")";
 
 # the datafile
 $datafile = $ARGV[0];
