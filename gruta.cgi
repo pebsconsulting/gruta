@@ -1,11 +1,9 @@
 #!/usr/bin/perl
 
-$configfile="/etc/grutarc";
-
 #
 # gruta - Hierarchical Notepad (+CGI)
 #
-# Copyright (C) 2001	  Angel Ortega <angel@triptico.com>
+# Copyright (C) 2001/2003	  Angel Ortega <angel@triptico.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,16 +42,24 @@ use POSIX qw (locale_h);
 
 use Grutatxt;
 
-$VERSION="0.6 (".$Grutatxt::VERSION.")";
+$VERSION="0.7 (".$Grutatxt::VERSION.")";
 
 # the datafile
-$datafile="";
+$datafile=$ARGV[0];
 
-# default css
-$css="";
+unless(-r $datafile)
+{
+	print "Content-type: text/html\n\n";
+	print "<h1>Gruta</h1>\n";
+	print "<pre>\n";
+	print "Usage: gruta.cgi {datafile}\n";
+	print "</pre>\n";
+
+	exit(0);
+}
 
 # read only flag
-$read_only=0;
+$read_only=-w $datafile ? 0 : 1;
 
 # set as root flag
 $set_as_root=1;
@@ -71,8 +77,9 @@ $root_name="Gruta";
 $show_url=1;
 
 # raw HTML to be printed as root content, in all pages
-$root_header_text="";
-$root_footer_text="";
+$css="";
+$header="";
+$footer="";
 
 # maximum POST size (0, none)
 $max_post_size=0;
@@ -83,16 +90,16 @@ $disable_admin=0;
 # use locking flag
 $use_locking=1;
 
+# command line
+$cmd_line="";
+
 
 #############################################################################
 
-$grutatxt=new Grutatxt("header-offset" => 1,
-		       "class-oddeven" => 0);
-
 $request_uri='';
 
-# reads the config file
-read_config();
+$grutatxt=new Grutatxt("header-offset" => 1,
+		       "class-oddeven" => 0);
 
 # parses CGI parameters
 ($cgi_params)=cgi_init();
@@ -122,7 +129,6 @@ my @cmd=split('\0',$cgi_params->{'cmd'});
 $cmd=lc(pop(@cmd));
 
 # cgi
-#$cgi=$ENV{'SCRIPT_NAME'};
 $cgi=$ENV{'REQUEST_URI'};
 $cgi=~s/\?.*$//;
 
@@ -138,9 +144,6 @@ if($disable_admin)
 	$cmd="" if $cmd eq "admin" or $cmd eq "sync" or
 		$cmd eq "store" or $cmd eq "merge";
 }
-
-# set css, if any
-$css=$cgi_params->{'css'} if $cgi_params->{'css'};
 
 # set date filter
 if($cgi_params->{'date-filter'})
@@ -159,6 +162,11 @@ else
 #############################################################################
 
 %data=load_database($datafile);
+
+read_config($data{'CONFIG'}->{'-content'});
+$css=$data{'CONFIG.css'}->{'-content'} if $data{'CONFIG.css'};
+$header=$data{'CONFIG.header'}->{'-content'} if $data{'CONFIG.header'};
+$footer=$data{'CONFIG.footer'}->{'-content'} if $data{'CONFIG.footer'};
 
 if($cmd eq "expand" and $collapse_buttons)
 {
@@ -403,9 +411,13 @@ sub load_database
 	$name=undef;
 	$in_header=0;
 
+	# read the shebang command line
+	$cmd_line=<F>;
+	chomp($cmd_line);
+
 	while(<F>)
 	{
-		chop;
+		chomp;
 
 		if($in_header)
 		{
@@ -496,6 +508,9 @@ sub save_database
 
 	# open datafile
 	open F, ">$datafile" or return(0);
+
+	# print the shebang command line
+	print F "$cmd_line\n";
 
 	foreach my $i (sort(keys(%data)))
 	{
@@ -785,7 +800,7 @@ sub cgi_header
 	print "<!-- GATEWAY_INTERFACE: $ENV{'GATEWAY_INTERFACE'} -->\n";
 	print "<!-- cmd: '$cmd' -->\n";
 	print "<html><head><title>$root_name</title>\n";
-	print "<link rel=StyleSheet href='$css' type='text/css'>" unless $css eq "none";
+	print "$css\n" if $css;
 	print "<body bgcolor=white text=black>\n";
 
 	# prints title
@@ -827,9 +842,11 @@ sub cgi_main_content
 
 	if($elem->{'-content'} or $elem->{'url'})
 	{
+		my (@g);
+
 		print "<blockquote>\n";
 
-		my (@g)=$grutatxt->process($elem->{'-content'});
+		@g=$grutatxt->process($elem->{'-content'});
 
 		foreach my $l (@g)
 		{
@@ -853,6 +870,8 @@ sub cgi_main_subtree
 		$elem=$data{$i};
 
 		next if $elem->{'-parent'} ne $r;
+
+		next if $i eq "CONFIG" and $r ne $i;
 
 		# filter by user
 		if($cgi_params->{'user'})
@@ -964,6 +983,8 @@ sub cgi_main_tree
 
 	cgi_header();
 
+	print "$header\n<p>\n";
+
 	unless($raw_mode)
 	{
 		# prints path
@@ -994,10 +1015,8 @@ sub cgi_main_tree
 		print "</div>\n";
 	}
 
-	print "<!-- root content -->\n";
+	print "<p><!-- root content -->\n";
 
-	print $root_header_text;
-	print "\n<p>\n";
 	cgi_main_content($data{$root});
 
 	# prints tree
@@ -1023,6 +1042,8 @@ sub cgi_main_tree
 			if $root;
 		print "<a href='$cgi?cmd=new&root=$root'>[New]</a> "
 			unless $read_only;
+		print "<a href='$cgi?root=CONFIG'>[Config]</a> "
+			unless $read_only;
 		print "<a href='$cgi?root=$root'>[Refresh]</a>\n";
 
 		print "</td><td align=right>Gruta $VERSION</table>\n";
@@ -1031,7 +1052,7 @@ sub cgi_main_tree
 
 	print "<!-- root footer content -->\n";
 
-	print $root_footer_text;
+	print $footer;
 }
 
 
@@ -1288,45 +1309,12 @@ sub bang
 sub read_config
 # reads the config file
 {
-	my $profile,$found;
+	my ($conf)=@_;
 
-	# gets the request uri
-	$request_uri=$ENV{'REQUEST_URI'};
-
-	# strips unneccesary clutter
-	$request_uri =~ s/\?.*$//;
-	$request_uri =~ s/gruta\.cgi$//;
-
-	bang "Can't parse REQUEST_URI" unless $request_uri;
-
-	open F, $configfile or bang "Can't open config file '$configfile'";
-
-	$profile=0;
-	$found=0;
-
-	while(<F>)
+	foreach (split("\n",$conf))
 	{
-		chop;
-
 		next if /^#/;
 		next if /^$/;
-
-		if(/\[([^\[]*)\]/)
-		{
-			my ($prf)=$1;
-
-			$profile=0;
-			foreach my $p (split(/\s+/,$prf))
-			{
-				if($p eq $request_uri)
-				{
-					$profile=1;
-					last;
-				}
-			}
-		}
-
-		next unless $profile;
 
 		my ($key,$value)=/^(\w*):\s+(.*)/;
 
@@ -1341,21 +1329,7 @@ sub read_config
 			}
 		}
 
-		$found=1;
-
-		if($key eq "datafile")
-		{
-			$datafile=$value;
-		}
-		elsif($key eq "css")
-		{
-			$css=$value;
-		}
-		elsif($key eq "read_only")
-		{
-			$read_only=$value;
-		}
-		elsif($key eq "disable_admin")
+		if($key eq "disable_admin")
 		{
 			$disable_admin=$value;
 		}
@@ -1383,14 +1357,6 @@ sub read_config
 		{
 			$max_post_size=$value;
 		}
-		elsif($key eq "root_header_text")
-		{
-			$root_header_text=$value;
-		}
-		elsif($key eq "root_footer_text")
-		{
-			$root_footer_text=$value;
-		}
 		elsif($key eq "collapse_buttons")
 		{
 			$collapse_buttons=$value;
@@ -1400,6 +1366,4 @@ sub read_config
 			setlocale(LC_ALL, $value);
 		}
 	}
-
-	bang("Can't find profile for '$request_uri'") unless $found;
 }
