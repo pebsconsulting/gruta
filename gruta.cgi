@@ -44,7 +44,7 @@ use Grutatxt;
 
 $|++;
 
-$VERSION="0.7 (".$Grutatxt::VERSION.")";
+$VERSION="0.7.1 (".$Grutatxt::VERSION.")";
 
 # the datafile
 $datafile=$ARGV[0];
@@ -95,6 +95,9 @@ $use_locking=1;
 # command line
 $cmd_line="";
 
+# textarea size
+$textarea_cols = 50;
+$textarea_rows = 30;
 
 #############################################################################
 
@@ -796,7 +799,8 @@ sub cgi_header
 {
 	my ($elem,$t);
 
-	print "Content-type: text/html\n\n";
+	print "Content-type: text/html\n";
+	print "X-Powered-By: Gruta $VERSION\n\n";
 
 	print "<!-- Gruta $VERSION - Angel Ortega <angel\@triptico.com> -->\n\n";
 	print "<!-- GATEWAY_INTERFACE: $ENV{'GATEWAY_INTERFACE'} -->\n";
@@ -1144,7 +1148,7 @@ sub cgi_edit_page
 	# content
 	print "<tr valign=top><td class=odd align=right>Content<br>";
 	print "<td class=odd>";
-	print "<textarea name=content cols=50 rows=30 wrap=virtual>";
+	print "<textarea name=content cols=$textarea_cols rows=$textarea_rows wrap=virtual>";
 	print "$elem->{'-content'}";
 	print "</textarea>\n";
 
@@ -1366,6 +1370,14 @@ sub read_config
 		elsif($key eq "locale")
 		{
 			setlocale(LC_ALL, $value);
+		}
+		elsif($key eq "textarea_cols")
+		{
+			$textarea_cols=$value;
+		}
+		elsif($key eq "textarea_rows")
+		{
+			$textarea_rows=$value;
 		}
 	}
 }
