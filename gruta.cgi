@@ -51,7 +51,7 @@ $datafile=$ARGV[0];
 
 unless(-r $datafile)
 {
-	print "Content-type: text/html\n\n";
+	print "Content-type: text/html; charset=ISO-8859-1\n\n";
 	print "<h1>Gruta</h1>\n";
 	print "<pre>\n";
 	print "Usage: gruta.cgi {datafile}\n";
@@ -799,7 +799,7 @@ sub cgi_header
 {
 	my ($elem,$t);
 
-	print "Content-type: text/html\n";
+	print "Content-type: text/html; charset=ISO-8859-1\n";
 	print "X-Powered-By: Gruta $VERSION\n\n";
 
 	print "<!-- Gruta $VERSION - Angel Ortega <angel\@triptico.com> -->\n\n";
