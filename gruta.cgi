@@ -45,7 +45,7 @@ use Grutatxt;
 
 $|++;
 
-$VERSION = "0.8beta (".$Grutatxt::VERSION.")";
+$VERSION = "0.85beta (".$Grutatxt::VERSION.")";
 
 # the datafile
 $datafile = $ARGV[0];
@@ -326,6 +326,10 @@ elsif($cmd eq "dump")
 elsif($cmd eq "admin")
 {
 	cgi_admin_page();
+}
+elsif($cmd eq "search")
+{
+	search($cgi_params->{'query'});
 }
 else
 {
@@ -824,8 +828,15 @@ sub cgi_header
 	}
 	else
 	{
-		print "<table width=100%><tr><td class=title>";
-		print "<h1>$t</h1>\n";
+		print "<table width=100%><tr><td class=title align=left>";
+		print "<h1>$t</h1></td>\n";
+		print "<td align=right>";
+		print "<form action='$cgi'>";
+		print "<input name=query value='$cgi_params->{query}'>\n";
+		print "<input type=hidden name=cmd value=search>";
+		print "<input type=submit value='Search'>\n";
+		print "</form>";
+		print "</td>\n";
 		print "</table>\n";
 	}
 
@@ -1376,4 +1387,49 @@ sub read_config
 			$anonymous_write = $value;
 		}
 	}
+}
+
+
+sub search
+{
+	my ($query) = @_;
+	my (@words, $total, @result);
+
+	@words = split(/\s+/, $query);
+
+	foreach my $i (sort(keys(%data)))
+	{
+		my ($ok) = 0;
+		my ($elem) = $data{$i};
+
+		foreach my $w (@words)
+		{
+			$ok++ if $elem->{'-content'} =~ /$w/i;
+			$ok++ if $elem->{'subject'} =~ /$w/i;
+		}
+
+		push(@result, $elem) if $ok;
+	}
+
+	cgi_header();
+
+	printf "<p>%d entries found for query <i>$query</i>\n", scalar(@result);
+
+	print "<ul>\n";
+
+	foreach my $i (@result)
+	{
+		if($i->{'url'})
+		{
+			print "<li><a href='$i->{'url'}'>$i->{'subject'}</a>\n";
+		}
+		else
+		{
+			print "<li><a href='$cgi?root=$i->{'id'}'>$i->{'subject'}</a>\n";
+		}
+	}
+
+	print "</ul>\n";
+
+	print $footer;
 }
