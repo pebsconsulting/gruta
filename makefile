@@ -1,4 +1,4 @@
-CGIROOT=/var/www/cgi-bin
+PREFIX=/usr/local/bin
 
-install_cgi: gruta
-	install -o root -g root -m 755 gruta.cgi $(CGIROOT)/gruta.cgi
+install:
+	install -o root -g root -m 755 gruta.cgi $(PREFIX)/gruta.cgi
