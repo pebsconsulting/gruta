@@ -7,3 +7,5 @@ Gruta TODO
  - Add a pseudo-URL entry://entry-id (ala Artemusdot).
  - Add search.
  - Move all to Artemusdot [?].
+ - Deleting a node with children: what to do? lost-found? deny?
+
