@@ -44,10 +44,10 @@ use Grutatxt;
 
 $|++;
 
-$VERSION="0.7.1b (".$Grutatxt::VERSION.")";
+$VERSION = "0.7.1b (".$Grutatxt::VERSION.")";
 
 # the datafile
-$datafile=$ARGV[0];
+$datafile = $ARGV[0];
 
 unless(-r $datafile)
 {
@@ -61,7 +61,7 @@ unless(-r $datafile)
 }
 
 # read only flag
-$read_only=-w $datafile ? 0 : 1;
+$read_only = -w $datafile ? 0 : 1;
 
 # set as root flag
 $set_as_root = 1;
@@ -105,78 +105,78 @@ $anonymous_write = 1;
 
 #############################################################################
 
-$request_uri='';
+$request_uri = '';
 
-$grutatxt=new Grutatxt("header-offset" => 1,
+$grutatxt = new Grutatxt("header-offset" => 1,
 		       "class-oddeven" => 0);
 
 # parses CGI parameters
-($cgi_params)=cgi_init();
+($cgi_params) = cgi_init();
 
 # count of elements shown
 $shown_elems = 0;
 
 # the lockfile
-$lockfile=$datafile . ".lck";
-$lockfile=~s/\//_/g;
-$lockfile="/tmp/" . $lockfile;
+$lockfile = $datafile . ".lck";
+$lockfile =~ s/\//_/g;
+$lockfile = "/tmp/" . $lockfile;
 
 # raw mode flag
 $raw_mode = 0;
 
 # the database
-%data=();
+%data = ();
 
 # color toggler
 $color_tog = 0;
 
 # root element
-$root=$cgi_params->{'root'};
+$root = $cgi_params->{'root'};
 
 # command
-my @cmd=split('\0',$cgi_params->{'cmd'});
-$cmd=lc(pop(@cmd));
+my @cmd = split('\0',$cgi_params->{'cmd'});
+$cmd = lc(pop(@cmd));
 
 # cgi
-$cgi=$ENV{'REQUEST_URI'};
-$cgi=~s/\?.*$//;
+$cgi = $ENV{'REQUEST_URI'};
+$cgi =~ s/\?.*$//;
 
 #############################################################################
 
-%data=load_database($datafile);
+%data = load_database($datafile);
 
 read_config($data{'CONFIG'}->{'-content'});
-$css=$data{'CONFIG.css'}->{'-content'} if $data{'CONFIG.css'};
-$header=$data{'CONFIG.header'}->{'-content'} if $data{'CONFIG.header'};
-$footer=$data{'CONFIG.footer'}->{'-content'} if $data{'CONFIG.footer'};
+$css = $data{'CONFIG.css'}->{'-content'} if $data{'CONFIG.css'};
+$header = $data{'CONFIG.header'}->{'-content'} if $data{'CONFIG.header'};
+$footer = $data{'CONFIG.footer'}->{'-content'} if $data{'CONFIG.footer'};
 
 # disable access to anonymous users if asked so
 $read_only = 1 if not $anonymous_write and not $ENV{'REMOTE_USER'};
 
 if($read_only)
 {
-	$cmd="" if $cmd eq "add" or $cmd eq "move" or $cmd eq "delete" or
+	$cmd = "" if $cmd eq "add" or $cmd eq "move" or $cmd eq "delete" or
 	   $cmd eq "askdel" or $cmd eq "change" or $cmd eq "edit" or
 	   $cmd eq "new" or $cmd eq "sync" or $cmd eq "store" or $cmd eq "merge";
 }
 
 if($disable_admin)
 {
-	$cmd="" if $cmd eq "admin" or $cmd eq "sync" or
+	$cmd = "" if $cmd eq "admin" or $cmd eq "sync" or
 		$cmd eq "store" or $cmd eq "merge";
 }
 
 # set date filter
 if($cgi_params->{'date-filter'})
 {
-	if(($date_filter=$cgi_params->{'date-filter'}) eq "today")
+	if(($date_filter = $cgi_params->{'date-filter'}) eq "today")
 	{
-		$date_filter=make_date(time());
+		$date_filter = make_date(time());
 	}
 }
 else
 {
-	$date_filter="";
+	$date_filter = "";
 }
 
 
@@ -184,9 +184,9 @@ if($cmd eq "expand" and $collapse_buttons)
 {
 	my ($elem);
 
-	if($elem=$data{$cgi_params->{'elem'}})
+	if($elem = $data{$cgi_params->{'elem'}})
 	{
-		$elem->{'flags'}.="x" unless $elem->{'flags'} =~ /x/;
+		$elem->{'flags'} .= "x" unless $elem->{'flags'} =~ /x/;
 		save_database();
 	}
 }
@@ -194,7 +194,7 @@ elsif($cmd eq "collapse" and $collapse_buttons)
 {
 	my ($elem);
 
-	if($elem=$data{$cgi_params->{'elem'}})
+	if($elem = $data{$cgi_params->{'elem'}})
 	{
 		$elem->{'flags'} =~ s/x//;
 		save_database();
@@ -204,17 +204,17 @@ elsif($cmd eq "add")
 {
 	my ($elem);
 
-	$elem={};
+	$elem = {};
 
-	$elem->{'-parent'}=$cgi_params->{'parent'} if $cgi_params->{'parent'};
-	$elem->{'-basename'}=$cgi_params->{'basename'} if $cgi_params->{'basename'};
-	$elem->{'subject'}=$cgi_params->{'subject'};
-	$elem->{'url'}=$cgi_params->{'url'} if $cgi_params->{'url'};
-	$elem->{'-content'}=$cgi_params->{'content'};
-	$elem->{'owner'}=$ENV{'REMOTE_USER'} if $ENV{'REMOTE_USER'};
-	$elem->{'date'}=$cgi_params->{'date'} if $cgi_params->{'date'};
-	$elem->{'end-date'}=$cgi_params->{'end-date'} if $cgi_params->{'end-date'};
-	$elem->{'repeat'}=$cgi_params->{'repeat'} if $cgi_params->{'repeat'};
+	$elem->{'-parent'} = $cgi_params->{'parent'} if $cgi_params->{'parent'};
+	$elem->{'-basename'} = $cgi_params->{'basename'} if $cgi_params->{'basename'};
+	$elem->{'subject'} = $cgi_params->{'subject'};
+	$elem->{'url'} = $cgi_params->{'url'} if $cgi_params->{'url'};
+	$elem->{'-content'} = $cgi_params->{'content'};
+	$elem->{'owner'} = $ENV{'REMOTE_USER'} if $ENV{'REMOTE_USER'};
+	$elem->{'date'} = $cgi_params->{'date'} if $cgi_params->{'date'};
+	$elem->{'end-date'} = $cgi_params->{'end-date'} if $cgi_params->{'end-date'};
+	$elem->{'repeat'} = $cgi_params->{'repeat'} if $cgi_params->{'repeat'};
 
 	new_elem($elem);
 	save_database();
@@ -223,7 +223,7 @@ elsif($cmd eq "move")
 {
 	my ($elem);
 
-	if($elem=$data{$cgi_params->{'elem'}})
+	if($elem = $data{$cgi_params->{'elem'}})
 	{
 		change_parent($elem,$cgi_params->{'parent'});
 		save_database();
@@ -233,7 +233,7 @@ elsif($cmd eq "delete")
 {
 	my ($elem);
 
-	if($elem=$data{$cgi_params->{'elem'}})
+	if($elem = $data{$cgi_params->{'elem'}})
 	{
 		destroy_elem($elem);
 		save_database();
@@ -243,24 +243,24 @@ elsif($cmd eq "change")
 {
 	my ($elem);
 
-	$elem=$data{$cgi_params->{'elem'}};
+	$elem = $data{$cgi_params->{'elem'}};
 
 	if($elem and $cgi_params->{'lockcode'} eq $elem->{'lock'})
 	{
-		$elem->{'subject'}=$cgi_params->{'subject'}
+		$elem->{'subject'} = $cgi_params->{'subject'}
 			if exists($cgi_params->{'subject'});
 
-		$elem->{'url'}=$cgi_params->{'url'} if exists($cgi_params->{'url'});
+		$elem->{'url'} = $cgi_params->{'url'} if exists($cgi_params->{'url'});
 
-		$elem->{'-content'}=$cgi_params->{'content'}
+		$elem->{'-content'} = $cgi_params->{'content'}
 			if exists($cgi_params->{'content'});
 
-		$elem->{'last-modifier'}=$ENV{'REMOTE_USER'} if $ENV{'REMOTE_USER'};
-		$elem->{'owner'}=$elem->{'last-modifier'} unless $elem->{'owner'};
+		$elem->{'last-modifier'} = $ENV{'REMOTE_USER'} if $ENV{'REMOTE_USER'};
+		$elem->{'owner'} = $elem->{'last-modifier'} unless $elem->{'owner'};
 
-		$elem->{'date'}=$cgi_params->{'date'} if $cgi_params->{'date'};
-		$elem->{'end-date'}=$cgi_params->{'end-date'} if $cgi_params->{'end-date'};
-		$elem->{'repeat'}=$cgi_params->{'repeat'} if $cgi_params->{'repeat'};
+		$elem->{'date'} = $cgi_params->{'date'} if $cgi_params->{'date'};
+		$elem->{'end-date'} = $cgi_params->{'end-date'} if $cgi_params->{'end-date'};
+		$elem->{'repeat'} = $cgi_params->{'repeat'} if $cgi_params->{'repeat'};
 
 		$elem->{'version'}++;
 		update_elem($cgi_params->{'elem'},$elem);
@@ -278,13 +278,13 @@ elsif($cmd eq "change")
 		save_database();
 	}
 
-	$date_filter="";
+	$date_filter = "";
 }
 elsif($cmd eq "cancel")
 {
 	my ($elem);
 
-	$elem=$data{$cgi_params->{'elem'}};
+	$elem = $data{$cgi_params->{'elem'}};
 
 	if($elem and $cgi_params->{'lockcode'} eq $elem->{'lock'})
 	{
@@ -297,8 +297,8 @@ elsif($cmd eq "cancel")
 }
 elsif($cmd eq "raw")
 {
-	$cmd="";
-	$raw_mode=1;
+	$cmd = "";
+	$raw_mode = 1;
 }
 
 
@@ -306,8 +306,8 @@ if($cmd eq "new" or $cmd eq "edit" or $cmd eq "askdel")
 {
 	my ($elem);
 
-	$elem={};
-	$elem=$data{$cgi_params->{'elem'}} if $cmd ne "new";
+	$elem = {};
+	$elem = $data{$cgi_params->{'elem'}} if $cmd ne "new";
 
 	cgi_edit_page($cmd,$elem);
 }
@@ -346,9 +346,9 @@ exit(0);
 sub make_date
 # builds a gruta date
 {
-	my ($t)=@_;
+	my ($t) = @_;
 
-	my ($d,$m,$y)=(localtime($t))[3..5];
+	my ($d,$m,$y) = (localtime($t))[3..5];
 	return(sprintf("%04d%02d%02d",1900+$y,$m+1,$d));
 }
 
@@ -356,7 +356,7 @@ sub make_date
 sub test_date_filter
 # test if element pass the date filter
 {
-	my ($elem,$rep)=@_;
+	my ($elem,$rep) = @_;
 
 	return(1) unless $date_filter;
 
@@ -368,7 +368,7 @@ sub test_date_filter
 
 	$elem->{'repeat'} =~ /(\w)/;
 
-	($rep)=$1;
+	($rep) = $1;
 
 	print "<!-- repeat mode: '$rep' -->\n";
 
@@ -409,22 +409,22 @@ sub test_date_filter
 sub load_database
 # loads the hierarchical data file
 {
-	my ($df)=@_;
+	my ($df) = @_;
 	my ($name,$content,$elem);
 	my ($in_header,$key,$val);
 	my (%d);
 
-	%d=();
+	%d = ();
 
 	open F, $df or return(%d);
 
-	$elem={};
-	$content="";
-	$name=undef;
-	$in_header=0;
+	$elem = {};
+	$content = "";
+	$name = undef;
+	$in_header = 0;
 
 	# read the shebang command line
-	$cmd_line=<F>;
+	$cmd_line = <F>;
 	chomp($cmd_line);
 
 	while(<F>)
@@ -435,55 +435,55 @@ sub load_database
 		{
 			if(/^$/)
 			{
-				$in_header=0;
+				$in_header = 0;
 			}
 			else
 			{
-				($key,$val)=split(/:\s*/,$_,2);
-				$elem->{$key}=$val;
+				($key,$val) = split(/:\s*/,$_,2);
+				$elem->{$key} = $val;
 			}
 		}
 		else
 		{
 			if(/^\%\%(.*)/)
 			{
-				my ($tmp)=$1;
+				my ($tmp) = $1;
 
 				# flushes previous element
 				if(defined($name))
 				{
-					$elem->{'-name'}=$name;
-					$elem->{'-content'}=$content;
+					$elem->{'-name'} = $name;
+					$elem->{'-content'} = $content;
 					if( $name =~ /(.*)\.([^\.]*)/ )
 					{
-						$elem->{'-parent'}=$1;
-						$elem->{'-basename'}=$2;
+						$elem->{'-parent'} = $1;
+						$elem->{'-basename'} = $2;
 					}
 					else
 					{
-						$elem->{'-basename'}=$name;
+						$elem->{'-basename'} = $name;
 					}
 
-					$d{$name}=$elem;
-					$content="";
-					$elem={};
+					$d{$name} = $elem;
+					$content = "";
+					$elem = {};
 				}
 
 				last if $tmp eq "EOF";
 
 				# new element
-				$name=$tmp;
-				$in_header=1;
+				$name = $tmp;
+				$in_header = 1;
 			}
 			else
 			{
 				if($content)
 				{
-					$content=$content . "\n" . $_;
+					$content = $content . "\n" . $_;
 				}
 				else
 				{
-					$content=$_;
+					$content = $_;
 				}
 			}
 		}
@@ -506,7 +506,7 @@ sub save_database
 
 		last unless open L, $lockfile;
 
-		$pid=<L>; chop($pid); close L;
+		$pid = <L>; chop($pid); close L;
 
 		last unless kill 0, $pid;
 
@@ -526,7 +526,7 @@ sub save_database
 
 	foreach my $i (sort(keys(%data)))
 	{
-		$elem=$data{$i};
+		$elem = $data{$i};
 
 		# saves the id
 		print F "\n%%$i\n";
@@ -563,33 +563,33 @@ sub save_database
 sub update_elem
 # updates the element
 {
-	my ($name,$elem)=@_;
+	my ($name,$elem) = @_;
 
-	$elem->{'mtime'}=localtime;
+	$elem->{'mtime'} = localtime;
 
 	# create a date, if none defined
-	$elem->{'date'}=make_date(time()) unless($elem->{'date'});
+	$elem->{'date'} = make_date(time()) unless($elem->{'date'});
 
-	$data{$name}=$elem;
+	$data{$name} = $elem;
 }
 
 
 sub new_elem
 # creates a new element
 {
-	my ($elem)=@_;
+	my ($elem) = @_;
 	my ($parent);
 
 	# reject if has a parent and does not exist
 	if(defined($elem->{'-parent'}))
 	{
-		$parent=$data{$elem->{'-parent'}} or return(0);
+		$parent = $data{$elem->{'-parent'}} or return(0);
 	}
 
 	# if it has no name, we must provide one
 	unless(defined($elem->{'-basename'}))
 	{
-		$elem->{'-basename'}="00001";
+		$elem->{'-basename'} = "00001";
 		for(;;)
 		{
 			if($elem->{'-parent'})
@@ -602,7 +602,7 @@ sub new_elem
 				last unless $data{$elem->{'-basename'}};
 			}
 
-			$elem->{'-basename'}=
+			$elem->{'-basename'} =
 				sprintf("%05d",$elem->{'-basename'}+1);
 		}
 	}
@@ -610,19 +610,19 @@ sub new_elem
 	# compose a name
 	if(defined($parent))
 	{
-		$elem->{'-name'}=$elem->{'-parent'} .
+		$elem->{'-name'} = $elem->{'-parent'} .
 			"." . $elem->{'-basename'};
 	}
 	else
 	{
-		$elem->{'-name'}=$elem->{'-basename'};
+		$elem->{'-name'} = $elem->{'-basename'};
 	}
 
 	# reject if already exists
 	return(0) if exists($data{$elem->{'-name'}});
 
 	# updates
-	$elem->{'version'}=1;
+	$elem->{'version'} = 1;
 	update_elem($elem->{'-name'},$elem);
 
 	return(1);
@@ -632,7 +632,7 @@ sub new_elem
 sub destroy_elem
 # destroys an element
 {
-	my ($elem)=@_;
+	my ($elem) = @_;
 
 	delete $data{$elem->{'-name'}};
 }
@@ -641,12 +641,12 @@ sub destroy_elem
 sub seek_by_field
 # locates an element by a field
 {
-	my ($key,$val)=@_;
+	my ($key,$val) = @_;
 	my ($elem);
 
 	foreach my $i (sort(keys(%data)))
 	{
-		$elem=$data{$i};
+		$elem = $data{$i};
 
 		return($elem) if($elem->{$key} eq $val);
 	}
@@ -658,28 +658,28 @@ sub seek_by_field
 sub change_parent
 # changes an element' parent and returns new name
 {
-	my ($elem,$new_parent)=@_;
+	my ($elem,$new_parent) = @_;
 	my ($old_name,$new_name);
 
 	# deletes previous from database
 	destroy_elem($elem);
 
-	$old_name=$elem->{'-name'};
+	$old_name = $elem->{'-name'};
 
 	delete($elem->{'-name'});
 	delete($elem->{'-basename'});
-	$elem->{'-parent'}=$new_parent;
+	$elem->{'-parent'} = $new_parent;
 
 	# creates a new element
 	new_elem($elem);
 
-	$new_name=$elem->{'-name'};
+	$new_name = $elem->{'-name'};
 
 	# searchs recursively the database, changing
 	# all children of this elem
 	foreach my $i (sort(keys(%data)))
 	{
-		$elem=$data{$i};
+		$elem = $data{$i};
 
 		change_parent($elem,$new_name)
 			if($elem->{'-parent'} eq $old_name);
@@ -697,24 +697,24 @@ sub cgi_init
 
 	use CGI qw(Vars);
 
-	$q=Vars();
+	$q = Vars();
 	return($q);
 }
 
 
 sub cgi_init_old
 {
-	my ($class)=@_;
+	my ($class) = @_;
 	my (%cgi,%params);
 	my ($f,$p,$key,$val);
 
-	$cgi{'script-name'}=$ENV{'SCRIPT_NAME'};
-	$cgi{'request-method'}=$ENV{'REQUEST_METHOD'};
-	$cgi{'content-type'}=$ENV{'CONTENT_TYPE'};
+	$cgi{'script-name'} = $ENV{'SCRIPT_NAME'};
+	$cgi{'request-method'} = $ENV{'REQUEST_METHOD'};
+	$cgi{'content-type'} = $ENV{'CONTENT_TYPE'};
 
 	if($cgi{'request-method'} eq "GET")
 	{
-		$f=$ENV{'QUERY_STRING'};
+		$f = $ENV{'QUERY_STRING'};
 	}
 	else
 	{
@@ -726,11 +726,11 @@ sub cgi_init_old
 
 			if($cgi{'content-type'} =~ /boundary=([^\s]*)/)
 			{
-				$boundary=$1;
+				$boundary = $1;
 			}
 
-			($key,$val)=(undef,undef);
-			$in_header=0;
+			($key,$val) = (undef,undef);
+			$in_header = 0;
 
 			while(<STDIN>)
 			{
@@ -741,30 +741,30 @@ sub cgi_init_old
 				{
 					if($_ eq "")
 					{
-						$in_header=0;
+						$in_header = 0;
 					}
 					elsif(/name=\"([^\"]*)\"/)
 					{
-						$key=$1;
+						$key = $1;
 					}
 				}
 				else
 				{
 					if(/$boundary/)
 					{
-						$params{$key}=$val if $key;
-						($key,$val)=(undef,undef);
-						$in_header=1;
+						$params{$key} = $val if $key;
+						($key,$val) = (undef,undef);
+						$in_header = 1;
 					}
 					else
 					{
 						if(defined($val))
 						{
-							$val.="\n".$_;
+							$val .= "\n" . $_;
 						}
 						else
 						{
-							$val=$_;
+							$val = $_;
 						}
 					}
 				}
@@ -786,17 +786,17 @@ sub cgi_init_old
 	{
 		if($p =~ /(.*)=(.*)/)
 		{
-			($key,$val)=($1,$2);
+			($key,$val) = ($1,$2);
 
 			$val =~ s/\+/ /g;
 			$val =~ s/%(..)/pack('c',hex($1))/eg;
 
-			$params{$key}=$val;
+			$params{$key} = $val;
 		}
 	}
 
-	$cgi{'params'}=\%params;
-	$cgi{'cookie'}=$ENV{'HTTP_COOKIE'};
+	$cgi{'params'} = \%params;
+	$cgi{'cookie'} = $ENV{'HTTP_COOKIE'};
 
 	return(\%params, \%cgi);
 }
@@ -821,15 +821,15 @@ sub cgi_header
 
 	if($root)
 	{
-		$elem=$data{$root};
-		$t=$elem->{'subject'};
+		$elem = $data{$root};
+		$t = $elem->{'subject'};
 	}
 	else
 	{
-		$t=$root_name;
+		$t = $root_name;
 	}
 
-	$t.=" (".$date_filter.")" if $date_filter;
+	$t .= " (".$date_filter.")" if $date_filter;
 
 	if($raw_mode)
 	{
@@ -851,7 +851,7 @@ sub cgi_header
 sub cgi_main_content
 # shows and element's contents
 {
-	my ($elem)=@_;
+	my ($elem) = @_;
 
 	if($elem->{'-content'} or $elem->{'url'})
 	{
@@ -859,7 +859,7 @@ sub cgi_main_content
 
 		print "<blockquote>\n";
 
-		@g=$grutatxt->process($elem->{'-content'});
+		@g = $grutatxt->process($elem->{'-content'});
 
 		foreach my $l (@g)
 		{
@@ -874,13 +874,13 @@ sub cgi_main_content
 sub cgi_main_subtree
 # shows a branch of the tree
 {
-	my ($r,$level)=@_;
+	my ($r,$level) = @_;
 
 	foreach my $i (sort(keys(%data)))
 	{
 		my ($elem,$n,$base,$class);
 
-		$elem=$data{$i};
+		$elem = $data{$i};
 
 		next if $elem->{'-parent'} ne $r;
 
@@ -899,8 +899,8 @@ sub cgi_main_subtree
 
 		print "<a name='$i'></a>\n";
 
-		$color_tog=not $color_tog;
-		$class=$color_tog ? "odd" : "even";
+		$color_tog = not $color_tog;
+		$class = $color_tog ? "odd" : "even";
 
 		print "<tr class=$class valign=top><td class=$class width='80\%'>\n"
 			unless $raw_mode;
@@ -1007,13 +1007,13 @@ sub cgi_main_tree
 		{
 			my ($t);
 
-			$t="";
+			$t = "";
 			print "<a href='$cgi?root='>$root_name</a>" ;
 			foreach my $i (split(/\./,$root))
 			{
-				$t= $t? $t.=".".$i : $i;
+				$t = $t ? ($t .= "." . $i) : $i;
 
-				$elem=$data{$t};
+				$elem = $data{$t};
 
 				if($t eq $root)
 				{
@@ -1071,7 +1071,7 @@ sub cgi_main_tree
 
 sub cgi_edit_page
 {
-	my ($cmd,$elem)=@_;
+	my ($cmd,$elem) = @_;
 
 	cgi_header();
 
@@ -1117,7 +1117,7 @@ sub cgi_edit_page
 	print "<input type=text size=50 name=url value='$elem->{'url'}'>\n";
 
 	# parent
-	$elem->{'-parent'}=$root if $cmd eq "new";
+	$elem->{'-parent'} = $root if $cmd eq "new";
 	print "<tr valign=top><td class=odd align=right>Parent Node<br>";
 	print "<td class=odd>";
 	print "<select name=parent size=10>\n";
@@ -1128,10 +1128,10 @@ sub cgi_edit_page
 	{
 		my ($e,$p);
 
-		$e=$data{$i};
+		$e = $data{$i};
 
 		# create an indentation from $i
-		$p=$i; $p =~ s/[^\.]//g; $p =~ s/\./\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
+		$p = $i; $p =~ s/[^\.]//g; $p =~ s/\./\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
 
 		if($i =~ /^$root/)
 		{
@@ -1186,8 +1186,8 @@ sub cgi_edit_page
 	# if editing, locks the requested element to edit
 	if($cmd ne "new" and $use_locking)
 	{
-		$elem->{'lock'}=time();
-		$elem->{'locker'}=$ENV{'REMOTE_USER'} if $ENV{'REMOTE_USER'};
+		$elem->{'lock'} = time();
+		$elem->{'locker'} = $ENV{'REMOTE_USER'} if $ENV{'REMOTE_USER'};
 
 		print "<input type=hidden name=lockcode value=$elem->{'lock'}>\n";
 
@@ -1244,17 +1244,17 @@ sub cgi_admin_page
 
 sub admin_command
 {
-	my ($cmd)=@_;
+	my ($cmd) = @_;
 	my ($tmp,%ot);
 	my ($cgi,$file);
 
 	# dumps the file
-	$tmp="/tmp/gruta".time();
+	$tmp = "/tmp/gruta".time();
 
 	open O, ">$tmp" or return;
 
-	$cgi=new CGI;
-	$file=$cgi->param('file');
+	$cgi = new CGI;
+	$file = $cgi->param('file');
 
 	while(<$file>)
 	{
@@ -1264,13 +1264,13 @@ sub admin_command
 	close O;
 
 	# loads it
-	%ot=load_database($tmp);
+	%ot = load_database($tmp);
 
 	unlink $tmp;
 
 	if($cmd eq "store")
 	{
-		%data=%ot;
+		%data = %ot;
 		save_database();
 	}
 	elsif($cmd eq "sync")
@@ -1281,12 +1281,12 @@ sub admin_command
 		{
 			my ($elemd,$elemo);
 
-			$elemd=$data{$i};
-			$elemo=$ot{$i};
+			$elemd = $data{$i};
+			$elemo = $ot{$i};
 
 			if($elemd->{'version'} < $elemo->{'version'})
 			{
-				$data{$i}=$elemo;
+				$data{$i} = $elemo;
 			}
 		}
 		save_database();
@@ -1297,7 +1297,7 @@ sub admin_command
 		# overwriting the existing, but preserving the others
 		foreach my $i (sort(keys(%ot)))
 		{
-			$data{$i}=$ot{$i};
+			$data{$i} = $ot{$i};
 		}
 		save_database();
 	}
@@ -1309,7 +1309,7 @@ sub admin_command
 sub bang
 # bangs an error
 {
-	my ($error)=@_;
+	my ($error) = @_;
 
 	cgi_header();
 
@@ -1322,57 +1322,57 @@ sub bang
 sub read_config
 # reads the config file
 {
-	my ($conf)=@_;
+	my ($conf) = @_;
 
 	foreach (split("\n",$conf))
 	{
 		next if /^#/;
 		next if /^$/;
 
-		my ($key,$value)=/^(\w*):\s+(.*)/;
+		my ($key,$value) = /^(\w*):\s+(.*)/;
 
 		if($value =~ /<<EOF$/)
 		{
 			# read lines until a file containing ^EOF$
-			$value="";
+			$value = "";
 			while(<F>)
 			{
 				last if /^EOF$/;
-				$value.=$_;
+				$value .= $_;
 			}
 		}
 
 		if($key eq "disable_admin")
 		{
-			$disable_admin=$value;
+			$disable_admin = $value;
 		}
 		elsif($key eq "use_locking")
 		{
-			$use_locking=$value;
+			$use_locking = $value;
 		}
 		elsif($key eq "set_as_root")
 		{
-			$set_as_root=$value;
+			$set_as_root = $value;
 		}
 		elsif($key eq "root_name")
 		{
-			$root_name=$value;
+			$root_name = $value;
 		}
 		elsif($key eq "show_url")
 		{
-			$show_url=$value;
+			$show_url = $value;
 		}
 		elsif($key eq "lock_timeout")
 		{
-			$lock_timeout=$value;
+			$lock_timeout = $value;
 		}
 		elsif($key eq "max_post_size")
 		{
-			$max_post_size=$value;
+			$max_post_size = $value;
 		}
 		elsif($key eq "collapse_buttons")
 		{
-			$collapse_buttons=$value;
+			$collapse_buttons = $value;
 		}
 		elsif($key eq "locale")
 		{
@@ -1380,15 +1380,15 @@ sub read_config
 		}
 		elsif($key eq "textarea_cols")
 		{
-			$textarea_cols=$value;
+			$textarea_cols = $value;
 		}
 		elsif($key eq "textarea_rows")
 		{
-			$textarea_rows=$value;
+			$textarea_rows = $value;
 		}
 		elsif($key eq "anonymous_write")
 		{
-			$anonymous_write=$value;
+			$anonymous_write = $value;
 		}
 	}
 }
