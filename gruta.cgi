@@ -39,6 +39,7 @@
 
 use locale;
 use POSIX qw (locale_h);
+use lib '.';
 
 use Grutatxt;
 
