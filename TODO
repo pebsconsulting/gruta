@@ -1,10 +1,22 @@
-Gruta TODO
-==========
+Gruta TODO / Bug List
+=====================
 
- - When the element to be edited is set as root, the dropdown
+Open Bugs
+---------
+
+ * 1001: When the element to be edited is set as root, the dropdown
    menu showing possible parents is broken.
- - Lock the file using flock() [?].
- - Add a pseudo-URL entry://entry-id (ala Artemusdot).
- - Move all to Artemusdot [?].
- - Deleting a node with children: what to do? lost-found? deny?
+ * 1002: When deleting a node with children, they are currently lost.
+   They should be moved to a lost+found node, or the deletion be denied.
 
+Pending Enhancements
+--------------------
+
+ * 1003: Lock the file using flock() [?].
+ * 1004: Add a pseudo-URL entry://entry-id (ala Artemusdot).
+ * 1005: Move all to Artemusdot [?].
+
+Closed
+------
+
+Email bugs to angel@triptico.com
