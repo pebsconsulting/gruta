@@ -1,0 +1,9 @@
+Gruta TODO
+==========
+
+ - When the element to be edited is set as root, the dropdown
+   menu showing possible parents is broken.
+ - Lock the file using flock() [?].
+ - Add a pseudo-URL entry://entry-id (ala Artemusdot).
+ - Add search.
+ - Move all to Artemusdot [?].
