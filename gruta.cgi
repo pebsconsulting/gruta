@@ -42,6 +42,8 @@ use POSIX qw (locale_h);
 
 use Grutatxt;
 
+$|++;
+
 $VERSION="0.7 (".$Grutatxt::VERSION.")";
 
 # the datafile
