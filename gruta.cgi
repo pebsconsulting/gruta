@@ -985,7 +985,7 @@ sub cgi_main_tree
 
 	cgi_header();
 
-	print "$header\n<p>\n";
+	print "$header\n<p>\n" if $header;
 
 	unless($raw_mode)
 	{
