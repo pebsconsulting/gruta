@@ -410,80 +410,66 @@ sub load_database
 # loads the hierarchical data file
 {
 	my ($df) = @_;
-	my ($content,$elem);
-	my ($in_header,$key,$val);
-	my (%d);
-
-	%d = ();
+	my (%d) = ();
 
 	open F, $df or return(%d);
-
-	$elem = {};
-	$content = "";
-	$in_header = 0;
 
 	# read the shebang command line
 	$cmd_line = <F>;
 	chomp($cmd_line);
 
-	while(<F>)
+	while(! eof(F))
 	{
-		chomp;
+		my ($elem, @content);
 
-		if($in_header)
+		# header loop
+		while(<F>)
 		{
-			if(/^$/)
+			chomp;
+			last if /^$/;
+
+			# store key: value pairs
+			if(my ($key,$val) = /^([^:]*):\s*(.*)$/)
 			{
-				$in_header = 0;
-			}
-			else
-			{
-				($key,$val) = split(/:\s*/,$_,2);
 				$elem->{$key} = $val;
 			}
 		}
-		else
+
+		# content loop
+		while(<F>)
 		{
-			if(/^\%\%(.*)/)
+			chomp;
+			last if /^%%/;
+
+			# store all lines
+			push(@content, $_);
+		}
+
+		if($elem->{'name'})
+		{
+			$elem->{'id'} = $elem->{'name'};
+			delete $elem->{'name'};
+		}
+
+		# store element
+		if($elem->{'id'})
+		{
+			# split parent and basename
+			if($elem->{'id'} =~ /^(.*)\.([^\.]*)$/ )
 			{
-				my ($tmp) = $1;
-
-				# flushes previous element
-				if(defined($elem->{'name'}))
-				{
-					$elem->{'-content'} = $content;
-					if( $elem->{'name'} =~ /(.*)\.([^\.]*)/ )
-					{
-						$elem->{'-parent'} = $1;
-						$elem->{'-basename'} = $2;
-					}
-					else
-					{
-						$elem->{'-basename'} = $elem->{'name'};
-					}
-
-					$d{$elem->{'name'}} = $elem;
-					$content = "";
-					$elem = {};
-				}
-
-				last if $tmp eq "EOF";
-
-				# new element
-				$elem->{'name'} = $tmp;
-				$in_header = 1;
+				$elem->{'-parent'} = $1;
+				$elem->{'-basename'} = $2;
 			}
 			else
 			{
-				if($content)
-				{
-					$content = $content . "\n" . $_;
-				}
-				else
-				{
-					$content = $_;
-				}
+				$elem->{'-basename'} = $elem->{'id'};
 			}
+
+			# store the content
+			$elem->{'-content'} = join("\n",@content);
+
+			# finally add
+			$d{$elem->{'id'}} = $elem;
 		}
 	}
 
@@ -496,8 +482,9 @@ sub load_database
 sub save_database
 # saves the hierarchical datafile
 {
-	my ($elem);
+	my ($count);
 
+	# try lock
 	for(;;)
 	{
 		my ($pid);
@@ -524,10 +511,10 @@ sub save_database
 
 	foreach my $i (sort(keys(%data)))
 	{
-		$elem = $data{$i};
+		my ($elem) = $data{$i};
 
-		# saves the id
-		print F "\n%%$i\n";
+		# delimiter
+		print F "\n%%\n" if $count;
 
 		# saves the header
 		foreach my $k (sort(keys(%$elem)))
@@ -547,10 +534,9 @@ sub save_database
 
 		# saves the content
 		print F "$elem->{'-content'}\n" if $elem->{'-content'} ne "";
-	}
 
-	# final mark
-	print F "%%EOF\n";
+		$count++;
+	}
 
 	close F;
 
@@ -608,20 +594,20 @@ sub new_elem
 	# compose a name
 	if(defined($parent))
 	{
-		$elem->{'name'} = $elem->{'-parent'} .
+		$elem->{'id'} = $elem->{'-parent'} .
 			"." . $elem->{'-basename'};
 	}
 	else
 	{
-		$elem->{'name'} = $elem->{'-basename'};
+		$elem->{'id'} = $elem->{'-basename'};
 	}
 
 	# reject if already exists
-	return(0) if exists($data{$elem->{'name'}});
+	return(0) if exists($data{$elem->{'id'}});
 
 	# updates
 	$elem->{'version'} = 1;
-	update_elem($elem->{'name'},$elem);
+	update_elem($elem->{'id'},$elem);
 
 	return(1);
 }
@@ -632,7 +618,7 @@ sub destroy_elem
 {
 	my ($elem) = @_;
 
-	delete $data{$elem->{'name'}};
+	delete $data{$elem->{'id'}};
 }
 
 
@@ -662,16 +648,16 @@ sub change_parent
 	# deletes previous from database
 	destroy_elem($elem);
 
-	$old_name = $elem->{'name'};
+	$old_name = $elem->{'id'};
 
-	delete($elem->{'name'});
+	delete($elem->{'id'});
 	delete($elem->{'-basename'});
 	$elem->{'-parent'} = $new_parent;
 
 	# creates a new element
 	new_elem($elem);
 
-	$new_name = $elem->{'name'};
+	$new_name = $elem->{'id'};
 
 	# searchs recursively the database, changing
 	# all children of this elem
