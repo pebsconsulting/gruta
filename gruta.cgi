@@ -44,7 +44,7 @@ use Grutatxt;
 
 $|++;
 
-$VERSION="0.7.1 (".$Grutatxt::VERSION.")";
+$VERSION="0.7.1b (".$Grutatxt::VERSION.")";
 
 # the datafile
 $datafile=$ARGV[0];
@@ -64,40 +64,44 @@ unless(-r $datafile)
 $read_only=-w $datafile ? 0 : 1;
 
 # set as root flag
-$set_as_root=1;
+$set_as_root = 1;
 
 # collapse/expand buttons flag
-$collapse_buttons=1;
+$collapse_buttons = 1;
 
 # lock timeout
-$lock_timeout=15 * 60;
+$lock_timeout = 15 * 60;
 
 # the name of the root node
-$root_name="Gruta";
+$root_name = "Gruta";
 
 # show url in element name
-$show_url=1;
+$show_url = 1;
 
 # raw HTML to be printed as root content, in all pages
-$css="";
-$header="";
-$footer="";
+$css = "";
+$header = "";
+$footer = "";
 
 # maximum POST size (0, none)
-$max_post_size=0;
+$max_post_size = 0;
 
 # disable admin flag
-$disable_admin=0;
+$disable_admin = 0;
 
 # use locking flag
-$use_locking=1;
+$use_locking = 1;
 
 # command line
-$cmd_line="";
+$cmd_line = "";
 
 # textarea size
 $textarea_cols = 50;
 $textarea_rows = 30;
+
+# allow writing by anonymous users
+# (logged in using HTTP authorization)
+$anonymous_write = 1;
 
 #############################################################################
 
@@ -110,7 +114,7 @@ $grutatxt=new Grutatxt("header-offset" => 1,
 ($cgi_params)=cgi_init();
 
 # count of elements shown
-$shown_elems=0;
+$shown_elems = 0;
 
 # the lockfile
 $lockfile=$datafile . ".lck";
@@ -118,13 +122,13 @@ $lockfile=~s/\//_/g;
 $lockfile="/tmp/" . $lockfile;
 
 # raw mode flag
-$raw_mode=0;
+$raw_mode = 0;
 
 # the database
 %data=();
 
 # color toggler
-$color_tog=0;
+$color_tog = 0;
 
 # root element
 $root=$cgi_params->{'root'};
@@ -136,6 +140,18 @@ $cmd=lc(pop(@cmd));
 # cgi
 $cgi=$ENV{'REQUEST_URI'};
 $cgi=~s/\?.*$//;
+
+#############################################################################
+
+%data=load_database($datafile);
+
+read_config($data{'CONFIG'}->{'-content'});
+$css=$data{'CONFIG.css'}->{'-content'} if $data{'CONFIG.css'};
+$header=$data{'CONFIG.header'}->{'-content'} if $data{'CONFIG.header'};
+$footer=$data{'CONFIG.footer'}->{'-content'} if $data{'CONFIG.footer'};
+
+# disable access to anonymous users if asked so
+$read_only = 1 if not $anonymous_write and not $ENV{'REMOTE_USER'};
 
 if($read_only)
 {
@@ -163,15 +179,6 @@ else
 	$date_filter="";
 }
 
-
-#############################################################################
-
-%data=load_database($datafile);
-
-read_config($data{'CONFIG'}->{'-content'});
-$css=$data{'CONFIG.css'}->{'-content'} if $data{'CONFIG.css'};
-$header=$data{'CONFIG.header'}->{'-content'} if $data{'CONFIG.header'};
-$footer=$data{'CONFIG.footer'}->{'-content'} if $data{'CONFIG.footer'};
 
 if($cmd eq "expand" and $collapse_buttons)
 {
@@ -1378,6 +1385,10 @@ sub read_config
 		elsif($key eq "textarea_rows")
 		{
 			$textarea_rows=$value;
+		}
+		elsif($key eq "anonymous_write")
+		{
+			$anonymous_write=$value;
 		}
 	}
 }
