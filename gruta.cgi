@@ -44,7 +44,7 @@ use Grutatxt;
 
 $|++;
 
-$VERSION = "0.7.1b (".$Grutatxt::VERSION.")";
+$VERSION = "0.7.2beta (".$Grutatxt::VERSION.")";
 
 # the datafile
 $datafile = $ARGV[0];
@@ -108,7 +108,7 @@ $anonymous_write = 1;
 $request_uri = '';
 
 $grutatxt = new Grutatxt("header-offset" => 1,
-		       "class-oddeven" => 0);
+			"class-oddeven" => 0);
 
 # parses CGI parameters
 ($cgi_params) = cgi_init();
@@ -410,7 +410,7 @@ sub load_database
 # loads the hierarchical data file
 {
 	my ($df) = @_;
-	my ($name,$content,$elem);
+	my ($content,$elem);
 	my ($in_header,$key,$val);
 	my (%d);
 
@@ -420,7 +420,6 @@ sub load_database
 
 	$elem = {};
 	$content = "";
-	$name = undef;
 	$in_header = 0;
 
 	# read the shebang command line
@@ -450,21 +449,20 @@ sub load_database
 				my ($tmp) = $1;
 
 				# flushes previous element
-				if(defined($name))
+				if(defined($elem->{'name'}))
 				{
-					$elem->{'-name'} = $name;
 					$elem->{'-content'} = $content;
-					if( $name =~ /(.*)\.([^\.]*)/ )
+					if( $elem->{'name'} =~ /(.*)\.([^\.]*)/ )
 					{
 						$elem->{'-parent'} = $1;
 						$elem->{'-basename'} = $2;
 					}
 					else
 					{
-						$elem->{'-basename'} = $name;
+						$elem->{'-basename'} = $elem->{'name'};
 					}
 
-					$d{$name} = $elem;
+					$d{$elem->{'name'}} = $elem;
 					$content = "";
 					$elem = {};
 				}
@@ -472,7 +470,7 @@ sub load_database
 				last if $tmp eq "EOF";
 
 				# new element
-				$name = $tmp;
+				$elem->{'name'} = $tmp;
 				$in_header = 1;
 			}
 			else
@@ -610,20 +608,20 @@ sub new_elem
 	# compose a name
 	if(defined($parent))
 	{
-		$elem->{'-name'} = $elem->{'-parent'} .
+		$elem->{'name'} = $elem->{'-parent'} .
 			"." . $elem->{'-basename'};
 	}
 	else
 	{
-		$elem->{'-name'} = $elem->{'-basename'};
+		$elem->{'name'} = $elem->{'-basename'};
 	}
 
 	# reject if already exists
-	return(0) if exists($data{$elem->{'-name'}});
+	return(0) if exists($data{$elem->{'name'}});
 
 	# updates
 	$elem->{'version'} = 1;
-	update_elem($elem->{'-name'},$elem);
+	update_elem($elem->{'name'},$elem);
 
 	return(1);
 }
@@ -634,7 +632,7 @@ sub destroy_elem
 {
 	my ($elem) = @_;
 
-	delete $data{$elem->{'-name'}};
+	delete $data{$elem->{'name'}};
 }
 
 
@@ -664,16 +662,16 @@ sub change_parent
 	# deletes previous from database
 	destroy_elem($elem);
 
-	$old_name = $elem->{'-name'};
+	$old_name = $elem->{'name'};
 
-	delete($elem->{'-name'});
+	delete($elem->{'name'});
 	delete($elem->{'-basename'});
 	$elem->{'-parent'} = $new_parent;
 
 	# creates a new element
 	new_elem($elem);
 
-	$new_name = $elem->{'-name'};
+	$new_name = $elem->{'name'};
 
 	# searchs recursively the database, changing
 	# all children of this elem
