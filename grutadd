@@ -1,0 +1,102 @@
+#!/bin/sh
+
+#
+# grutadd - Gruta Delayed Download
+#
+# (C) Angel Ortega 2002 <angel@triptico.com>
+#
+
+############################################################
+#
+# Synopsis
+# ========
+#
+# Grutadd delays the download of URLs by creating a cache
+# of retrieved files. When grutadd is asked for a file,
+# a cached one is returned instead; only by executing
+# 'grutadd -r' the URLs are really downloaded. The first
+# time an URL is requested it's just annotated and nothing
+# is returned.
+#
+# This script was designed to download RSS / RDF files
+# from weblogs and similar sites and is part of the
+# bigger project Gruta.
+#
+############################################################
+
+
+# the downloader program (must accept the URL as a
+# parameter and output to STDOUT)
+DOWNLOADER="lynx -source"
+
+# this directory must exist and permissions given
+CACHEPATH=/var/cache/grutadd/
+
+CACHEDLIST=$CACHEPATH/.list
+TMPFILE=/tmp/grutadd.$$
+VERSION=0.1
+
+case $1 in
+-r)
+	# travel the list
+	for u in `cat $CACHEDLIST` ; do
+
+		# build file name
+		FILE=`echo $u | sed -e 's/\W/_/g'`
+
+		echo -n "Downloading $u ... "
+
+		# download
+		$DOWNLOADER $u > $TMPFILE 2> /dev/null
+
+		# if successfully downloaded,
+		# overwrite previously cached file
+		if [ $? == 0 ] ; then
+			cat $TMPFILE > $CACHEPATH/$FILE
+			echo "OK"
+		else
+			echo "Failed"
+		fi
+	done
+
+	rm -f $TMPFILE
+
+	;;
+
+-d)
+	# download
+
+	touch $CACHEDLIST > /dev/null 2>&1
+
+	# stores in list, if not already
+	grep -q $2 $CACHEDLIST || echo $2 >> $CACHEDLIST
+
+	# build file name
+	FILE=`echo $2 | sed -e 's/\W/_/g'`
+
+	# fail if not exist
+	if [ ! -f $CACHEPATH/$FILE ] ; then exit 1 ; fi
+
+	# dump
+	cat $CACHEPATH/$FILE
+
+	;;
+
+-l)
+	ls $CACHEPATH
+	;;
+
+--version)
+	echo "grutadd $VERSION"
+	;;
+
+*)
+	echo "Usage:"
+	echo "grutadd -d URL		# queries a download"
+	echo "grutadd -r		# retrieve all queried files"
+	echo "grutadd -l		# list download queue"
+	;;
+
+esac
+
+exit 0
