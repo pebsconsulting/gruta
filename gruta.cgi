@@ -45,7 +45,7 @@ use Grutatxt;
 
 $|++;
 
-$VERSION = "0.85beta (".$Grutatxt::VERSION.")";
+$VERSION = "1.0-rc1 (" . $Grutatxt::VERSION . ")";
 
 # the datafile
 $datafile = $ARGV[0];
@@ -361,7 +361,7 @@ sub make_date
 sub test_date_filter
 # test if element pass the date filter
 {
-	my ($elem,$rep) = @_;
+	my ($elem, $rep) = @_;
 
 	return(1) unless $date_filter;
 
@@ -552,7 +552,7 @@ sub save_database
 sub update_elem
 # updates the element
 {
-	my ($name,$elem) = @_;
+	my ($name, $elem) = @_;
 
 	$elem->{'mtime'} = localtime;
 
@@ -630,7 +630,7 @@ sub destroy_elem
 sub seek_by_field
 # locates an element by a field
 {
-	my ($key,$val) = @_;
+	my ($key, $val) = @_;
 	my ($elem);
 
 	foreach my $i (sort(keys(%data)))
@@ -647,8 +647,8 @@ sub seek_by_field
 sub change_parent
 # changes an element' parent and returns new name
 {
-	my ($elem,$new_parent) = @_;
-	my ($old_name,$new_name);
+	my ($elem, $new_parent) = @_;
+	my ($old_name, $new_name);
 
 	# deletes previous from database
 	destroy_elem($elem);
@@ -691,109 +691,9 @@ sub cgi_init
 }
 
 
-sub cgi_init_old
-{
-	my ($class) = @_;
-	my (%cgi,%params);
-	my ($f,$p,$key,$val);
-
-	$cgi{'script-name'} = $ENV{'SCRIPT_NAME'};
-	$cgi{'request-method'} = $ENV{'REQUEST_METHOD'};
-	$cgi{'content-type'} = $ENV{'CONTENT_TYPE'};
-
-	if($cgi{'request-method'} eq "GET")
-	{
-		$f = $ENV{'QUERY_STRING'};
-	}
-	else
-	{
-		# POST
-
-		if($cgi{'content-type'} =~ /multipart\/form-data/)
-		{
-			my ($boundary,$in_header);
-
-			if($cgi{'content-type'} =~ /boundary=([^\s]*)/)
-			{
-				$boundary = $1;
-			}
-
-			($key,$val) = (undef,undef);
-			$in_header = 0;
-
-			while(<STDIN>)
-			{
-				chomp;
-				s/\r$//;
-
-				if($in_header)
-				{
-					if($_ eq "")
-					{
-						$in_header = 0;
-					}
-					elsif(/name=\"([^\"]*)\"/)
-					{
-						$key = $1;
-					}
-				}
-				else
-				{
-					if(/$boundary/)
-					{
-						$params{$key} = $val if $key;
-						($key,$val) = (undef,undef);
-						$in_header = 1;
-					}
-					else
-					{
-						if(defined($val))
-						{
-							$val .= "\n" . $_;
-						}
-						else
-						{
-							$val = $_;
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			# test POST size limitation, if any
-#			 bang("Too big query (max: $max_post_size)")
-#				 if $max_post_size and
-#				    $ENV{'CONTENT_LENGTH'} > $max_post_size;
-
-			# application/x-www-url-encoded
-			read(STDIN,$f,$ENV{'CONTENT_LENGTH'});
-		}
-	}
-
-	foreach $p (split('&', $f))
-	{
-		if($p =~ /(.*)=(.*)/)
-		{
-			($key,$val) = ($1,$2);
-
-			$val =~ s/\+/ /g;
-			$val =~ s/%(..)/pack('c',hex($1))/eg;
-
-			$params{$key} = $val;
-		}
-	}
-
-	$cgi{'params'} = \%params;
-	$cgi{'cookie'} = $ENV{'HTTP_COOKIE'};
-
-	return(\%params, \%cgi);
-}
-
-
 sub cgi_header
 {
-	my ($elem,$t);
+	my ($elem, $t);
 
 	print "Content-type: text/html; charset=ISO-8859-1\n";
 	print "X-Powered-By: Gruta $VERSION\n\n";
@@ -818,7 +718,7 @@ sub cgi_header
 		$t = $root_name;
 	}
 
-	$t .= " (".$date_filter.")" if $date_filter;
+	$t .= " (" . $date_filter . ")" if $date_filter;
 
 	if($raw_mode)
 	{
@@ -870,7 +770,7 @@ sub cgi_main_content
 sub cgi_main_subtree
 # shows a branch of the tree
 {
-	my ($r,$level) = @_;
+	my ($r, $level) = @_;
 
 	foreach my $i (sort(keys(%data)))
 	{
@@ -979,7 +879,7 @@ sub cgi_main_subtree
 		print "</table>\n";
 
 		# if expanded, travel deeper
-		cgi_main_subtree($i,$level+1) if $elem->{'flags'} =~ /x/;
+		cgi_main_subtree($i, $level + 1) if $elem->{'flags'} =~ /x/;
 	}
 
 }
@@ -1032,7 +932,7 @@ sub cgi_main_tree
 	print "<!-- tree -->\n";
 	print "<table class=oddeven width=100\% border=2>\n" unless $raw_mode;
 
-	cgi_main_subtree($root,0);
+	cgi_main_subtree($root, 0);
 
 	print "</table>\n" unless $raw_mode;
 	print "<p>\n";
@@ -1241,8 +1141,8 @@ sub cgi_admin_page
 sub admin_command
 {
 	my ($cmd) = @_;
-	my ($tmp,%ot);
-	my ($cgi,$file);
+	my ($tmp, %ot);
+	my ($cgi, $file);
 
 	# dumps the file
 	$tmp = "/tmp/gruta".time();
