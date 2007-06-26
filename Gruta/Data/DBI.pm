@@ -25,13 +25,36 @@ package Gruta::Data::DBI::Story;
 sub new { my $class = shift; return bless( { @_ }, $class); }
 
 sub id		{ $_[0]->{id}; }
-sub topic	{ $_[0]->{topic}; }
+sub topic_id	{ $_[0]->{topic_id}; }
 sub title	{ $_[0]->{title}; }
 sub date	{ $_[0]->{date}; }
 sub user_id	{ $_[0]->{user_id}; }
 sub format	{ $_[0]->{format}; }
 sub hits	{ $_[0]->{hits}; }
 sub ctime	{ $_[0]->{ctime}; }
+
+sub content {
+	my $self	= shift;
+
+	if (!$self->{content}) {
+		my $sth = $self->_prepare(
+		'SELECT content FROM stories WHERE id = ? AND topic_id = ?');
+
+		$self->_execute($sth, $self->id(), $self->topic_id());
+
+		if (my $r = $sth->fetchrow_arrayref()) {
+			$self->{content} = $r->[0];
+		}
+	}
+
+	return $self->{content};
+}
+
+
+sub write {
+	my $self	= shift;
+}
+
 
 package Gruta::Data::DBI::Topic;
 
