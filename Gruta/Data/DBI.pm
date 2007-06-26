@@ -2,17 +2,6 @@ package Gruta::Data::DBI;
 
 use DBI;
 
-sub new {
-	my $class = shift;
-
-	my $s = bless( { @_ }, $class);
-
-	$s->{dbh} = DBI->connect($s->{dbi_string},
-		$s->{user}, $s->{passwd}, { RaiseError => 1 });
-
-	return $s;
-}
-
 sub _prepare {
 	my $self	= shift;
 	my $sql		= shift;
@@ -30,6 +19,29 @@ sub _execute {
 	return $sth->execute( @_ ) or die $self->{dbh}->errstr;
 }
 
+
+package Gruta::Data::DBI::Story;
+
+sub new { my $class = shift; return bless( { @_ }, $class); }
+
+sub id		{ $_[0]->{id}; }
+sub topic	{ $_[0]->{topic}; }
+sub title	{ $_[0]->{title}; }
+sub date	{ $_[0]->{date}; }
+sub user_id	{ $_[0]->{user_id}; }
+sub format	{ $_[0]->{format}; }
+sub hits	{ $_[0]->{hits}; }
+sub ctime	{ $_[0]->{ctime}; }
+
+package Gruta::Data::DBI::Topic;
+
+sub new { my $class = shift; return bless( { @_ }, $class); }
+
+package Gruta::Data::DBI::User;
+
+sub new { my $class = shift; return bless( { @_ }, $class); }
+
+package Gruta::Data::DBI;
 
 sub entry {
 	my $self	= shift;
@@ -50,7 +62,7 @@ sub topic {
 	$self->_execute($sth, $id);
 
 	if (my $r = $sth->fetchrow_hashref()) {
-		$t = Webon2::Data::Topic->new(
+		$t = Gruta::Data::DBI::Topic->new(
 			id	=> $id,
 			source	=> $self,
 			%{ $r }
@@ -60,5 +72,16 @@ sub topic {
 	return $t;
 }
 
+
+sub new {
+	my $class = shift;
+
+	my $s = bless( { @_ }, $class);
+
+	$s->{dbh} = DBI->connect($s->{dbi_string},
+		$s->{user}, $s->{passwd}, { RaiseError => 1 });
+
+	return $s;
+}
 
 1;
