@@ -1,4 +1,4 @@
-package Webon2::Sources::DBI;
+package Gruta::Data::DBI;
 
 use DBI;
 
