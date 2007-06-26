@@ -1,17 +1,17 @@
-use Webon2;
-use Webon2::Sources::DBI;
+use Gruta;
+use Gruta::Data::DBI;
 
 my $base = '/var/www/webon';
 
-my $src = Webon2::Sources::DBI->new(
+my $src = Gruta::Data::DBI->new(
 	string	=>	"dbi:SQLite:${base}/blabla.db",
 	user	=>	'coco',
 	passwd	=>	'caca'
 );
 
-#my $data = Webon2::Data->new(
+#my $data = Gruta::Data->new(
 #	sources		=>	[
-#		Webon2::Source::DBI->new(
+#		Gruta::Source::DBI->new(
 #			string	=>	"dbi:SQLite:${base}/blabla.db",
 #			user	=>	'coco',
 #			passwd	=>	'caca'
@@ -23,7 +23,7 @@ my $src = Webon2::Sources::DBI->new(
 #	path	=>	"${base}/var"
 #);
 
-my $w = Webon2->new(
+my $w = Gruta->new(
 	base		=>	$base,
 	upload		=>	[ "${base}/img" ],
 	templates	=>	[ "${base}/templates" ],
