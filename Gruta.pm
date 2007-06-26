@@ -1,6 +1,6 @@
-package Webon2;
+package Gruta;
 
-use Webon2::Data;
+use Gruta::Data;
 use CGI;
 
 sub new {
@@ -9,7 +9,7 @@ sub new {
 	my $w = bless( {}, $class);
 
 	$w->{cgi}	= CGI->new();
-	$w->{data}	= Webon2::Data->new( @_ );
+	$w->{data}	= Gruta::Data->new( @_ );
 
 	return $w;
 }
