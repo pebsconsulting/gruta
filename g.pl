@@ -22,8 +22,8 @@ my $w = Webon2::Data->new(
 	template	=>	$tmpl
 );
 
-my $str = $w->template("{-topic_name|noticias}");
-my $str = $w->template("{-topic_name|noticia}");
+#my $str = $w->template("{-story_part|alimentos|200609200001|content}");
+my $str = $w->template("{-loop_topics|<option value='&'>{-topic_part|&|name}</option>|\n}");
 
 my @ts = $w->topics();
 

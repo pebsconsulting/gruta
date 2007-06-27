@@ -10,7 +10,7 @@ sub new {
 	my $a = bless( {}, $class );
 
 	$a->{artemus} = undef;
-	$a->{artemus_path} = $args{path};
+	$a->{path} = $args{path};
 
 	return $a;
 }
@@ -40,16 +40,40 @@ sub _init {
 	$f{'gt'} = sub { $_[0] > $_[1]; };
 	$f{'lt'} = sub { $_[0] < $_[1]; };
 
-	$f{'topic_name'} = sub {
-		my $topic_id = shift;
+	$f{topic_part} = sub {
+		my $topic_id	= shift;
+		my $part	= shift;
 
 		my $t = $data->topic($topic_id);
-		return $t->get('name');
+		return $t->get($part);
 	};
 
+	$f{story_part} = sub {
+		my $topic_id	= shift;
+		my $id		= shift;
+		my $part	= shift;
+
+		my $s = $data->story($topic_id, $id);
+		return $s->get($part);
+	};
+
+	$f{loop_topics} = sub {
+		my $template	= shift;
+		my $sep		= shift;
+
+		my @s =	map { my ($e, $s) = ($_, $template);
+			$s =~ s/&/$e/g; $_ = $s;
+			} $data->topics();
+
+		return join($sep, @s);
+	};
+
+	$self->{unresolved} = [];
+
 	$self->{artemus} = Artemus->new(
-		'include-path'	=>	$self->{artemus_path},
-		'funcs'		=>	\%f
+		'include-path'	=>	$self->{path},
+		'funcs'		=>	\%f,
+		'unresolved'	=>	$self->{unresolved}
 	);
 }
 
