@@ -1,4 +1,4 @@
-package Gruta::Data::DBI;
+package Gruta::Driver::DBI;
 
 use DBI;
 
@@ -22,16 +22,7 @@ sub _execute {
 
 package Gruta::Data::DBI::Story;
 
-sub new { my $class = shift; return bless( { @_ }, $class); }
-
-sub id		{ $_[0]->{id}; }
-sub topic_id	{ $_[0]->{topic_id}; }
-sub title	{ $_[0]->{title}; }
-sub date	{ $_[0]->{date}; }
-sub user_id	{ $_[0]->{user_id}; }
-sub format	{ $_[0]->{format}; }
-sub hits	{ $_[0]->{hits}; }
-sub ctime	{ $_[0]->{ctime}; }
+use base 'Gruta::Data::Story';
 
 sub content {
 	my $self	= shift;
@@ -58,11 +49,13 @@ sub write {
 
 package Gruta::Data::DBI::Topic;
 
-sub new { my $class = shift; return bless( { @_ }, $class); }
+use base 'Gruta::Data::Topic';
 
 package Gruta::Data::DBI::User;
 
-sub new { my $class = shift; return bless( { @_ }, $class); }
+use base 'Gruta::Data::User';
+
+
 
 package Gruta::Data::DBI;
 

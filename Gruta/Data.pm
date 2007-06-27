@@ -1,4 +1,4 @@
-package Webon2::Data;
+package Gruta::Data;
 
 sub sources { return @{$_[0]->{sources}}; }
 
