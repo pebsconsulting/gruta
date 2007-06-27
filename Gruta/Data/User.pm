@@ -1,5 +1,5 @@
 package Gruta::Data::User;
 
-sub new { my $class = shift; return bless({ @_ }, $class); }
+use base 'Gruta::Data::BASE';
 
 1;

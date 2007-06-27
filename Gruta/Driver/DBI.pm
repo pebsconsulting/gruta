@@ -26,19 +26,27 @@ use base 'Gruta::Data::Story';
 
 sub content {
 	my $self	= shift;
+	my $value	= shift;
 
-	if (!$self->{content}) {
-		my $sth = $self->_prepare(
-		'SELECT content FROM stories WHERE id = ? AND topic_id = ?');
+	my $ret	= undef;
 
-		$self->_execute($sth, $self->id(), $self->topic_id());
+	if ($value) {
+		$ret = $self->SUPER::content($value);
+	}
+	else {
+		if (! $ret = $self->SUPER::content()) {
+			my $sth = $self->_prepare(
+			'SELECT content FROM stories WHERE id = ? AND topic_id = ?');
 
-		if (my $r = $sth->fetchrow_arrayref()) {
-			$self->{content} = $r->[0];
+			$self->_execute($sth, $self->id(), $self->topic_id());
+
+			if (my $r = $sth->fetchrow_arrayref()) {
+				$ret = $self->SUPER::content($r->[0]);
+			}
 		}
 	}
 
-	return $self->{content};
+	return $ret;
 }
 
 
