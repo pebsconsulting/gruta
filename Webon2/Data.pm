@@ -56,6 +56,14 @@ sub story {
 }
 
 
+sub template {
+	my $self	= shift;
+	my $template	= shift;
+
+	return $self->{template}->process( $self, $template );
+}
+
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
