@@ -1,5 +1,6 @@
 use Webon2::Data;
 use Webon2::Driver::DBI;
+use Webon2::Template::Artemus;
 
 my $base = '/var/www/webon';
 
@@ -9,12 +10,20 @@ my $drv = Webon2::Driver::DBI->new(
 	passwd	=>	'caca'
 );
 
+my $tmpl = Webon2::Template::Artemus->new(
+	path	=>	"${base}/templates"
+);
+
 my $w = Webon2::Data->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	drivers		=>	[ $drv ]
+	drivers		=>	[ $drv ],
+	template	=>	$tmpl
 );
+
+my $str = $w->template("{-topic_name|noticias}");
+my $str = $w->template("{-topic_name|noticia}");
 
 my @ts = $w->topics();
 
@@ -22,7 +31,7 @@ my $topic = $w->topic('pruebas');
 my $topic2 = $w->topic('art');
 
 $topic->set('editors', 'coco');
-$topic->save( $drv );
+$topic->save( );
 
 my $u = $drv->user('basurilla');
 
