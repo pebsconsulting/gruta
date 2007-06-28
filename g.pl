@@ -51,13 +51,7 @@ my $u = $src->user('basurilla');
 my @ss = $src->stories_by_date( 'noticias', num => 10 );
 
 my $story = $w->story('alimentos', '200609200001');
-
-$rndr->story($story);
-$str = $story->get('body');
-
 $story = $w->story('art', '200210040002');
-$rndr2->story($story);
-$str = $story->get('body');
 
 #my $data = Webon2::Data->new(
 #	sources		=>	[

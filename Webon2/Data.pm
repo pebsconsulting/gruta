@@ -37,22 +37,26 @@ sub story {
 	my $topic_id	= shift;
 	my $id		= shift;
 
-	my $e = undef;
+	my $story = undef;
 	my $ck = $topic . '/' . $id;
 
-	if ($e = $self->{story_cache}->{$ck}) {
-		return $e;
+	if ($story = $self->{story_cache}->{$ck}) {
+		return $story;
 	}
 
-	foreach my $s ($self->sources()) {
-		last if $e = $s->story($topic_id, $id);
+	foreach my $src ($self->sources()) {
+		last if $story = $src->story($topic_id, $id);
 	}
 
-	if (!defined($e)) {
+	if (!defined($story)) {
 		die('Invalid story ' . $ck);
 	}
 
-	return $self->{story_cache}->{$ck} = $e;
+	if (my $rndr = $self->{renderers_h}->{$story->get('format')}) {
+		$rndr->story($story);
+	}
+
+	return $self->{story_cache}->{$ck} = $story;
 }
 
 
@@ -75,6 +79,15 @@ sub new {
 
 	if (ref($g->{sources}) ne 'ARRAY') {
 		$g->{sources} = [ $g->{sources} ];
+	}
+	if (ref($g->{renderers}) ne 'ARRAY') {
+		$g->{renderers} = [ $g->{renderers} ];
+	}
+
+	$g->{renderers_h} = {};
+
+	foreach my $r (@{$g->{renderers}}) {
+		$g->{renderers_h}->{$r->{renderer_id}} = $r;
 	}
 
 	return $g;
