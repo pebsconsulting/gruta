@@ -47,9 +47,9 @@ sub story {
 		$to = $self->{abstract};
 	}
 
-	$story->{title}		= $self->{title};
-	$story->{abstract}	= join("\n", @o[0 .. $to]);
-	$story->{body}		= join("\n", @o);
+	$story->set('title',	$self->{title});
+	$story->set('abstract',	join("\n", @o[0 .. $to]));
+	$story->set('body',	join("\n", @o));
 
 	return $self;
 }

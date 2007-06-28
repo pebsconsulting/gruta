@@ -1,12 +1,15 @@
 package Webon2::Data::BASE;
 
+sub fields { return (); }
+sub vfields { return (); }
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
 
 	my $self = bless({ }, $class);
 
-	foreach my $k ($self->fields()) {
+	foreach my $k ($self->fields(), $self->vfields()) {
 		$self->{$k} = $args{$k};
 	}
 
