@@ -14,12 +14,24 @@ sub new {
 }
 
 
+sub _filter_tag
+{
+	my ($text, @tags) = @_;
+
+	return($text) unless $text =~ /<\s*\/?\s*(\w+)/;
+
+	my $t = uc($1);
+
+	return(grep(/^$t$/,@tags) ? $text : "");
+}
+
+
 sub _filter {
 	my $self	= shift;
 	my $str		= shift;
 	my $valid_tags	= shift;
 
-	# ...
+	$str =~ s/(<\/?[^>]+>)/_filter_tag($1, $valid_tags)/ge;
 
 	return $str;
 }
