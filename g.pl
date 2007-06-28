@@ -1,5 +1,7 @@
 use Webon2::Data;
+
 use Webon2::Source::DBI;
+use Webon2::Renderer::Grutatxt;
 use Webon2::Template::Artemus;
 
 my $base = '/var/www/webon';
@@ -13,6 +15,8 @@ my $src = Webon2::Source::DBI->new(
 my $tmpl = Webon2::Template::Artemus->new(
 	path	=>	"${base}/templates"
 );
+
+my $rndr = Webon2::Renderer::Grutatxt->new();
 
 my $w = Webon2::Data->new(
 #	base		=>	$base,
