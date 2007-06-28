@@ -13,14 +13,9 @@ my $src = Webon2::Source::DBI->new(
 	passwd	=>	'caca'
 );
 
-my $rndr = Webon2::Renderer::Grutatxt->new();
-
-my $rndr2 = Webon2::Renderer::HTML->new();
-
-my $rndr3 = Webon2::Renderer::HTML->new(
-	valid_tags	=> undef,
-	renderer_id	=> 'raw_html',
-);
+my $rndr	= Webon2::Renderer::Grutatxt->new();
+my $rndr2	= Webon2::Renderer::HTML->new();
+my $rndr3	= Webon2::Renderer::HTML->new( valid_tags => undef );
 
 my $tmpl = Webon2::Template::Artemus->new(
 	path	=>	"${base}/templates"
@@ -51,6 +46,7 @@ my $u = $src->user('basurilla');
 my @ss = $src->stories_by_date( 'noticias', num => 10 );
 
 my $story = $w->story('alimentos', '200609200001');
+$story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 
 #my $data = Webon2::Data->new(
