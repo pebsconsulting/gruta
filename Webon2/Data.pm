@@ -1,6 +1,6 @@
 package Webon2::Data;
 
-sub drivers { return @{$_[0]->{drivers}}; }
+sub sources { return @{$_[0]->{sources}}; }
 
 sub topic {
 	my $self	= shift;
@@ -8,7 +8,7 @@ sub topic {
 
 	my $t = undef;
 
-	foreach my $s ($self->drivers()) {
+	foreach my $s ($self->sources()) {
 		last if $t = $s->topic($id);
 	}
 
@@ -24,7 +24,7 @@ sub topics {
 
 	my @r = ();
 
-	foreach my $s ($self->drivers()) {
+	foreach my $s ($self->sources()) {
 		@r = (@r, $s->topics());
 	}
 
@@ -44,7 +44,7 @@ sub story {
 		return $e;
 	}
 
-	foreach my $s ($self->drivers()) {
+	foreach my $s ($self->sources()) {
 		last if $e = $s->story($topic_id, $id);
 	}
 
@@ -73,8 +73,8 @@ sub new {
 
 	$g->{story_cache} = {};
 
-	if (ref($g->{drivers}) ne 'ARRAY') {
-		$g->{drivers} = [ $g->{drivers} ];
+	if (ref($g->{sources}) ne 'ARRAY') {
+		$g->{sources} = [ $g->{sources} ];
 	}
 
 	return $g;
