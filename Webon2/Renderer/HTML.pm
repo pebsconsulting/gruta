@@ -5,9 +5,16 @@ sub new {
 
 	my $r = bless( { @_ }, $class );
 
-	# special value 'DEFAULT'
 	if ($r->{valid_tags} eq 'DEFAULT') {
 		$r->{valid_tags} = 'I B P A LI OL UL EM BR TT STRONG BLOCKQUOTE';
+	}
+
+	if ($r->{valid_tags}) {
+		$r->{valid_tags_h} = {};
+
+		foreach my $t (split(/\s+/, $r->{valid_tags})) {
+			$r->{valid_tags_h}->{$t}++;
+		}
 	}
 
 	return $r;
@@ -16,22 +23,21 @@ sub new {
 
 sub _filter_tag
 {
-	my ($text, @tags) = @_;
+	my ($text, $tags) = @_;
 
-	return($text) unless $text =~ /<\s*\/?\s*(\w+)/;
+	return $text unless $text =~ /<\s*\/?\s*(\w+)/;
 
-	my $t = uc($1);
-
-	return(grep(/^$t$/,@tags) ? $text : "");
+	return exists $tags->{uc($1)} ? $text : '';
 }
 
 
 sub _filter {
 	my $self	= shift;
 	my $str		= shift;
-	my $valid_tags	= shift;
 
-	$str =~ s/(<\/?[^>]+>)/_filter_tag($1, $valid_tags)/ge;
+	my $tags = $self->{valid_tags_h};
+
+	$str =~ s/(<\/?[^>]+>)/_filter_tag($1, $tags)/ge;
 
 	return $str;
 }
@@ -66,10 +72,10 @@ sub story {
 	$content =~ s/<\s*\/?\s*link[^>]*>//ig;
 
 	# if $tags filter is defined, is filtered_html
-	if($self->{valid_tags})	{
+	if($self->{valid_tags_h}) {
 		$content =~ s/<\s*h1[^>]*>.*<\/h1>//ig;
 
-		$content = $self->_filter($content, $self->{valid_tags});
+		$content = $self->_filter($content);
 		$abstract = $content;
 
 		$content = "<h2>$title</h2>\n" . $content;
