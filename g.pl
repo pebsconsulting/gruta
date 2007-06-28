@@ -2,6 +2,7 @@ use Webon2::Data;
 
 use Webon2::Source::DBI;
 use Webon2::Renderer::Grutatxt;
+use Webon2::Renderer::HTML;
 use Webon2::Template::Artemus;
 
 my $base = '/var/www/webon';
@@ -12,17 +13,25 @@ my $src = Webon2::Source::DBI->new(
 	passwd	=>	'caca'
 );
 
+my $rndr = Webon2::Renderer::Grutatxt->new();
+
+my $rndr2 = Webon2::Renderer::HTML->new();
+
+my $rndr3 = Webon2::Renderer::HTML->new(
+	valid_tags	=> undef,
+	renderer_id	=> 'raw_html',
+);
+
 my $tmpl = Webon2::Template::Artemus->new(
 	path	=>	"${base}/templates"
 );
-
-my $rndr = Webon2::Renderer::Grutatxt->new();
 
 my $w = Webon2::Data->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
 	sources		=>	[ $src ],
+	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl
 );
 
@@ -40,6 +49,15 @@ $topic->save( );
 my $u = $src->user('basurilla');
 
 my @ss = $src->stories_by_date( 'noticias', num => 10 );
+
+my $story = $w->story('alimentos', '200609200001');
+
+$rndr->story($story);
+$str = $story->get('body');
+
+$story = $w->story('art', '200210040002');
+$rndr2->story($story);
+$str = $story->get('body');
 
 #my $data = Webon2::Data->new(
 #	sources		=>	[
