@@ -16,7 +16,7 @@ sub new {
 		'header-offset'		=>	1,
 		'table-headers'		=>	1,
 		'title'			=>	\$r->{title},
-		'marks'			=>	\$r->{marks},
+		'marks'			=>	$r->{marks},
 		'abstract'		=>	\$r->{abstract}
 	);
 
@@ -34,7 +34,7 @@ sub story {
 	my $self	= shift;
 	my $story	= shift; # ::Data::Story
 
-	my @o = $self->_process( $story->content() );
+	my @o = $self->_process( $story->get('content') );
 
 	my $to;
 
