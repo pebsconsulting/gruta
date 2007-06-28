@@ -5,17 +5,17 @@ sub new {
 
 	my $r = bless( { @_ }, $class );
 
-	if ($r->{valid_tags} eq 'DEFAULT') {
+	if (not exists $r->{valid_tags}) {
 		$r->{valid_tags} = 'I B P A LI OL UL EM BR TT STRONG BLOCKQUOTE';
 	}
 
-	if ($r->{valid_tags}) {
-		$r->{valid_tags_h} = {};
+	$r->{valid_tags_h} = {};
 
-		foreach my $t (split(/\s+/, $r->{valid_tags})) {
-			$r->{valid_tags_h}->{$t}++;
-		}
+	foreach my $t (split(/\s+/, $r->{valid_tags})) {
+		$r->{valid_tags_h}->{$t}++;
 	}
+
+	$r->{renderer_id} ||= defined($r->{valid_tags}) ? 'html' : 'raw_html';
 
 	return $r;
 }
@@ -49,7 +49,7 @@ sub story {
 
 	my ($title, $abstract);
 
-	my $content = $story->content();
+	my $content = $story->get('content');
 
 	($title) = ($content =~ /<\s*title[^>]*>(.*)<\/title>/is);
 	($title) = ($content =~ /<\s*h1[^>]*>(.*)<\/h1>/is) unless $title;
@@ -97,3 +97,5 @@ sub story {
 
 	return $self;
 }
+
+1;
