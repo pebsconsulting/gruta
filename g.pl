@@ -1,10 +1,10 @@
 use Webon2::Data;
-use Webon2::Driver::DBI;
+use Webon2::Source::DBI;
 use Webon2::Template::Artemus;
 
 my $base = '/var/www/webon';
 
-my $drv = Webon2::Driver::DBI->new(
+my $src = Webon2::Source::DBI->new(
 	string	=>	"dbi:SQLite:g.db",
 	user	=>	'coco',
 	passwd	=>	'caca'
@@ -18,7 +18,7 @@ my $w = Webon2::Data->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	drivers		=>	[ $drv ],
+	sources		=>	[ $src ],
 	template	=>	$tmpl
 );
 
@@ -33,9 +33,9 @@ my $topic2 = $w->topic('art');
 $topic->set('editors', 'coco');
 $topic->save( );
 
-my $u = $drv->user('basurilla');
+my $u = $src->user('basurilla');
 
-my @ss = $drv->stories_by_date( 'noticias', num => 10 );
+my @ss = $src->stories_by_date( 'noticias', num => 10 );
 
 #my $data = Webon2::Data->new(
 #	sources		=>	[

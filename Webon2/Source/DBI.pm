@@ -1,4 +1,4 @@
-package Webon2::Driver::DBI;
+package Webon2::Source::DBI;
 
 use DBI;
 
@@ -141,7 +141,7 @@ use base 'Webon2::Data::DBI::BASE';
 
 sub table { return 'users'; }
 
-package Webon2::Driver::DBI;
+package Webon2::Source::DBI;
 
 sub _all {
 	my $self	= shift;
