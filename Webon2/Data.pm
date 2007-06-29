@@ -138,6 +138,36 @@ sub stories_by_date {
 }
 
 
+sub user {
+	my $self	= shift;
+	my $id		= shift;
+
+	my $u = undef;
+
+	foreach my $s ($self->sources()) {
+		last if $u = $s->user($id);
+	}
+
+	if (!defined($u)) {
+		die('Invalid user ' . $id);
+	}
+
+	return $u;
+}
+
+sub users {
+	my $self	= shift;
+
+	my @r = ();
+
+	foreach my $s ($self->sources()) {
+		@r = (@r, $s->users());
+	}
+
+	return @r;
+}
+
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;

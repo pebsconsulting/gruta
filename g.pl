@@ -50,7 +50,7 @@ my $topic2 = $w->topic('art');
 $topic->set('editors', 'coco');
 $topic->save( );
 
-my $u = $src->user('basurilla');
+my $u = $w->user('basurilla');
 
 my @ss = $w->stories_by_date( 'noticias', num => 10 );
 
