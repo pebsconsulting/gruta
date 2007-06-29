@@ -58,8 +58,13 @@ sub _init {
 		my $template	= shift;
 		my $sep		= shift;
 
-		# ...
-		my @s = $data->stories_by_date();
+		return join($sep, map { "{-$template|$topic|$_}" }
+			$data->stories_by_date(
+				$topic,
+				num	=> $num,
+				offset	=> $offset
+			)
+		);
 	};
 
 	$self->{unresolved} = [];
