@@ -63,6 +63,19 @@ sub story {
 }
 
 
+sub stories_by_date {
+	my $self	= shift;
+
+	my @r = ();
+
+	foreach my $src ($self->sources()) {
+		last if @r = $src->stories_by_date( @_ );
+	}
+
+	return @r;
+}
+
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;

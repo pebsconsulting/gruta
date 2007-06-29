@@ -43,7 +43,7 @@ $topic->save( );
 
 my $u = $src->user('basurilla');
 
-my @ss = $src->stories_by_date( 'noticias', num => 10 );
+my @ss = $w->stories_by_date( 'noticias', num => 10 );
 
 my $story = $w->story('alimentos', '200609200001');
 $story = $w->story('art', '200210040002');
