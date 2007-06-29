@@ -48,11 +48,18 @@ sub _init {
 		my $template	= shift;
 		my $sep		= shift;
 
-		my @s =	map { my ($e, $s) = ($_, $template);
-			$s =~ s/&/$e/g; $_ = $s;
-			} $data->topics();
+		return join($sep, map { "{-$template|$_}" } $data->topics());
+	};
 
-		return join($sep, @s);
+	$f{story_loop_by_date} = sub {
+		my $topic	= shift;
+		my $num		= shift;
+		my $offset	= shift;
+		my $template	= shift;
+		my $sep		= shift;
+
+		# ...
+		my @s = $data->stories_by_date();
 	};
 
 	$self->{unresolved} = [];
