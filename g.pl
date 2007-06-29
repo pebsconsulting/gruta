@@ -18,7 +18,7 @@ my $rndr2	= Webon2::Renderer::HTML->new();
 my $rndr3	= Webon2::Renderer::HTML->new( valid_tags => undef );
 
 my $tmpl = Webon2::Template::Artemus->new(
-	path	=>	"${base}/templates"
+	path	=>	"./templates/artemus"
 );
 
 my $w = Webon2::Data->new(
@@ -31,7 +31,7 @@ my $w = Webon2::Data->new(
 );
 
 #my $str = $w->template("{-story_part|alimentos|200609200001|content}");
-my $str = $w->template->process("{-loop_topics|topics_as_option|\n}");
+my $str = $w->template->process("{-loop_topics|_topics_as_option|\n}");
 
 my @ts = $w->topics();
 
