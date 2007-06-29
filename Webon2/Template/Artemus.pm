@@ -1,7 +1,6 @@
 package Webon2::Template::Artemus;
 
 use Artemus;
-use Webon2::Data;
 
 sub new {
 	my $class	= shift;
@@ -14,6 +13,19 @@ sub new {
 
 	return $a;
 }
+
+
+sub data {
+	my $self	= shift;
+	my $data	= shift;
+
+	if (defined($data)) {
+		$self->{data} = $data;
+	}
+
+	return $self->{data};
+}
+
 
 sub armor {
 	my $self	= shift;
@@ -29,9 +41,22 @@ sub unarmor {
 	return $self->{artemus}->unarmor($string);
 }
 
+sub process {
+	my $self	= shift;
+	my $template	= shift;
+
+	if (not $self->{artemus}) {
+		$self->_init();
+	}
+
+	return $self->{artemus}->process("{-$template}");
+}
+
+
 sub _init {
 	my $self	= shift;
-	my $data	= shift;
+
+	my $data = $self->data();
 
 	my %f = ();
 
@@ -77,17 +102,5 @@ sub _init {
 	);
 }
 
-
-sub process {
-	my $self	= shift;
-	my $data	= shift;
-	my $template	= shift;
-
-	if (not $self->{artemus}) {
-		$self->_init( $data );
-	}
-
-	return $self->{artemus}->process("{-$template}");
-}
 
 1;

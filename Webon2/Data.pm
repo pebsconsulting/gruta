@@ -1,6 +1,7 @@
 package Webon2::Data;
 
 sub sources { return @{$_[0]->{sources}}; }
+sub template { return $_[0]->{template}; }
 
 sub topic {
 	my $self	= shift;
@@ -60,14 +61,6 @@ sub story {
 }
 
 
-sub template {
-	my $self	= shift;
-	my $template	= shift;
-
-	return $self->{template}->process( $self, $template );
-}
-
-
 sub new {
 	my $class	= shift;
 	my %args	= @_;
@@ -89,6 +82,8 @@ sub new {
 	foreach my $r (@{$g->{renderers}}) {
 		$g->{renderers_h}->{$r->{renderer_id}} = $r;
 	}
+
+	$g->template->data($g);
 
 	return $g;
 }
