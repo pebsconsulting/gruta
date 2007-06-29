@@ -4,6 +4,7 @@ use Webon2::Source::DBI;
 use Webon2::Renderer::Grutatxt;
 use Webon2::Renderer::HTML;
 use Webon2::Template::Artemus;
+use Webon2::Template::TT;
 
 my $base = '/var/www/webon';
 
@@ -21,6 +22,10 @@ my $tmpl = Webon2::Template::Artemus->new(
 	path	=>	"./templates/artemus"
 );
 
+my $tmpl = Webon2::Template::TT->new(
+	path	=>	"./templates/tt"
+);
+
 my $w = Webon2::Data->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
@@ -31,9 +36,11 @@ my $w = Webon2::Data->new(
 );
 
 #my $str = $w->template("{-story_part|alimentos|200609200001|content}");
-my $str = $w->template->process("{-loop_topics|_topics_as_option|\n}");
-$str = $w->template->process("{-story_loop_by_date|noticias|10|0|_story_link_as_item_with_hits|\n}");
-$str = $w->template->process("{-loop_renderers||\n}");
+#my $str = $w->template->process("{-loop_topics|_topics_as_option|\n}");
+#$str = $w->template->process("{-story_loop_by_date|noticias|10|0|_story_link_as_item_with_hits|\n}");
+#$str = $w->template->process("{-loop_renderers||\n}");
+
+my $str = $w->template->process('ADMIN');
 
 my @ts = $w->topics();
 
