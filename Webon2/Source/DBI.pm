@@ -217,24 +217,28 @@ sub stories_by_date {
 }
 
 
-sub insert_story {
+sub _insert {
 	my $self	= shift;
-	my $story	= shift;
+	my $obj		= shift;
+	my $table	= shift;
 
 	my $sth;
 
-	if (not $sth = $self->{sth}->{insert}->{ref($story)}) {
-		my $sql = 'INSERT INTO stories ' .
-			' VALUES (' . join(', ', map { '?' } $story->fields()) . ')';
+	if (not $sth = $self->{sth}->{insert}->{ref($obj)}) {
+		my $sql = 'INSERT INTO ' . $table .
+			' VALUES (' . join(', ', map { '?' } $obj->fields()) . ')';
 
-		$sth = $self->{sth}->{insert}->{ref($story)} = $self->_prepare($sql);
+		$sth = $self->{sth}->{insert}->{ref($obj)} = $self->_prepare($sql);
 	}
 
-	$self->_execute($sth, map { $story->get($_) } $story->fields());
+	$self->_execute($sth, map { $obj->get($_) } $obj->fields());
 
 	return $self;
 }
 
+sub insert_topic { $_[0]->_insert($_[1], 'topics'); }
+sub insert_story { $_[0]->_insert($_[1], 'stories'); }
+sub insert_user { $_[0]->_insert($_[1], 'users'); }
 
 sub new {
 	my $class = shift;
