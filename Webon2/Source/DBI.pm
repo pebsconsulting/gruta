@@ -81,25 +81,6 @@ sub save {
 }
 
 
-sub insert {
-	my $self	= shift;
-	my $driver	= shift;
-
-	my $sth;
-
-	if (not $sth = $driver->{sth}->{insert}->{ref($self)}) {
-		my $sql = 'INSERT INTO ' . $self->table() .
-			' VALUES (' . join(', ', map { '?' } $self->fields()) . ')';
-
-		$sth = $driver->{sth}->{insert}->{ref($self)} = $driver->_prepare($sql);
-	}
-
-	$driver->_execute($sth, map { $self->get($_) } $self->fields());
-
-	return $self;
-}
-
-
 package Webon2::Data::DBI::Story;
 
 use base 'Webon2::Data::Story';
@@ -233,6 +214,25 @@ sub stories_by_date {
 	}
 
 	return @r;
+}
+
+
+sub insert_story {
+	my $self	= shift;
+	my $story	= shift;
+
+	my $sth;
+
+	if (not $sth = $self->{sth}->{insert}->{ref($story)}) {
+		my $sql = 'INSERT INTO stories ' .
+			' VALUES (' . join(', ', map { '?' } $story->fields()) . ')';
+
+		$sth = $self->{sth}->{insert}->{ref($story)} = $self->_prepare($sql);
+	}
+
+	$self->_execute($sth, map { $story->get($_) } $story->fields());
+
+	return $self;
 }
 
 
