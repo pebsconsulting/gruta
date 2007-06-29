@@ -52,8 +52,6 @@ $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');
 
-use Webon2::Data::Story;
-
 my $story = Webon2::Data::Story->new( topic_id => 'pruebas', title => 'Testing' );
 $src->insert_story($story);
 
