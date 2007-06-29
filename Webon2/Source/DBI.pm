@@ -89,25 +89,6 @@ use base 'Webon2::Data::DBI::BASE';
 sub table { return 'stories'; }
 sub pk { return qw(id topic_id); }
 
-sub new_id {
-	my $self	= shift;
-	my $driver	= shift;
-	my $prefix	= shift;
-
-	my $id, $seq = 1;
-	my $sth = $driver->_prepare('SELECT 1 FROM stories WHERE id = ? AND topic_id = ?');
-
-	for(;;) {
-		$id = $prefix . sprintf("%04d", $sql);
-
-		$driver->_execute($sth, $id, $self->get('topic_id'));
-
-		last unless $sth->fetchrow_array();
-	}
-
-	return $self->set('id', $id);
-}
-
 package Webon2::Data::DBI::Topic;
 
 use base 'Webon2::Data::Topic';
@@ -237,8 +218,8 @@ sub _insert {
 }
 
 sub insert_topic { $_[0]->_insert($_[1], 'topics'); }
-sub insert_story { $_[0]->_insert($_[1], 'stories'); }
 sub insert_user { $_[0]->_insert($_[1], 'users'); }
+sub insert_story { $_[0]->_insert($_[1], 'stories'); }
 
 sub new {
 	my $class = shift;
