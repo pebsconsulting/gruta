@@ -44,11 +44,34 @@ sub _init {
 		return $s->get($part);
 	};
 
+	$f{user_part} = sub {
+		my $user_id	= shift;
+		my $part	= shift;
+
+		my $s = $data->user($user_id);
+		return $s->get($part);
+	};
+
 	$f{loop_topics} = sub {
 		my $template	= shift;
 		my $sep		= shift;
 
 		return join($sep, map { "{-$template|$_}" } $data->topics());
+	};
+
+	$f{loop_users} = sub {
+		my $template	= shift;
+		my $sep		= shift;
+
+		return join($sep, map { "{-$template|$_}" } $data->users());
+	};
+
+	$f{loop_renderers} = sub {
+		my $template	= shift;
+		my $sep		= shift;
+
+		return join($sep, map { "{-$template|$_}" }
+			sort(keys(%{$data->{renderers_h}})));
 	};
 
 	$f{story_loop_by_date} = sub {
