@@ -15,44 +15,6 @@ sub new {
 }
 
 
-sub data {
-	my $self	= shift;
-	my $data	= shift;
-
-	if (defined($data)) {
-		$self->{data} = $data;
-	}
-
-	return $self->{data};
-}
-
-
-sub armor {
-	my $self	= shift;
-	my $string	= shift;
-
-	return $self->{artemus}->armor($string);
-}
-
-sub unarmor {
-	my $self	= shift;
-	my $string	= shift;
-
-	return $self->{artemus}->unarmor($string);
-}
-
-sub process {
-	my $self	= shift;
-	my $template	= shift;
-
-	if (not $self->{artemus}) {
-		$self->_init();
-	}
-
-	return $self->{artemus}->process("{-$template}");
-}
-
-
 sub _init {
 	my $self	= shift;
 
@@ -102,5 +64,39 @@ sub _init {
 	);
 }
 
+
+sub data {
+	my $self	= shift;
+	my $data	= shift;
+
+	if (defined($data)) {
+		$self->{data} = $data;
+		$self->_init();
+	}
+
+	return $self->{data};
+}
+
+
+sub armor {
+	my $self	= shift;
+	my $string	= shift;
+
+	return $self->{artemus}->armor($string);
+}
+
+sub unarmor {
+	my $self	= shift;
+	my $string	= shift;
+
+	return $self->{artemus}->unarmor($string);
+}
+
+sub process {
+	my $self	= shift;
+	my $template	= shift;
+
+	return $self->{artemus}->process("{-$template}");
+}
 
 1;
