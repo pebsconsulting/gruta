@@ -4,7 +4,7 @@ use Artemus;
 
 sub new {
 	my $class	= shift;
-	my %args	= shift;
+	my %args	= @_;
 
 	my $a = bless( {}, $class );
 
