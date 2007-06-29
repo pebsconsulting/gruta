@@ -1,6 +1,7 @@
 package Webon2::Source::DBI;
 
 use DBI;
+use Webon2::Data;
 
 sub _prepare {
 	my $self	= shift;
