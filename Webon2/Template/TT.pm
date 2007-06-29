@@ -41,40 +41,17 @@ sub _tt_data {
 	my $data = $self->data();
 	my %f = ();
 
-	$f{topic_part} = sub {
-		my $topic_id	= shift;
-		my $part	= shift;
+	$f{topic} = sub { return $data->topic($_[0]); };
+	$f{user} = sub { return $data->user($_[0]); };
+	$f{story} = sub { return $data->story($_[0], $_[1]); };
 
-		my $t = $data->topic($topic_id);
-		return $t->get($part);
-	};
-
-	$f{story_part} = sub {
-		my $topic_id	= shift;
-		my $id		= shift;
-		my $part	= shift;
-
-		my $s = $data->story($topic_id, $id);
-		return $s->get($part);
-	};
-
-	$f{user_part} = sub {
-		my $user_id	= shift;
-		my $part	= shift;
-
-		my $s = $data->user($user_id);
-		return $s->get($part);
-	};
-
-	$f{user} = sub { return $data->user($_[0]); }
-
-	$f{get} = sub { return $_[0]->get($_[1]); }
+	$f{get} = sub { return $_[0]->get($_[1]); };
 
 	$f{topics} = sub { return $data->topics(); };
 	$f{users} = sub { return $data->users(); };
-	$f{renderers} = sub { return sort(keys(%{$data->{renderers_h}})); }
+	$f{renderers} = sub { return sort(keys(%{$data->{renderers_h}})); };
 
-	$f{story_loop_by_date} = sub {
+	$f{stories_by_date} = sub {
 		my $topic	= shift;
 		my $num		= shift;
 		my $offset	= shift;
@@ -97,7 +74,7 @@ sub process {
 	my $v = '';
 
 	$self->{tt}->process($template, $self->_tt_data(), \$v)
-		or die "TT: " . $Template:ERROR;
+		or die "TT: " . $Template::ERROR;
 
 	return $v;
 }
