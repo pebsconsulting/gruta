@@ -31,7 +31,7 @@ my $w = Webon2::Data->new(
 );
 
 #my $str = $w->template("{-story_part|alimentos|200609200001|content}");
-my $str = $w->template->process("{-loop_topics|<option value='&'></option>|\n}");
+my $str = $w->template->process("{-loop_topics|topics_as_option|\n}");
 
 my @ts = $w->topics();
 
