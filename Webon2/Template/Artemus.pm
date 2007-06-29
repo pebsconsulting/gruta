@@ -78,25 +78,10 @@ sub data {
 }
 
 
-sub armor {
-	my $self	= shift;
-	my $string	= shift;
-
-	return $self->{artemus}->armor($string);
-}
-
-sub unarmor {
-	my $self	= shift;
-	my $string	= shift;
-
-	return $self->{artemus}->unarmor($string);
-}
-
-sub process {
-	my $self	= shift;
-	my $template	= shift;
-
-	return $self->{artemus}->process("{-$template}");
-}
+sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
+sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
+sub armor { $_[0]->{artemus}->armor($_[1]); }
+sub unarmor { $_[0]->{artemus}->unarmor($_[1]); }
+sub process { $_[0]->{artemus}->process('{-' . $_[1] . '}'); }
 
 1;

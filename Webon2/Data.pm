@@ -55,6 +55,8 @@ sub story {
 
 	if (my $rndr = $self->{renderers_h}->{$story->get('format')}) {
 		$rndr->story($story);
+
+		$self->_special_uri($story);
 	}
 
 	return $self->{story_cache}->{$ck} = $story;
@@ -91,5 +93,18 @@ sub new {
 sub run {
 	my $self	= shift;
 }
+
+sub _special_uri {
+	my $self	= shift;
+	my $story	= shift;
+
+	my $body = $story->get('body');
+
+	$body =~ s!topic://([\w\d_]+)!$self->template->link_to_topic($1)!ge;
+	$body =~ s!story://([\w\d_]+)/([\w\d_]+)!$self->template->link_to_story($1,$2)!ge;
+
+	$story->set('body', $body);
+}
+
 
 1;
