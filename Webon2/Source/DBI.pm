@@ -220,7 +220,31 @@ sub _insert {
 
 sub insert_topic { $_[0]->_insert($_[1], 'topics'); }
 sub insert_user { $_[0]->_insert($_[1], 'users'); }
-sub insert_story { $_[0]->_insert($_[1], 'stories'); }
+
+
+sub insert_story {
+	my $self	= shift;
+	my $story	= shift;
+
+	if (not $story->get('id')) {
+		# alloc an id for the story
+		my $id = time();
+
+		my $sth = $self->_prepare(
+			'SELECT 1 FROM stories WHERE topic_id = ? AND id = ?');
+
+		do {
+			$id++;
+			$self->_execute($sth, $story->get('topic_id'), $id);
+		} while ($sth->fetchrow_arrayref());
+
+		$story->set('id', $id);
+	}
+
+	$self->_insert($story, 'stories');
+
+	return $story;
+}
 
 sub new {
 	my $class = shift;
