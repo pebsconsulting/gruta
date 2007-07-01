@@ -1,4 +1,4 @@
-package Webon2::Renderer::HTML;
+package Gruta::Renderer::HTML;
 
 sub new {
 	my $class	= shift;

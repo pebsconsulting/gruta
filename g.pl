@@ -1,32 +1,32 @@
-use Webon2::Data;
+use Gruta::Data;
 
-use Webon2::Source::DBI;
-use Webon2::Renderer::Grutatxt;
-use Webon2::Renderer::HTML;
-use Webon2::Template::Artemus;
-use Webon2::Template::TT;
+use Gruta::Source::DBI;
+use Gruta::Renderer::Grutatxt;
+use Gruta::Renderer::HTML;
+use Gruta::Template::Artemus;
+use Gruta::Template::TT;
 
 my $base = '/var/www/webon';
 
-my $src = Webon2::Source::DBI->new(
+my $src = Gruta::Source::DBI->new(
 	string	=>	"dbi:SQLite:g.db",
 	user	=>	'coco',
 	passwd	=>	'caca'
 );
 
-my $rndr	= Webon2::Renderer::Grutatxt->new();
-my $rndr2	= Webon2::Renderer::HTML->new();
-my $rndr3	= Webon2::Renderer::HTML->new( valid_tags => undef );
+my $rndr	= Gruta::Renderer::Grutatxt->new();
+my $rndr2	= Gruta::Renderer::HTML->new();
+my $rndr3	= Gruta::Renderer::HTML->new( valid_tags => undef );
 
-my $tmpl = Webon2::Template::Artemus->new(
+my $tmpl = Gruta::Template::Artemus->new(
 	path	=>	"./templates/artemus"
 );
 
-my $tmpl2 = Webon2::Template::TT->new(
+my $tmpl2 = Gruta::Template::TT->new(
 	path	=>	"./templates/tt"
 );
 
-my $w = Webon2::Data->new(
+my $w = Gruta::Data->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
@@ -59,13 +59,13 @@ $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');
 
-my $story = Webon2::Data::Story->new( topic_id => 'pruebas',
+my $story = Gruta::Data::Story->new( topic_id => 'pruebas',
 	title => 'Testing', format => 'raw_html' );
 $src->insert_story($story);
 
-#my $data = Webon2::Data->new(
+#my $data = Gruta::Data->new(
 #	sources		=>	[
-#		Webon2::Source::DBI->new(
+#		Gruta::Source::DBI->new(
 #			string	=>	"dbi:SQLite:${base}/blabla.db",
 #			user	=>	'coco',
 #			passwd	=>	'caca'
@@ -77,7 +77,7 @@ $src->insert_story($story);
 #	path	=>	"${base}/var"
 #);
 
-my $w = Webon2->new(
+my $w = Gruta->new(
 	base		=>	$base,
 	upload		=>	[ "${base}/img" ],
 	templates	=>	[ "${base}/templates" ],
