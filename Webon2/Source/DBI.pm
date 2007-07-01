@@ -1,7 +1,7 @@
-package Webon2::Source::DBI;
+package Gruta::Source::DBI;
 
 use DBI;
-use Webon2::Data;
+use Gruta::Data;
 
 sub _prepare {
 	my $self	= shift;
@@ -21,7 +21,7 @@ sub _execute {
 }
 
 
-package Webon2::Data::DBI::BASE;
+package Gruta::Data::DBI::BASE;
 
 sub pk { return qw(id); }
 
@@ -82,29 +82,29 @@ sub save {
 }
 
 
-package Webon2::Data::DBI::Story;
+package Gruta::Data::DBI::Story;
 
-use base 'Webon2::Data::Story';
-use base 'Webon2::Data::DBI::BASE';
+use base 'Gruta::Data::Story';
+use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'stories'; }
 sub pk { return qw(id topic_id); }
 
-package Webon2::Data::DBI::Topic;
+package Gruta::Data::DBI::Topic;
 
-use base 'Webon2::Data::Topic';
-use base 'Webon2::Data::DBI::BASE';
+use base 'Gruta::Data::Topic';
+use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'topics'; }
 
-package Webon2::Data::DBI::User;
+package Gruta::Data::DBI::User;
 
-use base 'Webon2::Data::User';
-use base 'Webon2::Data::DBI::BASE';
+use base 'Gruta::Data::User';
+use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'users'; }
 
-package Webon2::Source::DBI;
+package Gruta::Source::DBI;
 
 sub _all {
 	my $self	= shift;
@@ -132,10 +132,10 @@ sub _one {
 }
 
 
-sub topic { return _one( @_, 'Webon2::Data::DBI::Topic' ); }
+sub topic { return _one( @_, 'Gruta::Data::DBI::Topic' ); }
 sub topics { return $_[0]->_all('topics'); }
 
-sub user { return _one( @_, 'Webon2::Data::DBI::User' ); }
+sub user { return _one( @_, 'Gruta::Data::DBI::User' ); }
 sub users { return $_[0]->_all('users'); }
 
 sub story {
@@ -143,7 +143,7 @@ sub story {
 	my $topic_id	= shift;
 	my $id		= shift;
 
-	my $s = Webon2::Data::DBI::Story->new( topic_id => $topic_id, id => $id );
+	my $s = Gruta::Data::DBI::Story->new( topic_id => $topic_id, id => $id );
 	return $s->load( $self );
 }
 

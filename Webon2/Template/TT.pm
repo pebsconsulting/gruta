@@ -1,4 +1,4 @@
-package Webon2::Template::TT;
+package Gruta::Template::TT;
 
 use Template;
 

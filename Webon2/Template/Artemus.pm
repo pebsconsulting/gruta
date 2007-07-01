@@ -1,4 +1,4 @@
-package Webon2::Template::Artemus;
+package Gruta::Template::Artemus;
 
 use Artemus;
 

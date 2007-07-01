@@ -1,4 +1,4 @@
-package Webon2::Renderer::Grutatxt;
+package Gruta::Renderer::Grutatxt;
 
 use Grutatxt;
 

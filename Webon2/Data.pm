@@ -1,6 +1,6 @@
-package Webon2::Data;
+package Gruta::Data;
 
-package Webon2::Data::BASE;
+package Gruta::Data::BASE;
 
 sub fields { return (); }
 sub vfields { return (); }
@@ -39,28 +39,28 @@ sub set {
 }
 
 
-package Webon2::Data::Topic;
+package Gruta::Data::Topic;
 
-use base 'Webon2::Data::BASE';
+use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id name editors max_stories internal); }
 
-package Webon2::Data::Story;
+package Gruta::Data::Story;
 
-use base 'Webon2::Data::BASE';
+use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id topic_id title date userid format hits ctime content); }
 sub vfields { return qw(abstract body); }
 
-package Webon2::Data::User;
+package Gruta::Data::User;
 
-use base 'Webon2::Data::BASE';
+use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id username email password can_upload is_admin); }
 
 ##################################################
 
-package Webon2::Data;
+package Gruta::Data;
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
