@@ -22,7 +22,7 @@ my $tmpl = Webon2::Template::Artemus->new(
 	path	=>	"./templates/artemus"
 );
 
-my $tmpl = Webon2::Template::TT->new(
+my $tmpl2 = Webon2::Template::TT->new(
 	path	=>	"./templates/tt"
 );
 
@@ -59,7 +59,8 @@ $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');
 
-my $story = Webon2::Data::Story->new( topic_id => 'pruebas', title => 'Testing' );
+my $story = Webon2::Data::Story->new( topic_id => 'pruebas',
+	title => 'Testing', format => 'raw_html' );
 $src->insert_story($story);
 
 #my $data = Webon2::Data->new(
