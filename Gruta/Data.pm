@@ -231,4 +231,26 @@ sub _special_uri {
 }
 
 
+sub copy {
+	my $self	= shift;
+	my $dst		= shift;
+
+	foreach my $id ($self->users()) {
+		my $u = $self->user($id);
+		$dst->insert_user($u);
+	}
+
+	foreach my $topic_id ($self->topics()) {
+		my $t = $self->topic($topic_id);
+		$dst->insert_topic($t);
+
+		foreach my $id ($self->stories($topic_id)) {
+			my $s = $self->story($topic_id, $id);
+			$dst->insert_story($s);
+		}
+	}
+
+	return $self;
+}
+
 1;
