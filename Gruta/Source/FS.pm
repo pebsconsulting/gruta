@@ -88,6 +88,9 @@ package Gruta::Data::FS::Story;
 use base 'Gruta::Data::Story';
 use base 'Gruta::Data::FS::BASE';
 
+sub base { return '/topics/' . $_[0]->get('topic_id') . '/'; }
+sub ext { return '.META'; }
+
 package Gruta::Data::FS::Topic;
 
 use base 'Gruta::Data::Topic';
@@ -154,6 +157,24 @@ sub users {
 }
 
 sub story {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $id		= shift;
+
+	my $story = Gruta::Data::FS::Story->new( topic_id => $topic_id, id => $id );
+	$story->load( $self );
+
+	# now load the content
+	my $file = $story->_filename();
+	$file =~ s/\.META$//;
+
+	open F, $self->{path} . $file or
+		die "Can't open $file content";
+
+	$story->set('content', join('', <F>));
+	close F;
+
+	return $story;
 }
 
 sub stories_by_date {
