@@ -101,7 +101,7 @@ sub story {
 	my $id		= shift;
 
 	my $story = undef;
-	my $ck = $topic . '/' . $id;
+	my $ck = $topic_id . '/' . $id;
 
 	if ($story = $self->{story_cache}->{$ck}) {
 		return $story;
@@ -122,6 +122,20 @@ sub story {
 	}
 
 	return $self->{story_cache}->{$ck} = $story;
+}
+
+
+sub stories {
+	my $self	= shift;
+	my $topic_id	= shift;
+
+	my @r = ();
+
+	foreach my $s ($self->sources()) {
+		@r = (@r, $s->stories( $topic_id ));
+	}
+
+	return @r;
 }
 
 
@@ -209,7 +223,7 @@ sub new {
 		$g->{renderers_h}->{$r->{renderer_id}} = $r;
 	}
 
-	$g->template->data($g);
+	$g->template->data($g) if $g->{template};
 
 	return $g;
 }
