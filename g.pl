@@ -16,7 +16,7 @@ my $src = Gruta::Source::DBI->new(
 );
 
 my $src2 = Gruta::Source::FS->new(
-	path	=>	'.'
+	path	=>	'var'
 );
 
 my $rndr	= Gruta::Renderer::Grutatxt->new();
