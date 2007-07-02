@@ -191,6 +191,26 @@ sub story {
 	return $story;
 }
 
+sub stories {
+	my $self	= shift;
+	my $topic_id	= shift;
+
+	my @ret = ();
+
+	if (opendir D, $self->{path} . '/topics/' . $topic_id) {
+		while (my $id = readdir D) {
+			if ($id =~ s/\.META$//) {
+				push(@ret, $id);
+			}
+		}
+
+		closedir D;
+	}
+	
+	return @ret;
+}
+
+
 sub stories_by_date {
 }
 
