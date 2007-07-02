@@ -48,8 +48,10 @@ sub save {
 
 	$driver ||= $self->{_driver};
 
-	open F, '>' . $driver->{path} . $self->_filename()
-		or die "Can't write " . $self->_filename();
+	my $filename = $self->_filename();
+
+	open F, '>' . $driver->{path} . $filename
+		or die "Can't write " . $filename;
 
 	foreach my $k ($self->fields()) {
 		my $f = $k;
@@ -72,6 +74,27 @@ use base 'Gruta::Data::FS::BASE';
 
 sub base { return '/topics/' . $_[0]->get('topic_id') . '/'; }
 sub ext { return '.META'; }
+
+sub fields { grep !/content/, $_[0]->SUPER::fields(); }
+sub vfields { return ($_[0]->SUPER::vfields(), 'content'); }
+
+sub save {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$self->SUPER::save( $driver );
+
+	my $filename = $self->_filename();
+	$filename =~ s/\.META$//;
+
+	open F, '>' . $self->{_driver}->{path} . $filename
+		or die "Can't write " . $filename;
+
+	print F $self->get('content');
+	close F;
+
+}
+
 
 package Gruta::Data::FS::Topic;
 
