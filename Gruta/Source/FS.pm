@@ -56,15 +56,19 @@ sub load {
 	my $self	= shift;
 	my $driver	= shift;
 
-	my $meta = undef;
-
-	if (not $meta = $driver->_load_metadata($self->_filename())) {
+	if (not open F, $driver->{path} . $self->_filename()) {
 		return undef;
 	}
 
-	foreach my $k ($self->fields()) {
-		$self->set($k, $meta->{$k}) if $meta->{$k};
+	while (<F>) {
+		chop;
+
+		if(/^([^:]*): (.*)$/ && grep ($1, $self->fields())) {
+			$self->set($1, $2);
+		}
 	}
+
+	close F;
 
 	$self->{_driver} = $driver;
 
