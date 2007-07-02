@@ -147,6 +147,24 @@ sub story {
 	return $s->load( $self );
 }
 
+
+sub stories {
+	my $self	= shift;
+	my $topic_id	= shift;
+
+	my @ret = ();
+
+	my $sth = $self->_prepare("SELECT id FROM stories WHERE topic_id = ?");
+	$self->_execute($sth, $topic_id);
+
+	while(my @r = $sth->fetchrow_array()) {
+		push(@ret, $r[0]);
+	}
+
+	return @ret;
+}
+
+
 sub stories_by_date {
 	my $self	= shift;
 	my $topic_id	= shift;
