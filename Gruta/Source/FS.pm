@@ -2,45 +2,6 @@ package Gruta::Source::FS;
 
 use Gruta::Data;
 
-sub _load_metadata {
-	my ($self, $file) = @_;
-	my (%meta);
-
-	if(open F, $self->{path} . $file) {
-		while(<F>) {
-			chop;
-
-			if(/^([^:]*): (.*)$/) {
-				$meta{$1} = $2;
-			}
-		}
-
-		close F;
-	}
-	else {
-		return undef;
-	}
-
-	return(\%meta);
-}
-
-
-sub _save_metadata {
-	my ($self, $file, $meta) = @_;
-
-	open F, '>' . $self->{path} . $file or return(0);
-
-	foreach my $key (keys(%$meta)) {
-		print F "$key: $meta->{$key}\n" unless $key =~ /^_/;
-	}
-
-	close F;
-
-	return(1);
-}
-
-
-
 package Gruta::Data::FS::BASE;
 
 sub ext { return ''; }
@@ -63,8 +24,14 @@ sub load {
 	while (<F>) {
 		chop;
 
-		if(/^([^:]*): (.*)$/ && grep ($1, $self->fields())) {
-			$self->set($1, $2);
+		if(/^([^:]*): (.*)$/) {
+			my ($key, $value) = ($1, $2);
+
+			$key =~ s/-/_/g;
+
+			if (grep ($key, $self->fields())) {
+				$self->set($key, $value);
+			}
 		}
 	}
 
@@ -81,7 +48,18 @@ sub save {
 
 	$driver ||= $self->{_driver};
 
-	$driver->_save_metadata( $self->_filename(), $self );
+	open F, '>' . $driver->{path} . $self->_filename()
+		or die "Can't write " . $self->_filename();
+
+	foreach my $k ($self->fields()) {
+		my $f = $k;
+
+		$f =~ s/_/-/g;
+
+		print F $f . ': ' . $self->get($k) . "\n";
+	}
+
+	close F;
 
 	return $self;
 }
