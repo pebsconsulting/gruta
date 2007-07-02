@@ -246,6 +246,26 @@ sub insert_story {
 	return $story;
 }
 
+
+sub create {
+	my $self	= shift;
+
+	my $sql = '';
+
+	while(<DATA>) {
+		chomp;
+
+		if (/^;$/) {
+			$self->{dbh}->do($sql);
+			$sql = '';
+		}
+		else {
+			$sql .= $_;
+		}
+	}
+}
+
+
 sub new {
 	my $class = shift;
 
@@ -258,3 +278,45 @@ sub new {
 }
 
 1;
+__DATA__
+CREATE TABLE topics (
+	id		VARCHAR PRIMARY KEY,
+	name		VARCHAR,
+	editors		VARCHAR,
+	max_stories	INTEGER,
+	internal	INTEGER
+)
+;
+CREATE TABLE stories (
+	id		VARCHAR NOT NULL,
+	topic_id	VARCHAR NOT NULL,
+	title		VARCHAR,
+	date		VARCHAR,
+	userid		VARCHAR,
+	format		VARCHAR,
+	hits		INTEGER,
+	ctime		INTEGER,
+	content		VARCHAR,
+	PRIMARY KEY	(id, topic_id)
+)
+;
+CREATE TABLE users (
+	id		VARCHAR PRIMARY KEY,
+	username	VARCHAR,
+	email		VARCHAR,
+	password	VARCHAR,
+	can_upload	INTEGER,
+	is_admin	INTEGER
+)
+;
+CREATE TABLE sids (
+	id		VARCHAR PRIMARY KEY,
+	time		INTEGER,
+	user_id		VARCHAR,
+	ip		VARCHAR
+)
+;
+CREATE INDEX stories_by_date ON stories (date)
+;
+CREATE INDEX stories_by_hits ON stories (hits)
+;
