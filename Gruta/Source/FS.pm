@@ -18,7 +18,7 @@ sub _load_metadata {
 		close F;
 	}
 	else {
-		$meta{'_new'} = 1;
+		return undef;
 	}
 
 	return(\%meta);
@@ -162,7 +162,15 @@ sub story {
 	my $id		= shift;
 
 	my $story = Gruta::Data::FS::Story->new( topic_id => $topic_id, id => $id );
-	$story->load( $self );
+	if (not $story->load( $self )) {
+
+		$story = Gruta::Data::FS::Story->new( topic_id => $topic_id . '-arch',
+			id => $id );
+
+		if (not $story->load( $self )) {
+			return undef;
+		}
+	}
 
 	# now load the content
 	my $file = $story->_filename();
