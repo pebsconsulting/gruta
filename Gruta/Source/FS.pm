@@ -204,6 +204,15 @@ sub insert_story {
 }
 
 
+sub create {
+	my $self	= shift;
+
+	mkdir $self->{path}, 755;
+	mkdir $self->{path} . '/topics', 755;
+	mkdir $self->{path} . '/users', 755;
+}
+
+
 sub new {
 	my $class = shift;
 
