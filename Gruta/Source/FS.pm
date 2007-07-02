@@ -147,6 +147,7 @@ sub users {
 
 	if (opendir D, $self->{path} . '/users') {
 		while (my $id = readdir D) {
+			next if -d $self->{path} . '/users/' . $id;
 			push @ret, $id;
 		}
 
