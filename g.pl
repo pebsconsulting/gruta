@@ -64,6 +64,10 @@ $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');
 
+my $hits = $story->get('hits');
+$story->set('hits', $hits + 1);
+$story->save( );
+
 my $story = Gruta::Data::Story->new( topic_id => 'pruebas',
 	title => 'Testing', format => 'raw_html' );
 $src->insert_story($story);
