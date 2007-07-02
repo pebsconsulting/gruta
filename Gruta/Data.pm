@@ -201,6 +201,14 @@ sub insert_user { $_[0]->_insert($_[1], 'insert_user'); }
 sub insert_story { $_[0]->_insert($_[1], 'insert_story'); }
 
 
+sub auth {
+	my $self	= shift;
+
+	if (@_) { $self->{auth} = shift; }	# Gruta::Data::User
+
+	return $self->{auth};
+}
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
