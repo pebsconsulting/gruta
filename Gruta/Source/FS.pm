@@ -3,15 +3,12 @@ package Gruta::Source::FS;
 use Gruta::Data;
 
 sub _load_metadata {
-	my ($self, $obj, $suffix) = @_;
+	my ($self, $file) = @_;
 	my (%meta);
 
-	$suffix = ".META" unless defined $suffix;
+	$meta{_file} = $file;
 
-	$meta{'-obj-name'} = $obj;
-	$meta{'-suffix'} = $suffix;
-
-	if(open F, "${obj}${suffix}") {
+	if(open F, $self->{path} . $file) {
 		while(<F>) {
 			chop;
 
@@ -23,7 +20,7 @@ sub _load_metadata {
 		close F;
 	}
 	else {
-		$meta{'-new'} = 1;
+		$meta{'_new'} = 1;
 	}
 
 	return(\%meta);
@@ -31,15 +28,12 @@ sub _load_metadata {
 
 
 sub _save_metadata {
-	my ($self, $meta, $obj_name) = @_;
+	my ($self, $meta) = @_;
 
-	# change object path, if defined
-	$meta->{'-obj-name'} = $obj_name if $obj_name;
-
-	open F, ">$meta->{'-obj-name'}$meta->{'-suffix'}" or return(0);
+	open F, '>' . $self->{path} . $meta->{_file} or return(0);
 
 	foreach my $key (keys(%$meta)) {
-		print F "$key: $meta->{$key}\n" unless $key =~ /^-/;
+		print F "$key: $meta->{$key}\n" unless $key =~ /^_/;
 	}
 
 	close F;
@@ -50,6 +44,9 @@ sub _save_metadata {
 
 
 package Gruta::Data::FS::BASE;
+
+sub dummy {
+}
 
 package Gruta::Data::FS::Story;
 
@@ -68,17 +65,17 @@ use base 'Gruta::Data::FS::BASE';
 
 package Gruta::Source::FS;
 
-sub topic { return $_[0]->_load_metadata($_[1], ".META"); }
+sub topic { return $_[0]->_load_metadata('/topics/' . $_[1] . '.META'); }
 
 sub topics {
 	my $self	= shift;
 
 	my @ret = ();
 
-	if (opendir D, $self->{topic_path}) {
+	if (opendir D, $self->{path} . '/topics') {
 		while (my $id = readdir D) {
-			next unless -d $self->{topic_path} . '/' . $id;
-			next -f $id =~ /^\./;
+			next unless -d $self->{path} . '/topics/' . $id;
+			next if $id =~ /^\./;
 
 			push @ret, $id;
 		}
@@ -116,7 +113,7 @@ sub new {
 
 	my $s = bless( { @_ }, $class);
 
-	$s->{topic_path} ||= $s->{path} . './topics';
+	$s->{path} ||= '.';
 
 	return $s;
 }

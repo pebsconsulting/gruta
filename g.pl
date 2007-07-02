@@ -1,6 +1,7 @@
 use Gruta::Data;
 
 use Gruta::Source::DBI;
+use Gruta::Source::FS;
 use Gruta::Renderer::Grutatxt;
 use Gruta::Renderer::HTML;
 use Gruta::Template::Artemus;
@@ -12,6 +13,10 @@ my $src = Gruta::Source::DBI->new(
 	string	=>	"dbi:SQLite:g.db",
 	user	=>	'coco',
 	passwd	=>	'caca'
+);
+
+my $src2 = Gruta::Source::FS->new(
+	path	=>	'.'
 );
 
 my $rndr	= Gruta::Renderer::Grutatxt->new();
@@ -30,7 +35,7 @@ my $w = Gruta::Data->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src ],
+	sources		=>	[ $src2 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl
 );
