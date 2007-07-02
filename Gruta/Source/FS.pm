@@ -6,8 +6,6 @@ sub _load_metadata {
 	my ($self, $file) = @_;
 	my (%meta);
 
-	$meta{_file} = $file;
-
 	if(open F, $self->{path} . $file) {
 		while(<F>) {
 			chop;
@@ -28,9 +26,9 @@ sub _load_metadata {
 
 
 sub _save_metadata {
-	my ($self, $meta) = @_;
+	my ($self, $file, $meta) = @_;
 
-	open F, '>' . $self->{path} . $meta->{_file} or return(0);
+	open F, '>' . $self->{path} . $file or return(0);
 
 	foreach my $key (keys(%$meta)) {
 		print F "$key: $meta->{$key}\n" unless $key =~ /^_/;
@@ -45,8 +43,45 @@ sub _save_metadata {
 
 package Gruta::Data::FS::BASE;
 
-sub dummy {
+sub ext { return ''; }
+
+sub _filename {
+	my $self	= shift;
+
+	return $self->base() . $self->get('id') . $self->ext();
 }
+
+
+sub load {
+	my $self	= shift;
+	my $driver	= shift;
+
+	my $meta = undef;
+
+	if (not $meta = $driver->_load_metadata($self->_filename())) {
+		return undef;
+	}
+
+	foreach my $k ($self->fields()) {
+		$self->set($k, $meta->{$k}) if $meta->{$k};
+	}
+
+	$self->{_driver} = $driver;
+
+	return $self;
+}
+
+sub save {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$driver ||= $self->{_driver};
+
+	$driver->_save_metadata( $self->_filename(), $self );
+
+	return $self;
+}
+
 
 package Gruta::Data::FS::Story;
 
@@ -58,14 +93,28 @@ package Gruta::Data::FS::Topic;
 use base 'Gruta::Data::Topic';
 use base 'Gruta::Data::FS::BASE';
 
+sub base { return '/topics/'; }
+sub ext { return '.META'; }
+
 package Gruta::Data::FS::User;
 
 use base 'Gruta::Data::User';
 use base 'Gruta::Data::FS::BASE';
 
+sub base { return '/users/'; }
+
 package Gruta::Source::FS;
 
-sub topic { return $_[0]->_load_metadata('/topics/' . $_[1] . '.META'); }
+sub _one {
+	my $self	= shift;
+	my $id		= shift;
+	my $class	= shift;
+
+	my $o = ${class}->new( id => $id );
+	$o->load( $self );
+}
+
+sub topic { return _one( @_, 'Gruta::Data::FS::Topic' ); }
 
 sub topics {
 	my $self	= shift;
@@ -86,10 +135,22 @@ sub topics {
 	return @ret;
 }
 
-sub user {
-}
+sub user { return _one( @_, 'Gruta::Data::FS::User' ); }
 
 sub users {
+	my $self	= shift;
+
+	my @ret = ();
+
+	if (opendir D, $self->{path} . '/users') {
+		while (my $id = readdir D) {
+			push @ret, $id;
+		}
+
+		closedir D;
+	}
+
+	return @ret;
 }
 
 sub story {
