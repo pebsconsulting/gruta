@@ -70,7 +70,7 @@ $story->save( );
 
 my $story = Gruta::Data::Story->new( topic_id => 'pruebas',
 	title => 'Testing', format => 'raw_html' );
-$src->insert_story($story);
+$w->insert_story($story);
 
 #my $data = Gruta::Data->new(
 #	sources		=>	[

@@ -168,6 +168,25 @@ sub users {
 }
 
 
+sub _insert {
+	my $self	= shift;
+	my $obj		= shift;
+	my $method	= shift;
+
+	foreach my $s ($self->sources()) {
+		if ($s->can($method)) {
+			$s->$method->($obj);
+		}
+	}
+
+	return $self;
+}
+
+sub insert_topic { $_[0]->_insert($_[1], 'insert_topic'); }
+sub insert_user { $_[0]->_insert($_[1], 'insert_user'); }
+sub insert_story { $_[0]->_insert($_[1], 'insert_story'); }
+
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
