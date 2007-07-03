@@ -224,9 +224,9 @@ sub stories_by_date {
 }
 
 
-sub sid { return _one( @_, 'Gruta::Data::DBI::Session' ); }
+sub session { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 
-sub purge_old_sids {
+sub purge_old_sessions {
 	my $self	= shift;
 
 	my $sth = $self->_prepare('DELETE FROM sids WHERE time < ?');
@@ -281,7 +281,7 @@ sub insert_story {
 	return $story;
 }
 
-sub insert_sid { $_[0]->_insert($_[1], 'sids'); }
+sub insert_session { $_[0]->_insert($_[1], 'sids'); }
 
 sub create {
 	my $self	= shift;

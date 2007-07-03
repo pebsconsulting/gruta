@@ -221,9 +221,9 @@ sub stories {
 sub stories_by_date {
 }
 
-sub sid { return _one( @_, 'Gruta::Data::FS::Session' ); }
+sub session { return _one( @_, 'Gruta::Data::FS::Session' ); }
 
-sub purge_old_sids {
+sub purge_old_sessions {
 	my $self	 = shift;
 
 	if (opendir D, $self->{path} . '/sids/') {
@@ -251,7 +251,7 @@ sub insert_user {
 sub insert_story {
 }
 
-sub insert_sid {
+sub insert_session {
 }
 
 
