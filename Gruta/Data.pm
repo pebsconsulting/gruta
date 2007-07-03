@@ -217,7 +217,7 @@ sub auth {
 }
 
 
-sub preauth {
+sub auth_from_sid {
 	my $self	= shift;
 	my $sid		= shift;
 
@@ -234,6 +234,7 @@ sub preauth {
 
 		if ($session) {
 			$u = $s->user( $session->get('user_id') );
+			$u->set('sid', $sid);
 			$self->auth($u);
 		}
 	}
