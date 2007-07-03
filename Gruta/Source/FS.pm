@@ -251,6 +251,9 @@ sub insert_user {
 sub insert_story {
 }
 
+sub insert_sid {
+}
+
 
 sub create {
 	my $self	= shift;

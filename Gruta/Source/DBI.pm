@@ -281,6 +281,7 @@ sub insert_story {
 	return $story;
 }
 
+sub insert_sid { $_[0]->_insert($_[1], 'sids'); }
 
 sub create {
 	my $self	= shift;
