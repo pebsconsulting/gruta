@@ -111,9 +111,9 @@ use base 'Gruta::Data::FS::BASE';
 
 sub base { return '/users/'; }
 
-package Gruta::Data::FS::Sid;
+package Gruta::Data::FS::Session;
 
-use base 'Gruta::Data::Sid';
+use base 'Gruta::Data::Session';
 use base 'Gruta::Data::FS::BASE';
 
 sub base { return '/sids/'; }
@@ -221,7 +221,7 @@ sub stories {
 sub stories_by_date {
 }
 
-sub sid { return _one( @_, 'Gruta::Data::FS::Sid' ); }
+sub sid { return _one( @_, 'Gruta::Data::FS::Session' ); }
 
 sub purge_old_sids {
 	my $self	 = shift;

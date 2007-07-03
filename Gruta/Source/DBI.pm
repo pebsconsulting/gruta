@@ -104,9 +104,9 @@ use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'users'; }
 
-package Gruta::Data::DBI::Sid;
+package Gruta::Data::DBI::Session;
 
-use base 'Gruta::Data::Sid';
+use base 'Gruta::Data::Session';
 use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'sids'; }
@@ -224,7 +224,7 @@ sub stories_by_date {
 }
 
 
-sub sid { return _one( @_, 'Gruta::Data::DBI::Sid' ); }
+sub sid { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 
 sub purge_old_sids {
 	my $self	= shift;

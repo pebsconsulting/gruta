@@ -58,7 +58,7 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id username email password can_upload is_admin); }
 
-package Gruta::Data::Sid;
+package Gruta::Data::Session;
 
 use base 'Gruta::Data::BASE';
 
@@ -260,7 +260,7 @@ sub login {
 				# create new sid
 				$sid = crypt(time(), $$);
 
-				my $ns = Gruta::Data::Sid->new(
+				my $ns = Gruta::Data::Session->new(
 					id	=> $sid,
 					time	=> time(),
 					user_id	=> $user_id
