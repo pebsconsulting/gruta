@@ -251,7 +251,7 @@ sub login {
 
 	foreach my $s ($self->sources()) {
 		if ($u = $s->user($user_id)) {
-			my $p = $u->get('passwd');
+			my $p = $u->get('password');
 
 			if (crypt($passwd, $p) eq $p) {
 				# valid user
