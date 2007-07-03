@@ -1,5 +1,8 @@
 package Gruta::Template::TT;
 
+use strict;
+use warnings;
+
 use Template;
 
 sub new {

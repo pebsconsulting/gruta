@@ -1,5 +1,8 @@
 package Gruta::Source::DBI;
 
+use strict;
+use warnings;
+
 use DBI;
 use Gruta::Data;
 
