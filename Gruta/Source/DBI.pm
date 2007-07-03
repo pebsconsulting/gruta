@@ -229,8 +229,8 @@ sub sid { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 sub purge_old_sids {
 	my $self	= shift;
 
-	my $sth = $self->_prepare('DELETE FROM sids WHERE time > ?');
-	$self->_execute($sth, time() + (60 * 60 * 24));
+	my $sth = $self->_prepare('DELETE FROM sids WHERE time < ?');
+	$self->_execute($sth, time() - (60 * 60 * 24));
 }
 
 
