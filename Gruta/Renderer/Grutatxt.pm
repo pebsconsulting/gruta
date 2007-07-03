@@ -7,7 +7,7 @@ use Grutatxt;
 
 sub new {
 	my $class	= shift;
-	my %args	= shift;
+	my %args	= @_;
 
 	my $r = bless( { renderer_id => 'grutatxt' }, $class );
 
