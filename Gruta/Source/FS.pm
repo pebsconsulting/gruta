@@ -101,10 +101,10 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	open F, '>' . $self->{_driver}->{path} . $filename
+	open F, '>' . $driver->{path} . $filename
 		or die "Can't write " . $filename;
 
-	print F $self->get('content');
+	print F $self->get('content') || '';
 	close F;
 
 }
@@ -117,6 +117,20 @@ use base 'Gruta::Data::FS::BASE';
 
 sub base { return '/topics/'; }
 sub ext { return '.META'; }
+
+sub save {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$self->SUPER::save( $driver );
+
+	my $filename = $self->_filename();
+	$filename =~ s/\.META$//;
+
+	mkdir $driver->{path} . $filename;
+
+	return $self;
+}
 
 package Gruta::Data::FS::User;
 
