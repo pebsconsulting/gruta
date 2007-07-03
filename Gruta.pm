@@ -247,7 +247,7 @@ sub _special_uri {
 }
 
 
-sub copy {
+sub transfer_to_source {
 	my $self	= shift;
 	my $dst		= shift;
 

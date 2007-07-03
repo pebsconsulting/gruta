@@ -274,10 +274,10 @@ sub insert_session { $_[0]->_insert($_[1], 'Gruta::Data::FS::Session'); }
 sub create {
 	my $self	= shift;
 
-	mkdir $self->{path}, 755;
-	mkdir $self->{path} . '/topics', 755;
-	mkdir $self->{path} . '/users', 755;
-	mkdir $self->{path} . '/sids', 755;
+	mkdir $self->{path}, 0755;
+	mkdir $self->{path} . '/topics', 0755;
+	mkdir $self->{path} . '/users', 0755;
+	mkdir $self->{path} . '/sids', 0755;
 }
 
 
