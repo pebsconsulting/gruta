@@ -70,6 +70,15 @@ sub save {
 }
 
 
+sub delete {
+	my $self	= shift;
+	my $driver	= shift;
+
+	unlink $self->_filename();
+
+	return $self;
+}
+
 package Gruta::Data::FS::Story;
 
 use base 'Gruta::Data::Story';
