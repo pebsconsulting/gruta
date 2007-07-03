@@ -1,5 +1,8 @@
 package Gruta::Source::FS;
 
+use strict;
+use warnings;
+
 use Gruta::Data;
 
 package Gruta::Data::FS::BASE;

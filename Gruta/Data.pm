@@ -1,5 +1,8 @@
 package Gruta::Data;
 
+use strict;
+use warnings;
+
 package Gruta::Data::BASE;
 
 sub fields { return (); }

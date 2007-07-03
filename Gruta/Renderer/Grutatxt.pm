@@ -1,5 +1,8 @@
 package Gruta::Renderer::Grutatxt;
 
+use strict;
+use warnings;
+
 use Grutatxt;
 
 sub new {

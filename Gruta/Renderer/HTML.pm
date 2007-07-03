@@ -1,5 +1,8 @@
 package Gruta::Renderer::HTML;
 
+use strict;
+use warnings;
+
 sub new {
 	my $class	= shift;
 

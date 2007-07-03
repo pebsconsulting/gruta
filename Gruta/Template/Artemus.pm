@@ -1,5 +1,8 @@
 package Gruta::Template::Artemus;
 
+use strict;
+use warnings;
+
 use Artemus;
 
 sub new {
