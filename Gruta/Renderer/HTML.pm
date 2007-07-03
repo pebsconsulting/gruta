@@ -14,8 +14,10 @@ sub new {
 
 	$r->{valid_tags_h} = {};
 
-	foreach my $t (split(/\s+/, $r->{valid_tags})) {
-		$r->{valid_tags_h}->{$t}++;
+	if ($r->{valid_tags}) {
+		foreach my $t (split(/\s+/, $r->{valid_tags})) {
+			$r->{valid_tags_h}->{$t}++;
+		}
 	}
 
 	$r->{renderer_id} ||= defined($r->{valid_tags}) ? 'html' : 'raw_html';
