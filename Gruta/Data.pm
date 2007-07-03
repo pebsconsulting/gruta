@@ -215,6 +215,32 @@ sub auth {
 	return $self->{auth};
 }
 
+
+sub preauth {
+	my $self	= shift;
+	my $sid_id	= shift;
+
+	my $u = undef;
+
+	if ($sid_id) {
+		my $sid = undef;
+
+		foreach my $s ($self->sources()) {
+
+			$s->purge_old_sids();
+			last if $sid = $s->sid($sid_id);
+		}
+
+		if ($sid) {
+			$u = $s->user( $sid->get('user_id') );
+			$self->auth($u);
+		}
+	}
+
+	return $u;
+}
+
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
