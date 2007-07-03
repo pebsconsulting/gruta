@@ -1,3 +1,5 @@
+use Gruta;
+
 use Gruta::Data;
 
 use Gruta::Source::DBI;
@@ -31,7 +33,7 @@ my $tmpl2 = Gruta::Template::TT->new(
 	path	=>	"./templates/tt"
 );
 
-my $w = Gruta::Data->new(
+my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
@@ -86,11 +88,3 @@ $w->insert_story($story);
 #	path	=>	"${base}/var"
 #);
 
-my $w = Gruta->new(
-	base		=>	$base,
-	upload		=>	[ "${base}/img" ],
-	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src ]
-);
-
-$w->run();
