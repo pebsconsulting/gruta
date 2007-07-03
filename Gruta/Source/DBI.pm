@@ -82,6 +82,29 @@ sub save {
 }
 
 
+sub delete {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$driver ||= $self->{_driver};
+
+	my $sth;
+
+	if (not $sth = $driver->{sth}->{delete}->{ref($self)}) {
+		my $sql = 'DELETE FROM ' . $self->table() .
+			' WHERE ' . join(' AND ', map { "$_ = ?" } $self->pk());
+
+		$sth = $driver->{sth}->{delete}->{ref($self)} = $driver->_prepare($sql);
+	}
+
+	$driver->_execute($sth,
+		(map { $self->get($_) } $self->pk())
+	);
+
+	return $self;
+}
+
+
 package Gruta::Data::DBI::Story;
 
 use base 'Gruta::Data::Story';
