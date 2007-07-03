@@ -74,7 +74,9 @@ sub delete {
 	my $self	= shift;
 	my $driver	= shift;
 
-	unlink $self->_filename();
+	$driver ||= $self->{_driver};
+
+	unlink $driver->{path} . $self->_filename();
 
 	return $self;
 }
