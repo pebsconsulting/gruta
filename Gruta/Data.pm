@@ -241,6 +241,41 @@ sub preauth {
 }
 
 
+sub login {
+	my $self	= shift;
+	my $user_id	= shift;
+	my $passwd	= shift;
+
+	my $sid = undef;
+	my $u = undef;
+
+	foreach my $s ($self->sources()) {
+		if ($u = $s->user($user_id)) {
+			my $p = $u->get('passwd');
+
+			if (crypt($passwd, $p) eq $p) {
+				# valid user
+				$self->auth($u);
+
+				# create new sid
+				$sid = crypt(time(), $$);
+
+				my $ns = Gruta::Data::Sid->new(
+					id	=> $sid,
+					time	=> time(),
+					user_id	=> $user_id
+				);
+
+				$s->insert_sid( $ns );
+
+				last;
+			}
+		}
+	}
+
+	return $sid;
+}
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
