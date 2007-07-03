@@ -37,7 +37,7 @@ my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src2 ],
+	sources		=>	[ $src ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl
 );

@@ -254,17 +254,19 @@ sub purge_old_sessions {
 }
 
 
-sub insert_topic {
+sub _insert {
+	my $self	= shift;
+	my $obj		= shift;
+	my $class	= shift;
+
+	bless($obj, $class);
+	$obj->save( $self );
 }
 
-sub insert_user {
-}
-
-sub insert_story {
-}
-
-sub insert_session {
-}
+sub insert_topic { $_[0]->_insert($_[1], 'Gruta::Data::FS::Topic'); }
+sub insert_user { $_[0]->_insert($_[1], 'Gruta::Data::FS::User'); }
+sub insert_story { $_[0]->_insert($_[1], 'Gruta::Data::FS::Story'); }
+sub insert_session { $_[0]->_insert($_[1], 'Gruta::Data::FS::Session'); }
 
 
 sub create {
