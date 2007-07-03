@@ -218,21 +218,21 @@ sub auth {
 
 sub preauth {
 	my $self	= shift;
-	my $sid_id	= shift;
+	my $sid		= shift;
 
 	my $u = undef;
 
-	if ($sid_id) {
-		my $sid = undef;
+	if ($sid) {
+		my $session = undef;
 
 		foreach my $s ($self->sources()) {
 
-			$s->purge_old_sids();
-			last if $sid = $s->sid($sid_id);
+			$s->purge_old_sessions();
+			last if $session = $s->session($sid);
 		}
 
-		if ($sid) {
-			$u = $s->user( $sid->get('user_id') );
+		if ($session) {
+			$u = $s->user( $session->get('user_id') );
 			$self->auth($u);
 		}
 	}
@@ -260,13 +260,13 @@ sub login {
 				# create new sid
 				$sid = crypt(time(), $$);
 
-				my $ns = Gruta::Data::Session->new(
+				my $session = Gruta::Data::Session->new(
 					id	=> $sid,
 					time	=> time(),
 					user_id	=> $user_id
 				);
 
-				$s->insert_sid( $ns );
+				$s->insert_session( $session );
 
 				last;
 			}
