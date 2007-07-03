@@ -61,7 +61,7 @@ sub save {
 
 		$f =~ s/_/-/g;
 
-		print F $f . ': ' . $self->get($k) . "\n";
+		print F $f . ': ' . ($self->get($k) || '') . "\n";
 	}
 
 	close F;
