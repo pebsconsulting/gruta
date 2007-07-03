@@ -1,10 +1,9 @@
 #!/usr/bin/perl
 
-use Gruta::Data;
-
+use Gruta;
 use Gruta::Source::DBI;
 
-my $g = Gruta::Data->new (
+my $g = Gruta->new (
 	sources	=> [
 		Gruta::Source::DBI->new( string => 'dbi:SQLite:g.db' )
 		]
