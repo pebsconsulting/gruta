@@ -104,6 +104,13 @@ use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'users'; }
 
+package Gruta::Data::DBI::Sid;
+
+use base 'Gruta::Data::Sid';
+use base 'Gruta::Data::DBI::BASE';
+
+sub table { return 'sids'; }
+
 package Gruta::Source::DBI;
 
 sub _all {
@@ -214,6 +221,16 @@ sub stories_by_date {
 	}
 
 	return @r;
+}
+
+
+sub sid { return _one( @_, 'Gruta::Data::DBI::Sid' ); }
+
+sub purge_old_sids {
+	my $self	= shift;
+
+	my $sth = $self->_prepare('DELETE FROM sids WHERE time > ?');
+	$self->_execute($sth, time() + (60 * 60 * 24));
 }
 
 

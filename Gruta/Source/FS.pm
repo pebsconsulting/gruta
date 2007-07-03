@@ -111,6 +111,13 @@ use base 'Gruta::Data::FS::BASE';
 
 sub base { return '/users/'; }
 
+package Gruta::Data::FS::Sid;
+
+use base 'Gruta::Data::Sid';
+use base 'Gruta::Data::FS::BASE';
+
+sub base { return '/sids/'; }
+
 package Gruta::Source::FS;
 
 sub _one {
@@ -214,6 +221,27 @@ sub stories {
 sub stories_by_date {
 }
 
+sub sid { return _one( @_, 'Gruta::Data::FS::Sid' ); }
+
+sub purge_old_sids {
+	my $self	 = shift;
+
+	if (opendir D, $self->{path} . '/sids/') {
+		while(my $s = readdir D) {
+			my $f = $self->{path} . '/sids/' . $s;
+
+			next if -d $f;
+
+			if (-M $f) {
+				unlink $f;
+			}
+		}
+
+		closedir D;
+	}
+}
+
+
 sub insert_topic {
 }
 
@@ -230,6 +258,7 @@ sub create {
 	mkdir $self->{path}, 755;
 	mkdir $self->{path} . '/topics', 755;
 	mkdir $self->{path} . '/users', 755;
+	mkdir $self->{path} . '/sids', 755;
 }
 
 

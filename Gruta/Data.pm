@@ -58,6 +58,12 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id username email password can_upload is_admin); }
 
+package Gruta::Data::Sid;
+
+use base 'Gruta::Data::BASE';
+
+sub fields { return qw(id time user_id ip); }
+
 ##################################################
 
 package Gruta::Data;
