@@ -194,8 +194,8 @@ sub _insert {
 	my $method	= shift;
 
 	foreach my $s ($self->sources()) {
-		if ($s->can($method)) {
-			$s->$method->($obj);
+		if (my $m = $s->can($method)) {
+			$m->($s, $obj);
 		}
 	}
 
