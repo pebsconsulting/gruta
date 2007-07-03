@@ -210,6 +210,22 @@ sub login {
 	return $sid;
 }
 
+
+sub logout {
+	my $self	= shift;
+
+	if (my $auth = $self->auth() and my $sid = $auth->get('sid')) {
+		if (my $session = $self->session( $sid )) {
+			$session->delete() if $session->can('delete');
+		}
+
+		$self->auth(undef);
+	}
+
+	return $self;
+}
+
+
 sub run {
 	my $self	= shift;
 }
