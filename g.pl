@@ -42,6 +42,9 @@ my $w = Gruta->new(
 	template	=>	$tmpl
 );
 
+$w->login('angel', 'test');
+$w->logout();
+
 #my $str = $w->template("{-story_part|alimentos|200609200001|content}");
 #my $str = $w->template->process("{-loop_topics|_topics_as_option|\n}");
 #$str = $w->template->process("{-story_loop_by_date|noticias|10|0|_story_link_as_item_with_hits|\n}");

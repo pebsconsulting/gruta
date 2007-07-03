@@ -214,14 +214,18 @@ sub login {
 sub logout {
 	my $self	= shift;
 
-	if (my $auth = $self->auth() and my $sid = $auth->get('sid')) {
-		if (my $session = $self->session( $sid )) {
+	my $auth = undef;
+
+	if ($auth = $self->auth() and my $sid = $auth->get('sid')) {
+		my $src = $auth->{_driver};
+
+		if (my $session = $src->session( $sid )) {
 			$session->delete() if $session->can('delete');
 		}
 
-		$self->auth(undef);
 	}
 
+	$self->auth($auth);
 	return $self;
 }
 
