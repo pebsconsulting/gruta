@@ -189,7 +189,7 @@ sub login {
 
 			if (crypt($passwd, $p) eq $p) {
 				# create new sid
-				$sid = crypt(time(), $$);
+				$sid = time() . $$;
 
 				my $session = Gruta::Data::Session->new(
 					id	=> $sid,
