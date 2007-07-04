@@ -4,7 +4,6 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1000: Source::FS don't create new ids for stories.
 
 Open Bugs
 ---------
@@ -14,5 +13,8 @@ Pending Enhancements
 
 Closed
 ------
+
+ * 1000: Source::FS don't create new ids for stories
+   (Wed, 04 Jul 2007 13:18:04 +0200).
 
 Email bugs to angel@triptico.com

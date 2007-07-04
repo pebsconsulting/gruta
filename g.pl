@@ -37,7 +37,7 @@ my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src ],
+	sources		=>	[ $src2 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl
 );
@@ -93,3 +93,4 @@ $w->insert_story($story);
 #	path	=>	"${base}/var"
 #);
 
+1;
