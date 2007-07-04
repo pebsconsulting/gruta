@@ -110,8 +110,7 @@ sub save {
 
 	# destroy the topic index, to be rewritten
 	# in the future by _topic_index()
-	$filename =~ s/$self->get('id')/.INDEX/;
-
+	$filename =~ s!/[^/]+$!/.INDEX!;
 	unlink $filename;
 
 	return $self;
@@ -420,7 +419,7 @@ sub insert_story {
 		# alloc an id for the story
 		my $id = time();
 
-		while ($self->story($id)) {
+		while ($self->story($story->get('topic_id'), $id)) {
 			$id++;
 		}
 
