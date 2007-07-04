@@ -266,6 +266,7 @@ sub _story_index {
 		}
 
 		open I, '>' . $index or die "Can't create INDEX for $topic_id";
+		flock I, 2;
 
 		foreach my $l (reverse(sort(@i))) {
 			print I $l, "\n";
@@ -279,6 +280,45 @@ sub _story_index {
 
 
 sub stories_by_date {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my %args	= @_;
+
+	$args{offset} += 0;
+	$args{offset} = 0 if $args{offset} < 0;
+
+	open I, $self->_build_index($topic_id);
+	flock I, 1;
+
+	my @r = ();
+	my $o = 0;
+
+	while(<I>) {
+		chomp;
+
+		my ($date, $id) = (/^(\d*):(.*)$/);
+
+		# skip future stories
+		next if $date > $args{today} and not $args{'future'};
+
+		# skip if date is above the threshold
+		next if $args{'to'} and $date > $args{'to'};
+
+		# exit if date is below the threshold
+		last if $args{'from'} and $date < $args{'from'};
+
+		# skip offset stories
+		next if $args{'offset'} and ++$o <= $args{'offset'};
+
+		push(@r, $id);
+
+		# exit if we have all we need
+		last if $args{'num'} and $args{'num'} == scalar(@r);
+	}
+
+	close I;
+
+	return @r;
 }
 
 sub search_stories {
