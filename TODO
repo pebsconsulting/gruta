@@ -4,6 +4,8 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
+ * 1001: Audit all possible directory traversal vulnerabilities
+   in Source::FS.
 
 Open Bugs
 ---------
