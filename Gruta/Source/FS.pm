@@ -7,7 +7,7 @@ use Gruta::Data;
 
 package Gruta::Data::FS::BASE;
 
-sub ext { return ''; }
+sub ext { return '.META'; }
 
 sub _filename {
 	my $self	= shift;
@@ -89,8 +89,7 @@ package Gruta::Data::FS::Story;
 use base 'Gruta::Data::Story';
 use base 'Gruta::Data::FS::BASE';
 
-sub base { return '/topics/' . $_[0]->get('topic_id') . '/'; }
-sub ext { return '.META'; }
+sub base { return Gruta::Data::FS::Topic::base() . $_[0]->get('topic_id') . '/'; }
 
 sub fields { grep !/content/, $_[0]->SUPER::fields(); }
 sub vfields { return ($_[0]->SUPER::vfields(), 'content'); }
@@ -125,7 +124,6 @@ use base 'Gruta::Data::Topic';
 use base 'Gruta::Data::FS::BASE';
 
 sub base { return '/topics/'; }
-sub ext { return '.META'; }
 
 sub save {
 	my $self	= shift;
@@ -146,6 +144,7 @@ package Gruta::Data::FS::User;
 use base 'Gruta::Data::User';
 use base 'Gruta::Data::FS::BASE';
 
+sub ext { return ''; }
 sub base { return '/users/'; }
 
 package Gruta::Data::FS::Session;
@@ -153,6 +152,7 @@ package Gruta::Data::FS::Session;
 use base 'Gruta::Data::Session';
 use base 'Gruta::Data::FS::BASE';
 
+sub ext { return ''; }
 sub base { return '/sids/'; }
 
 package Gruta::Source::FS;
@@ -181,9 +181,11 @@ sub topics {
 
 	my @ret = ();
 
-	if (opendir D, $self->{path} . '/topics') {
+	my $path = $self->{path} . Gruta::Data::FS::Topic::base();
+
+	if (opendir D, $path) {
 		while (my $id = readdir D) {
-			next unless -d $self->{path} . '/topics/' . $id;
+			next unless -d $path . $id;
 			next if $id =~ /^\./;
 
 			push @ret, $id;
@@ -202,9 +204,11 @@ sub users {
 
 	my @ret = ();
 
-	if (opendir D, $self->{path} . '/users') {
+	my $path = $self->{path} . Gruta::Data::FS::User::base();
+
+	if (opendir D, $path) {
 		while (my $id = readdir D) {
-			next if -d $self->{path} . '/users/' . $id;
+			next if -d $path . $id;
 			push @ret, $id;
 		}
 
@@ -248,7 +252,9 @@ sub stories {
 
 	my @ret = ();
 
-	if (opendir D, $self->{path} . '/topics/' . $topic_id) {
+	my $path = $self->{path} . Gruta::Data::FS::Topic::base() . $topic_id;
+
+	if (opendir D, $path) {
 		while (my $id = readdir D) {
 			if ($id =~ s/\.META$//) {
 				push(@ret, $id);
@@ -266,7 +272,8 @@ sub _topic_index {
 	my $self	= shift;
 	my $topic_id	= shift;
 
-	my $index = $self->{path} . '/topics/' . $topic_id . '/.INDEX';
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() .
+		$topic_id . '/.INDEX';
 
 	if (not open I, $index) {
 
@@ -375,9 +382,11 @@ sub session { return _one( @_, 'Gruta::Data::FS::Session' ); }
 sub purge_old_sessions {
 	my $self	 = shift;
 
-	if (opendir D, $self->{path} . '/sids/') {
+	my $path = $self->{path} . Gruta::Data::FS::Session::Base();
+
+	if (opendir D, $path) {
 		while(my $s = readdir D) {
-			my $f = $self->{path} . '/sids/' . $s;
+			my $f = $path . $s;
 
 			next if -d $f;
 
@@ -411,8 +420,7 @@ sub insert_story {
 		# alloc an id for the story
 		my $id = time();
 
-		while (-f $self->{path} . '/topics/' .
-			$story->get('topic_id') . '/' . $id) {
+		while ($self->story($id)) {
 			$id++;
 		}
 
@@ -429,9 +437,9 @@ sub create {
 	my $self	= shift;
 
 	mkdir $self->{path}, 0755;
-	mkdir $self->{path} . '/topics', 0755;
-	mkdir $self->{path} . '/users', 0755;
-	mkdir $self->{path} . '/sids', 0755;
+	mkdir $self->{path} . Gruta::Data::FS::Topic::base(), 0755;
+	mkdir $self->{path} . Gruta::Data::FS::User::base(), 0755;
+	mkdir $self->{path} . Gruta::Data::FS::Session::base(), 0755;
 }
 
 
