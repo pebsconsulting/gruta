@@ -37,7 +37,7 @@ my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src2 ],
+	sources		=>	[ $src ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl
 );
@@ -77,7 +77,7 @@ my $story = Gruta::Data::Story->new( topic_id => 'pruebas',
 	title => 'Testing', format => 'raw_html' );
 $w->insert_story($story);
 
-@ss = $src->search_stories('recetas', 'cerveza');
+@ss = $src->search_stories('noticias', 'cerveza');
 
 #my $data = Gruta::Data->new(
 #	sources		=>	[
