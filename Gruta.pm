@@ -76,7 +76,10 @@ sub story {
 	}
 
 	foreach my $src ($self->sources()) {
-		last if $story = $src->story($topic_id, $id);
+		if ($src->topic( $topic_id ) and
+			$story = $src->story($topic_id, $id)) {
+			last;
+		}
 	}
 
 	if (!defined($story)) {
