@@ -66,6 +66,8 @@ sub save {
 
 	close F;
 
+	$self->{_driver} = $driver;
+
 	return $self;
 }
 
@@ -77,6 +79,8 @@ sub delete {
 	$driver ||= $self->{_driver};
 
 	unlink $driver->{path} . $self->_filename();
+
+	$self->{_driver} = $driver;
 
 	return $self;
 }
@@ -101,7 +105,7 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	open F, '>' . $driver->{path} . $filename
+	open F, '>' . $self->{_driver}->{path} . $filename
 		or die "Can't write " . $filename;
 
 	print F $self->get('content') || '';
@@ -127,7 +131,7 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	mkdir $driver->{path} . $filename;
+	mkdir $self->{_driver}->{path} . $filename;
 
 	return $self;
 }

@@ -77,6 +77,8 @@ my $story = Gruta::Data::Story->new( topic_id => 'pruebas',
 	title => 'Testing', format => 'raw_html' );
 $w->insert_story($story);
 
+@ss = $src->search_stories('recetas', 'cerveza');
+
 #my $data = Gruta::Data->new(
 #	sources		=>	[
 #		Gruta::Source::DBI->new(
