@@ -250,7 +250,47 @@ sub stories {
 }
 
 
+sub _story_index {
+	my $self	= shift;
+	my $topic_id	= shift;
+
+	my $index = $self->{path} . '/topics/' . $topic_id . '/.INDEX';
+
+	if (not open I, $index) {
+
+		my @i = ();
+		foreach my $id ($self->stories($topic_id)) {
+			my $story = $self->story($topic_id, $id);
+
+			push(@i, $self->get('date') . ':' . $id);
+		}
+
+		open I, '>' . $index or die "Can't create INDEX for $topic_id";
+
+		foreach my $l (reverse(sort(@i))) {
+			print I $l, "\n";
+		}
+	}
+
+	close I;
+
+	return $index;
+}
+
+
 sub stories_by_date {
+}
+
+sub search_stories {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $query	= shift;
+
+	my @q = split(/\s+/,$query);
+
+	my @r = ();
+
+	return @r;
 }
 
 sub session { return _one( @_, 'Gruta::Data::FS::Session' ); }
