@@ -57,7 +57,7 @@ sub save {
 
 	my $filename = $self->_filename();
 
-	open F, '>' . $filename or die "Can't write " . $filename;
+	open F, '>' . $filename or die "Can't write " . $filename . ': ' . $!;
 
 	foreach my $k ($self->fields()) {
 		my $f = $k;
@@ -103,7 +103,7 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	open F, '>' . $filename or die "Can't write " . $filename;
+	open F, '>' . $filename or die "Can't write " . $filename . ': ' . $!;
 
 	print F $self->get('content') || '';
 	close F;
@@ -237,7 +237,7 @@ sub story {
 	my $file = $story->_filename();
 	$file =~ s/\.META$//;
 
-	open F, $file or die "Can't open $file content";
+	open F, $file or die "Can't open $file content: $!";
 
 	$story->set('content', join('', <F>));
 	close F;
@@ -283,7 +283,7 @@ sub _topic_index {
 			push(@i, $story->get('date') . ':' . $id);
 		}
 
-		open I, '>' . $index or die "Can't create INDEX for $topic_id";
+		open I, '>' . $index or die "Can't create INDEX for $topic_id: $!";
 		flock I, 2;
 
 		foreach my $l (reverse(sort(@i))) {
