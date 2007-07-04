@@ -12,7 +12,11 @@ sub ext { return ''; }
 sub _filename {
 	my $self	= shift;
 
-	return $self->base() . $self->get('id') . $self->ext();
+	$self->_assert();
+	$self->{_driver}->_assert();
+
+	return $self->{_driver}->{path} . $self->base() .
+		$self->get('id') . $self->ext();
 }
 
 
@@ -20,7 +24,9 @@ sub load {
 	my $self	= shift;
 	my $driver	= shift;
 
-	if (not open F, $driver->{path} . $self->_filename()) {
+	$self->{_driver} = $driver;
+
+	if (not open F, $self->_filename()) {
 		return undef;
 	}
 
@@ -40,8 +46,6 @@ sub load {
 
 	close F;
 
-	$self->{_driver} = $driver;
-
 	return $self;
 }
 
@@ -49,12 +53,11 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$driver ||= $self->{_driver};
+	$self->{_driver} ||= $driver;
 
 	my $filename = $self->_filename();
 
-	open F, '>' . $driver->{path} . $filename
-		or die "Can't write " . $filename;
+	open F, '>' . $filename or die "Can't write " . $filename;
 
 	foreach my $k ($self->fields()) {
 		my $f = $k;
@@ -66,8 +69,6 @@ sub save {
 
 	close F;
 
-	$self->{_driver} = $driver;
-
 	return $self;
 }
 
@@ -76,11 +77,9 @@ sub delete {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$driver ||= $self->{_driver};
+	$self->{_driver} ||= $driver;
 
-	unlink $driver->{path} . $self->_filename();
-
-	$self->{_driver} = $driver;
+	unlink $self->_filename();
 
 	return $self;
 }
@@ -105,16 +104,16 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	open F, '>' . $self->{_driver}->{path} . $filename
-		or die "Can't write " . $filename;
+	open F, '>' . $filename or die "Can't write " . $filename;
 
 	print F $self->get('content') || '';
 	close F;
 
 	# destroy the topic index, to be rewritten
 	# in the future by _topic_index()
-	unlink $self->{_driver}->{path} . '/topics/' .
-		$self->get('topic_id') . '/.INDEX';
+	$filename =~ s/$self->get('id')/.INDEX/;
+
+	unlink $filename;
 
 	return $self;
 }
@@ -137,7 +136,7 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	mkdir $self->{_driver}->{path} . $filename;
+	mkdir $filename;
 
 	return $self;
 }
@@ -235,8 +234,7 @@ sub story {
 	my $file = $story->_filename();
 	$file =~ s/\.META$//;
 
-	open F, $self->{path} . $file or
-		die "Can't open $file content";
+	open F, $file or die "Can't open $file content";
 
 	$story->set('content', join('', <F>));
 	close F;
