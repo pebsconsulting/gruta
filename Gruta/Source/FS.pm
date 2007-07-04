@@ -250,7 +250,7 @@ sub stories {
 }
 
 
-sub _story_index {
+sub _topic_index {
 	my $self	= shift;
 	my $topic_id	= shift;
 
@@ -262,7 +262,7 @@ sub _story_index {
 		foreach my $id ($self->stories($topic_id)) {
 			my $story = $self->story($topic_id, $id);
 
-			push(@i, $self->get('date') . ':' . $id);
+			push(@i, $story->get('date') . ':' . $id);
 		}
 
 		open I, '>' . $index or die "Can't create INDEX for $topic_id";
@@ -287,7 +287,7 @@ sub stories_by_date {
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
 
-	open I, $self->_build_index($topic_id);
+	open I, $self->_topic_index($topic_id);
 	flock I, 1;
 
 	my @r = ();
@@ -299,7 +299,9 @@ sub stories_by_date {
 		my ($date, $id) = (/^(\d*):(.*)$/);
 
 		# skip future stories
-		next if $date > $args{today} and not $args{'future'};
+		next if not $args{future} and
+			$args{today} and
+			$date > $args{today};
 
 		# skip if date is above the threshold
 		next if $args{'to'} and $date > $args{'to'};
