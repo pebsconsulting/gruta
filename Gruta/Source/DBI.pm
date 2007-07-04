@@ -250,6 +250,30 @@ sub stories_by_date {
 }
 
 
+sub search_stories {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $query	= shift;
+
+	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
+	my $like = 'AND content LIKE ? ' x scalar(@q);
+
+	my $sth = $self->_prepare(
+		'SELECT id FROM stories WHERE topic_id = ? ' . $like .
+		'ORDER BY date DESC');
+
+	$self->_execute($sth, $topic_id, @q);
+
+	my @r = ();
+
+	while(my $r = $sth->fetchrow_arrayref()) {
+		push(@r, $r->[0]);
+	}
+
+	return @r;
+}
+
+
 sub session { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 
 sub purge_old_sessions {
