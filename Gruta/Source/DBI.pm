@@ -81,6 +81,8 @@ sub save {
 		(map { $self->get($_) } $self->pk())
 	);
 
+	$self->{_driver} = $driver;
+
 	return $self;
 }
 
@@ -103,6 +105,8 @@ sub delete {
 	$driver->_execute($sth,
 		(map { $self->get($_) } $self->pk())
 	);
+
+	$self->{_driver} = $driver;
 
 	return $self;
 }
