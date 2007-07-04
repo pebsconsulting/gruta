@@ -111,6 +111,12 @@ sub save {
 	print F $self->get('content') || '';
 	close F;
 
+	# destroy the topic index, to be rewritten
+	# in the future by _topic_index()
+	unlink $self->{_driver}->{path} . '/topics/' .
+		$self->get('topic_id') . '/.INDEX';
+
+	return $self;
 }
 
 
