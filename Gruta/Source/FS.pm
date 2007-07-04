@@ -332,6 +332,29 @@ sub search_stories {
 
 	my @r = ();
 
+	foreach my $id ($self->stories_by_date( $topic_id )) {
+
+		my $story = $self->story($topic_id, $id);
+		my $content = $story->get('content');
+		my $found = 0;
+
+		# try complete query first
+		if($content =~ /\b$query\b/i) {
+			$found = 1;
+		}
+		else {
+			# try separate words
+			foreach my $q (@q) {
+				if(length($q) > 1 and $content =~ /\b$q\b/i) {
+					$found = 1;
+					last;
+				}
+			}
+		}
+
+		push(@r, $id) if $found;
+	}
+
 	return @r;
 }
 
