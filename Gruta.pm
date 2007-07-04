@@ -120,6 +120,18 @@ sub stories_by_date {
 }
 
 
+sub search_stories {
+	my $self	= shift;
+
+	my @r = ();
+
+	foreach my $src ($self->sources()) {
+		last if @r = $src->search_stories( @_ );
+	}
+
+	return @r;
+}
+
 sub _insert {
 	my $self	= shift;
 	my $obj		= shift;
