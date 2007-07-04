@@ -8,6 +8,15 @@ package Gruta::Data::BASE;
 sub fields { return (); }
 sub vfields { return (); }
 
+sub _assert {
+	my $self	= shift;
+
+	my $id = $self->get('id') || '';
+	$id =~ /^[\d\w_]+$/ or die "Bad id";
+
+	return $self;
+}
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
@@ -54,6 +63,17 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id topic_id title date userid format hits ctime content); }
 sub vfields { return qw(abstract body); }
+
+sub _assert {
+	my $self	= shift;
+
+	$self->SUPER::_assert();
+
+	my $topic_id = $self->get('topic_id') || '';
+	$topic_id =~ /^[\d\w_-]+$/ or die "Bad topic_id";
+
+	return $self;
+}
 
 package Gruta::Data::User;
 

@@ -158,6 +158,14 @@ sub base { return '/sids/'; }
 
 package Gruta::Source::FS;
 
+sub _assert {
+	my $self	= shift;
+
+	$self->{path} or die "Invalid path";
+
+	return $self;
+}
+
 sub _one {
 	my $self	= shift;
 	my $id		= shift;
@@ -434,7 +442,7 @@ sub new {
 
 	my $s = bless( { @_ }, $class);
 
-	$s->{path} ||= '.';
+	$s->_assert();
 
 	return $s;
 }
