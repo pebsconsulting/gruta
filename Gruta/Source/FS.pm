@@ -285,7 +285,26 @@ sub _insert {
 
 sub insert_topic { $_[0]->_insert($_[1], 'Gruta::Data::FS::Topic'); }
 sub insert_user { $_[0]->_insert($_[1], 'Gruta::Data::FS::User'); }
-sub insert_story { $_[0]->_insert($_[1], 'Gruta::Data::FS::Story'); }
+
+sub insert_story {
+	my $self	= shift;
+	my $story	= shift;
+
+	if (not $story->get('id')) {
+		# alloc an id for the story
+		my $id = time();
+
+		while (-f $self->{path} . '/topics/' .
+			$story->get('topic_id') . '/' . $id) {
+			$id++;
+		}
+
+		$story->set('id', $id);
+	}
+
+	$self->_insert($story, 'Gruta::Data::FS::Story');
+}
+
 sub insert_session { $_[0]->_insert($_[1], 'Gruta::Data::FS::Session'); }
 
 
