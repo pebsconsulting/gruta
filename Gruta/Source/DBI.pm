@@ -143,6 +143,8 @@ sub table { return 'sids'; }
 
 package Gruta::Source::DBI;
 
+sub _assert { return $_[0]; }
+
 sub _all {
 	my $self	= shift;
 	my $table	= shift;
