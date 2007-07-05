@@ -40,7 +40,9 @@ sub user {
 	my $u = undef;
 
 	foreach my $s ($self->sources()) {
-		last if $u = $s->user($id);
+		if ($s->can('user') and $u = $s->user($id)) {
+			last;
+		}
 	}
 
 	if (!defined($u)) {
@@ -56,7 +58,9 @@ sub users {
 	my @r = ();
 
 	foreach my $s ($self->sources()) {
-		@r = (@r, $s->users());
+		if ($s->can('users')) {
+			@r = (@r, $s->users());
+		}
 	}
 
 	return @r;
@@ -174,8 +178,11 @@ sub auth_from_sid {
 
 		foreach my $s ($self->sources()) {
 
-			$s->purge_old_sessions();
-			last if $session = $s->session($sid);
+			if ($s->can('purge_old_sessions') &&
+			    $s->can('session')) {
+				$s->purge_old_sessions();
+				last if $session = $s->session($sid);
+			}
 		}
 
 		if ($session) {
@@ -199,7 +206,7 @@ sub login {
 	my $u = undef;
 
 	foreach my $s ($self->sources()) {
-		if ($u = $s->user($user_id)) {
+		if ($s->can('user') and $u = $s->user($user_id)) {
 			my $p = $u->get('password');
 
 			if (crypt($passwd, $p) eq $p) {

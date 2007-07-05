@@ -4,6 +4,7 @@ use Gruta::Data;
 
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
+use Gruta::Source::Mbox;
 use Gruta::Renderer::Grutatxt;
 use Gruta::Renderer::HTML;
 use Gruta::Template::Artemus;
@@ -19,6 +20,12 @@ my $src = Gruta::Source::DBI->new(
 
 my $src2 = Gruta::Source::FS->new(
 	path	=>	'var'
+);
+
+my $src3 = Gruta::Source::Mbox->new(
+	file		=>	'./url.mbox',
+	topic_id	=>	'links',
+	topic_name	=>	'Links'
 );
 
 my $rndr	= Gruta::Renderer::Grutatxt->new();
@@ -37,7 +44,7 @@ my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src2 ],
+	sources		=>	[ $src, $src3 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl
 );
