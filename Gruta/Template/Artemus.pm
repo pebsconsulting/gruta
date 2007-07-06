@@ -116,6 +116,18 @@ sub data {
 }
 
 
+sub cgi_vars {
+	my $self	= shift;
+
+	if (@_) {
+		$self->{cgi_vars} = shift;
+		$self->_init();
+	}
+
+	return $self->{cgi_vars};
+}
+
+
 sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
 sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
 sub armor { $_[0]->{artemus}->armor($_[1]); }
