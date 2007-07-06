@@ -24,6 +24,7 @@ sub _init {
 	my $data = $self->data();
 
 	my %f = ();
+	my %v = ();
 
 	$f{'add'} = sub { $_[0] + $_[1]; };
 	$f{'sub'} = sub { $_[0] - $_[1]; };
@@ -98,8 +99,16 @@ sub _init {
 	$self->{artemus} = Artemus->new(
 		'include-path'	=>	$self->{path},
 		'funcs'		=>	\%f,
+		'vars'		=>	\%v,
 		'unresolved'	=>	$self->{unresolved}
 	);
+
+	if ($self->{cgi_vars}) {
+		foreach my $k (keys(%{ $self->{cgi_vars} })) {
+			$v{"cgi-${k}"} =
+				$self->{artemus}->armor($self->{cgi_vars}->{$k});
+		}
+	}
 }
 
 
