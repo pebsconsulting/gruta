@@ -11,104 +11,108 @@ sub new {
 
 	my $a = bless( {}, $class );
 
-	$a->{artemus} = undef;
+	$a->{_artemus} = undef;
 	$a->{path} = $args{path};
 
 	return $a;
 }
 
 
-sub _init {
+sub _artemus {
 	my $self	= shift;
 
-	my $data = $self->data();
+	if (not $self->{_artemus}) {
+		my $data = $self->data();
 
-	my %f = ();
-	my %v = ();
+		my %f = ();
+		my %v = ();
 
-	$f{'add'} = sub { $_[0] + $_[1]; };
-	$f{'sub'} = sub { $_[0] - $_[1]; };
-	$f{'gt'} = sub { $_[0] > $_[1]; };
-	$f{'lt'} = sub { $_[0] < $_[1]; };
+		$f{'add'} = sub { $_[0] + $_[1]; };
+		$f{'sub'} = sub { $_[0] - $_[1]; };
+		$f{'gt'} = sub { $_[0] > $_[1]; };
+		$f{'lt'} = sub { $_[0] < $_[1]; };
 
-	$f{topic_part} = sub {
-		my $topic_id	= shift;
-		my $part	= shift;
+		$f{topic_part} = sub {
+			my $topic_id	= shift;
+			my $part	= shift;
 
-		my $t = $data->topic($topic_id);
-		return $t->get($part);
-	};
+			my $t = $data->topic($topic_id);
+			return $t->get($part);
+		};
 
-	$f{story_part} = sub {
-		my $topic_id	= shift;
-		my $id		= shift;
-		my $part	= shift;
+		$f{story_part} = sub {
+			my $topic_id	= shift;
+			my $id		= shift;
+			my $part	= shift;
 
-		my $s = $data->story($topic_id, $id);
-		return $s->get($part);
-	};
+			my $s = $data->story($topic_id, $id);
+			return $s->get($part);
+		};
 
-	$f{user_part} = sub {
-		my $user_id	= shift;
-		my $part	= shift;
+		$f{user_part} = sub {
+			my $user_id	= shift;
+			my $part	= shift;
 
-		my $s = $data->user($user_id);
-		return $s->get($part);
-	};
+			my $s = $data->user($user_id);
+			return $s->get($part);
+		};
 
-	$f{loop_topics} = sub {
-		my $template	= shift;
-		my $sep		= shift;
+		$f{loop_topics} = sub {
+			my $template	= shift;
+			my $sep		= shift;
 
-		return join($sep, map { "{-$template|$_}" } $data->topics());
-	};
+			return join($sep, map { "{-$template|$_}" } $data->topics());
+		};
 
-	$f{loop_users} = sub {
-		my $template	= shift;
-		my $sep		= shift;
+		$f{loop_users} = sub {
+			my $template	= shift;
+			my $sep		= shift;
 
-		return join($sep, map { "{-$template|$_}" } $data->users());
-	};
+			return join($sep, map { "{-$template|$_}" } $data->users());
+		};
 
-	$f{loop_renderers} = sub {
-		my $template	= shift;
-		my $sep		= shift;
+		$f{loop_renderers} = sub {
+			my $template	= shift;
+			my $sep		= shift;
 
-		return join($sep, map { "{-$template|$_}" }
-			sort(keys(%{$data->{renderers_h}})));
-	};
+			return join($sep, map { "{-$template|$_}" }
+				sort(keys(%{$data->{renderers_h}})));
+		};
 
-	$f{story_loop_by_date} = sub {
-		my $topic	= shift;
-		my $num		= shift;
-		my $offset	= shift;
-		my $template	= shift;
-		my $sep		= shift;
+		$f{story_loop_by_date} = sub {
+			my $topic	= shift;
+			my $num		= shift;
+			my $offset	= shift;
+			my $template	= shift;
+			my $sep		= shift;
 
-		return join($sep, map { "{-$template|$topic|$_}" }
-			$data->stories_by_date(
-				$topic,
-				num	=> $num,
-				offset	=> $offset
-			)
+			return join($sep, map { "{-$template|$topic|$_}" }
+				$data->stories_by_date(
+					$topic,
+					num	=> $num,
+					offset	=> $offset
+				)
+			);
+		};
+
+		$self->{unresolved} = [];
+
+		$self->{_artemus} = Artemus->new(
+			'include-path'	=>	$self->{path},
+			'funcs'		=>	\%f,
+			'vars'		=>	\%v,
+			'unresolved'	=>	$self->{unresolved}
 		);
-	};
 
-	$self->{unresolved} = [];
-
-	$self->{artemus} = Artemus->new(
-		'include-path'	=>	$self->{path},
-		'funcs'		=>	\%f,
-		'vars'		=>	\%v,
-		'unresolved'	=>	$self->{unresolved}
-	);
-
-	if ($self->{cgi_vars}) {
-		foreach my $k (keys(%{ $self->{cgi_vars} })) {
-			$v{"cgi-${k}"} =
-				$self->{artemus}->armor($self->{cgi_vars}->{$k});
+		if ($self->{cgi_vars}) {
+			foreach my $k (keys(%{ $self->{cgi_vars} })) {
+				$v{"cgi-${k}"} =
+					$self->{_artemus}->armor($self->{cgi_vars}->{$k});
+			}
 		}
 	}
+
+	return $self->{_artemus};
 }
 
 
@@ -118,7 +122,7 @@ sub data {
 
 	if (defined($data)) {
 		$self->{data} = $data;
-		$self->_init();
+		$self->{_artemus} = undef;
 	}
 
 	return $self->{data};
@@ -130,7 +134,7 @@ sub cgi_vars {
 
 	if (@_) {
 		$self->{cgi_vars} = shift;
-		$self->_init();
+		$self->{_artemus} = undef;
 	}
 
 	return $self->{cgi_vars};
@@ -139,8 +143,8 @@ sub cgi_vars {
 
 sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
 sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
-sub armor { $_[0]->{artemus}->armor($_[1]); }
-sub unarmor { $_[0]->{artemus}->unarmor($_[1]); }
-sub process { $_[0]->{artemus}->process('{-' . $_[1] . '}'); }
+sub armor { $_[0]->_artemus->armor($_[1]); }
+sub unarmor { $_[0]->_artemus->unarmor($_[1]); }
+sub process { $_[0]->_artemus->process('{-' . $_[1] . '}'); }
 
 1;
