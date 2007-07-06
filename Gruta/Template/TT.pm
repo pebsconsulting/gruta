@@ -52,32 +52,38 @@ sub cgi_vars {
 sub _tt_data {
 	my $self	= shift;
 
-	my $data = $self->data();
-	my %f = ();
+	if (not $self->{tt_data}) {
+		my $data = $self->data();
+		my %f = ();
 
-	$f{topic} = sub { return $data->topic($_[0]); };
-	$f{user} = sub { return $data->user($_[0]); };
-	$f{story} = sub { return $data->story($_[0], $_[1]); };
+		$f{topic} = sub { return $data->topic($_[0]); };
+		$f{user} = sub { return $data->user($_[0]); };
+		$f{story} = sub { return $data->story($_[0], $_[1]); };
 
-	$f{get} = sub { return $_[0]->get($_[1]); };
+		$f{get} = sub { return $_[0]->get($_[1]); };
 
-	$f{topics} = sub { return $data->topics(); };
-	$f{users} = sub { return $data->users(); };
-	$f{renderers} = sub { return sort(keys(%{$data->{renderers_h}})); };
+		$f{topics} = sub { return $data->topics(); };
+		$f{users} = sub { return $data->users(); };
+		$f{renderers} = sub { return sort(keys(%{$data->{renderers_h}})); };
 
-	$f{stories_by_date} = sub {
-		my $topic	= shift;
-		my $num		= shift;
-		my $offset	= shift;
+		$f{stories_by_date} = sub {
+			my $topic	= shift;
+			my $num		= shift;
+			my $offset	= shift;
 
-		return $data->stories_by_date(
-			$topic,
-			num	=> $num,
-			offset	=> $offset
-		);
-	};
+			return $data->stories_by_date(
+				$topic,
+				num	=> $num,
+				offset	=> $offset
+			);
+		};
 
-	return \%f;
+		$f{cgi} = $self->{cgi_vars};
+
+		$self->{tt_data} = { %f };
+	}
+
+	return $self->{tt_data};
 }
 
 
