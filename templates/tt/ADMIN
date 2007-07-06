@@ -9,3 +9,6 @@
 	<li>[% s.get('title') %]</li>
 [% END %]
 </ul>
+
+[% t = topic(cgi.topic) %]
+<h2>[% t.name %]</h2>
