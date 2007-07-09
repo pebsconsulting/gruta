@@ -89,20 +89,10 @@ sub auth_from_sid {
 	my $u = undef;
 
 	if ($sid) {
-		my $session = undef;
+		$self->_call('purge_old_sessions', 0);
 
-		foreach my $s ($self->sources()) {
-
-			if ($s->can('purge_old_sessions') &&
-			    $s->can('session')) {
-				$s->purge_old_sessions();
-				last if $session = $s->session($sid);
-			}
-		}
-
-		if ($session) {
-			$u = $s->user( $session->get('user_id') );
-
+		if (my $session = $self->_call('session', 1, $sid)) {
+			$u = $session->source->user( $session->get('user_id') );
 			$u->set('sid', $sid);
 			$self->auth($u);
 		}
