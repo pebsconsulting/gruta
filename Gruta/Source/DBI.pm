@@ -32,17 +32,20 @@ sub load {
 	my $self	= shift;
 	my $driver	= shift;
 
+	$self->source( $driver );
+
 	my $sth;
 
-	if (not $sth = $driver->{sth}->{select}->{ref($self)}) {
+	if (not $sth = $self->source->{sth}->{select}->{ref($self)}) {
 		my $sql = 'SELECT ' . join(', ', $self->fields()) .
 			' FROM ' . $self->table() .
 			' WHERE ' . join(' AND ', map { "$_ = ?" } $self->pk());
 
-		$sth = $driver->{sth}->{select}->{ref($self)} = $driver->_prepare($sql);
+		$sth = $self->source->{sth}->{select}->{ref($self)} =
+			$self->source->_prepare($sql);
 	}
 
-	$driver->_execute($sth, map { $self->get($_) } $self->pk());
+	$self->source->_execute($sth, map { $self->get($_) } $self->pk());
 
 	my $r = $sth->fetchrow_hashref();
 
@@ -54,8 +57,6 @@ sub load {
 		$self->set($k, $r->{$k});
 	}
 
-	$self->{_driver} = $driver;
-
 	return $self;
 }
 
@@ -64,24 +65,23 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$driver ||= $self->{_driver};
+	$self->source( $driver ) if $driver;
 
 	my $sth;
 
-	if (not $sth = $driver->{sth}->{update}->{ref($self)}) {
+	if (not $sth = $self->source->{sth}->{update}->{ref($self)}) {
 		my $sql = 'UPDATE ' . $self->table() .
 			' SET ' . join(', ', map { "$_ = ?" } $self->fields()) .
 			' WHERE ' . join(' AND ', map { "$_ = ?" } $self->pk());
 
-		$sth = $driver->{sth}->{update}->{ref($self)} = $driver->_prepare($sql);
+		$sth = $self->source->{sth}->{update}->{ref($self)} =
+			$self->source->_prepare($sql);
 	}
 
-	$driver->_execute($sth,
+	$self->source->_execute($sth,
 		(map { $self->get($_) } $self->fields()),
 		(map { $self->get($_) } $self->pk())
 	);
-
-	$self->{_driver} = $driver;
 
 	return $self;
 }
@@ -91,22 +91,21 @@ sub delete {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$driver ||= $self->{_driver};
+	$self->source( $driver ) if $driver;
 
 	my $sth;
 
-	if (not $sth = $driver->{sth}->{delete}->{ref($self)}) {
+	if (not $sth = $self->source->{sth}->{delete}->{ref($self)}) {
 		my $sql = 'DELETE FROM ' . $self->table() .
 			' WHERE ' . join(' AND ', map { "$_ = ?" } $self->pk());
 
-		$sth = $driver->{sth}->{delete}->{ref($self)} = $driver->_prepare($sql);
+		$sth = $self->source->{sth}->{delete}->{ref($self)} =
+			$self->source->_prepare($sql);
 	}
 
-	$driver->_execute($sth,
+	$self->source->_execute($sth,
 		(map { $self->get($_) } $self->pk())
 	);
-
-	$self->{_driver} = $driver;
 
 	return $self;
 }
