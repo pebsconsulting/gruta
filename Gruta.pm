@@ -43,15 +43,8 @@ sub story {
 		return $story;
 	}
 
-	foreach my $src ($self->sources()) {
-		if ($src->topic( $topic_id ) and
-			$story = $src->story($topic_id, $id)) {
-			last;
-		}
-	}
-
-	if (!defined($story)) {
-		die('Invalid story ' . $ck);
+	if (not $story = $self->_call('story', 1, $topic_id, $id)) {
+		return undef;
 	}
 
 	if (my $rndr = $self->{renderers_h}->{$story->get('format')}) {
