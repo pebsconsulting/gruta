@@ -95,6 +95,17 @@ sub _artemus {
 			);
 		};
 
+		$f{is_logged_in} = sub {
+			return $data->auth() ? 1 : 0;
+		};
+
+		$f{is_admin} = sub {
+			if ($data->auth() and $data->auth->get('is_admin')) {
+				return 1;
+			}
+			return 0;
+		};
+
 		$f{assert_logged_in} = sub {
 			if (not $data->auth()) {
 				$data->cgi->redirect('?t=LOGIN');
