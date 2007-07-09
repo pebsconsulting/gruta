@@ -49,7 +49,7 @@ my $w = Gruta->new(
 	template	=>	$tmpl
 );
 
-$w->login('angel', 'grankiki');
+$w->login('angel', 'test');
 $w->logout();
 
 $w->template->cgi_vars( { t => 'ADMIN', topic => 'alimentos' } );
