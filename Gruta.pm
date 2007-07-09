@@ -1,5 +1,10 @@
 package Gruta;
 
+use strict;
+use warnings;
+
+$Gruta::VERSION = '1.0-pre1';
+
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
 sub cgi { return $_[0]->{cgi}; }
