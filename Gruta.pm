@@ -206,6 +206,14 @@ sub transfer_to_source {
 	return $self;
 }
 
+
+sub flush_story_cache {
+	my $self	= shift;
+
+	$self->{story_cache} = {};
+}
+
+
 sub new {
 	my $class	= shift;
 	my %args	= @_;
