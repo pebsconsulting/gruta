@@ -13,9 +13,9 @@ sub _filename {
 	my $self	= shift;
 
 	$self->_assert();
-	$self->{_driver}->_assert();
+	$self->source->_assert();
 
-	return $self->{_driver}->{path} . $self->base() .
+	return $self->source->{path} . $self->base() .
 		$self->get('id') . $self->ext();
 }
 
@@ -24,7 +24,7 @@ sub load {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->{_driver} = $driver;
+	$self->source( $driver );
 
 	if (not open F, $self->_filename()) {
 		return undef;
@@ -53,7 +53,7 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->{_driver} ||= $driver;
+	$self->source( $driver ) if $driver;
 
 	my $filename = $self->_filename();
 
@@ -77,7 +77,7 @@ sub delete {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->{_driver} ||= $driver;
+	$self->source( $driver ) if $driver;
 
 	unlink $self->_filename();
 

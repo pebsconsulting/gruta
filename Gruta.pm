@@ -154,7 +154,7 @@ sub logout {
 	my $auth = undef;
 
 	if ($auth = $self->auth() and my $sid = $auth->get('sid')) {
-		my $src = $auth->{_driver};
+		my $src = $auth->source();
 
 		if (my $session = $src->session( $sid )) {
 			$session->delete() if $session->can('delete');
