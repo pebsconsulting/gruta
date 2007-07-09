@@ -93,7 +93,7 @@ sub _tt_data {
 				$data->search_stories($topic, $string);
 		};
 
-		$f{auth} = sub { $data->auth(); };
+		$f{auth} = sub { return $data->auth(); };
 
 		$f{login} = sub {
 			my $user	= shift;
@@ -135,7 +135,7 @@ sub process {
 	my $v = '';
 
 	$self->{tt}->process($template, $self->_tt_data(), \$v)
-		or die "TT: " . $Template::ERROR;
+		or die "TT: " . $self->{tt}->error();
 
 	return $v;
 }
