@@ -106,6 +106,25 @@ sub _artemus {
 			return 0;
 		};
 
+		$f{login} = sub {
+			my $user_id	= shift;
+			my $password	= shift;
+
+			if (my $sid = $data->login($user_id, $password)) {
+				$data->cgi->cookie("sid=$sid");
+				$data->cgi->redirect('?t=INDEX');
+				$self->{abort} = 1;
+			}
+
+			return '';
+		};
+
+		$f{logout} = sub {
+			$data->logout();
+			$data->cgi->redirect('?t=INDEX');
+			$self->{abort} = 1;
+		};
+
 		$f{assert_logged_in} = sub {
 			if (not $data->auth()) {
 				$data->cgi->redirect('?t=LOGIN');
