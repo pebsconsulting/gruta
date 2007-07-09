@@ -108,29 +108,25 @@ sub login {
 	my $passwd	= shift;
 
 	my $sid = undef;
-	my $u = undef;
 
-	foreach my $s ($self->sources()) {
-		if ($s->can('user') and $u = $s->user($user_id)) {
-			my $p = $u->get('password');
+	if (my $u = $self->user( $user_id )) {
 
-			if (crypt($passwd, $p) eq $p) {
-				# create new sid
-				$sid = time() . $$;
+		my $p = $u->get('password');
 
-				my $session = Gruta::Data::Session->new(
-					id	=> $sid,
-					time	=> time(),
-					user_id	=> $user_id
-				);
+		if (crypt($passwd, $p) eq $p) {
+			# create new sid
+			$sid = time() . $$;
 
-				$s->insert_session( $session );
+			my $session = Gruta::Data::Session->new(
+				id	=> $sid,
+				time	=> time(),
+				user_id	=> $user_id
+			);
 
-				$u->set('sid', $sid);
-				$self->auth($u);
+			$u->source->insert_session( $session );
 
-				last;
-			}
+			$u->set('sid', $sid);
+			$self->auth($u);
 		}
 	}
 
@@ -141,18 +137,15 @@ sub login {
 sub logout {
 	my $self	= shift;
 
-	my $auth = undef;
-
-	if ($auth = $self->auth() and my $sid = $auth->get('sid')) {
-		my $src = $auth->source();
-
-		if (my $session = $src->session( $sid )) {
-			$session->delete() if $session->can('delete');
+	if (my $auth = $self->auth()) {
+		if( my $sid = $auth->get('sid')) {
+			if (my $session = $auth->source->session( $sid )) {
+				$session->delete() if $session->can('delete');
+			}
 		}
-
 	}
 
-	$self->auth($auth);
+	$self->auth( undef );
 	return $self;
 }
 
