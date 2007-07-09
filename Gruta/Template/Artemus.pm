@@ -95,13 +95,33 @@ sub _artemus {
 			);
 		};
 
-		$self->{unresolved} = [];
+		$f{assert_logged_in} = sub {
+			if (not $data->auth()) {
+				$data->cgi->redirect('?t=LOGIN');
+				$self->{abort} = 1;
+			}
+
+			return '';
+		};
+
+		$f{assert_admin} = sub {
+			if ($data->auth() and $data->auth->get('is_admin')) {
+				return '';
+			}
+
+			$data->cgi->redirect('?t=LOGIN');
+			$self->{abort} = 1;
+		};
+
+		$self->{abort}		= 0;
+		$self->{unresolved}	= [];
 
 		$self->{_artemus} = Artemus->new(
 			'include-path'	=>	$self->{path},
 			'funcs'		=>	\%f,
 			'vars'		=>	\%v,
-			'unresolved'	=>	$self->{unresolved}
+			'unresolved'	=>	$self->{unresolved},
+			'abort'		=>	\$self->{abort},
 		);
 
 		if ($self->{cgi_vars}) {
