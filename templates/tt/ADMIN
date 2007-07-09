@@ -1,11 +1,9 @@
-[% FOREACH id = topics() %]
-[% t = topic(id) %]
-<option value='$id'>[% t.get("name") %]</option>
+[% FOREACH t = topics() %]
+<option value='[% t.get("id") %]'>[% t.get("name") %]</option>
 [% END %]
 
 <ul>
-[% FOREACH id = stories_by_date('rec', 10, 0) %]
-[% s = story('rec', id) %]
+[% FOREACH s = stories_by_date('rec', 10, 0) %]
 	<li>[% s.get('title') %]</li>
 [% END %]
 </ul>
