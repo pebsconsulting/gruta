@@ -9,6 +9,19 @@ sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
 sub cgi { return $_[0]->{cgi}; }
 
+sub today {
+	my $self	= shift;
+
+	if (not $self->{_today}) {
+		my ($S,$M,$H,$d,$m,$y) = (localtime)[0..5];
+		$self->{_today} =
+			 sprintf("%04d%02d%02d%02d%02d%02d",
+			1900 + $y, $m + 1, $d, $H, $M, $S);
+	}
+
+	return $self->{_today};
+}
+
 sub _call {
 	my $self	= shift;
 	my $method	= shift;
@@ -64,7 +77,8 @@ sub story {
 
 
 sub stories { my $self = shift; return $self->_call('stories', 0); }
-sub stories_by_date { my $self = shift; return $self->_call('stories_by_date', 1, @_); }
+sub stories_by_date { my $self = shift;
+	return $self->_call('stories_by_date', 1, @_, 'today' => $self->today()); }
 sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
 
 sub insert_topic { my $self = shift; $self->_call('insert_topic', 1, @_); return $self; }
