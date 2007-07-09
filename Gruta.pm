@@ -2,6 +2,7 @@ package Gruta;
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
+sub cgi { return $_[0]->{cgi}; }
 
 sub _call {
 	my $self	= shift;
@@ -212,7 +213,8 @@ sub new {
 		$g->{renderers_h}->{$r->{renderer_id}} = $r;
 	}
 
-	$g->template->data($g) if $g->{template};
+	$g->template->data($g)	if $g->{template};
+	$g->cgi->data($g)	if $g->{cgi};
 
 	return $g;
 }
