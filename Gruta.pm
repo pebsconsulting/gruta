@@ -3,69 +3,33 @@ package Gruta;
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
 
-sub topic {
+sub _call {
 	my $self	= shift;
-	my $id		= shift;
-
-	my $t = undef;
-
-	foreach my $s ($self->sources()) {
-		last if $t = $s->topic($id);
-	}
-
-	if (!defined($t)) {
-		die('Invalid topic ' . $id);
-	}
-
-	return $t;
-}
-
-sub topics {
-	my $self	= shift;
+	my $method	= shift;
+	my $short	= shift;
 
 	my @r = ();
 
 	foreach my $s ($self->sources()) {
-		@r = (@r, $s->topics());
-	}
+		if (my $m = $s->can($method)) {
+			my @pr = $m->($s, @_);
 
-	return @r;
-}
+			if (@pr) {
+				@r = (@r, @pr);
 
-
-sub user {
-	my $self	= shift;
-	my $id		= shift;
-
-	my $u = undef;
-
-	foreach my $s ($self->sources()) {
-		if ($s->can('user') and $u = $s->user($id)) {
-			last;
+				last if $short;
+			}
 		}
 	}
 
-	if (!defined($u)) {
-		die('Invalid user ' . $id);
-	}
-
-	return $u;
+	return wantarray ? @r : $r[0];
 }
 
-sub users {
-	my $self	= shift;
+sub topic { my $self = shift; return $self->_call('topic', 1, @_); }
+sub topics { my $self = shift; return $self->_call('topics', 0); }
 
-	my @r = ();
-
-	foreach my $s ($self->sources()) {
-		if ($s->can('users')) {
-			@r = (@r, $s->users());
-		}
-	}
-
-	return @r;
-}
-
+sub user { my $self = shift; return $self->_call('user', 1, @_); }
+sub users { my $self = shift; return $self->_call('users', 0); }
 
 sub story {
 	my $self	= shift;
@@ -100,62 +64,13 @@ sub story {
 }
 
 
-sub stories {
-	my $self	= shift;
-	my $topic_id	= shift;
+sub stories { my $self = shift; return $self->_call('stories', 0); }
+sub stories_by_date { my $self = shift; return $self->_call('stories_by_date', 1, @_); }
+sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
 
-	my @r = ();
-
-	foreach my $s ($self->sources()) {
-		@r = (@r, $s->stories( $topic_id ));
-	}
-
-	return @r;
-}
-
-
-sub stories_by_date {
-	my $self	= shift;
-
-	my @r = ();
-
-	foreach my $src ($self->sources()) {
-		last if @r = $src->stories_by_date( @_ );
-	}
-
-	return @r;
-}
-
-
-sub search_stories {
-	my $self	= shift;
-
-	my @r = ();
-
-	foreach my $src ($self->sources()) {
-		last if @r = $src->search_stories( @_ );
-	}
-
-	return @r;
-}
-
-sub _insert {
-	my $self	= shift;
-	my $obj		= shift;
-	my $method	= shift;
-
-	foreach my $s ($self->sources()) {
-		if (my $m = $s->can($method)) {
-			$m->($s, $obj);
-		}
-	}
-
-	return $self;
-}
-
-sub insert_topic { $_[0]->_insert($_[1], 'insert_topic'); }
-sub insert_user { $_[0]->_insert($_[1], 'insert_user'); }
-sub insert_story { $_[0]->_insert($_[1], 'insert_story'); }
+sub insert_topic { my $self = shift; $self->_call('insert_topic', 1, @_); return $self; }
+sub insert_user { my $self = shift; $self->_call('insert_user', 1, @_); return $self; }
+sub insert_story { my $self = shift; $self->_call('insert_story', 1, @_); return $self; }
 
 
 sub auth {
