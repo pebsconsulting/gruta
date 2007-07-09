@@ -109,6 +109,7 @@ sub _artemus {
 		$f{login} = sub {
 			my $user_id	= shift;
 			my $password	= shift;
+			my $error_msg	= shift;
 
 			if (my $sid = $data->login($user_id, $password)) {
 				$data->cgi->cookie("sid=$sid");
@@ -116,7 +117,7 @@ sub _artemus {
 				$self->{abort} = 1;
 			}
 
-			return '';
+			return $error_msg;
 		};
 
 		$f{logout} = sub {
