@@ -8,6 +8,17 @@ package Gruta::Data::BASE;
 sub fields { return (); }
 sub vfields { return (); }
 
+sub source {
+	my $self	= shift;
+
+	if (@_) {
+		$self->{_source} = shift;
+	}
+
+	return $self->{_source};
+}
+
+
 sub _assert {
 	my $self	= shift;
 
