@@ -286,6 +286,8 @@ sub purge_old_sessions {
 
 	my $sth = $self->_prepare('DELETE FROM sids WHERE time < ?');
 	$self->_execute($sth, time() - (60 * 60 * 24));
+
+	return undef;
 }
 
 
@@ -305,7 +307,7 @@ sub _insert {
 
 	$self->_execute($sth, map { $obj->get($_) } $obj->fields());
 
-	return $self;
+	return $obj;
 }
 
 sub insert_topic { $_[0]->_insert($_[1], 'topics'); }

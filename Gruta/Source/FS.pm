@@ -396,6 +396,8 @@ sub purge_old_sessions {
 
 		closedir D;
 	}
+
+	return undef;
 }
 
 
@@ -406,6 +408,8 @@ sub _insert {
 
 	bless($obj, $class);
 	$obj->save( $self );
+
+	return $obj;
 }
 
 sub insert_topic { $_[0]->_insert($_[1], 'Gruta::Data::FS::Topic'); }
@@ -427,6 +431,7 @@ sub insert_story {
 	}
 
 	$self->_insert($story, 'Gruta::Data::FS::Story');
+	return $story;
 }
 
 sub insert_session { $_[0]->_insert($_[1], 'Gruta::Data::FS::Session'); }
