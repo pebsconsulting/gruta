@@ -1,8 +1,9 @@
 package Gruta::CGI;
 
-use CGI qw(Vars);
+use CGI;
 
-sub vars { return Vars(); }
+sub vars { return $_[0]->{cgi}->Vars(); }
+sub upload_dirs { return @{ $_[0]->{upload_dirs} }; }
 
 sub http_headers {
 	my $self	= shift;
@@ -38,10 +39,33 @@ sub data {
 	return $self->{data};
 }
 
+
+sub upload {
+	my $self	= shift;
+	my $dir_num	= shift;
+	my $field	= shift;
+
+	my $file = $self->{cgi}->param($field);
+	my ($basename) = ($file =~ /([^\/\\]+)$/);
+
+	my $dir = ($self->upload_dirs())[$dir_num] or
+		die "Undefined upload dirs.";
+
+	my $filename = $dir . '/' . $basename;
+
+	open F, '>' . $filename or die "Can't write $filename";
+	while(<$file>) {
+		print F $_;
+	}
+
+	close F;
+}
+
+
 sub new {
 	my $class	= shift;
 
-	my $obj = bless( {}, $class);
+	my $obj = bless( {}, $class );
 
 	$obj->{http_headers} = {
 		'Content-Type'		=> 'text/html; charset=ISO-8859-1',
@@ -49,6 +73,10 @@ sub new {
 		'X-Gateway-Interface'	=> $ENV{'GATEWAY_INTERFACE'},
 		'X-Server-Name'		=> $ENV{'SERVER_NAME'}
 	};
+
+	$obj->{upload_dirs} ||= [];
+
+	$obj->{cgi} = CGI->new();
 
 	return $obj;
 }
