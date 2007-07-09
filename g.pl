@@ -105,4 +105,6 @@ $w->insert_story($story);
 #	path	=>	"${base}/var"
 #);
 
+$w->run();
+
 1;
