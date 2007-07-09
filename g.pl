@@ -10,6 +10,8 @@ use Gruta::Renderer::HTML;
 use Gruta::Template::Artemus;
 use Gruta::Template::TT;
 
+use Gruta::CGI;
+
 my $base = '/var/www/webon';
 
 my $src = Gruta::Source::DBI->new(
@@ -46,7 +48,8 @@ my $w = Gruta->new(
 #	templates	=>	[ "${base}/templates" ],
 	sources		=>	[ $src, $src3 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
-	template	=>	$tmpl
+	template	=>	$tmpl,
+	cgi		=>	Gruta::CGI->new()
 );
 
 $w->login('angel', 'test');

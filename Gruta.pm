@@ -144,10 +144,6 @@ sub logout {
 }
 
 
-sub run {
-	my $self	= shift;
-}
-
 sub _special_uri {
 	my $self	= shift;
 	my $story	= shift;
@@ -217,6 +213,14 @@ sub new {
 	$g->cgi->data($g)	if $g->{cgi};
 
 	return $g;
+}
+
+sub run {
+	my $self	= shift;
+
+	if ($self->{cgi}) {
+		$self->cgi->run();
+	}
 }
 
 1;

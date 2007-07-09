@@ -44,6 +44,7 @@ sub new {
 	my $obj = bless( {}, $class);
 
 	$obj->{http_headers} = {
+		'Content-Type'		=> 'text/html; charset=ISO-8859-1',
 		'X-Powered-By'		=> 'Gruta',
 		'X-Gateway-Interface'	=> $ENV{'GATEWAY_INTERFACE'},
 		'X-Server-Name'		=> $ENV{'SERVER_NAME'}
@@ -51,3 +52,46 @@ sub new {
 
 	return $obj;
 }
+
+
+sub run {
+	my $self	= shift;
+
+	my $data = $self->data();
+	my $vars = $self->vars();
+
+	$data->template->cgi_vars($vars);
+
+	if (my $cookie = $self->cookie()) {
+		if (my ($sid) = ($cookie =~ /^sid\s*=\s*(\d+)$/)) {
+			$data->auth_from_sid( $sid );
+		}
+	}
+
+	my $st = 'INDEX';
+
+	if ($vars->{t}) {
+		$st = uc($vars->{t});
+	}
+
+	$st = 'INDEX' unless $st =~ /^[-\w0-9_]+$/;
+
+	my $body = undef;
+
+	eval { $body = $data->template->process( $st ) };
+
+	if ($@) {
+		$self->http_headers( 'Status' => '404 Not Found' );
+		$body = $data->template->process( '404' );
+	}
+
+	my $h = $self->http_headers();
+	foreach my $k (keys(%{ $h })) {
+		print $k, ': ', $h->{$k}, "\n";
+	}
+	print "\n";
+
+	print $body;
+}
+
+1;
