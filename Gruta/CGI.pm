@@ -90,7 +90,10 @@ sub run {
 
 	$data->template->cgi_vars($vars);
 
-	if (my $cookie = $self->cookie()) {
+	if ($ENV{REMOTE_USER} and my $u = $data->user($ENV{REMOTE_USER})) {
+		$data->auth( $u );
+	}
+	elsif (my $cookie = $self->cookie()) {
 		if (my ($sid) = ($cookie =~ /^sid\s*=\s*(\d+)$/)) {
 			$data->auth_from_sid( $sid );
 		}
