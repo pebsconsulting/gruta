@@ -201,6 +201,15 @@ sub templates {
 
 	my @r = ();
 
+	if (opendir D, $self->{path}) {
+		while (my $l = readdir D) {
+			next if -d $self->{path} . '/' . $l;
+			push @r, $l;
+		}
+
+		closedir D;
+	}
+
 	return @r;
 }
 
