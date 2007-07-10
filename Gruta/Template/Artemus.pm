@@ -79,6 +79,14 @@ sub _artemus {
 				sort(keys(%{$data->{renderers_h}})));
 		};
 
+		$f{loop_templates} = sub {
+			my $template	= shift;
+			my $sep		= shift;
+
+			return join($sep, map { "{-$template|$_}" }
+				$data->template->templates());
+		};
+
 		$f{story_loop_by_date} = sub {
 			my $topic	= shift;
 			my $num		= shift;

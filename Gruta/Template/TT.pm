@@ -66,6 +66,7 @@ sub _tt_data {
 		$f{users} = sub { return map { $data->user($_) } $data->users(); };
 		$f{stories} = sub { return map { $data->stories($_) } $data->stories(); };
 		$f{renderers} = sub { return sort(keys(%{$data->{renderers_h}})); };
+		$f{templates} = sub { return $data->template->templates(); };
 
 		$f{stories_by_date} = sub {
 			my $topic	= shift;
