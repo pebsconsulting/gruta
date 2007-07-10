@@ -57,6 +57,19 @@ sub _artemus {
 			return $s->get($part);
 		};
 
+		$f{template} = sub {
+			my $template_id	= shift;
+
+			return $data->template->template($template_id);
+		};
+
+		$f{save_template} = sub {
+			my $template_id	= shift;
+			my $content	= shift;
+
+			return $data->template->save_template($template_id, $content);
+		};
+
 		$f{loop_topics} = sub {
 			my $template	= shift;
 			my $sep		= shift;
@@ -150,6 +163,16 @@ sub _artemus {
 
 			$data->cgi->redirect('?t=LOGIN');
 			$self->{abort} = 1;
+		};
+
+		$f{username} = sub {
+			my $ret = '';
+
+			if ($data->auth()) {
+				$ret = $data->auth->get('username');
+			}
+
+			return $ret;
 		};
 
 		$self->{abort}		= 0;
