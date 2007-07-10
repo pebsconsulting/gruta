@@ -33,70 +33,40 @@ sub _artemus {
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 
 		$f{topic_part} = sub {
-			my $topic_id	= shift;
-			my $part	= shift;
-
-			my $t = $data->topic($topic_id);
-			return $t->get($part);
+			return $data->topic($_[0])->get($_[1]);
 		};
 
 		$f{story_part} = sub {
-			my $topic_id	= shift;
-			my $id		= shift;
-			my $part	= shift;
-
-			my $s = $data->story($topic_id, $id);
-			return $s->get($part);
+			return $data->story($_[0], $_[1])->get($_[2]);
 		};
 
 		$f{user_part} = sub {
-			my $user_id	= shift;
-			my $part	= shift;
-
-			my $s = $data->user($user_id);
-			return $s->get($part);
+			return $data->user($_[0])->get($_[1]);
 		};
 
 		$f{template} = sub {
-			my $template_id	= shift;
-
-			return $data->template->template($template_id);
+			return $data->template->template($_[0]);
 		};
 
 		$f{save_template} = sub {
-			my $template_id	= shift;
-			my $content	= shift;
-
-			return $data->template->save_template($template_id, $content);
+			return $data->template->save_template($_[0], $_[1]);
 		};
 
 		$f{loop_topics} = sub {
-			my $template	= shift;
-			my $sep		= shift;
-
-			return join($sep, map { "{-$template|$_}" } $data->topics());
+			return join($_[1], map { "{-$_[0]|$_}" } $data->topics());
 		};
 
 		$f{loop_users} = sub {
-			my $template	= shift;
-			my $sep		= shift;
-
-			return join($sep, map { "{-$template|$_}" } $data->users());
+			return join($_[1], map { "{-$_[0]|$_}" } $data->users());
 		};
 
 		$f{loop_renderers} = sub {
-			my $template	= shift;
-			my $sep		= shift;
-
-			return join($sep, map { "{-$template|$_}" }
+			return join($_[1], map { "{-$_[0]|$_}" }
 				sort(keys(%{$data->{renderers_h}})));
 		};
 
 		$f{loop_templates} = sub {
-			my $template	= shift;
-			my $sep		= shift;
-
-			return join($sep, map { "{-$template|$_}" }
+			return join($_[1], map { "{-$_[0]|$_}" }
 				$data->template->templates());
 		};
 
