@@ -194,8 +194,6 @@ sub cgi_vars {
 
 sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
 sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
-sub armor { $_[0]->_artemus->armor($_[1]); }
-sub unarmor { $_[0]->_artemus->unarmor($_[1]); }
 sub process { $_[0]->_artemus->process('{-' . $_[1] . '}'); }
 
 1;
