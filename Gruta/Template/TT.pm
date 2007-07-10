@@ -44,15 +44,8 @@ sub cgi_vars {
 }
 
 
-#sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
-#sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
-#sub armor { $_[0]->{artemus}->armor($_[1]); }
-#sub unarmor { $_[0]->{artemus}->unarmor($_[1]); }
-
 sub link_to_topic { shift; return '?t=TOPIC;' . join(';', @_); }
 sub link_to_story { shift; return '?t=STORY;' . join(';', @_); }
-sub armor { return $_[1]; }
-sub unarmor { return $_[1]; }
 
 sub _tt_data {
 	my $self	= shift;
