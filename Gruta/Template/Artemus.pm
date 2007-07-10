@@ -196,4 +196,30 @@ sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
 sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
 sub process { $_[0]->_artemus->process('{-' . $_[1] . '}'); }
 
+sub templates {
+	my $self	 = shift;
+
+	my @r = ();
+
+	return @r;
+}
+
+
+sub template {
+	my $self	= shift;
+	my $template_id	= shift;
+
+	my $content = undef;
+
+	return $content;
+}
+
+
+sub save_template {
+	my $self	= shift;
+	my $template_id	= shift;
+	my $content	= shift;
+}
+
+
 1;
