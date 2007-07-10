@@ -9,13 +9,15 @@ sub new {
 	my $class	= shift;
 	my %args	= @_;
 
-	my $t = bless( {}, $class );
+	my $t = bless( { }, $class );
 
 	$t->{tt} = Template->new(
 		'INCLUDE_PATH'	=>	$args{path},
 		'INTERPOLATE'	=>	1,
 		'TRIM'		=>	1
 	) or die "TT: " . $Template::ERROR;
+
+	$t->{path} = $args{path};
 
 	return $t;
 }
@@ -137,6 +139,15 @@ sub templates {
 	my $self	 = shift;
 
 	my @r = ();
+
+	if (opendir D, $self->{path}) {
+		while (my $l = readdir D) {
+			next if -d $self->{path} . '/' . $l;
+			push @r, $l;
+		}
+
+		closedir D;
+	}
 
 	return @r;
 }
