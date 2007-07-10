@@ -22,6 +22,14 @@ sub today {
 	return $self->{_today};
 }
 
+sub log {
+	my $self	= shift;
+	my $msg		= shift;
+
+	print STDERR scalar(localtime), ': ', $msg, "\n";
+}
+
+
 sub _call {
 	my $self	= shift;
 	my $method	= shift;

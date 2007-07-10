@@ -109,8 +109,8 @@ sub run {
 	eval { $body = $data->template->process( $st ) };
 
 	if ($@) {
-		$self->http_headers( 'Status' => '404 Not Found' );
-		$body = $data->template->process( '404' );
+		$data->log($@);
+		$self->redirect('?t=INDEX');
 	}
 
 	my $h = $self->http_headers();
