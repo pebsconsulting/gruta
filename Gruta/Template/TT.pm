@@ -133,4 +133,30 @@ sub process {
 	return $v;
 }
 
+sub templates {
+	my $self	 = shift;
+
+	my @r = ();
+
+	return @r;
+}
+
+
+sub template {
+	my $self	= shift;
+	my $template_id	= shift;
+
+	my $content = undef;
+
+	return $content;
+}
+
+
+sub save_template {
+	my $self	= shift;
+	my $template_id	= shift;
+	my $content	= shift;
+}
+
+
 1;
