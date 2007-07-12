@@ -6,6 +6,9 @@ Release Critical Bugs
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
+ * 1002: link_to_topic() and link_to_story() should move to Gruta.pm,
+   but infinite loops (of two stories linking each other) must be
+   solved.
 
 Open Bugs
 ---------
