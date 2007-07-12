@@ -46,9 +46,6 @@ sub cgi_vars {
 }
 
 
-sub link_to_topic { shift; return '?t=TOPIC;' . join(';', @_); }
-sub link_to_story { shift; return '?t=STORY;' . join(';', @_); }
-
 sub _tt_data {
 	my $self	= shift;
 

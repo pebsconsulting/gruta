@@ -76,8 +76,6 @@ sub story {
 
 	if (my $rndr = $self->{renderers_h}->{$story->get('format')}) {
 		$rndr->story($story);
-
-		$self->_special_uri($story);
 	}
 
 	return $self->{story_cache}->{$ck} = $story;
@@ -171,16 +169,51 @@ sub logout {
 }
 
 
-sub _special_uri {
+sub _link_to_topic {
 	my $self	= shift;
-	my $story	= shift;
+	my $topic_id	= shift;
 
-	my $body = $story->get('body');
+	my $ret = undef;
 
-	$body =~ s!topic://([\w\d_]+)!$self->template->link_to_topic($1)!ge;
-	$body =~ s!story://([\w\d_]+)/([\w\d_]+)!$self->template->link_to_story($1,$2)!ge;
+	if (my $t = $self->topic($topic_id)) {
+		$ret = "<a href='?t=TOPIC;topic=$topic_id'>" .
+			$t->get('name') . '</a>';
+	}
+	else {
+		$ret = "Bad topic $topic_id";
+	}
 
-	$story->set('body', $body);
+	return $ret;
+}
+
+
+sub _link_to_story {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $story_id	= shift;
+
+	my $ret = undef;
+
+	if (my $s = $self->story($topic_id, $story_id)) {
+		$ret = "<a href='?t=STORY;topic=$topic_id;id=$story_id'>" .
+			$s->get('title') . '</a>';
+	}
+	else {
+		$ret = "Bad story '$topic_id/$story_id'";
+	}
+
+	return $ret;
+}
+
+
+sub special_uris {
+	my $self	= shift;
+	my $string	= shift;
+
+	$string =~ s!topic://([\w\d_]+)!$self->_link_to_topic($1)!ge;
+	$string =~ s!story://([\w\d_]+)/([\w\d_]+)!$self->_link_to_story($1,$2)!ge;
+
+	return $string;
 }
 
 
