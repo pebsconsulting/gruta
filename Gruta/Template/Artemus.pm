@@ -193,8 +193,6 @@ sub cgi_vars {
 }
 
 
-sub link_to_topic { return '{-l|TOPIC|' . $_[1] . '}'; }
-sub link_to_story { return '{-l|STORY|' . $_[1] . '|' . $_[2] . '}'; }
 sub process { $_[0]->_artemus->process('{-' . $_[1] . '}'); }
 
 sub templates {
