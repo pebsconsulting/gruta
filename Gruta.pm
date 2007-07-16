@@ -41,7 +41,7 @@ sub _call {
 		if (my $m = $s->can($method)) {
 			my @pr = $m->($s, @_);
 
-			if (@pr) {
+			if (@pr && $pr[0]) {
 				@r = (@r, @pr);
 
 				last if $short;
@@ -82,7 +82,7 @@ sub story {
 }
 
 
-sub stories { my $self = shift; return $self->_call('stories', 0); }
+sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
 sub stories_by_date { my $self = shift;
 	return $self->_call('stories_by_date', 1, @_, 'today' => $self->today()); }
 sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
