@@ -112,6 +112,29 @@ sub _save_index {
 }
 
 
+sub _load_index {
+	my $self	= shift;
+
+	open I, $self->{index_file} or
+		die "Can't open '$self->{index_file}'";
+
+	my @s = ();
+	while (<I>) {
+		chomp;
+
+		my $r = {};
+		($r->{id}, $r->{title}, $r->{date}, $r->{offset}) =
+			split(/\|/, $_);
+		push(@s, $r);
+	}
+
+	$self->{stories} = [ @s ];
+
+	close I;
+
+	return $self;
+}
+
 sub topic {
 	my $self	= shift;
 	my $id		= shift;
@@ -170,6 +193,7 @@ sub new {
 	$s->{_month_hash} = { %m };
 
 	$s->_build_index->_save_index();
+	$s->_load_index();
 
 	return $s;
 }
