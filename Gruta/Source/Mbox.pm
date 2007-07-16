@@ -78,10 +78,7 @@ sub _build_index {
 			elsif (/^X-Format: (.+)$/i) {
 				$r->{format} = $1;
 			}
-		}
-		else {
-			# in body
-			if ($r) {
+			elsif (/^$/) {
 				$r->{offset} = tell(M);
 				push(@s, $r);
 				$h{$r->{id}} = $r;
@@ -191,6 +188,22 @@ sub story {
 
 	if ($self->{topic_id} eq $topic_id) {
 		if (my $s = $self->{stories_h}->{$id}) {
+
+			# read the content
+			open F, $self->{file} or
+				die "Can't open '$self->{file}'";
+
+			seek F, $s->{offset}, 0;
+			my $c = '';
+
+			while (<F>) {
+				chomp;
+				last if /^From /;
+				$c .= $_;
+			}
+
+			close F;
+
 			$story = Gruta::Data::Mbox::Story->new(
 				id		=> $id,
 				topic_id	=> $topic_id,
@@ -199,7 +212,8 @@ sub story {
 				format		=> $s->{format} || 'grutatxt',
 				hits		=> 0,
 				ctime		=> 0,
-				userid		=> ''
+				userid		=> '',
+				content		=> $c
 			);
 		}
 	}
