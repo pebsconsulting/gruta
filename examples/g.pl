@@ -27,7 +27,8 @@ my $src2 = Gruta::Source::FS->new(
 my $src3 = Gruta::Source::Mbox->new(
 	file		=>	'./url.mbox',
 	topic_id	=>	'links',
-	topic_name	=>	'Links'
+	topic_name	=>	'Links',
+	index_file	=>	'/tmp/url.mbox.idx'
 );
 
 my $rndr	= Gruta::Renderer::Grutatxt->new();
