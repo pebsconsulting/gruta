@@ -135,6 +135,22 @@ sub _load_index {
 	return $self;
 }
 
+
+sub _index {
+	my $self	= shift;
+
+	if (not -f $self->{index_file} or
+		-M $self->{index_file} > -M $self->{file}) {
+		$self->_build_index->_save_index();
+	}
+	else {
+		$self->_load_index();
+	}
+
+	return $self;
+}
+
+
 sub topic {
 	my $self	= shift;
 	my $id		= shift;
@@ -192,8 +208,7 @@ sub new {
 
 	$s->{_month_hash} = { %m };
 
-	$s->_build_index->_save_index();
-	$s->_load_index();
+	$s->_index();
 
 	return $s;
 }
