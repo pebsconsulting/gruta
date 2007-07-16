@@ -75,6 +75,9 @@ sub _build_index {
 			elsif (/^Date: (.+)$/i) {
 				$r->{date} = $self->_rfc822_to_gruta($1);
 			}
+			elsif (/^X-Format: (.+)$/i) {
+				$r->{format} = $1;
+			}
 		}
 		else {
 			# in body
@@ -193,6 +196,10 @@ sub story {
 				topic_id	=> $topic_id,
 				title		=> $s->{title},
 				date		=> $s->{date},
+				format		=> $s->{format} || 'grutatxt',
+				hits		=> 0,
+				ctime		=> 0,
+				userid		=> ''
 			);
 		}
 	}
@@ -207,7 +214,7 @@ sub stories {
 	my @r = ();
 
 	if ($self->{topic_id} eq $topic_id) {
-		@r = keys(%{ $_[0]->{stories_h} });
+		@r = keys(%{ $self->{stories_h} });
 	}
 
 	return @r;

@@ -78,6 +78,9 @@ my $u = $w->user('basurilla');
 
 my @ss = $w->stories_by_date( 'noticias', num => 10 );
 
+@ss = $w->stories('links');
+my $story_n = $w->story('links', $ss[0]);
+
 my $story = $w->story('alimentos', '200609200001');
 $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
