@@ -197,7 +197,6 @@ sub story {
 			my $c = '';
 
 			while (<F>) {
-				chomp;
 				last if /^From /;
 				$c .= $_;
 			}
