@@ -42,9 +42,55 @@ sub _assert {
 	$self->{file}		or die "Mandatory file";
 	$self->{topic_id}	or die "Mandatory topic_id";
 	$self->{topic_name}	or die "Mandatory topic_name";
+	$self->{index_file}	or die "Mandatory index_file";
 
 	return $self;
 }
+
+sub _build_index {
+	my $self	= shift;
+
+	open M, $self->{file} or
+		die "Can't open '$self->{file}'";
+
+	my @s = ();
+	my $r = undef;
+
+	while (<M>) {
+		chomp;
+
+		if (/^From / .. /^$/) {
+			if (not $r) {
+				$r = {};
+			}
+
+			# in header
+			if (/^Message-ID: (.+)$/i) {
+				$r->{id} = $1;
+			}
+			elsif (/^Subject: (.+)$/i) {
+				$r->{title} = $1;
+			}
+			elsif (/^Date: (.+)$/i) {
+				$r->{date} = $self->_rfc822_to_gruta($1);
+			}
+		}
+		else {
+			# in body
+			if ($r) {
+				$r->{body_offset} = tell(M);
+				push(@s, $r);
+				$r = undef;
+			}
+		}
+	}
+
+	close M;
+
+	$self->{stories} = [ @s ];
+	return $self;
+}
+
 
 sub topic {
 	my $self	= shift;
@@ -54,8 +100,11 @@ sub topic {
 
 	if ($self->{topic_id} eq $id) {
 		$topic = Gruta::Data::Mbox::Topic->new(
-			id	=> $id,
-			name	=> $self->{topic_name}
+			id		=> $id,
+			name		=> $self->{topic_name},
+			editors		=> '',
+			internal	=> 0,
+			max_stories	=> 0
 		);
 	}
 
@@ -99,6 +148,8 @@ sub new {
 		qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
 
 	$s->{_month_hash} = { %m };
+
+	$s->_build_index();
 
 	return $s;
 }
