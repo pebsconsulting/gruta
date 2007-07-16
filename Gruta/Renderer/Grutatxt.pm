@@ -50,7 +50,9 @@ sub story {
 		$to = $self->{abstract};
 	}
 
-	$story->set('title',	$self->{title});
+	$to = scalar(@o) - 1 if $to >= scalar(@o);
+
+	$story->set('title',	$self->{title}) if $self->{title};
 	$story->set('abstract',	join("\n", @o[0 .. $to]));
 	$story->set('body',	join("\n", @o));
 
