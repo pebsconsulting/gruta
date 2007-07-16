@@ -6,6 +6,7 @@ Release Critical Bugs
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
+ * 1003: Use flock() in index creation / reading in Source::Mbox.
 
 Open Bugs
 ---------
