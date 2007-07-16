@@ -69,6 +69,7 @@ my @ts = $w->topics();
 
 my $topic = $w->topic('pruebas');
 my $topic2 = $w->topic('art');
+my $topic3 = $w->topic('links');
 
 $topic->set('editors', 'coco');
 $topic->save( );

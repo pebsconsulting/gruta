@@ -54,6 +54,7 @@ sub _build_index {
 		die "Can't open '$self->{file}'";
 
 	my @s = ();
+	my %h = ();
 	my $r = undef;
 
 	while (<M>) {
@@ -80,6 +81,7 @@ sub _build_index {
 			if ($r) {
 				$r->{offset} = tell(M);
 				push(@s, $r);
+				$h{$r->{id}} = $r;
 				$r = undef;
 			}
 		}
@@ -88,7 +90,8 @@ sub _build_index {
 	close M;
 
 	# store stories in reverse date order
-	$self->{stories} = [ sort { $b->{date} <=> $a->{date} } @s ];
+	$self->{stories_l} = [ sort { $b->{date} <=> $a->{date} } @s ];
+	$self->{stories_h} = { %h };
 
 	return $self;
 }
@@ -100,7 +103,7 @@ sub _save_index {
 	open O, '>' . $self->{index_file} or
 		die "Can't write '$self->{index_file}'";
 
-	foreach my $s (@{ $self->{stories} }) {
+	foreach my $s (@{ $self->{stories_l} }) {
 		print O join('|', $s->{id}, $s->{title},
 			$s->{date}, $s->{offset}),
 			"\n";
@@ -119,6 +122,8 @@ sub _load_index {
 		die "Can't open '$self->{index_file}'";
 
 	my @s = ();
+	my %h = ();
+
 	while (<I>) {
 		chomp;
 
@@ -126,9 +131,11 @@ sub _load_index {
 		($r->{id}, $r->{title}, $r->{date}, $r->{offset}) =
 			split(/\|/, $_);
 		push(@s, $r);
+		$h{$r->{id}} = $r;
 	}
 
-	$self->{stories} = [ @s ];
+	$self->{stories_l} = [ @s ];
+	$self->{stories_h} = { %h };
 
 	close I;
 
@@ -176,12 +183,36 @@ sub story {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my $id		= shift;
+
+	my $story = undef;
+
+	if ($self->{topic_id} eq $topic_id) {
+		if (my $s = $self->{stories_h}->{$id}) {
+			$story = Gruta::Data::Mbox::Story->new(
+				id		=> $id,
+				topic_id	=> $topic_id,
+				title		=> $s->{title},
+				date		=> $s->{date},
+			);
+		}
+	}
+
+	return $story;
 }
 
 sub stories {
 	my $self	= shift;
 	my $topic_id	= shift;
+
+	my @r = ();
+
+	if ($self->{topic_id} eq $topic_id) {
+		@r = keys(%{ $_[0]->{stories_h} });
+	}
+
+	return @r;
 }
+
 
 sub stories_by_date {
 	my $self	= shift;
