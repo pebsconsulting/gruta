@@ -78,7 +78,7 @@ sub _build_index {
 		else {
 			# in body
 			if ($r) {
-				$r->{body_offset} = tell(M);
+				$r->{offset} = tell(M);
 				push(@s, $r);
 				$r = undef;
 			}
@@ -88,6 +88,24 @@ sub _build_index {
 	close M;
 
 	$self->{stories} = [ @s ];
+	return $self;
+}
+
+
+sub _save_index {
+	my $self	= shift;
+
+	open O, '>' . $self->{index_file} or
+		die "Can't write '$self->{index_file}'";
+
+	foreach my $s (@{ $self->{stories} }) {
+		print O join('|', $s->{id}, $s->{title},
+			$s->{date}, $s->{offset}),
+			"\n";
+	}
+
+	close O;
+
 	return $self;
 }
 
@@ -149,7 +167,7 @@ sub new {
 
 	$s->{_month_hash} = { %m };
 
-	$s->_build_index();
+	$s->_build_index->_save_index();
 
 	return $s;
 }
