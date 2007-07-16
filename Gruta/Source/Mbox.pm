@@ -87,7 +87,9 @@ sub _build_index {
 
 	close M;
 
-	$self->{stories} = [ @s ];
+	# store stories in reverse date order
+	$self->{stories} = [ sort { $b->{date} <=> $a->{date} } @s ];
+
 	return $self;
 }
 
