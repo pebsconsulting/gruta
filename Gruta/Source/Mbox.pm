@@ -68,6 +68,7 @@ sub _build_index {
 			# in header
 			if (/^Message-ID: (.+)$/i) {
 				$r->{id} = $1;
+				$r->{id} =~ s/[^\d\w]/_/g;
 			}
 			elsif (/^Subject: (.+)$/i) {
 				$r->{title} = $1;
