@@ -86,6 +86,24 @@ sub _assert {
 	return $self;
 }
 
+sub date {
+	my $self	= shift;
+	my $format	= shift;
+
+	my ($y, $m, $d, $H, $M, $S) = ($self->get('date') =~
+		/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
+
+	$format =~ s/%Y/$y/g;
+	$format =~ s/%y/$y/g;
+	$format =~ s/%m/$m/g;
+	$format =~ s/%d/$d/g;
+	$format =~ s/%H/$H/g;
+	$format =~ s/%M/$M/g;
+	$format =~ s/%S/$S/g;
+
+	return($format);
+}
+
 package Gruta::Data::User;
 
 use base 'Gruta::Data::BASE';
