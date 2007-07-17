@@ -3,7 +3,7 @@ package Gruta;
 use strict;
 use warnings;
 
-$Gruta::VERSION = '1.0-pre1';
+$Gruta::VERSION = '2.0-pre2';
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
