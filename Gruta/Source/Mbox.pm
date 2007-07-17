@@ -103,6 +103,7 @@ sub _save_index {
 
 	open O, '>' . $self->{index_file} or
 		die "Can't write '$self->{index_file}'";
+	flock O, 2;
 
 	foreach my $s (@{ $self->{stories_l} }) {
 		print O join('|', $s->{id}, $s->{title},
@@ -121,6 +122,7 @@ sub _load_index {
 
 	open I, $self->{index_file} or
 		die "Can't open '$self->{index_file}'";
+	flock I, 1;
 
 	my @s = ();
 	my %h = ();
