@@ -40,6 +40,10 @@ sub _artemus {
 			return $data->story($_[0], $_[1])->get($_[2]);
 		};
 
+		$f{story_date} = sub {
+			return $data->story($_[1], $_[2])->date($_[0]);
+		};
+
 		$f{user_part} = sub {
 			return $data->user($_[0])->get($_[1]);
 		};
