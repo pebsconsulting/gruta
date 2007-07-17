@@ -57,6 +57,7 @@ sub _tt_data {
 		$f{user} = sub { return $data->user($_[0]); };
 		$f{story} = sub { return $data->story($_[0], $_[1]); };
 
+		$f{date} = sub { return $_[1]->date($_[0]); };
 		$f{get} = sub { return $_[0]->get($_[1]); };
 
 		$f{topics} = sub { return map { $data->topic($_) } $data->topics(); };
