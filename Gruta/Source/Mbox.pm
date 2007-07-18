@@ -79,6 +79,9 @@ sub _build_index {
 			elsif (/^X-Format: (.+)$/i) {
 				$r->{format} = $1;
 			}
+			elsif (/^Content-Type: .*text\/html/i and not $r->{format}) {
+				$r->{format} = 'filtered_html';
+			}
 			elsif (/^$/) {
 				$r->{offset} = tell(M);
 				push(@s, $r);
