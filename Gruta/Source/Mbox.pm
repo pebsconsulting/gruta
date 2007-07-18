@@ -107,7 +107,7 @@ sub _save_index {
 
 	foreach my $s (@{ $self->{stories_l} }) {
 		print O join('|', $s->{id}, $s->{title},
-			$s->{date}, $s->{offset}),
+			$s->{date}, $s->{offset}, $s->{format}),
 			"\n";
 	}
 
