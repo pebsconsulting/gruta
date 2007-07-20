@@ -6,7 +6,6 @@ Release Critical Bugs
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
- * 1003: Use flock() in index creation / reading in Source::Mbox.
 
 Open Bugs
 ---------
@@ -22,5 +21,8 @@ Closed
  * 1002: link_to_topic() and link_to_story() should move to Gruta.pm,
    but infinite loops (of two stories linking each other) must be
    solved (Thu, 12 Jul 2007 13:36:22 +0200).
+ * 1003: Use flock() in index creation / reading in Source::Mbox
+   (fixed on 9f922c4fdaa35206693caabf110717ce26203d0d;
+    Fri, 20 Jul 2007 14:15:04 +0200).
 
 Email bugs to angel@triptico.com
