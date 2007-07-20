@@ -1,4 +1,8 @@
+#!/usr/bin/perl
+
 use Gruta;
+
+#sub BEGIN { $ENV{'DISPLAY'} = ":0.0"; } #!/usr/bin/perl -d:ptkdb
 
 use Gruta::CGI;
 use Gruta::Source::DBI;
