@@ -35,13 +35,13 @@ sub _artemus {
 		$f{'gt'} = sub { $_[0] > $_[1]; };
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 
-		foreach my $p (Gruta::Data::Topic::fields()) {
+		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$f{'topic_' . $p} = sub {
 				return $data->topic($_[0])->get($p);
 			};
 		}
 
-		foreach my $p (Gruta::Data::Story::fields()) {
+		foreach my $p (Gruta::Data::Story->new->afields()) {
 			$f{'story_' . $p} = sub {
 				return $data->story($_[0], $_[1])->get($p);
 			};
@@ -51,7 +51,7 @@ sub _artemus {
 			return $data->story($_[1], $_[2])->date($_[0]);
 		};
 
-		foreach my $p (Gruta::Data::User::fields()) {
+		foreach my $p (Gruta::Data::User->new->afields()) {
 			$f{'user_' . $p} = sub {
 				return $data->user($_[0])->get($p);
 			};

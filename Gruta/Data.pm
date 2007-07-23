@@ -35,7 +35,7 @@ sub new {
 
 	my $self = bless({ }, $class);
 
-	foreach my $k ($self->fields(), $self->vfields()) {
+	foreach my $k ($self->afields()) {
 		$self->{$k} = $args{$k};
 	}
 
