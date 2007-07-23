@@ -49,7 +49,7 @@ my $w = Gruta->new(
 #	templates	=>	[ "${base}/templates" ],
 	sources		=>	[ $src, $src3 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
-	template	=>	$tmpl2,
+	template	=>	$tmpl,
 	cgi		=>	Gruta::CGI->new()
 );
 

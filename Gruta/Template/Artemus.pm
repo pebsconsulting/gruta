@@ -6,6 +6,7 @@ use warnings;
 use base 'Gruta::Template::BASE';
 
 use Artemus;
+use Gruta::Data;
 
 sub new {
 	my $class	= shift;
@@ -34,21 +35,27 @@ sub _artemus {
 		$f{'gt'} = sub { $_[0] > $_[1]; };
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 
-		$f{topic_part} = sub {
-			return $data->topic($_[0])->get($_[1]);
-		};
+		foreach my $p (Gruta::Data::Topic::fields()) {
+			$f{'topic_' . $p} = sub {
+				return $data->topic($_[0])->get($p);
+			};
+		}
 
-		$f{story_part} = sub {
-			return $data->story($_[0], $_[1])->get($_[2]);
-		};
+		foreach my $p (Gruta::Data::Story::fields()) {
+			$f{'story_' . $p} = sub {
+				return $data->story($_[0], $_[1])->get($p);
+			};
+		}
 
 		$f{story_date} = sub {
 			return $data->story($_[1], $_[2])->date($_[0]);
 		};
 
-		$f{user_part} = sub {
-			return $data->user($_[0])->get($_[1]);
-		};
+		foreach my $p (Gruta::Data::User::fields()) {
+			$f{'user_' . $p} = sub {
+				return $data->user($_[0])->get($p);
+			};
+		}
 
 		$f{template} = sub {
 			return $data->template->template($_[0]);
