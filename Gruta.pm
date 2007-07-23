@@ -26,7 +26,7 @@ sub log {
 	my $self	= shift;
 	my $msg		= shift;
 
-	print STDERR scalar(localtime), ': ', $msg, "\n";
+	print STDERR $self->{id}, ' ', scalar(localtime), ': ', $msg, "\n";
 }
 
 
@@ -249,11 +249,10 @@ sub flush_story_cache {
 
 sub new {
 	my $class	= shift;
-	my %args	= @_;
 
-	my $g = \%args;
-	bless($g, $class);
+	my $g = bless( { @_ } , $class);
 
+	$g->{id} ||= 'Gruta';
 	$g->{story_cache} = {};
 
 	if (ref($g->{sources}) ne 'ARRAY') {
