@@ -7,6 +7,7 @@ package Gruta::Data::BASE;
 
 sub fields { return (); }
 sub vfields { return (); }
+sub afields { return ($_[0]->fields(), $_[0]->vfields()); }
 
 sub source {
 	my $self	= shift;
