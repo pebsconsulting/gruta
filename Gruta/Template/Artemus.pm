@@ -189,6 +189,13 @@ sub _artemus {
 			return $ret;
 		};
 
+		$f{search_stories} = sub {
+			my $topic_id	= shift;
+			my $query 	= shift;
+
+			return "FIXME";
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
