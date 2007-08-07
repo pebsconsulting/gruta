@@ -30,6 +30,12 @@ sub _artemus {
 		my %f = ();
 		my %v = ();
 
+		$f{l} = sub {
+			my $t = shift;
+
+			return '?t=' . $t . ';' . join(';', @_);
+		};
+
 		$f{'add'} = sub { $_[0] + $_[1]; };
 		$f{'sub'} = sub { $_[0] - $_[1]; };
 		$f{'gt'} = sub { $_[0] > $_[1]; };
