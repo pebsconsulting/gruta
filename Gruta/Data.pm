@@ -24,7 +24,7 @@ sub _assert {
 	my $self	= shift;
 
 	my $id = $self->get('id') || '';
-	$id =~ /^[\d\w_]+$/ or die "Bad id";
+	$id =~ /^[\d\w_-]+$/ or die "Bad id [$id]";
 
 	return $self;
 }
