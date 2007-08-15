@@ -193,7 +193,13 @@ sub _artemus {
 			my $topic_id	= shift;
 			my $query 	= shift;
 
-			return "FIXME";
+			return "search_stories: FIXME";
+		};
+
+		$f{stories_top_ten} = sub {
+			my $num		= shift;
+
+			return "stories_top_ten: FIXME";
 		};
 
 		$self->{abort}		= 0;
