@@ -376,6 +376,26 @@ sub search_stories {
 	return @r;
 }
 
+sub stories_top_ten {
+	my $self	= shift;
+	my $num		= shift;
+
+	my @r = ();
+
+	foreach my $topic_id ($self->topics()) {
+		foreach my $id ($self->stories_by_date($topic_id, 'num' => 1000)) {
+			my $story = $self->story($topic_id, $id);
+
+			push(@r, [ $story->get('hits'), [ $id, $topic_id ]]);
+		}
+	}
+
+	@r = map { $_->[1] } sort { $a->[0] cmp $b->[0] } @r;
+
+	return @r;
+}
+
+
 sub session { return _one( @_, 'Gruta::Data::FS::Session' ); }
 
 sub purge_old_sessions {
