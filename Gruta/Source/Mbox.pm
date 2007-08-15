@@ -252,6 +252,11 @@ sub search_stories {
 	my $query	= shift;
 }
 
+sub stories_top_ten {
+	my $self	= shift;
+	my $num		= shift;
+}
+
 sub new {
 	my $class = shift;
 
