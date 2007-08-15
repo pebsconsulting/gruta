@@ -291,8 +291,8 @@ sub stories_top_ten {
 
 	my @r = ();
 
-	while (my $r = $sth->fetchrow_arrayref()) {
-		push(@r, $r);
+	while (my @a = $sth->fetchrow_array()) {
+		push(@r, [ @a ]);
 	}
 
 	return @r;
