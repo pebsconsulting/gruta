@@ -386,7 +386,7 @@ sub stories_top_ten {
 		foreach my $id ($self->stories_by_date($topic_id, 'num' => 1000)) {
 			my $story = $self->story($topic_id, $id);
 
-			push(@r, [ $story->get('hits'), [ $id, $topic_id ]]);
+			push(@r, [ $story->get('hits'), [ $topic_id, $id ]]);
 		}
 	}
 

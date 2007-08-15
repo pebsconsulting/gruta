@@ -202,7 +202,7 @@ sub _artemus {
 			my $template	= shift;
 			my $sep		= shift;
 
-			return join($sep, map { "{-$template|$_->[1]|$_->[0]}" }
+			return join($sep, map { "{-$template|$_->[0]|$_->[1]}" }
 				$data->stories_top_ten($num)
 			);
 		};
