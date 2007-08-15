@@ -7,6 +7,8 @@ Release Critical Bugs
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
  * 1004: Support broken lines in message headers in Source::Mbox.
+ * 1005: stories_top_ten, when returning values from different sources,
+   does not reorder the stories.
 
 Open Bugs
 ---------
