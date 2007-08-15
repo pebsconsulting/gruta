@@ -86,6 +86,7 @@ sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
 sub stories_by_date { my $self = shift;
 	return $self->_call('stories_by_date', 1, @_, 'today' => $self->today()); }
 sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
+sub stories_top_ten { my $self = shift; return $self->_call('stories_top_ten', 0, @_); }
 
 sub insert_topic { my $self = shift; $self->_call('insert_topic', 1, @_); return $self; }
 sub insert_user { my $self = shift; $self->_call('insert_user', 1, @_); return $self; }
