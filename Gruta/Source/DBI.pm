@@ -279,6 +279,26 @@ sub search_stories {
 }
 
 
+sub stories_top_ten {
+	my $self	= shift;
+	my $num		= shift;
+
+	my $sql = 'SELECT id, topic_id FROM stories ' .
+		'ORDER BY hits DESC LIMIT ?';
+
+	my $sth = $self->_prepare($sql);
+	$self->_execute($sth, $num);
+
+	my @r = ();
+
+	while (my $r = $sth->fetchrow_arrayref()) {
+		push(@r, $r);
+	}
+
+	return @r;
+}
+
+
 sub session { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 
 sub purge_old_sessions {
