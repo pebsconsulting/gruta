@@ -196,10 +196,15 @@ sub _artemus {
 			return "search_stories: FIXME";
 		};
 
-		$f{stories_top_ten} = sub {
+		$f{story_loop_top_ten} = sub {
 			my $num		= shift;
+			my $internal	= shift; # ignored
+			my $template	= shift;
+			my $sep		= shift;
 
-			return "stories_top_ten: FIXME";
+			return join($sep, map { "{-$template|$_->[1]|$_->[0]}" }
+				$data->stories_top_ten($num)
+			);
 		};
 
 		$self->{abort}		= 0;
