@@ -110,6 +110,8 @@ sub date {
 	return($format);
 }
 
+sub touch { return $_[0]; }
+
 package Gruta::Data::User;
 
 use base 'Gruta::Data::BASE';
