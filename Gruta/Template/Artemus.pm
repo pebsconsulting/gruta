@@ -54,7 +54,7 @@ sub _artemus {
 		}
 
 		$f{story_body} = sub {
-			my $story = $data->story($_[1], $_[2]);
+			my $story = $data->story($_[0], $_[1]);
 			my $ret = $story->get('body');
 
 			if (not $data->auth()) {
