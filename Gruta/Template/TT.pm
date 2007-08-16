@@ -60,7 +60,21 @@ sub _tt_data {
 		$f{story} = sub { return $data->story($_[0], $_[1]); };
 
 		$f{date} = sub { return $_[1]->date($_[0]); };
-		$f{get} = sub { return $_[0]->get($_[1]); };
+
+		$f{get} = sub {
+			my $obj		= shift;
+			my $field	= shift;
+
+			my $ret = $obj->get($field);
+
+			if ($field eq 'body' and
+				$obj->isa('Gruta::Data::Story') and
+				not $data->auth()) {
+				$obj->touch();
+			}
+
+			return $ret;
+		};
 
 		$f{topics} = sub { return map { $data->topic($_) } $data->topics(); };
 		$f{users} = sub { return map { $data->user($_) } $data->users(); };
