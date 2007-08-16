@@ -119,6 +119,16 @@ use base 'Gruta::Data::DBI::BASE';
 sub table { return 'stories'; }
 sub pk { return qw(id topic_id); }
 
+sub touch {
+	my $self = shift;
+
+	my $sth = $self->source->_prepare(
+		'UPDATE story SET hits = hits + 1 WHERE topic_id = ? AND id = ?');
+	$self->source->_execute($sth, $self->get('topic_id'), $self->get('id'));
+
+	return $self;
+}
+
 package Gruta::Data::DBI::Topic;
 
 use base 'Gruta::Data::Topic';
