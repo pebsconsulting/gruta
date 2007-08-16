@@ -116,6 +116,14 @@ sub save {
 	return $self;
 }
 
+sub touch {
+	my $self = shift;
+
+	$self->set('hits', $self->get('hits') + 1);
+	$self->save();
+
+	return $self;
+}
 
 package Gruta::Data::FS::Topic;
 
