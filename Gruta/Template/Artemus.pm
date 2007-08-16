@@ -53,6 +53,17 @@ sub _artemus {
 			};
 		}
 
+		$f{story_body} = sub {
+			my $story = $data->story($_[1], $_[2]);
+			my $ret = $story->get('body');
+
+			if (not $data->auth()) {
+				$story->touch();
+			}
+
+			return $ret;
+		};
+
 		$f{story_date} = sub {
 			return $data->story($_[1], $_[2])->date($_[0]);
 		};
