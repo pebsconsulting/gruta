@@ -113,7 +113,8 @@ sub run {
 
 	if ($@) {
 		$data->log($@);
-		$self->redirect('?t=INDEX');
+#		$self->redirect('?t=INDEX');
+		$body = "<pre>$@</pre>";
 	}
 
 	$body = $data->special_uris($body);
