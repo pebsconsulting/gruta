@@ -119,8 +119,13 @@ sub save {
 sub touch {
 	my $self = shift;
 
-	$self->set('hits', $self->get('hits') + 1);
+	my $hits = $self->get('hits') + 1;
+
+	$self->set('hits', $hits);
 	$self->save();
+
+	$self->source->_update_top_ten($hits, $self->get('topic_id'),
+		$self->get('id'));
 
 	return $self;
 }
@@ -305,6 +310,63 @@ sub _topic_index {
 }
 
 
+sub _update_top_ten {
+	my $self	= shift;
+	my $hits	= shift;
+	my $topic_id	= shift;
+	my $id		= shift;
+
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
+
+	my $u = 0;
+	my @l = ();
+
+	if (open F, $index) {
+		flock F, 1;
+		while (my $l = <F>) {
+			chomp($l);
+
+			my ($h, $t, $i) = split(':', $l);
+
+			if ($u == 0 && $h < $hits) {
+				$u = 1;
+				push(@l, "$hits:$topic_id:$id");
+			}
+
+			if ($t ne $topic_id or $i ne $id) {
+				push(@l, $l);
+			}
+		}
+
+		close F;
+	}
+
+	if ($u == 0 && scalar(@l) < 100) {
+		$u = 1;
+		push(@l, "$hits:$topic_id:$id");
+	}
+
+	if ($u) {
+		if (open F, '>' . $index) {
+			flock F, 2;
+			my $n = 0;
+
+			foreach my $l (@l) {
+				print F $l, "\n";
+
+				if (++$n == 100) {
+					last;
+				}
+			}
+
+			close F;
+		}
+	}
+
+	return undef;
+}
+
+
 sub stories_by_date {
 	my $self	= shift;
 	my $topic_id	= shift;
@@ -390,15 +452,18 @@ sub stories_top_ten {
 
 	my @r = ();
 
-	foreach my $topic_id ($self->topics()) {
-		foreach my $id ($self->stories_by_date($topic_id, 'num' => 1000)) {
-			my $story = $self->story($topic_id, $id);
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
 
-			push(@r, [ $story->get('hits'), [ $topic_id, $id ]]);
+	if (open F, $index) {
+		flock F, 1;
+
+		while (defined(my $l = <F>) and $num--) {
+			chomp($l);
+			push(@r, [ split(':', $l) ]);
 		}
-	}
 
-	@r = map { $_->[1] } sort { $a->[0] cmp $b->[0] } @r;
+		close F;
+	}
 
 	return @r;
 }
