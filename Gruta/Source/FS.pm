@@ -40,7 +40,7 @@ sub load {
 
 			$key =~ s/-/_/g;
 
-			if (grep ($key, $self->fields())) {
+			if (grep (/^$key$/, $self->fields())) {
 				$self->set($key, $value);
 			}
 		}
