@@ -7,6 +7,8 @@ use Gruta::Data;
 
 package Gruta::Data::FS::BASE;
 
+use Carp;
+
 sub ext { return '.META'; }
 
 sub _filename {
@@ -57,7 +59,7 @@ sub save {
 
 	my $filename = $self->_filename();
 
-	open F, '>' . $filename or die "Can't write " . $filename . ': ' . $!;
+	open F, '>' . $filename or croak "Can't write " . $filename . ': ' . $!;
 
 	foreach my $k ($self->fields()) {
 		my $f = $k;

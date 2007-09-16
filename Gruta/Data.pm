@@ -5,6 +5,8 @@ use warnings;
 
 package Gruta::Data::BASE;
 
+use Carp;
+
 sub fields { return (); }
 sub vfields { return (); }
 sub afields { return ($_[0]->fields(), $_[0]->vfields()); }
@@ -46,7 +48,7 @@ sub get {
 	my $self	= shift;
 	my $field	= shift;
 
-	die 'get ' . ref($self) . " field '$field'?" unless exists $self->{$field};
+	croak 'get ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
 	return $self->{$field};
 }
@@ -55,7 +57,7 @@ sub set {
 	my $self	= shift;
 	my $field	= shift;
 
-	die 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
+	croak 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
 	$self->{$field} = shift;
 
