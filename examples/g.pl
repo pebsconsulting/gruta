@@ -47,7 +47,7 @@ my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src, $src3 ],
+	sources		=>	[ $src2, $src3 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl,
 	cgi		=>	Gruta::CGI->new()
@@ -85,6 +85,8 @@ my $story = $w->story('alimentos', '200609200001');
 $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');
+
+$story = $w->story('tbl', '200202270001');
 
 my $hits = $story->get('hits');
 $story->set('hits', $hits + 1);
