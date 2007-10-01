@@ -16,6 +16,9 @@ Open Bugs
 Pending Enhancements
 --------------------
 
+ * 1006: Stories should always be rendered on save and retrieved
+   from a cache.
+
 Closed
 ------
 
