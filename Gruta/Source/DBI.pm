@@ -353,16 +353,18 @@ sub stories_by_tag {
 	my $topic_id	= shift;
 	my @tags	= shift;
 
-	my $sql = 'SELECT id FROM tags WHERE topic_id = ? AND ' .
-		join(' AND ', map { '?' } @tags);
-
-	my $sth = $self->_prepare($sql);
-	$self->_execute($sth, $topic_id, @tags);
-
 	my @r = ();
 
-	while (my $r = $sth->fetchrow_arrayref()) {
-		push(@r, $r->[0]);
+	if (@tags) {
+		my $sql = 'SELECT DISTINCT id FROM tags WHERE topic_id = ? AND (' .
+			join(' OR ', map { 'tag = ?' } @tags) . ')';
+
+		my $sth = $self->_prepare($sql);
+		$self->_execute($sth, $topic_id, @tags);
+
+		while (my $r = $sth->fetchrow_arrayref()) {
+			push(@r, $r->[0]);
+		}
 	}
 
 	return @r;
