@@ -350,17 +350,16 @@ sub stories_top_ten {
 
 sub stories_by_tag {
 	my $self	= shift;
-	my $topic_id	= shift;
 	my @tags	= shift;
 
 	my @r = ();
 
 	if (@tags) {
-		my $sql = 'SELECT DISTINCT id FROM tags WHERE topic_id = ? AND (' .
-			join(' OR ', map { 'tag = ?' } @tags) . ')';
+		my $sql = 'SELECT DISTINCT topic_id, id FROM tags WHERE ' .
+			join(' OR ', map { 'tag = ?' } @tags);
 
 		my $sth = $self->_prepare($sql);
-		$self->_execute($sth, $topic_id, @tags);
+		$self->_execute($sth, @tags);
 
 		while (my $r = $sth->fetchrow_arrayref()) {
 			push(@r, $r->[0]);
@@ -381,7 +380,7 @@ sub tags {
 	$self->_execute($sth);
 
 	while (my @a = $sth->fetchrow_array()) {
-		push(@r, [ @a ] );
+		push(@r, [ @a ]);
 	}
 
 	return @r;
