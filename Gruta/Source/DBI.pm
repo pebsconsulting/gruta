@@ -361,8 +361,8 @@ sub stories_by_tag {
 		my $sth = $self->_prepare($sql);
 		$self->_execute($sth, @tags);
 
-		while (my $r = $sth->fetchrow_arrayref()) {
-			push(@r, $r->[0]);
+		while (my @a = $sth->fetchrow_arrayref()) {
+			push(@r, [ @a ]);
 		}
 	}
 
