@@ -371,6 +371,22 @@ sub stories_by_tag {
 }
 
 
+sub tags {
+	my $self	= shift;
+
+	my @r = ();
+
+	my $sth = $self->_prepare(
+		'SELECT tag, count(tag) FROM tags GROUP BY tag ORDER BY 2 DESC, 1');
+	$self->_execute($sth);
+
+	while (my @a = $sth->fetchrow_array()) {
+		push(@r, [ @a ] );
+	}
+
+	return @r;
+}
+
 sub session { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 
 sub purge_old_sessions {
