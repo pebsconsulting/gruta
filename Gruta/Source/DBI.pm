@@ -309,6 +309,27 @@ sub stories_top_ten {
 }
 
 
+sub stories_by_tag {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my @tags	= shift;
+
+	my $sql = 'SELECT id FROM tags WHERE topic_id = ? AND ' .
+		join(' AND ', map { '?' } @tags);
+
+	my $sth = $self->_prepare($sql);
+	$self->_execute($sth, $topic_id, @tags);
+
+	my @r = ();
+
+	while (my $r = $sth->fetchrow_arrayref()) {
+		push(@r, $r->[0]);
+	}
+
+	return @r;
+}
+
+
 sub session { return _one( @_, 'Gruta::Data::DBI::Session' ); }
 
 sub purge_old_sessions {
