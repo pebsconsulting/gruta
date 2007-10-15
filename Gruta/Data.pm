@@ -116,16 +116,16 @@ sub touch { return $_[0]; }
 
 sub tags {
 	my $self	= shift;
-	my $ret		= undef;
+	my @ret		= undef;
 
 	if (scalar(@_)) {
 		$self->set('tags', join(', ', @_));
 	}
 	else {
-		$ret = split(/, /, $self->get('tags'));
+		@ret = split(/, /, $self->get('tags'));
 	}
 
-	return $ret;
+	return @ret;
 }
 
 package Gruta::Data::User;
