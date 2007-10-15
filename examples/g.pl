@@ -82,6 +82,7 @@ my @ss = $w->stories_by_date( 'noticias', num => 10 );
 my $story_n = $w->story('links', $ss[0]);
 
 my $story = $w->story('alimentos', '200609200001');
+my @tags = $story->tags();
 $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');

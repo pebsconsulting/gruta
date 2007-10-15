@@ -129,6 +129,45 @@ sub touch {
 	return $self;
 }
 
+sub tags {
+	my $self	= shift;
+	my @ret		= undef;
+
+	if (scalar(@_)) {
+		my @tags = @_;
+
+		# first, delete all tags for this story
+		my $sth = $self->source->_prepare(
+			'DELETE FROM tags WHERE topic_id = ? AND id = ?');
+		$self->source->_execute($sth, $self->get('topic_id'), $self->get('id'));
+
+		# second, add all the new ones
+		$sth = $self->source->_prepare(
+			'INSERT INTO tags VALUES (?, ?, ?)');
+
+		foreach my $t (@tags) {
+			$self->source->_execute($sth,
+				$self->get('topic_id'),
+				$self->get('id'),
+				$t );
+		}
+	}
+	else {
+		# read from database
+		my $sth = $self->source->_prepare(
+			'SELECT tag FROM tags WHERE topic_id = ? AND id = ?');
+		$self->source->_execute($sth, $self->get('topic_id'), $self->get('id'));
+
+		@ret = ();
+
+		while (my $r = $sth->fetchrow_arrayref()) {
+			push(@ret, $r->[0]);
+		}
+	}
+
+	return @ret;
+}
+
 package Gruta::Data::DBI::Topic;
 
 use base 'Gruta::Data::Topic';
