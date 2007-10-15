@@ -76,7 +76,7 @@ package Gruta::Data::Story;
 use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id topic_id title date userid format hits ctime content); }
-sub vfields { return qw(abstract body); }
+sub vfields { return qw(tags abstract body); }
 
 sub _assert {
 	my $self	= shift;
@@ -113,6 +113,20 @@ sub date {
 }
 
 sub touch { return $_[0]; }
+
+sub tags {
+	my $self	= shift;
+	my $ret		= undef;
+
+	if (scalar(@_)) {
+		$self->set('tags', join(', ', @_));
+	}
+	else {
+		$ret = split(/, /, $self->get('tags'));
+	}
+
+	return $ret;
+}
 
 package Gruta::Data::User;
 
