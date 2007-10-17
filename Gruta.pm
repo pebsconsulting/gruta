@@ -250,7 +250,9 @@ sub transfer_to_source {
 
 		foreach my $id ($self->stories($topic_id)) {
 			my $s = $self->story($topic_id, $id);
-			$dst->insert_story($s);
+			my $ns = $dst->insert_story($s);
+
+			$ns->tags( $s->tags() );
 		}
 	}
 
