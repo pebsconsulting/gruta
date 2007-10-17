@@ -516,6 +516,12 @@ CREATE TABLE sids (
 	ip		VARCHAR
 )
 ;
+CREATE TABLE tags (
+	id		VARCHAR NOT NULL,
+	topic_id	VARCHAR NOT NULL,
+	tag		VARCHAR NOT NULL
+)
+;
 CREATE INDEX stories_by_date ON stories (date)
 ;
 CREATE INDEX stories_by_hits ON stories (hits)
