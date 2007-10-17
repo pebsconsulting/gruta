@@ -163,7 +163,7 @@ sub _artemus {
 				$self->{abort} = 1;
 			}
 
-			return $error_msg;
+			return $error_msg || 'Login incorrect.';
 		};
 
 		$f{logout} = sub {
