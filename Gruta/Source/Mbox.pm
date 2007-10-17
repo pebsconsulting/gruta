@@ -29,6 +29,11 @@ package Gruta::Data::Mbox::Story;
 use base 'Gruta::Data::Story';
 use base 'Gruta::Data::Mbox::BASE';
 
+sub tags {
+	my $self	= shift;
+	my @ret		= undef;
+}
+
 package Gruta::Data::Mbox::Topic;
 
 use base 'Gruta::Data::Topic';
@@ -258,6 +263,17 @@ sub stories_top_ten {
 
 	return ();
 }
+
+sub stories_by_tag {
+	my $self	= shift;
+	my @tags	= shift;
+}
+
+
+sub tags {
+	my $self	= shift;
+}
+
 
 sub new {
 	my $class = shift;

@@ -132,6 +132,11 @@ sub touch {
 	return $self;
 }
 
+sub tags {
+	my $self	= shift;
+	my @ret		= undef;
+}
+
 package Gruta::Data::FS::Topic;
 
 use base 'Gruta::Data::Topic';
@@ -468,6 +473,17 @@ sub stories_top_ten {
 	}
 
 	return @r;
+}
+
+
+sub stories_by_tag {
+	my $self	= shift;
+	my @tags	= shift;
+}
+
+
+sub tags {
+	my $self	= shift;
 }
 
 
