@@ -249,12 +249,16 @@ sub stories_by_date {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my %args	= @_;
+
+	return ();
 }
 
 sub search_stories {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my $query	= shift;
+
+	return ();
 }
 
 sub stories_top_ten {
@@ -267,11 +271,15 @@ sub stories_top_ten {
 sub stories_by_tag {
 	my $self	= shift;
 	my @tags	= shift;
+
+	return ();
 }
 
 
 sub tags {
 	my $self	= shift;
+
+	return ();
 }
 
 

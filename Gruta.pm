@@ -95,6 +95,16 @@ sub stories_top_ten {
 	return sort { $b->[0] cmp $a->[0] } @l;
 }
 
+sub stories_by_tag { my $self = shift; return $self->_call('stories_by_tag', 0, @_); }
+
+sub tags {
+	my $self = shift;
+
+	my @l = $self->_call('tags', 0, @_);
+
+	return sort { $b->[1] cmp $a->[1] } @l;
+}
+
 sub insert_topic { my $self = shift; $self->_call('insert_topic', 1, @_); return $self; }
 sub insert_user { my $self = shift; $self->_call('insert_user', 1, @_); return $self; }
 sub insert_story { my $self = shift; $self->_call('insert_story', 1, @_); return $self; }

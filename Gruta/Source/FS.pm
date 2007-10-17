@@ -479,11 +479,15 @@ sub stories_top_ten {
 sub stories_by_tag {
 	my $self	= shift;
 	my @tags	= shift;
+
+	return ();
 }
 
 
 sub tags {
 	my $self	= shift;
+
+	return ();
 }
 
 
