@@ -74,7 +74,9 @@ sub story {
 		return undef;
 	}
 
-	if (my $rndr = $self->{renderers_h}->{$story->get('format')}) {
+	my $format = $story->get('format') || 'grutatxt';
+
+	if (my $rndr = $self->{renderers_h}->{$format}) {
 		$rndr->story($story);
 	}
 
