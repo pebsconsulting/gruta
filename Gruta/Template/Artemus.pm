@@ -233,6 +233,11 @@ sub _artemus {
 			return $ret;
 		};
 
+		$f{redir_if_archived} = sub {
+			# FIXME
+			return '';
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
