@@ -63,6 +63,9 @@ $w->template->cgi_vars( { t => 'LOGIN', topic => 'alimentos', userid => 'angel',
 #$str = $w->template->process("{-story_loop_by_date|noticias|10|0|_story_link_as_item_with_hits|\n}");
 #$str = $w->template->process("{-loop_renderers||\n}");
 
+my @t = $w->tags();
+my @sbt = $w->stories_by_tag('desayunos');
+
 my $str = $w->template->process('LOGIN');
 
 my @ts = $w->topics();
