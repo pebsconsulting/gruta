@@ -234,7 +234,26 @@ sub _artemus {
 		};
 
 		$f{redir_if_archived} = sub {
-			# FIXME
+			my $template	= shift;
+			my $topic_id	= shift;
+			my $id		= shift;
+
+			if ($topic_id =~ /-arch$/) {
+				return '';
+			}
+
+			my $story = $data->story($topic_id, $id);
+
+			if ($story->get('topic_id') =~ /-arch$/) {
+				$data->cgi->redirect(
+					sprintf('?t=%s;topic=%s;id=%s',
+					$template,
+					$story->get('topic_id'),
+					$id)
+				);
+				$self->{abort} = 1;
+			}
+
 			return '';
 		};
 
