@@ -157,7 +157,10 @@ sub _artemus {
 			my $password	= shift;
 			my $error_msg	= shift;
 
-			if (my $sid = $data->login($user_id, $password)) {
+			if ($user_id eq '' || $user_id eq 'cgi-userid') {
+				$error_msg = '{-login_box}';
+			}
+			elsif (my $sid = $data->login($user_id, $password)) {
 				$data->cgi->cookie("sid=$sid");
 				$data->cgi->redirect('?t=INDEX');
 				$self->{abort} = 1;
