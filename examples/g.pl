@@ -113,9 +113,7 @@ $w->insert_story($story);
 #	path	=>	"${base}/var"
 #);
 
-my @l = $src->stories_top_ten(10);
-@l = $src2->stories_top_ten(10);
-@l = $src3->stories_top_ten(10);
+my @l = $w->stories_top_ten(10);
 
 $w->run();
 

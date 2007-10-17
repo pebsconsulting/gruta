@@ -7,8 +7,6 @@ Release Critical Bugs
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
  * 1004: Support broken lines in message headers in Source::Mbox.
- * 1005: stories_top_ten, when returning values from different sources,
-   does not reorder the stories.
  * 1007: Add the Gruta.pm wrapper to stories_by_tag().
  * 1008: Add the Gruta.pm wrapper to tags().
 
@@ -32,5 +30,7 @@ Closed
  * 1003: Use flock() in index creation / reading in Source::Mbox
    (fixed on 9f922c4fdaa35206693caabf110717ce26203d0d;
     Fri, 20 Jul 2007 14:15:04 +0200).
+ * 1005: stories_top_ten, when returning values from different sources,
+   does not reorder the stories (Wed, 17 Oct 2007 13:04:36 +0200).
 
 Email bugs to angel@triptico.com
