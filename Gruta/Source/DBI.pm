@@ -149,7 +149,7 @@ sub tags {
 			$self->source->_execute($sth,
 				$self->get('id'),
 				$self->get('topic_id'),
-				$t );
+				lc($t) );
 		}
 	}
 	else {
@@ -359,7 +359,7 @@ sub stories_by_tag {
 			join(' OR ', map { 'tag = ?' } @tags);
 
 		my $sth = $self->_prepare($sql);
-		$self->_execute($sth, @tags);
+		$self->_execute($sth, map { lc($_) } @tags);
 
 		while (my @a = $sth->fetchrow_array()) {
 			push(@r, [ @a ]);
