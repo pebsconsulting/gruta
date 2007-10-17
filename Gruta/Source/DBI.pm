@@ -332,7 +332,7 @@ sub stories_top_ten {
 	my $self	= shift;
 	my $num		= shift;
 
-	my $sql = 'SELECT topic_id, id FROM stories ' .
+	my $sql = 'SELECT hits, topic_id, id FROM stories ' .
 		'ORDER BY hits DESC LIMIT ?';
 
 	my $sth = $self->_prepare($sql);
