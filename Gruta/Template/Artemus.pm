@@ -257,6 +257,10 @@ sub _artemus {
 			return '';
 		};
 
+		$f{topic_has_archive} = sub {
+			return $data->topic($_[0] . '-arch') ? 1 : 0;
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
