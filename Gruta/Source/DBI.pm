@@ -147,8 +147,8 @@ sub tags {
 
 		foreach my $t (@tags) {
 			$self->source->_execute($sth,
-				$self->get('topic_id'),
 				$self->get('id'),
+				$self->get('topic_id'),
 				$t );
 		}
 	}
