@@ -496,7 +496,7 @@ sub session { return _one( @_, 'Gruta::Data::FS::Session' ); }
 sub purge_old_sessions {
 	my $self	 = shift;
 
-	my $path = $self->{path} . Gruta::Data::FS::Session::Base();
+	my $path = $self->{path} . Gruta::Data::FS::Session::base();
 
 	if (opendir D, $path) {
 		while(my $s = readdir D) {
