@@ -119,10 +119,10 @@ sub tags {
 	my @ret		= undef;
 
 	if (scalar(@_)) {
-		$self->set('tags', join(', ', @_));
+		$self->set('tags', [ @_ ]);
 	}
 	else {
-		@ret = split(/, /, $self->get('tags'));
+		@ret = @{ $self->get('tags') };
 	}
 
 	return @ret;
