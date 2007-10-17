@@ -250,7 +250,38 @@ sub stories_by_date {
 	my $topic_id	= shift;
 	my %args	= @_;
 
-	return ();
+	$args{offset} += 0;
+	$args{offset} = 0 if $args{offset} < 0;
+
+	my @r = ();
+	my $o = 0;
+
+	if ($self->{topic_id} eq $topic_id) {
+		foreach my $s (@{ $self->{stories_l} }) {
+			my $date = $s->{date};
+
+			# skip future stories
+			next if not $args{future} and
+				$args{today} and
+				$date > $args{today};
+
+			# skip if date is above the threshold
+			next if $args{'to'} and $date > $args{'to'};
+
+			# exit if date is below the threshold
+			last if $args{'from'} and $date < $args{'from'};
+
+			# skip offset stories
+			next if $args{'offset'} and ++$o <= $args{'offset'};
+
+			push(@r, $s->{id});
+
+			# exit if we have all we need
+			last if $args{'num'} and $args{'num'} == scalar(@r);
+		}
+	}
+
+	return @r;
 }
 
 sub search_stories {
