@@ -504,7 +504,7 @@ sub purge_old_sessions {
 
 			next if -d $f;
 
-			if (-M $f) {
+			if (-M $f > 1) {
 				unlink $f;
 			}
 		}
