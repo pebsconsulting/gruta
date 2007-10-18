@@ -115,12 +115,18 @@ sub _artemus {
 			my $offset	= shift;
 			my $template	= shift;
 			my $sep		= shift;
+			my $from	= shift;
+			my $to		= shift;
+			my $future	= shift;
 
 			return join($sep, map { "{-$template|$topic|$_}" }
 				$data->stories_by_date(
 					$topic,
 					num	=> $num,
-					offset	=> $offset
+					offset	=> $offset,
+					from	=> $from,
+					to	=> $to,
+					future	=> $future
 				)
 			);
 		};
