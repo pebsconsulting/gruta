@@ -261,7 +261,7 @@ sub stories {
 	my @r = ();
 
 	if ($self->{topic_id} eq $topic_id) {
-		@r = keys(%{ $self->{stories_h} });
+		@r = map { $_->{id} } @{ $self->{stories_l} };
 	}
 
 	return @r;
