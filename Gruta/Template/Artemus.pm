@@ -41,6 +41,8 @@ sub _artemus {
 		$f{'gt'} = sub { $_[0] > $_[1]; };
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 
+		$f{date} = sub { $data->today(); };
+
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$f{'topic_' . $p} = sub {
 				return $data->topic($_[0])->get($p);
