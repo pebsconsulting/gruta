@@ -66,6 +66,15 @@ sub load {
 sub tags {
 	my $self	= shift;
 	my @ret		= undef;
+
+	unless (scalar(@_)) {
+		# get tags from the index
+		my $s = $self->source->{stories_h}->{$self->get('id')};
+
+		@ret = split(/\s*,\s*/, $s);
+	}
+
+	return @ret;
 }
 
 package Gruta::Data::Mbox::Topic;
