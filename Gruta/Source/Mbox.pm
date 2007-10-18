@@ -121,6 +121,9 @@ sub _build_index {
 			elsif (/^Content-Type: .*text\/html/i and not $r->{format}) {
 				$r->{format} = 'filtered_html';
 			}
+			elsif (/^X-Tags: (.+)$/i) {
+				$r->{tags} = $1;
+			}
 			elsif (/^$/) {
 				$r->{offset} = tell(M);
 				push(@s, $r);
@@ -149,7 +152,8 @@ sub _save_index {
 
 	foreach my $s (@{ $self->{stories_l} }) {
 		print O join('|', $s->{id}, $s->{title},
-			$s->{date}, $s->{offset}, $s->{format} || 'grutatxt'),
+			$s->{date}, $s->{offset},
+			$s->{format} || 'grutatxt', $s->{tags}),
 			"\n";
 	}
 
@@ -173,7 +177,8 @@ sub _load_index {
 		chomp;
 
 		my $r = {};
-		($r->{id}, $r->{title}, $r->{date}, $r->{offset}) =
+		($r->{id}, $r->{title}, $r->{date},
+			$r->{offset}, $r->{format}, $r->{tags}) =
 			split(/\|/, $_);
 		push(@s, $r);
 		$h{$r->{id}} = $r;
