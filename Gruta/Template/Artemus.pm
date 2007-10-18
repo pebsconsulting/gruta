@@ -83,7 +83,16 @@ sub _artemus {
 		};
 
 		$f{loop_topics} = sub {
-			return join($_[1], map { "{-$_[0]|$_}" } $data->topics());
+			my $template	= shift;
+			my $sep		= shift;
+
+			return join($sep, map {
+				my $t = $data->topic($_);
+				sprintf('{-%s|%s|%s}',
+					$template, $t->get('name'),
+					$t->get('id')
+				);
+			} $data->topics());
 		};
 
 		$f{loop_users} = sub {
