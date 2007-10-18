@@ -3,18 +3,20 @@ package Gruta::Template::BASE;
 sub templates {
 	my $self	 = shift;
 
-	my @r = ();
+	my @r = ( );
 
-	if (opendir D, $self->{path}) {
-		while (my $l = readdir D) {
-			next if -d $self->{path} . '/' . $l;
-			push @r, $l;
+	foreach my $p (split(':', $self->{path})) {
+		if (opendir D, $p) {
+			while (my $l = readdir D) {
+				next if -d $p . '/' . $l;
+				push @r, $l;
+			}
+
+			closedir D;
 		}
-
-		closedir D;
 	}
 
-	return @r;
+	return sort @r;
 }
 
 
@@ -38,9 +40,13 @@ sub template {
 
 	my $content = undef;
 
-	if (open F, $self->{path} . '/'. $template_id) {
-		$content = join('', <F>);
-		close F;
+	foreach my $p (split(':', $self->{path})) {
+		if (open F, $p . '/'. $template_id) {
+			$content = join('', <F>);
+			close F;
+
+			last;
+		}
 	}
 
 	return $content;
@@ -54,7 +60,10 @@ sub save_template {
 
 	$self->_assert($template_id);
 
-	open F, '>' . $self->{path} . '/' . $template_id
+	# only can be saved on the first directory
+	my ($p) = split(':', $self->{path});
+
+	open F, '>' . $p . '/' . $template_id
 		or die "Can't write template '$template_id'";
 
 	print F $content;
