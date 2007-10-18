@@ -71,7 +71,7 @@ sub tags {
 		# get tags from the index
 		my $s = $self->source->{stories_h}->{$self->get('id')};
 
-		@ret = split(/\s*,\s*/, $s);
+		@ret = split(/\s*,\s*/, $s->{tags});
 	}
 
 	return @ret;
