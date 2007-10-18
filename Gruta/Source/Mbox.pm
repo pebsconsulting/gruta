@@ -29,6 +29,40 @@ package Gruta::Data::Mbox::Story;
 use base 'Gruta::Data::Story';
 use base 'Gruta::Data::Mbox::BASE';
 
+sub load {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$driver = $self->source( $driver );
+
+	if (my $s = $driver->{stories_h}->{$self->get('id')}) {
+
+		# read the content
+		open F, $driver->{file} or
+			die "Can't open '$driver->{file}'";
+
+		seek F, $s->{offset}, 0;
+		my $c = '';
+
+		while (<F>) {
+			last if /^From /;
+			$c .= $_;
+		}
+
+		close F;
+
+		$self->set('title',	$s->{title});
+		$self->set('date',	$s->{date});
+		$self->set('format',	$s->{format} || 'grutatxt');
+		$self->set('hits',	0);
+		$self->set('ctime',	0);
+		$self->set('userid',	'');
+		$self->set('content',	$c);
+	}
+
+	return $self;
+}
+
 sub tags {
 	my $self	= shift;
 	my @ret		= undef;
@@ -198,34 +232,9 @@ sub story {
 	my $story = undef;
 
 	if ($self->{topic_id} eq $topic_id) {
-		if (my $s = $self->{stories_h}->{$id}) {
 
-			# read the content
-			open F, $self->{file} or
-				die "Can't open '$self->{file}'";
-
-			seek F, $s->{offset}, 0;
-			my $c = '';
-
-			while (<F>) {
-				last if /^From /;
-				$c .= $_;
-			}
-
-			close F;
-
-			$story = Gruta::Data::Mbox::Story->new(
-				id		=> $id,
-				topic_id	=> $topic_id,
-				title		=> $s->{title},
-				date		=> $s->{date},
-				format		=> $s->{format} || 'grutatxt',
-				hits		=> 0,
-				ctime		=> 0,
-				userid		=> '',
-				content		=> $c
-			);
-		}
+		$story = Gruta::Data::Mbox::Story->new (
+			id => $id, topic_id => $topic_id )->load($self);
 	}
 
 	return $story;
