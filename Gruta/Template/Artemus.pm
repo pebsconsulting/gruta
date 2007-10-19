@@ -242,7 +242,7 @@ sub _artemus {
 			my $story = $data->story($_[0], $_[1]);
 			my $ret = '';
 
-			if ($story->get('date') > $data->today()) {
+			if (!$data->auth() && $story->get('date') > $data->today()) {
 				$data->cgi->redirect('?t=404');
 				$self->{abort} = 1;
 			}
