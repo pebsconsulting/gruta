@@ -79,7 +79,8 @@ sub _artemus {
 		}
 
 		$f{template} = sub {
-			return $data->template->template($_[0]);
+			my $t = $data->template->template($_[0]);
+			return $self->{_artemus}->armor($t);
 		};
 
 		$f{save_template} = sub {
