@@ -40,6 +40,7 @@ sub _artemus {
 		$f{'sub'} = sub { $_[0] - $_[1]; };
 		$f{'gt'} = sub { $_[0] > $_[1]; };
 		$f{'lt'} = sub { $_[0] < $_[1]; };
+		$f{'eq'} = sub { $_[0] eq $_[1] ? 1 : 0; };
 
 		$f{date} = sub { $data->today(); };
 		$f{random} = sub { $_[rand(scalar(@_))]; };
