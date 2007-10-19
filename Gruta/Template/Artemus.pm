@@ -42,6 +42,7 @@ sub _artemus {
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 
 		$f{date} = sub { $data->today(); };
+		$f{random} = sub { $_[rand(scalar(@_))]; };
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$f{'topic_' . $p} = sub {
