@@ -7,6 +7,9 @@ Release Critical Bugs
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
  * 1004: Support broken lines in message headers in Source::Mbox.
+ * 1009: For subscriptions to work correctly, the 'visibility' of
+   future stories should not depend only on the user logged in, but
+   in the editing capabilities of the user upon the story.
 
 Open Bugs
 ---------
