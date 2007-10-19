@@ -79,8 +79,15 @@ sub _artemus {
 		}
 
 		$f{template} = sub {
-			my $t = $data->template->template($_[0]);
-			return $self->{_artemus}->armor($t);
+			my $t = shift;
+			my $ret = '';
+
+			if ($t ne '[]') {
+				$t = $data->template->template($t);
+				$ret = $self->{_artemus}->armor($t);
+			}
+
+			return $ret;
 		};
 
 		$f{save_template} = sub {
