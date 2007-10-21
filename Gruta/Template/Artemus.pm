@@ -47,7 +47,14 @@ sub _artemus {
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$f{'topic_' . $p} = sub {
-				return $data->topic($_[0])->get($p);
+				my $topic = shift;
+				my $ret = '';
+
+				if ($topic ne '[]') {
+					$ret = $data->topic($topic)->get($p) || '';
+				}
+
+				return $ret;
 			};
 		}
 
