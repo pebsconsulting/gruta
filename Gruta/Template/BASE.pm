@@ -60,8 +60,8 @@ sub save_template {
 
 	$self->_assert($template_id);
 
-	# only can be saved on the first directory
-	my ($p) = split(':', $self->{path});
+	# only can be saved on the last directory
+	my ($p) = (split(':', $self->{path}))[-1];
 
 	open F, '>' . $p . '/' . $template_id
 		or die "Can't write template '$template_id'";
