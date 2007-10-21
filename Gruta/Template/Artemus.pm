@@ -53,7 +53,15 @@ sub _artemus {
 
 		foreach my $p (Gruta::Data::Story->new->afields()) {
 			$f{'story_' . $p} = sub {
-				return $data->story($_[0], $_[1])->get($p);
+				my $topic_id	= shift;
+				my $id		= shift;
+				my $ret		= '';
+
+				if ($id ne '[]') {
+					$ret = $data->story($topic_id, $id)->get($p);
+				}
+
+				return $ret;
 			};
 		}
 
@@ -69,7 +77,16 @@ sub _artemus {
 		};
 
 		$f{story_date} = sub {
-			return $data->story($_[1], $_[2])->date($_[0]);
+			my $format	= shift;
+			my $topic_id	= shift;
+			my $id		= shift;
+			my $ret		= '';
+
+			if ($id ne '[]') {
+				$ret = $data->story($topic_id, $id)->date($format);
+			}
+
+			return $ret;
 		};
 
 		foreach my $p (Gruta::Data::User->new->afields()) {
