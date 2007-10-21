@@ -226,22 +226,16 @@ sub _artemus {
 			$self->{abort} = 1;
 		};
 
-		$f{assert_logged_in} = sub {
-			if (not $data->auth()) {
-				$data->cgi->redirect('?t=LOGIN');
+		$f{assert} = sub {
+			my $cond	= shift;
+			my $redir	= shift || 'ADMIN';
+
+			if (! $cond) {
+				$data->cgi->redirect('?t=' . $redir);
 				$self->{abort} = 1;
 			}
 
 			return '';
-		};
-
-		$f{assert_admin} = sub {
-			if ($data->auth() and $data->auth->get('is_admin')) {
-				return '';
-			}
-
-			$data->cgi->redirect('?t=LOGIN');
-			$self->{abort} = 1;
 		};
 
 		$f{username} = sub {
