@@ -266,16 +266,14 @@ sub _artemus {
 			);
 		};
 
-		$f{assert_visible_story} = sub {
+		$f{is_visible_story} = sub {
 			my $story = $data->story($_[0], $_[1]);
-			my $ret = '';
 
 			if (!$data->auth() && $story->get('date') > $data->today()) {
-				$data->cgi->redirect('?t=404');
-				$self->{abort} = 1;
+				return 0;
 			}
 
-			return $ret;
+			return 1;
 		};
 
 		$f{redir_if_archived} = sub {
