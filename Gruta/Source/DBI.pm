@@ -143,7 +143,7 @@ sub tags {
 
 		# second, add all the new ones
 		$sth = $self->source->_prepare(
-			'INSERT INTO tags VALUES (?, ?, ?)');
+			'INSERT INTO tags (id, topic_id, tag) VALUES (?, ?, ?)');
 
 		foreach my $t (@tags) {
 			$self->source->_execute($sth,
@@ -407,6 +407,7 @@ sub _insert {
 
 	if (not $sth = $self->{sth}->{insert}->{ref($obj)}) {
 		my $sql = 'INSERT INTO ' . $table .
+			' (' . join(', ', $obj->fields()) . ')' .
 			' VALUES (' . join(', ', map { '?' } $obj->fields()) . ')';
 
 		$sth = $self->{sth}->{insert}->{ref($obj)} = $self->_prepare($sql);
