@@ -91,7 +91,14 @@ sub _artemus {
 		};
 
 		$f{save_template} = sub {
-			return $data->template->save_template($_[0], $_[1]);
+			my $template	= shift;
+			my $content	= shift;
+			my $msg		= shift;
+
+			$content = $self->{_artemus}->unarmor($content);
+			$data->template->save_template($template, $content);
+
+			return $msg || "Template saved.";
 		};
 
 		$f{loop_topics} = sub {
