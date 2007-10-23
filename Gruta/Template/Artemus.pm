@@ -350,7 +350,10 @@ sub _artemus {
 				);
 			}
 
-			$story->set('content',	shift);
+			my $content = shift;
+			$content = $self->{_artemus}->unarmor($content);
+
+			$story->set('content',	$content);
 
 			# pick date and drop time
 			my $y = shift;
