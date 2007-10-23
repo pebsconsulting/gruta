@@ -12,9 +12,11 @@ sub new {
 		$r->{valid_tags} = 'I B P A LI OL UL EM BR TT STRONG BLOCKQUOTE';
 	}
 
-	$r->{valid_tags_h} = {};
+	$r->{valid_tags_h} = undef;
 
 	if ($r->{valid_tags}) {
+		$r->{valid_tags_h} = {};
+
 		foreach my $t (split(/\s+/, $r->{valid_tags})) {
 			$r->{valid_tags_h}->{$t}++;
 		}
