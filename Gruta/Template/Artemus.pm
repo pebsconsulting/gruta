@@ -395,8 +395,11 @@ sub _artemus {
 
 		if ($self->{cgi_vars}) {
 			foreach my $k (keys(%{ $self->{cgi_vars} })) {
-				$v{"cgi-${k}"} =
-					$self->{_artemus}->armor($self->{cgi_vars}->{$k});
+				my $c = $self->{_artemus}->
+					armor($self->{cgi_vars}->{$k});
+				$c =~ s/\r//g;
+
+				$v{"cgi-${k}"} = $c;
 			}
 		}
 	}
