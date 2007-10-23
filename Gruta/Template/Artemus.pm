@@ -312,13 +312,13 @@ sub _artemus {
 		};
 
 		$f{save_topic} = sub {
-			my $topic_id	= shift;
+			my $topic_id	= shift || return 'Error';
 
 			my $topic = undef;
 
 			if (not $topic = $data->topic($topic_id)) {
 				$topic = Gruta::Data::Topic->new (
-					topic => $topic_id );
+					id => $topic_id );
 			}
 
 			$topic->set('name',		shift);
