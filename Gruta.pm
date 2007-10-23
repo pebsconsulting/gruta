@@ -63,6 +63,10 @@ sub story {
 	my $topic_id	= shift;
 	my $id		= shift;
 
+	if (! $topic_id || ! $id) {
+		return undef;
+	}
+
 	my $story = undef;
 	my $ck = $topic_id . '/' . $id;
 

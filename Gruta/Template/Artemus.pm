@@ -312,7 +312,7 @@ sub _artemus {
 		};
 
 		$f{save_topic} = sub {
-			my $topic_id	= shift || return 'Error';
+			my $topic_id	= shift || return 'Error 1';
 
 			my $topic = undef;
 
@@ -334,7 +334,46 @@ sub _artemus {
 				$topic = $data->insert_topic($topic);
 			}
 
-			return $topic ? 'OK' : 'Error';
+			return $topic ? 'OK' : 'Error 2';
+		};
+
+		$f{save_story} = sub {
+			my $topic_id	= shift || return 'Error 1';
+			my $id		= shift;
+
+			my $story = undef;
+
+			if (not $story = $data->story($topic_id, $id)) {
+				$story = Gruta::Data::Story->new (
+					topic_id	=> $topic_id,
+					id		=> $id
+				);
+			}
+
+			$story->set('content',	shift);
+
+			# pick date and drop time
+			my $y = shift;
+			my $m = shift;
+			my $d = shift;
+			shift; shift; shift;
+			my $date = $data->today();
+
+			if ($y && $m && $d) {
+				$date = sprintf("%04d%02d%02d000000", $y, $m, $d);
+			}
+
+			$story->set('date',	$date);
+			$story->set('format',	shift || 'grutatxt');
+
+			if ($story->source()) {
+				$story = $story->save();
+			}
+			else {
+				$story = $data->insert_story($story);
+			}
+
+			return $story ? $story->get('body') : 'Error 2';
 		};
 
 		$self->{abort}		= 0;
