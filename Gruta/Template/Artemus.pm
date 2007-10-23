@@ -373,7 +373,7 @@ sub _artemus {
 				$story = $data->insert_story($story);
 			}
 
-			return $story ? $story->get('body') : 'Error 2';
+			return $story ? $story->get('id') : 'Error 2';
 		};
 
 		$self->{abort}		= 0;
