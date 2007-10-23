@@ -369,6 +369,9 @@ sub _artemus {
 			$story->set('date',	$date);
 			$story->set('format',	shift || 'grutatxt');
 
+			# drop all cached stories
+			$data->flush_story_cache();
+
 			if ($story->source()) {
 				$story = $story->save();
 			}
