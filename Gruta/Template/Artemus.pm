@@ -311,6 +311,32 @@ sub _artemus {
 			return $data->topic($_[0] . '-arch') ? 1 : 0;
 		};
 
+		$f{save_topic} = sub {
+			my $topic_id	= shift;
+
+			my $topic = undef;
+
+			if (not $topic = $data->topic($topic_id)) {
+				$topic = Gruta::Data::Topic->new (
+					topic => $topic_id );
+			}
+
+			$topic->set('name',		shift);
+			$topic->set('editors',		shift);
+			$topic->set('internal', 	shift eq 'on' ? 1 : 0);
+			$topic->set('max_stories',	shift);
+
+			# update or insert
+			if ($topic->source()) {
+				$topic = $topic->save();
+			}
+			else {
+				$topic = $data->insert_topic($topic);
+			}
+
+			return $topic ? 'OK' : 'Error';
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
