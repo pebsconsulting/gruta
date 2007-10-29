@@ -98,7 +98,14 @@ sub _artemus {
 
 		foreach my $p (Gruta::Data::User->new->afields()) {
 			$f{'user_' . $p} = sub {
-				return $data->user($_[0])->get($p);
+				my $id	= shift;
+				my $ret	= '';
+
+				if ($id ne '[]') {
+					$ret = $data->user($id)->get($p);
+				}
+
+				return $ret;
 			};
 		}
 
