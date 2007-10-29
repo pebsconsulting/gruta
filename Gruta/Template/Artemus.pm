@@ -445,6 +445,12 @@ sub _artemus {
 			return $user ? 'OK' : 'Error 2';
 		};
 
+		$f{upload} = sub {
+
+			$data->cgi->upload($_[0], $_[1]);
+			return 'OK';
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
