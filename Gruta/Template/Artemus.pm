@@ -389,6 +389,47 @@ sub _artemus {
 			return $story ? $story->get('id') : 'Error 2';
 		};
 
+		$f{save_user} = sub {
+			shift;	# new (ignored)
+			my $id = shift || return 'Error 1';
+
+			my $user = undef;
+
+			if (not $user = $data->user($id)) {
+				$story = Gruta::Data::User->new (
+					id		=> $id,
+					is_admin	=> 0,
+					can_upload	=> 0
+				);
+			}
+
+			$user->set('username',		shift);
+			$user->set('email',		shift);
+
+			# these params can only be set by an admin
+			if ($data->auth() && $data->auth->get('is_admin')) {
+				$user->set('is_admin',		shift);
+				$user->set('can_upload',	shift);
+			}
+			else {
+				shift;
+				shift;
+			}
+
+			my $pass1 = shift;
+			my $pass2 = shift;
+
+			if ($pass1 || $pass2) {
+				if ($pass1 ne $pass2) {
+					die "Passwords are different";
+				}
+
+				$user->set('password', $pass1);
+			}
+
+			return $user ? 'OK' : 'Error 2';
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
