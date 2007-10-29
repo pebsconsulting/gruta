@@ -26,7 +26,7 @@ sub _assert {
 	my $self	= shift;
 
 	my $id = $self->get('id') || '';
-	$id =~ /^[\d\w_-]+$/ or die "Bad id [$id]";
+	$id =~ /^[\d\w_-]+$/ or croak "Bad id [$id]";
 
 	return $self;
 }
@@ -75,6 +75,8 @@ package Gruta::Data::Story;
 
 use base 'Gruta::Data::BASE';
 
+use Carp;
+
 sub fields { return qw(id topic_id title date userid format hits ctime content); }
 sub vfields { return qw(tags abstract body); }
 
@@ -84,7 +86,7 @@ sub _assert {
 	$self->SUPER::_assert();
 
 	my $topic_id = $self->get('topic_id') || '';
-	$topic_id =~ /^[\d\w_-]+$/ or die "Bad topic_id";
+	$topic_id =~ /^[\d\w_-]+$/ or croak "Bad topic_id";
 
 	return $self;
 }

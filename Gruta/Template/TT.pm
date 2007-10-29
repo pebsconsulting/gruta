@@ -2,6 +2,7 @@ package Gruta::Template::TT;
 
 use strict;
 use warnings;
+use Carp;
 
 use base 'Gruta::Template::BASE';
 
@@ -17,7 +18,7 @@ sub new {
 		'INCLUDE_PATH'	=>	$args{path},
 		'INTERPOLATE'	=>	1,
 		'TRIM'		=>	1
-	) or die "TT: " . $Template::ERROR;
+	) or croak "TT: " . $Template::ERROR;
 
 	$t->{path} = $args{path};
 
@@ -145,7 +146,7 @@ sub process {
 	my $v = '';
 
 	$self->{tt}->process($template, $self->_tt_data(), \$v)
-		or die "TT: " . $self->{tt}->error();
+		or croak "TT: " . $self->{tt}->error();
 
 	return $v;
 }

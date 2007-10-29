@@ -1,5 +1,7 @@
 package Gruta::Template::BASE;
 
+use Carp;
+
 sub templates {
 	my $self	 = shift;
 
@@ -25,7 +27,7 @@ sub _assert {
 	my $template_id	= shift;
 
 	if (not $template_id =~ /^[-\w\d-]+$/) {
-		die "Invalid template '$template_id'";
+		croak "Invalid template '$template_id'";
 	}
 
 	return $self;
@@ -64,7 +66,7 @@ sub save_template {
 	my ($p) = (split(':', $self->{path}))[-1];
 
 	open F, '>' . $p . '/' . $template_id
-		or die "Can't write template '$template_id'";
+		or croak "Can't write template '$template_id'";
 
 	print F $content;
 	close F;

@@ -2,6 +2,7 @@ package Gruta::Template::Artemus;
 
 use strict;
 use warnings;
+use Carp;
 
 use base 'Gruta::Template::BASE';
 
@@ -426,7 +427,7 @@ sub _artemus {
 
 			if ($pass1 and $pass2) {
 				if ($pass1 ne $pass2) {
-					die "Passwords are different";
+					croak "Passwords are different";
 				}
 
 				my $salt = sprintf('%02d', rand(100));

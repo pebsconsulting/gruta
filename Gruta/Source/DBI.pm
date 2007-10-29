@@ -2,6 +2,7 @@ package Gruta::Source::DBI;
 
 use strict;
 use warnings;
+use Carp;
 
 use DBI;
 use Gruta::Data;
@@ -11,7 +12,7 @@ sub _prepare {
 	my $sql		= shift;
 
 	my $sth = $self->{dbh}->prepare($sql) or
-		die $self->{dbh}->errstr;
+		croak $self->{dbh}->errstr;
 
 	return $sth;
 }
@@ -20,7 +21,7 @@ sub _execute {
 	my $self	= shift;
 	my $sth		= shift;
 
-	return $sth->execute( @_ ) or die $self->{dbh}->errstr;
+	return $sth->execute( @_ ) or croak $self->{dbh}->errstr;
 }
 
 

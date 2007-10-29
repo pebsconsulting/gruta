@@ -2,6 +2,7 @@ package Gruta::Source::Mbox;
 
 use strict;
 use warnings;
+use Carp;
 
 use Gruta::Data;
 
@@ -39,7 +40,7 @@ sub load {
 
 		# read the content
 		open F, $driver->{file} or
-			die "Can't open '$driver->{file}'";
+			croak "Can't open '$driver->{file}'";
 
 		seek F, $s->{offset}, 0;
 		my $c = '';
@@ -87,10 +88,10 @@ package Gruta::Source::Mbox;
 sub _assert {
 	my $self	= shift;
 
-	$self->{file}		or die "Mandatory file";
-	$self->{topic_id}	or die "Mandatory topic_id";
-	$self->{topic_name}	or die "Mandatory topic_name";
-	$self->{index_file}	or die "Mandatory index_file";
+	$self->{file}		or croak "Mandatory file";
+	$self->{topic_id}	or croak "Mandatory topic_id";
+	$self->{topic_name}	or croak "Mandatory topic_name";
+	$self->{index_file}	or croak "Mandatory index_file";
 
 	return $self;
 }
@@ -99,7 +100,7 @@ sub _build_index {
 	my $self	= shift;
 
 	open M, $self->{file} or
-		die "Can't open '$self->{file}'";
+		croak "Can't open '$self->{file}'";
 
 	my @s = ();
 	my %h = ();
@@ -156,7 +157,7 @@ sub _save_index {
 	my $self	= shift;
 
 	open O, '>' . $self->{index_file} or
-		die "Can't write '$self->{index_file}'";
+		croak "Can't write '$self->{index_file}'";
 	flock O, 2;
 
 	foreach my $s (@{ $self->{stories_l} }) {
@@ -176,7 +177,7 @@ sub _load_index {
 	my $self	= shift;
 
 	open I, $self->{index_file} or
-		die "Can't open '$self->{index_file}'";
+		croak "Can't open '$self->{index_file}'";
 	flock I, 1;
 
 	my @s = ();

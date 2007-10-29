@@ -1,6 +1,7 @@
 package Gruta::CGI;
 
 use CGI;
+use Carp;
 
 sub vars { return $_[0]->{cgi}->Vars(); }
 sub upload_dirs { return @{ $_[0]->{upload_dirs} }; }
@@ -49,12 +50,12 @@ sub upload {
 	my ($basename) = ($file =~ /([^\/\\]+)$/);
 
 	if (! grep(/^$dir$/, $self->upload_dirs())) {
-		die "Unauthorized upload directory $dir";
+		croak "Unauthorized upload directory $dir";
 	}
 
 	my $filename = $dir . '/' . $basename;
 
-	open F, '>' . $filename or die "Can't write $filename";
+	open F, '>' . $filename or croak "Can't write $filename";
 	while(<$file>) {
 		print F $_;
 	}
