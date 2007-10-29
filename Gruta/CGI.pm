@@ -42,14 +42,15 @@ sub data {
 
 sub upload {
 	my $self	= shift;
-	my $dir_num	= shift;
+	my $dir		= shift;
 	my $field	= shift;
 
 	my $file = $self->{cgi}->param($field);
 	my ($basename) = ($file =~ /([^\/\\]+)$/);
 
-	my $dir = ($self->upload_dirs())[$dir_num] or
-		die "Undefined upload dirs.";
+	if (! grep(/^$dir$/, $self->upload_dirs())) {
+		die "Unauthorized upload directory $dir";
+	}
 
 	my $filename = $dir . '/' . $basename;
 
