@@ -65,7 +65,7 @@ sub upload {
 sub new {
 	my $class	= shift;
 
-	my $obj = bless( {}, $class );
+	my $obj = bless( { @_ }, $class );
 
 	$obj->{http_headers} = {
 		'Content-Type'		=> 'text/html; charset=ISO-8859-1',

@@ -159,6 +159,11 @@ sub _artemus {
 				$data->template->templates());
 		};
 
+		$f{loop_upload_dirs} = sub {
+			return join($_[1], map { "{-$_[0]|$_}" }
+				$data->cgi->upload_dirs());
+		};
+
 		$f{story_loop_by_date} = sub {
 			my $topic	= shift;
 			my $num		= shift;
