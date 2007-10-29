@@ -396,7 +396,7 @@ sub _artemus {
 			my $user = undef;
 
 			if (not $user = $data->user($id)) {
-				$story = Gruta::Data::User->new (
+				$user = Gruta::Data::User->new (
 					id		=> $id,
 					is_admin	=> 0,
 					can_upload	=> 0
@@ -419,12 +419,22 @@ sub _artemus {
 			my $pass1 = shift;
 			my $pass2 = shift;
 
-			if ($pass1 || $pass2) {
+			if ($pass1 and $pass2) {
 				if ($pass1 ne $pass2) {
 					die "Passwords are different";
 				}
 
-				$user->set('password', $pass1);
+				my $salt = sprintf('%02d', rand(100));
+				my $pw = crypt($pass1, $salt);
+
+				$user->set('password', $pw);
+			}
+
+			if ($user->source()) {
+				$user = $user->save();
+			}
+			else {
+				$user = $data->insert_user($user);
 			}
 
 			return $user ? 'OK' : 'Error 2';
