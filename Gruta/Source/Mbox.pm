@@ -2,7 +2,6 @@ package Gruta::Source::Mbox;
 
 use strict;
 use warnings;
-use Carp;
 
 use Gruta::Data;
 
@@ -26,6 +25,8 @@ sub dummy {
 }
 
 package Gruta::Data::Mbox::Story;
+
+use Carp;
 
 use base 'Gruta::Data::Story';
 use base 'Gruta::Data::Mbox::BASE';
@@ -84,6 +85,8 @@ use base 'Gruta::Data::Topic';
 use base 'Gruta::Data::Mbox::BASE';
 
 package Gruta::Source::Mbox;
+
+use Carp;
 
 sub _assert {
 	my $self	= shift;
