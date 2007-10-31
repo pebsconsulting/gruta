@@ -505,7 +505,36 @@ sub stories_by_tag {
 	my $self	= shift;
 	my @tags	= shift;
 
-	return ();
+	my @ret = ();
+
+	foreach my $topic_id ($self->topics()) {
+
+		my $topic = $self->topic($topic_id);
+
+		my $files = $topic->_filename();
+		$files =~ s/\.META$/\/*.TAGS/;
+
+		my @ls = glob($files);
+
+		foreach my $f (@ls) {
+			if (open F, $f) {
+				my $tags = <F>;
+				chomp $tags;
+				close F;
+
+				foreach my $t (split(/,\s+/, $tags)) {
+					if (grep(/$t/, @tags)) {
+						my ($id) = ($f =~ m{/([^/]+)\.TAGS});
+
+						push(@ret, [ $topic_id, $id ]);
+						last;
+					}
+				}
+			}
+		}
+	}
+
+	return @ret;
 }
 
 
