@@ -137,6 +137,26 @@ sub touch {
 sub tags {
 	my $self	= shift;
 	my @ret		= undef;
+
+	my $filename = $self->_filename() . 'TAGS';
+
+	if (scalar(@_)) {
+		if (open F, '>' . $filename) {
+			print F join(', ', @_);
+			close F;
+		}
+	}
+	else {
+		if (open F, $filename) {
+			my $l = <F>;
+			close F;
+
+			chomp($l);
+			@ret = split(/,\s+/, $l);
+		}
+	}
+
+	return @ret;
 }
 
 package Gruta::Data::FS::Topic;
