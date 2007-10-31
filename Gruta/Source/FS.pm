@@ -138,7 +138,9 @@ sub tags {
 	my $self	= shift;
 	my @ret		= undef;
 
-	my $filename = $self->_filename() . 'TAGS';
+	my $filename = $self->_filename();
+	$filename =~ s/\.META$//;
+	$filename .= '.TAGS';
 
 	if (scalar(@_)) {
 		if (open F, '>' . $filename) {
