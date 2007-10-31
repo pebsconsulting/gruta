@@ -143,7 +143,7 @@ sub tags {
 
 	if (scalar(@_)) {
 		if (open F, '>' . $filename) {
-			print F join(', ', @_), "\n";
+			print F join(', ', map { lc($_) } @_), "\n";
 			close F;
 		}
 	}
