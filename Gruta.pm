@@ -111,9 +111,9 @@ sub tags {
 	return sort { $b->[1] cmp $a->[1] } @l;
 }
 
-sub insert_topic { my $self = shift; $self->_call('insert_topic', 1, @_); return $self; }
-sub insert_user { my $self = shift; $self->_call('insert_user', 1, @_); return $self; }
-sub insert_story { my $self = shift; $self->_call('insert_story', 1, @_); return $self; }
+sub insert_topic { my $self = shift; return $self->_call('insert_topic', 1, @_); }
+sub insert_user { my $self = shift; return $self->_call('insert_user', 1, @_); }
+sub insert_story { my $self = shift; return $self->_call('insert_story', 1, @_); }
 
 
 sub auth {
