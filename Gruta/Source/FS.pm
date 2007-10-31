@@ -144,7 +144,7 @@ sub tags {
 
 	if (scalar(@_)) {
 		if (open F, '>' . $filename) {
-			print F join(', ', @_);
+			print F join(', ', @_), "\n";
 			close F;
 		}
 	}
