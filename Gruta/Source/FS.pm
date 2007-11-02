@@ -589,7 +589,21 @@ sub search_stories_by_tag {
 sub tags {
 	my $self	= shift;
 
-	return ();
+	my @ret = ();
+	my %h = ();
+
+	foreach my $tr ($self->_collect_tags()) {
+
+		foreach my $t (@{$tr->[2]}) {
+			$h{$t}++;
+		}
+	}
+
+	foreach my $k (keys(%h)) {
+		push(@ret, [ $k, $h{$k} ]);
+	}
+
+	return sort { $a->[1] cmp $b->[1] } @ret;
 }
 
 
