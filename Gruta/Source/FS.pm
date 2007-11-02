@@ -533,6 +533,39 @@ sub stories_top_ten {
 }
 
 
+sub _collect_tags {
+	my $self = shift;
+
+	my @ret = ();
+
+	foreach my $topic_id ($self->topics()) {
+
+		my $topic = $self->topic($topic_id);
+
+		my $files = $topic->_filename();
+		$files =~ s/\.META$/\/*.TAGS/;
+
+		my @ls = glob($files);
+
+		foreach my $f (@ls) {
+			if (open F, $f) {
+				my $tags = <F>;
+				chomp $tags;
+				close F;
+
+				my ($id) = ($f =~ m{/([^/]+)\.TAGS});
+
+				push(@ret,
+					[ $topic_id, $id, [ split(/\s*,\s*/, $tags) ] ]
+				);
+			}
+		}
+	}
+
+	return @ret;
+}
+
+
 sub search_stories_by_tag {
 	my $self	= shift;
 	my @tags	= shift;
