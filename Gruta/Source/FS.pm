@@ -603,7 +603,7 @@ sub tags {
 		push(@ret, [ $k, $h{$k} ]);
 	}
 
-	return sort { $a->[1] cmp $b->[1] } @ret;
+	return @ret;
 }
 
 
