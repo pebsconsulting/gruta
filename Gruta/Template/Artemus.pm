@@ -493,6 +493,16 @@ sub _artemus {
 			return 'OK';
 		};
 
+		$f{search_stories_by_tag} = sub {
+			my $tag		= shift;
+			my $template	= shift;
+			my $sep		= shift;
+
+			return join($sep, map { "{-$template|$_->[0]|$_->[1]}" }
+				$data->search_stories_by_tag($tag)
+			);
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
