@@ -487,6 +487,9 @@ sub _artemus {
 
 			$data->story($topic_id, $id)->delete();
 
+			# drop all cached stories
+			$data->flush_story_cache();
+
 			return 'OK';
 		};
 
