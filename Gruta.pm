@@ -299,17 +299,17 @@ sub new {
 
 	$g->{id} ||= 'Gruta';
 	$g->{story_cache} = {};
+	$g->{renderers_h} = {};
 
 	if (ref($g->{sources}) ne 'ARRAY') {
 		$g->{sources} = [ $g->{sources} ];
 	}
-	if (ref($g->{renderers}) ne 'ARRAY') {
-		$g->{renderers} = [ $g->{renderers} ];
-	}
-
-	$g->{renderers_h} = {};
 
 	if ($g->{renderers}) {
+		if (ref($g->{renderers}) ne 'ARRAY') {
+			$g->{renderers} = [ $g->{renderers} ];
+		}
+
 		foreach my $r (@{$g->{renderers}}) {
 			$g->{renderers_h}->{$r->{renderer_id}} = $r;
 		}
