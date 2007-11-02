@@ -204,6 +204,8 @@ sub delete {
 	unlink $file;
 	unlink $file . '.TAGS';
 
+	$self->_destroy_index();
+
 	return $self;
 }
 
