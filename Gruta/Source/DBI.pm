@@ -403,9 +403,11 @@ sub _insert {
 	my $self	= shift;
 	my $obj		= shift;
 	my $table	= shift;
+	my $class	= shift;
 
 	my $sth;
 
+	bless($obj, $class);
 	$obj->source($self);
 
 	if (not $sth = $self->{sth}->{insert}->{ref($obj)}) {
@@ -421,8 +423,8 @@ sub _insert {
 	return $obj;
 }
 
-sub insert_topic { $_[0]->_insert($_[1], 'topics'); }
-sub insert_user { $_[0]->_insert($_[1], 'users'); }
+sub insert_topic { $_[0]->_insert($_[1], 'topics', 'Gruta::Data::DBI::Topic'); }
+sub insert_user { $_[0]->_insert($_[1], 'users', 'Gruta::Data::DBI::User'); }
 
 
 sub insert_story {
@@ -444,12 +446,12 @@ sub insert_story {
 		$story->set('id', $id);
 	}
 
-	$self->_insert($story, 'stories');
+	$self->_insert($story, 'stories', 'Gruta::Data::DBI::Story');
 
 	return $story;
 }
 
-sub insert_session { $_[0]->_insert($_[1], 'sids'); }
+sub insert_session { $_[0]->_insert($_[1], 'sids', 'Gruta::Data::DBI::Session'); }
 
 sub create {
 	my $self	= shift;
