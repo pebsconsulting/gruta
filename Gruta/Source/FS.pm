@@ -95,26 +95,8 @@ use Carp;
 
 sub base { return Gruta::Data::FS::Topic::base() . $_[0]->get('topic_id') . '/'; }
 
-sub fields { grep !/content/, $_[0]->SUPER::fields(); }
-sub vfields { return ($_[0]->SUPER::vfields(), 'content'); }
-
-sub load {
-	my $self	= shift;
-	my $driver	= shift;
-
-	# save current topic id
-	# (as it may be stored in the .META file and
-	# be false, v.g. if archived)
-	my $topic_id = $self->get('topic_id');
-
-	$self->SUPER::load( $driver );
-
-	# restore topic id
-	$self->set('topic_id', $topic_id);
-
-	return $self;
-}
-
+sub fields { grep !/(content|topic_id)/, $_[0]->SUPER::fields(); }
+sub vfields { return ($_[0]->SUPER::vfields(), 'content', 'topic_id'); }
 
 sub _destroy_index {
 	my $self	= shift;
