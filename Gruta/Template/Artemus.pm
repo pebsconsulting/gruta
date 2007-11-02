@@ -418,7 +418,7 @@ sub _artemus {
 			my $tags = shift;
 
 			if ($tags ne 'cgi-tags') {
-				$story->tags(split(/,\s+/, $tags));
+				$story->tags(split(/\s*,\s*/, $tags));
 			}
 
 			return $story ? $story->get('id') : 'Error 2';

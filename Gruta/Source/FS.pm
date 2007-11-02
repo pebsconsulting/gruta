@@ -165,7 +165,7 @@ sub tags {
 			close F;
 
 			chomp($l);
-			@ret = split(/,\s+/, $l);
+			@ret = split(/\s*,\s*/, $l);
 		}
 	}
 
