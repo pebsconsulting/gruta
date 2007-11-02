@@ -101,7 +101,7 @@ sub stories_top_ten {
 	return sort { $b->[0] cmp $a->[0] } @l;
 }
 
-sub stories_by_tag { my $self = shift; return $self->_call('stories_by_tag', 0, @_); }
+sub search_stories_by_tag { my $self = shift; return $self->_call('search_stories_by_tag', 0, @_); }
 
 sub tags {
 	my $self = shift;
