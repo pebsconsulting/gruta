@@ -115,6 +115,18 @@ sub load {
 	return $self;
 }
 
+
+sub _destroy_index {
+	my $self	= shift;
+
+	my $filename = $self->_filename();
+
+	# destroy the topic index, to be rewritten
+	# in the future by _topic_index()
+	$filename =~ s!/[^/]+$!/.INDEX!;
+	unlink $filename;
+}
+
 sub save {
 	my $self	= shift;
 	my $driver	= shift;
@@ -129,10 +141,7 @@ sub save {
 	print F $self->get('content') || '';
 	close F;
 
-	# destroy the topic index, to be rewritten
-	# in the future by _topic_index()
-	$filename =~ s!/[^/]+$!/.INDEX!;
-	unlink $filename;
+	$self->_destroy_index();
 
 	return $self;
 }
