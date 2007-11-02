@@ -406,6 +406,8 @@ sub _insert {
 
 	my $sth;
 
+	$obj->source($self);
+
 	if (not $sth = $self->{sth}->{insert}->{ref($obj)}) {
 		my $sql = 'INSERT INTO ' . $table .
 			' (' . join(', ', $obj->fields()) . ')' .
