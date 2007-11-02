@@ -258,7 +258,9 @@ sub transfer_to_source {
 			my $s = $self->story($topic_id, $id);
 			my $ns = $dst->insert_story($s);
 
-			$ns->tags( $s->tags() );
+			if (my @tags = $s->tags()) {
+				$ns->tags(@tags);
+			}
 		}
 	}
 
