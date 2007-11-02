@@ -177,6 +177,24 @@ sub tags {
 	return @ret;
 }
 
+sub delete {
+	my $self	= shift;
+	my $driver	= shift;
+
+	my $file = $self->_filename();
+
+	$self->SUPER::delete($driver);
+
+	# also delete content and TAGS
+	$file =~ s/\.META$//;
+
+	unlink $file;
+	unlink $file . '.TAGS';
+
+	return $self;
+}
+
+
 package Gruta::Data::FS::Topic;
 
 use base 'Gruta::Data::Topic';
