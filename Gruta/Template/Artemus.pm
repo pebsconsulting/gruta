@@ -481,6 +481,15 @@ sub _artemus {
 			return 'OK';
 		};
 
+		$f{delete_story} = sub {
+			my $topic_id	= shift || return 'Error 1';
+			my $id		= shift;
+
+			$data->story($topic_id, $id)->delete();
+
+			return 'OK';
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 
