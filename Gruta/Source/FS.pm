@@ -152,7 +152,11 @@ sub touch {
 	my $hits = $self->get('hits') + 1;
 
 	$self->set('hits', $hits);
-	$self->save();
+
+	# call $self->SUPER::save() instead of $self->save()
+	# to avoid saving content (unnecessary) and deleting
+	# the topic INDEX (even probably dangerous)
+	$self->SUPER::save();
 
 	$self->source->_update_top_ten($hits, $self->get('topic_id'),
 		$self->get('id'));
