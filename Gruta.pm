@@ -250,12 +250,24 @@ sub transfer_to_source {
 		$dst->insert_user($u);
 	}
 
-	foreach my $topic_id ($self->topics()) {
+	foreach my $topic_id (sort $self->topics()) {
 		my $t = $self->topic($topic_id);
-		$dst->insert_topic($t);
+
+		my $nti = $topic_id;
+
+		# is it an archive?
+		if ($nti =~ /-arch$/) {
+			# don't insert topic, just rename
+			$nti =~ s/-arch$//;
+		}
+		else {
+			$dst->insert_topic($t);
+		}
 
 		foreach my $id ($self->stories($topic_id)) {
 			my $s = $self->story($topic_id, $id);
+
+			$ns->set('topic_id', $nti);
 			my $ns = $dst->insert_story($s);
 
 			if (my @tags = $s->tags()) {
