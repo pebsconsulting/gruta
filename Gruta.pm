@@ -290,8 +290,10 @@ sub new {
 
 	$g->{renderers_h} = {};
 
-	foreach my $r (@{$g->{renderers}}) {
-		$g->{renderers_h}->{$r->{renderer_id}} = $r;
+	if ($g->{renderers}) {
+		foreach my $r (@{$g->{renderers}}) {
+			$g->{renderers_h}->{$r->{renderer_id}} = $r;
+		}
 	}
 
 	$g->template->data($g)	if $g->{template};
