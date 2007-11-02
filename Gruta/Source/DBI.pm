@@ -132,7 +132,7 @@ sub touch {
 
 sub tags {
 	my $self	= shift;
-	my @ret		= undef;
+	my @ret		= ();
 
 	if (scalar(@_)) {
 		my @tags = @_;
@@ -158,8 +158,6 @@ sub tags {
 		my $sth = $self->source->_prepare(
 			'SELECT tag FROM tags WHERE topic_id = ? AND id = ?');
 		$self->source->_execute($sth, $self->get('topic_id'), $self->get('id'));
-
-		@ret = ();
 
 		while (my $r = $sth->fetchrow_arrayref()) {
 			push(@ret, $r->[0]);

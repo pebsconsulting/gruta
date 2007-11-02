@@ -153,7 +153,7 @@ sub touch {
 
 sub tags {
 	my $self	= shift;
-	my @ret		= undef;
+	my @ret		= ();
 
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$/.TAGS/;

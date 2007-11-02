@@ -67,7 +67,7 @@ sub load {
 
 sub tags {
 	my $self	= shift;
-	my @ret		= undef;
+	my @ret		= ();
 
 	unless (scalar(@_)) {
 		# get tags from the index
