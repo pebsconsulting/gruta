@@ -265,12 +265,17 @@ sub transfer_to_source {
 		}
 
 		foreach my $id ($self->stories($topic_id)) {
-			my $s = $self->story($topic_id, $id);
 
-			$ns->set('topic_id', $nti);
+			# get story and its tags
+			my $s = $self->story($topic_id, $id);
+			my @tags = $s->tags();
+
+			# set new topic
+			$s->set('topic_id', $nti);
+
 			my $ns = $dst->insert_story($s);
 
-			if (my @tags = $s->tags()) {
+			if (@tags) {
 				$ns->tags(@tags);
 			}
 		}
