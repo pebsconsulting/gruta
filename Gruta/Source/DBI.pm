@@ -511,7 +511,8 @@ CREATE TABLE users (
 	email		VARCHAR,
 	password	VARCHAR,
 	can_upload	INTEGER,
-	is_admin	INTEGER
+	is_admin	INTEGER,
+	xdate		CHAR(14)
 )
 ;
 CREATE TABLE sids (

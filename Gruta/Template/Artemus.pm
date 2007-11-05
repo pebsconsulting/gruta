@@ -465,6 +465,20 @@ sub _artemus {
 				$user->set('password', $pw);
 			}
 
+			# pick expiration date
+			my $xy = shift;
+			my $xm = shift;
+			my $xd = shift;
+
+			if ($xy and $xm and $xd) {
+				$user->set('xdate',
+					sprintf('%04d%02d%02d000000',
+						$xy, $xm, $xd));
+			}
+			else {
+				$user->set('xdate', '');
+			}
+
 			if ($user->source()) {
 				$user = $user->save();
 			}
