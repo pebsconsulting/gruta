@@ -496,10 +496,10 @@ CREATE TABLE stories (
 	id		VARCHAR NOT NULL,
 	topic_id	VARCHAR NOT NULL,
 	title		VARCHAR,
-	date		VARCHAR,
+	date		CHAR(14),
 	userid		VARCHAR,
 	format		VARCHAR,
-	hits		INTEGER,
+	hits		INTEGER DEFAULT 0,
 	ctime		INTEGER,
 	content		VARCHAR,
 	PRIMARY KEY	(id, topic_id)
@@ -530,4 +530,6 @@ CREATE TABLE tags (
 CREATE INDEX stories_by_date ON stories (date)
 ;
 CREATE INDEX stories_by_hits ON stories (hits)
+;
+CREATE INDEX tags_by_tag ON tags (tag)
 ;
