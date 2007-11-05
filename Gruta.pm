@@ -36,15 +36,14 @@ sub format_date {
 
 sub today {
 	my $self	= shift;
+	my $format	= shift;
 
-	if (not $self->{_today}) {
-		my ($S,$M,$H,$d,$m,$y) = (localtime)[0..5];
-		$self->{_today} =
-			 sprintf("%04d%02d%02d%02d%02d%02d",
-			1900 + $y, $m + 1, $d, $H, $M, $S);
-	}
+	my ($S,$M,$H,$d,$m,$y) = (localtime)[0..5];
 
-	return $self->{_today};
+	my $date = sprintf('%04d%02d%02d%02d%02d%02d',
+		1900 + $y, $m + 1, $d, $H, $M, $S);
+
+	return $self->format_date($date, $format);
 }
 
 sub log {
