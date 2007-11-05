@@ -130,6 +130,12 @@ sub tags {
 	return @ret;
 }
 
+sub new_id {
+	my $self	= shift;
+
+	return sprintf ('%08x', int(rand(0xffffffff)));
+}
+
 package Gruta::Data::User;
 
 use base 'Gruta::Data::BASE';
