@@ -154,6 +154,13 @@ sub login {
 
 	if (my $u = $self->user( $user_id )) {
 
+		# account expired? go!
+		if (my $xdate = $u->get('xdate')) {
+			if ($self->today() > $xdate) {
+				return undef;
+			}
+		}
+
 		my $p = $u->get('password');
 
 		if (crypt($passwd, $p) eq $p) {
