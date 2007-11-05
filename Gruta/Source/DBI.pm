@@ -431,15 +431,16 @@ sub insert_story {
 
 	if (not $story->get('id')) {
 		# alloc an id for the story
-		my $id = time();
+		my $id = undef;
 
 		my $sth = $self->_prepare(
 			'SELECT 1 FROM stories WHERE topic_id = ? AND id = ?');
 
 		do {
-			$id++;
+			$id = $story->new_id();
 			$self->_execute($sth, $story->get('topic_id'), $id);
-		} while ($sth->fetchrow_arrayref());
+
+		} while $sth->fetchrow_arrayref();
 
 		$story->set('id', $id);
 	}
