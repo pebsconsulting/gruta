@@ -443,8 +443,11 @@ sub _artemus {
 
 			# these params can only be set by an admin
 			if ($data->auth() && $data->auth->get('is_admin')) {
-				$user->set('is_admin',		shift);
-				$user->set('can_upload',	shift);
+				my $is_admin = shift;
+				my $can_upload = shift;
+
+				$user->set('is_admin', $is_admin eq 'on' ? 1 : 0);
+				$user->set('can_upload', $can_upload eq 'on' ? 1 : 0);
 			}
 			else {
 				shift;
