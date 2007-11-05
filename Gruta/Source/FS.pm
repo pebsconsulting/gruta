@@ -652,11 +652,12 @@ sub insert_story {
 
 	if (not $story->get('id')) {
 		# alloc an id for the story
-		my $id = time();
+		my $id = undef;
 
-		while ($self->story($story->get('topic_id'), $id)) {
-			$id++;
-		}
+		do {
+			$id = $story->new_id();
+
+		} while $self->story($story->get('topic_id'), $id);
 
 		$story->set('id', $id);
 	}
