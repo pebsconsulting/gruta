@@ -477,12 +477,13 @@ sub search_stories {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my $query	= shift;
+	my $future	= shift;
 
 	my @q = split(/\s+/,$query);
 
 	my @r = ();
 
-	foreach my $id ($self->stories_by_date( $topic_id )) {
+	foreach my $id ($self->stories_by_date( $topic_id, future => $future )) {
 
 		my $story = $self->story($topic_id, $id);
 		my $content = $story->get('content');
