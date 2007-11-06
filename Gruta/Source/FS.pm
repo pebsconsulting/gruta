@@ -451,9 +451,7 @@ sub stories_by_date {
 		my ($date, $id) = (/^(\d*):(.*)$/);
 
 		# skip future stories
-		next if not $args{future} and
-			$args{today} and
-			$date > $args{today};
+		next if not $args{future} and $date > Gruta::Data::today();
 
 		# skip if date is above the threshold
 		next if $args{'to'} and $date > $args{'to'};
