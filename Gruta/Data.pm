@@ -78,7 +78,7 @@ use base 'Gruta::Data::BASE';
 use Carp;
 
 sub fields { return qw(id topic_id title date userid format hits ctime content); }
-sub vfields { return qw(tags abstract body); }
+sub vfields { return qw(abstract body); }
 
 sub _assert {
 	my $self	= shift;
