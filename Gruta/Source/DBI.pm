@@ -273,7 +273,7 @@ sub stories_by_date {
 	}
 
 	if (!$args{future}) {
-		$sql .= ' AND date < ?';
+		$sql .= ' AND date <= ?';
 		push(@args, Gruta::Data::today());
 	}
 
