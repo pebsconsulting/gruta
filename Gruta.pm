@@ -3,6 +3,8 @@ package Gruta;
 use strict;
 use warnings;
 
+use Gruta::Data;
+
 $Gruta::VERSION = '2.0-pre2';
 
 sub sources { return @{$_[0]->{sources}}; }
@@ -77,7 +79,7 @@ sub story {
 
 sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
 sub stories_by_date { my $self = shift;
-	return $self->_call('stories_by_date', 1, @_, 'today' => $self->today()); }
+	return $self->_call('stories_by_date', 1, @_, 'today' => Gruta::Data::today()); }
 sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
 
 sub stories_top_ten {
@@ -143,7 +145,7 @@ sub login {
 
 		# account expired? go!
 		if (my $xdate = $u->get('xdate')) {
-			if ($self->today() > $xdate) {
+			if (Gruta::Data::today() > $xdate) {
 				return undef;
 			}
 		}
