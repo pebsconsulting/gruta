@@ -78,8 +78,7 @@ sub story {
 
 
 sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
-sub stories_by_date { my $self = shift;
-	return $self->_call('stories_by_date', 1, @_, 'today' => Gruta::Data::today()); }
+sub stories_by_date { my $self = shift; return $self->_call('stories_by_date', 1, @_); }
 sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
 
 sub stories_top_ten {
