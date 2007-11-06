@@ -355,7 +355,9 @@ sub stories_top_ten {
 
 sub search_stories_by_tag {
 	my $self	= shift;
-	my @tags	= @_;
+	my $tag		= shift;
+
+	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
 	my @r = ();
 

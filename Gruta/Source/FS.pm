@@ -567,7 +567,9 @@ sub _collect_tags {
 
 sub search_stories_by_tag {
 	my $self	= shift;
-	my @tags	= map { lc($_) } @_;
+	my $tag		= shift;
+
+	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
 	my @ret = ();
 
