@@ -527,13 +527,17 @@ sub _artemus {
 			my $template	= shift;
 			my $sep		= shift;
 
-			return join($sep, map { "{-$template|$_->[0]|$_->[1]}" }
-				$data->search_stories_by_tag($tag)
-			);
+			my @ret = $data->search_stories_by_tag($tag);
+			$self->{search_count} = scalar(@ret);
+
+			return join($sep, map { "{-$template|$_->[0]|$_->[1]}" } @ret);
 		};
+
+		$f{search_count} = sub { $self->{search_count}; };
 
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
+		$self->{search_count}	= 0;
 
 		$self->{_artemus} = Artemus->new(
 			'include-path'	=>	$self->{path},
