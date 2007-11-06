@@ -9,43 +9,6 @@ sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
 sub cgi { return $_[0]->{cgi}; }
 
-
-sub format_date {
-	my $date	= shift;
-	my $format	= shift;
-
-	if ($format) {
-		my ($y, $m, $d, $H, $M, $S) = ($date =~
-			/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
-
-		$format =~ s/%Y/$y/g;
-		$format =~ s/%y/$y/g;
-		$format =~ s/%m/$m/g;
-		$format =~ s/%d/$d/g;
-		$format =~ s/%H/$H/g;
-		$format =~ s/%M/$M/g;
-		$format =~ s/%S/$S/g;
-	}
-	else {
-		$format = $date;
-	}
-
-	return $format;
-}
-
-
-sub today {
-	my $self	= shift;
-	my $format	= shift;
-
-	my ($S,$M,$H,$d,$m,$y) = (localtime)[0..5];
-
-	my $date = sprintf('%04d%02d%02d%02d%02d%02d',
-		1900 + $y, $m + 1, $d, $H, $M, $S);
-
-	return $self->format_date($date, $format);
-}
-
 sub log {
 	my $self	= shift;
 	my $msg		= shift;

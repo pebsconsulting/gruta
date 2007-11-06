@@ -43,7 +43,7 @@ sub _artemus {
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 		$f{'eq'} = sub { $_[0] eq $_[1] ? 1 : 0; };
 
-		$f{date} = sub { $data->today(); };
+		$f{date} = sub { Gruta::Data::today(); };
 		$f{random} = sub { $_[rand(scalar(@_))]; };
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
@@ -311,7 +311,7 @@ sub _artemus {
 		$f{is_visible_story} = sub {
 			my $story = $data->story($_[0], $_[1]);
 
-			if (!$data->auth() && $story->get('date') > $data->today()) {
+			if (!$data->auth() && $story->get('date') > Gruta::Data::today()) {
 				return 0;
 			}
 
@@ -395,7 +395,7 @@ sub _artemus {
 			my $m = shift;
 			my $d = shift;
 			shift; shift; shift;
-			my $date = $data->today();
+			my $date = Gruta::Data::today();
 
 			if ($y && $m && $d) {
 				$date = sprintf("%04d%02d%02d000000", $y, $m, $d);
