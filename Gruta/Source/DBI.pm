@@ -307,12 +307,18 @@ sub search_stories {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my $query	= shift;
+	my $future	= shift;
 
 	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
-	my $like = 'AND content LIKE ? ' x scalar(@q);
+	my $cond = 'AND content LIKE ? ' x scalar(@q);
+
+	unless ($future) {
+		$cond .= 'AND date <= ';
+		push(@q, Gruta::Data::today());
+	}
 
 	my $sth = $self->_prepare(
-		'SELECT id FROM stories WHERE topic_id = ? ' . $like .
+		'SELECT id FROM stories WHERE topic_id = ? ' . $cond .
 		'ORDER BY date DESC');
 
 	$self->_execute($sth, $topic_id, @q);
