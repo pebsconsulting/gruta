@@ -124,6 +124,18 @@ sub _artemus {
 			};
 		}
 
+		$f{user_xdate} = sub {
+			my $format	= shift;
+			my $id		= shift;
+			my $ret		= '';
+
+			if ($id ne '[]') {
+				$ret = $data->user($id)->xdate($format);
+			}
+
+			return $ret;
+		};
+
 		$f{template} = sub {
 			my $t = shift;
 			my $ret = '';
