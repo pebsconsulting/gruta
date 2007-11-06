@@ -272,9 +272,9 @@ sub stories_by_date {
 		push(@args, $args{to});
 	}
 
-	if (!$args{future} && $args{today}) {
+	if (!$args{future}) {
 		$sql .= ' AND date < ?';
-		push(@args, $args{today});
+		push(@args, Gruta::Data::today());
 	}
 
 	$sql .= ' ORDER BY date DESC';
