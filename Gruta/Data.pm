@@ -91,12 +91,7 @@ sub _assert {
 	return $self;
 }
 
-sub date {
-	my $self	= shift;
-	my $format	= shift;
-
-	return Gruta::Data::format_date($self->get('date'), $format);
-}
+sub date { return Gruta::Data::format_date($_[0]->get('date'), $_[1]); }
 
 sub touch { return $_[0]; }
 
@@ -126,6 +121,8 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id username email password can_upload is_admin xdate); }
 sub vfields { return qw(sid); }
+
+sub xdate { return Gruta::Data::format_date($_[0]->get('xdate'), $_[1]); }
 
 package Gruta::Data::Session;
 
