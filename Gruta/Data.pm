@@ -95,23 +95,7 @@ sub date {
 	my $self	= shift;
 	my $format	= shift;
 
-	if (defined($format)) {
-		my ($y, $m, $d, $H, $M, $S) = ($self->get('date') =~
-			/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
-
-		$format =~ s/%Y/$y/g;
-		$format =~ s/%y/$y/g;
-		$format =~ s/%m/$m/g;
-		$format =~ s/%d/$d/g;
-		$format =~ s/%H/$H/g;
-		$format =~ s/%M/$M/g;
-		$format =~ s/%S/$S/g;
-	}
-	else {
-		$format = $self->get('date');
-	}
-
-	return($format);
+	return Gruta::Data::format_date($self->get('date'), $format);
 }
 
 sub touch { return $_[0]; }
