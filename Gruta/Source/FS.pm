@@ -568,6 +568,7 @@ sub _collect_tags {
 sub search_stories_by_tag {
 	my $self	= shift;
 	my $tag		= shift;
+	my $future	= shift;
 
 	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
@@ -577,6 +578,20 @@ sub search_stories_by_tag {
 
 		foreach my $t (@{$tr->[2]}) {
 			if (grep(/$t/, @tags)) {
+
+				# if no future stories are to be shown,
+				# discard them
+				if (!$future) {
+					my $story = $self->story(
+						$tr->[0], $tr->[1]
+					);
+
+					if ($story->get('date') >
+						Gruta::Data::today()) {
+						last;
+					}
+				}
+
 				push(@ret, [ $tr->[0], $tr->[1] ]);
 				last;
 			}
