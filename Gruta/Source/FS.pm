@@ -491,19 +491,18 @@ sub search_stories {
 
 		# try complete query first
 		if($content =~ /\b$query\b/i) {
-			$found = 1;
+			$found = scalar(@q);
 		}
 		else {
 			# try separate words
 			foreach my $q (@q) {
 				if(length($q) > 1 and $content =~ /\b$q\b/i) {
-					$found = 1;
-					last;
+					$found++;
 				}
 			}
 		}
 
-		push(@r, $id) if $found;
+		push(@r, $id) if $found == scalar(@q);
 	}
 
 	return @r;
