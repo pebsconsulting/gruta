@@ -526,8 +526,9 @@ sub _artemus {
 			my $tag		= shift;
 			my $template	= shift;
 			my $sep		= shift;
+			my $future	= shift;
 
-			my @ret = $data->search_stories_by_tag($tag);
+			my @ret = $data->search_stories_by_tag($tag, $future);
 			$self->{search_count} = scalar(@ret);
 
 			return join($sep, map { "{-$template|$_->[0]|$_->[1]}" } @ret);
