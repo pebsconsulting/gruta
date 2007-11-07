@@ -452,7 +452,16 @@ sub _artemus {
 
 		$f{save_user} = sub {
 			shift;	# new (ignored)
-			my $id = shift || return 'Error 1';
+			my $id		= shift || return 'Error 1';
+			my $username	= shift;
+			my $email	= shift;
+			my $is_admin	= shift;
+			my $can_upload	= shift;
+			my $pass1	= shift;
+			my $pass2	= shift;
+			my $xy		= shift;
+			my $xm		= shift;
+			my $xd		= shift;
 
 			my $user = undef;
 
@@ -460,28 +469,29 @@ sub _artemus {
 				$user = Gruta::Data::User->new (
 					id		=> $id,
 					is_admin	=> 0,
-					can_upload	=> 0
+					can_upload	=> 0,
+					xdate		=> ''
 				);
 			}
 
-			$user->set('username',		shift);
-			$user->set('email',		shift);
+			$user->set('username',		$username);
+			$user->set('email',		$email);
 
 			# these params can only be set by an admin
 			if ($data->auth() && $data->auth->get('is_admin')) {
-				my $is_admin = shift;
-				my $can_upload = shift;
 
 				$user->set('is_admin', $is_admin eq 'on' ? 1 : 0);
 				$user->set('can_upload', $can_upload eq 'on' ? 1 : 0);
-			}
-			else {
-				shift;
-				shift;
-			}
 
-			my $pass1 = shift;
-			my $pass2 = shift;
+				if ($xy and $xm and $xd) {
+					$user->set('xdate',
+						sprintf('%04d%02d%02d000000',
+							$xy, $xm, $xd));
+				}
+				else {
+					$user->set('xdate', '');
+				}
+			}
 
 			if ($pass1 and $pass2) {
 				if ($pass1 ne $pass2) {
@@ -492,20 +502,6 @@ sub _artemus {
 				my $pw = crypt($pass1, $salt);
 
 				$user->set('password', $pw);
-			}
-
-			# pick expiration date
-			my $xy = shift;
-			my $xm = shift;
-			my $xd = shift;
-
-			if ($xy and $xm and $xd) {
-				$user->set('xdate',
-					sprintf('%04d%02d%02d000000',
-						$xy, $xm, $xd));
-			}
-			else {
-				$user->set('xdate', '');
 			}
 
 			if ($user->source()) {
