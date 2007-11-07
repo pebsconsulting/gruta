@@ -313,13 +313,14 @@ sub search_stories {
 	my $cond = 'AND content LIKE ? ' x scalar(@q);
 
 	unless ($future) {
-		$cond .= 'AND date <= ';
+		$cond .= 'AND date <= ? ';
 		push(@q, Gruta::Data::today());
 	}
 
-	my $sth = $self->_prepare(
-		'SELECT id FROM stories WHERE topic_id = ? ' . $cond .
-		'ORDER BY date DESC');
+	my $sql = 'SELECT id FROM stories WHERE topic_id = ? ' . $cond .
+		'ORDER BY date DESC';
+
+	my $sth = $self->_prepare($sql);
 
 	$self->_execute($sth, $topic_id, @q);
 
