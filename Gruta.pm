@@ -79,7 +79,16 @@ sub story {
 
 sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
 sub stories_by_date { my $self = shift; return $self->_call('stories_by_date', 1, @_); }
-sub search_stories { my $self = shift; return $self->_call('search_stories', 1, @_); }
+
+sub search_stories {
+	my $self	= shift;
+	my $topic_id	= shift;
+
+	my @l = $self->_call('search_stories', 1, $topic_id, @_);
+
+	return sort { $self->story($topic_id, $a)->get('title') cmp
+			$self->story($topic_id, $b)->get('title') } @l;
+}
 
 sub stories_top_ten {
 	my $self = shift;
