@@ -98,7 +98,14 @@ sub stories_top_ten {
 	return sort { $b->[0] cmp $a->[0] } @l;
 }
 
-sub search_stories_by_tag { my $self = shift; return $self->_call('search_stories_by_tag', 0, @_); }
+sub search_stories_by_tag {
+	my $self = shift;
+
+	my @l = $self->_call('search_stories_by_tag', 0, @_);
+
+	return sort { $self->story($a->[0], $a->[1])->get('title') cmp
+			$self->story($b->[0], $b->[1])->get('title') } @l;
+}
 
 sub tags {
 	my $self = shift;
