@@ -305,8 +305,22 @@ sub _artemus {
 		$f{search_stories} = sub {
 			my $topic_id	= shift;
 			my $query 	= shift;
+			my $future	= shift;
+			my $template	= shift || '_story_link_as_item_with_edit';
+			my $sep		= shift || '';
 
-			return "search_stories: FIXME";
+			my $ret = '';
+			my @l = $data->search_stories($topic_id, $query, $future);
+
+			if (@l) {
+				$ret = "<p><b>{-topic_name|$topic_id}</b><br>\n";
+
+				$ret .= join($sep, map { "{-$template|$topic_id|$_}" } @l);
+
+				$self->{search_count} += scalar(@l);
+			}
+
+			return $ret;
 		};
 
 		$f{story_loop_top_ten} = sub {
