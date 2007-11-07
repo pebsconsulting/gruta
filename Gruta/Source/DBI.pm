@@ -356,14 +356,25 @@ sub stories_top_ten {
 sub search_stories_by_tag {
 	my $self	= shift;
 	my $tag		= shift;
+	my $future	= shift;
 
 	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
 	my @r = ();
 
 	if (@tags) {
-		my $sql = 'SELECT DISTINCT topic_id, id FROM tags WHERE ' .
-			join(' OR ', map { 'tag = ?' } @tags);
+		my $sql;
+
+		if ($future) {
+			$sql = 'SELECT DISTINCT topic_id, id FROM tags WHERE ' .
+				join(' OR ', map { 'tag = ?' } @tags);
+		}
+		else {
+			$sql = 'SELECT DISTINCT tags.topic_id, tags.id FROM tags, stories WHERE ' .
+				'tags.topic_id = stories.topic_id AND tags.id = stories.id AND ' .
+				"stories.date <= '" . Gruta::Data::today() . "' AND (" .
+				join(' OR ', map { 'tag = ?' } @tags) . ')';
+		}
 
 		my $sth = $self->_prepare($sql);
 		$self->_execute($sth, map { lc($_) } @tags);
