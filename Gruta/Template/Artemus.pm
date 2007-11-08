@@ -465,7 +465,7 @@ sub _artemus {
 
 			if ($data->auth->get('username') ne $username &&
 				! $data->auth->get('is_admin')) {
-				$data->cgi-redirect('?t=LOGIN');
+				$data->cgi->redirect('?t=LOGIN');
 				$self->{abort} = 1;
 				return '';
 			}
