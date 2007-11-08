@@ -463,6 +463,13 @@ sub _artemus {
 			my $xm		= shift;
 			my $xd		= shift;
 
+			if ($data->auth->get('username') ne $username &&
+				! $data->auth->get('is_admin')) {
+				$data->cgi-redirect('?t=LOGIN');
+				$self->{abort} = 1;
+				return '';
+			}
+
 			my $user = undef;
 
 			if (not $user = $data->user($id)) {
@@ -478,7 +485,7 @@ sub _artemus {
 			$user->set('email',		$email);
 
 			# these params can only be set by an admin
-			if ($data->auth() && $data->auth->get('is_admin')) {
+			if ($data->auth->get('is_admin')) {
 
 				$user->set('is_admin', $is_admin eq 'on' ? 1 : 0);
 				$user->set('can_upload', $can_upload eq 'on' ? 1 : 0);
