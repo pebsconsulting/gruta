@@ -119,8 +119,6 @@ sub run {
 		$body = "<pre>$@</pre>";
 	}
 
-	$body = $data->special_uris($body);
-
 	my $h = $self->http_headers();
 	foreach my $k (keys(%{ $h })) {
 		print $k, ': ', $h->{$k}, "\n";

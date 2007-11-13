@@ -91,6 +91,8 @@ sub _artemus {
 			my $story = $data->story($_[0], $_[1]);
 			my $ret = $story->get('body');
 
+			$ret = $data->special_uris($ret);
+
 			if (not $data->auth()) {
 				$story->touch();
 			}
