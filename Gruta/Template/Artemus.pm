@@ -87,17 +87,20 @@ sub _artemus {
 			return $ret;
 		};
 
+		$f{story_abstract} = sub {
+			my $story = $data->story($_[0], $_[1]);
+
+			return $data->special_uris($story->get('abstract'));
+		};
+
 		$f{story_body} = sub {
 			my $story = $data->story($_[0], $_[1]);
-			my $ret = $story->get('body');
-
-			$ret = $data->special_uris($ret);
 
 			if (not $data->auth()) {
 				$story->touch();
 			}
 
-			return $ret;
+			return $data->special_uris($story->get('body'));
 		};
 
 		$f{story_date} = sub {
