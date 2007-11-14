@@ -558,6 +558,11 @@ sub _artemus {
 
 		$f{search_count} = sub { $self->{search_count}; };
 
+		$f{content_type} = sub {
+			$data->cgi->http_headers('Content-Type' => $_[0]);
+			return '';
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
