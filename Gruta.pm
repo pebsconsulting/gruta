@@ -112,7 +112,7 @@ sub tags {
 
 	my @l = $self->_call('tags', 0, @_);
 
-	return sort { $b->[0] <=> $a->[0] } @l;
+	return sort { $a->[0] cmp $b->[0] } @l;
 }
 
 sub insert_topic { my $self = shift; return $self->_call('insert_topic', 1, @_); }
