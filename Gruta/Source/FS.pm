@@ -576,7 +576,7 @@ sub search_stories_by_tag {
 	foreach my $tr ($self->_collect_tags()) {
 
 		foreach my $t (@{$tr->[2]}) {
-			if (grep(/$t/, @tags)) {
+			if (grep(/^$t$/, @tags)) {
 
 				# if no future stories are to be shown,
 				# discard them
