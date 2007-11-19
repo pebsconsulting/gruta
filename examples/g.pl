@@ -47,7 +47,7 @@ my $w = Gruta->new(
 #	base		=>	$base,
 #	upload		=>	[ "${base}/img" ],
 #	templates	=>	[ "${base}/templates" ],
-	sources		=>	[ $src, $src3 ],
+	sources		=>	[ $src2, $src3 ],
 	renderers	=>	[ $rndr, $rndr2, $rndr3 ],
 	template	=>	$tmpl,
 	cgi		=>	Gruta::CGI->new()
@@ -64,7 +64,7 @@ $w->template->cgi_vars( { t => 'LOGIN', topic => 'alimentos', userid => 'angel',
 #$str = $w->template->process("{-loop_renderers||\n}");
 
 my @t = $w->tags();
-my @sbt = $w->search_stories_by_tag('primeros');
+my @sbt = $w->search_stories_by_tag('cocina de autor');
 
 my $str = $w->template->process('LOGIN');
 
