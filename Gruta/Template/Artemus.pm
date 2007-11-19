@@ -563,6 +563,11 @@ sub _artemus {
 			return '';
 		};
 
+		$f{loop_tags} = sub {
+			return join($_[1], map { "{-$_[0]|$_->[0]|$_->[1]}" }
+				$data->tags());
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
