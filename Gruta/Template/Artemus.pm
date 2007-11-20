@@ -116,6 +116,19 @@ sub _artemus {
 			return $ret;
 		};
 
+		$f{story_date2} = sub {
+			my $format	= shift;
+			my $topic_id	= shift;
+			my $id		= shift;
+			my $ret		= '';
+
+			if ($id ne '[]') {
+				$ret = $data->story($topic_id, $id)->date2($format);
+			}
+
+			return $ret;
+		};
+
 		foreach my $p (Gruta::Data::User->new->afields()) {
 			$f{'user_' . $p} = sub {
 				my $id	= shift;

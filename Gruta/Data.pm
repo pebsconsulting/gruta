@@ -77,7 +77,7 @@ use base 'Gruta::Data::BASE';
 
 use Carp;
 
-sub fields { return qw(id topic_id title date userid format hits ctime content); }
+sub fields { return qw(id topic_id title date date2 userid format hits ctime content); }
 sub vfields { return qw(abstract body); }
 
 sub _assert {
@@ -92,6 +92,7 @@ sub _assert {
 }
 
 sub date { return Gruta::Data::format_date($_[0]->get('date'), $_[1]); }
+sub date2 { return Gruta::Data::format_date($_[0]->get('date2'), $_[1]); }
 
 sub touch { return $_[0]; }
 

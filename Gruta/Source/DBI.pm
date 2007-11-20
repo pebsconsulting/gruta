@@ -517,6 +517,7 @@ CREATE TABLE stories (
 	topic_id	VARCHAR NOT NULL,
 	title		VARCHAR,
 	date		CHAR(14),
+	date2		CHAR(14),
 	userid		VARCHAR,
 	format		VARCHAR,
 	hits		INTEGER DEFAULT 0,
