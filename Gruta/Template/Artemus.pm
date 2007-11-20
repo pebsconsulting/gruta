@@ -448,6 +448,23 @@ sub _artemus {
 			$story->set('date',	$date);
 			$story->set('format',	shift || 'grutatxt');
 
+			# get the tags
+			my $tags = shift;
+
+			# get date2
+			$y = shift;
+			$m = shift;
+			$d = shift;
+
+			if ($y && $m && $d) {
+				$date = sprintf("%04d%02d%02d000000", $y, $m, $d);
+			}
+			else {
+				$date = '';
+			}
+
+			$story->set('date2', $date);
+
 			# drop all cached stories
 			$data->flush_story_cache();
 
@@ -457,9 +474,6 @@ sub _artemus {
 			else {
 				$story = $data->insert_story($story);
 			}
-
-			# store the tags
-			my $tags = shift;
 
 			if ($tags ne 'cgi-tags') {
 				$story->tags(split(/\s*,\s*/, $tags));
