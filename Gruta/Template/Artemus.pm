@@ -250,8 +250,13 @@ sub _artemus {
 		$f{is_topic_editor} = sub {
 			my $topic;
 
-			return $topic = $data->topic($_[0]) &&
-				$topic->is_editor($data->auth()) ? 1 : 0;
+#			return ($topic = $data->topic($_[0]) &&
+#				$topic->is_editor($data->auth())) ? 1 : 0;
+			if ($topic = $data->topic($_[0])) {
+				return $topic->is_editor($data->auth()) ? 1 : 0;
+			}
+
+			return 0;
 		};
 
 		$f{login} = sub {
@@ -332,8 +337,11 @@ sub _artemus {
 		$f{is_visible_story} = sub {
 			my $story;
 
-			return $story = $data->story($_[0], $_[1]) &&
-				$story->is_visible($data->auth()) ? 1 : 0;
+			if ($story = $data->story($_[0], $_[1])) {
+				return $story->is_visible($data->auth()) ? 1 : 0;
+			}
+
+			return 0;
 		};
 
 		$f{redir_if_archived} = sub {
