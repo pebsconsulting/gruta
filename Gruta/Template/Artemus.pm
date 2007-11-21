@@ -248,11 +248,7 @@ sub _artemus {
 		};
 
 		$f{is_topic_editor} = sub {
-			my $topic;
-
-#			return ($topic = $data->topic($_[0]) &&
-#				$topic->is_editor($data->auth())) ? 1 : 0;
-			if ($topic = $data->topic($_[0])) {
+			if (my $topic = $data->topic($_[0])) {
 				return $topic->is_editor($data->auth()) ? 1 : 0;
 			}
 
@@ -335,9 +331,7 @@ sub _artemus {
 		};
 
 		$f{is_visible_story} = sub {
-			my $story;
-
-			if ($story = $data->story($_[0], $_[1])) {
+			if (my $story = $data->story($_[0], $_[1])) {
 				return $story->is_visible($data->auth()) ? 1 : 0;
 			}
 
