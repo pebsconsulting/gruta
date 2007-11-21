@@ -290,13 +290,7 @@ sub _artemus {
 		};
 
 		$f{username} = sub {
-			my $ret = '';
-
-			if ($data->auth()) {
-				$ret = $data->auth->get('username');
-			}
-
-			return $ret;
+			return $data->auth() && $data->auth->get('username') || '';
 		};
 
 		$f{search_stories} = sub {
