@@ -128,7 +128,7 @@ sub is_visible {
 	my $self	= shift;
 	my $user	= shift; # Gruta::Data::User
 
-	return $user && $self->get('date') > Gruta::Data::today() ? 0 : 1;
+	return !$user && $self->get('date') > Gruta::Data::today() ? 0 : 1;
 }
 
 

@@ -87,9 +87,13 @@ my @t = $story_n->tags();
 
 my $story = $w->story('alimentos', '200609200001');
 my @tags = $story->tags();
+my $v;
 $story = $w->story('art', '200210040002');
 $story = $w->story('art', '200210040002');
 $story = $w->story('rec', '200209020002');
+$v = $story->is_visible($w->auth());
+$story = $w->story('noticias', 'a60cc163');
+$v = $story->is_visible($w->auth());
 
 $story = $w->story('pruebas', '200707250001');
 
