@@ -71,7 +71,7 @@ my $str = $w->template->process('LOGIN');
 my @ts = $w->topics();
 
 my $topic = $w->topic('pruebas');
-my $topic2 = $w->topic('art');
+my $topic2 = $w->topic('noticias');
 my $topic3 = $w->topic('links');
 
 $topic->set('editors', 'coco');

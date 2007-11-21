@@ -75,24 +75,8 @@ sub is_editor {
 	my $self	= shift;
 	my $user	= shift; # Gruta::Data::User
 
-	if (not $user) {
-		return 0;
-	}
-
-	if ($user->get('is_admin')) {
-		return 1;
-	}
-
-	my $editors;
-	my $user_id;
-
-	if ($editors = $self->get('editors') and
-		$user_id = $self->get('id') and
-		$editors =~ /\b$user_id\b/) {
-		return 1;
-	}
-
-	return 0;
+	return $user && ($user->get('is_admin') || 
+		$self->get('editors') =~ m{\b$user->get('id')\b}) ? 1 : 0;
 }
 
 package Gruta::Data::Story;
