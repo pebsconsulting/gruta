@@ -330,13 +330,10 @@ sub _artemus {
 		};
 
 		$f{is_visible_story} = sub {
-			my $story = $data->story($_[0], $_[1]);
+			my $story;
 
-			if (!$data->auth() && $story->get('date') > Gruta::Data::today()) {
-				return 0;
-			}
-
-			return 1;
+			return $story = $data->story($_[0], $_[1]) &&
+				$story->is_visible($data->auth()) ? 1 : 0;
 		};
 
 		$f{redir_if_archived} = sub {
