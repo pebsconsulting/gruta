@@ -251,28 +251,10 @@ sub _artemus {
 		};
 
 		$f{is_topic_editor} = sub {
-			my $auth;
-
-			if (not $auth = $data->auth()) {
-				return 0;
-			}
-
-			if ($auth->get('is_admin')) {
-				return 1;
-			}
-
 			my $topic;
 
-			if (not $topic = $data->topic($_[0])) {
-				return 0;
-			}
-
-			if (my $editors = $topic->get('editors') and
-				my $user_id = $auth->get('id')) {
-				return 1 if $editors =~/\b$user_id\b/;
-			}
-
-			return 0;
+			return $topic = $data->topic($_[0]) &&
+				$topic->is_editor($data->auth()) ? 1 : 0;
 		};
 
 		$f{login} = sub {
