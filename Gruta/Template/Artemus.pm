@@ -244,10 +244,7 @@ sub _artemus {
 		};
 
 		$f{is_admin} = sub {
-			if ($data->auth() and $data->auth->get('is_admin')) {
-				return 1;
-			}
-			return 0;
+			return $data->auth() && $data->auth->get('is_admin') ? 1 : 0;
 		};
 
 		$f{is_topic_editor} = sub {
