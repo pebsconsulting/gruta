@@ -124,6 +124,14 @@ sub new_id {
 	return sprintf ('%08x', int(rand(0xffffffff)));
 }
 
+sub is_visible {
+	my $self	= shift;
+	my $user	= shift; # Gruta::Data::User
+
+	return $user && $self->get('date') > Gruta::Data::today() ? 0 : 1;
+}
+
+
 package Gruta::Data::User;
 
 use base 'Gruta::Data::BASE';
