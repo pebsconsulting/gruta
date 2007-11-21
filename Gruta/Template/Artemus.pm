@@ -293,6 +293,10 @@ sub _artemus {
 			return $data->auth() && $data->auth->get('username') || '';
 		};
 
+		$f{userid} = sub {
+			return $data->auth() && $data->auth->get('id') || '';
+		};
+
 		$f{search_stories} = sub {
 			my $topic_id	= shift;
 			my $query 	= shift;
