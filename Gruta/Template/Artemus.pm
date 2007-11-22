@@ -100,13 +100,21 @@ sub _artemus {
 
 			if (my $topic = $data->topic($topic_id)) {
 				if (my $story = $data->story($topic_id, $id)) {
-					# touch the story if user is not
-					# (potentially) involved on it
-					if (! $topic->is_editor($data->auth())) {
-						$story->touch();
-					}
+					my $date2 = $story->get('date2');
 
-					$ret = $data->special_uris($story->get('body'));
+					# if no user and story is not freed, bounce
+					if (!$data->auth() && $date2 && $date2 > Gruta::Data::today()) {
+						$ret = '{-restricted_access}';
+					}
+					else {
+						# touch the story if user is not
+						# (potentially) involved on it
+						if (! $topic->is_editor($data->auth())) {
+							$story->touch();
+						}
+
+						$ret = $data->special_uris($story->get('body'));
+					}
 				}
 			}
 
