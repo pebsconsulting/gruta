@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 
+use locale;
+use POSIX qw (locale_h);
+#setlocale(LC_ALL, 'es_ES');
+
 use Gruta;
 
 #sub BEGIN { $ENV{'DISPLAY'} = ":0.0"; } #!/usr/bin/perl -d:ptkdb
