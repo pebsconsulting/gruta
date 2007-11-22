@@ -94,13 +94,23 @@ sub _artemus {
 		};
 
 		$f{story_body} = sub {
-			my $story = $data->story($_[0], $_[1]);
+			my $topic_id	= shift;
+			my $id		= shift;
+			my $ret		= '{-404}';
 
-			if (not $data->auth()) {
-				$story->touch();
+			if (my $topic = $data->topic($topic_id)) {
+				if (my $story = $data->story($topic_id, $id)) {
+					# touch the story if user is not
+					# (potentially) involved on it
+					if (! $topic->is_editor($data->auth())) {
+						$story->touch();
+					}
+
+					$ret = $data->special_uris($story->get('body'));
+				}
 			}
 
-			return $data->special_uris($story->get('body'));
+			return $ret;
 		};
 
 		$f{story_date} = sub {
