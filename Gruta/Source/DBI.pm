@@ -147,6 +147,9 @@ sub tags {
 			'INSERT INTO tags (id, topic_id, tag) VALUES (?, ?, ?)');
 
 		foreach my $t (@tags) {
+			$t =~ s/^\s+//;
+			$t =~ s/\s+$//;
+
 			$self->source->_execute($sth,
 				$self->get('id'),
 				$self->get('topic_id'),
