@@ -47,10 +47,15 @@ sub story {
 	}
 	else {
 		# use first paragraph
-		$to = $self->{abstract};
+		$to = $self->{abstract} + 1;
 	}
 
 	$to = scalar(@o) - 1 if $to >= scalar(@o);
+
+	# don't have an abstract ending with a <p>
+	if ($o[$to] eq '<p>') {
+		$to--;
+	}
 
 	$story->set('title',	$self->{title}) if $self->{title};
 	$story->set('abstract',	join("\n", @o[0 .. $to]));
