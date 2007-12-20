@@ -53,7 +53,7 @@ my $w = Gruta->new(
 	cgi		=>	Gruta::CGI->new()
 );
 
-my $ret = $tmpl->process('{-foreach|a1,a2;b1,b2;c1,c2|cell %0: "%1 * 3"|,}');
+my $ret = $tmpl->process('{-foreach|a1,a2;b1,b2;c1,c2|[-l/STORY/%0/%1]|,}');
 
 $w->login('angel', 'test');
 $w->logout();

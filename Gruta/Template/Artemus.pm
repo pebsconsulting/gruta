@@ -54,6 +54,7 @@ sub _artemus {
 
 			$code =~ s/\[/{/g;
 			$code =~ s/\]/}/g;
+			$code =~ s@/@|@g;
 
 			foreach my $e (split(/;/, $list)) {
 				my @e = split(/,/, $e);
