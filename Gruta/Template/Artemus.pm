@@ -46,6 +46,32 @@ sub _artemus {
 		$f{date} = sub { Gruta::Data::today(); };
 		$f{random} = sub { $_[rand(scalar(@_))]; };
 
+		$f{foreach} = sub {
+			my $list = shift;
+			my $code = shift;
+			my $sep = shift;
+			my @ret = ();
+
+			$code =~ s/\[/{/g;
+			$code =~ s/\]/}/g;
+
+			foreach my $e (split(/;/, $list)) {
+				my @e = split(/,/, $e);
+
+				my $c = $code;
+				my $n = 0;
+
+				foreach my $i (@e) {
+					$c =~ s/%$n/$i/g;
+					$n++;
+				}
+
+				push(@ret, $c);
+			}
+
+			return join($sep, @ret);
+		};
+
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$f{'topic_' . $p} = sub {
 				my $topic = shift;
