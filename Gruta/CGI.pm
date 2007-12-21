@@ -127,11 +127,15 @@ sub run {
 		$md5->add($body);
 		my $etag = $md5->hexdigest();
 
-		if ($ENV{HTTP_IF_NONE_MATCH}) {
-			$data->log('IF_NONE_MATCH:' . $ENV{HTTP_IF_NONE_MATCH});
-		}
+		my $inm = $ENV{HTTP_IF_NONE_MATCH} || '';
 
-		$self->http_headers('ETag' => $etag);
+		if ($inm eq $etag) {
+			$self->http_headers('Status' => '304');
+			$body = '';
+		}
+		else {
+			$self->http_headers('ETag' => $etag);
+		}
 	}
 
 	my $h = $self->http_headers();
