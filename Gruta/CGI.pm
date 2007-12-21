@@ -71,7 +71,6 @@ sub new {
 
 	$obj->{http_headers} = {
 		'Content-Type'		=> 'text/html; charset=ISO-8859-1',
-		'X-Powered-By'		=> 'Gruta',
 		'X-Gateway-Interface'	=> $ENV{'GATEWAY_INTERFACE'},
 		'X-Server-Name'		=> $ENV{'SERVER_NAME'}
 	};
@@ -118,6 +117,8 @@ sub run {
 #		$self->redirect('?t=INDEX');
 		$body = "<pre>$@</pre>";
 	}
+
+	$self->http_headers('X-Powered-By' => 'Gruta ' . $self->data->version());
 
 	my $h = $self->http_headers();
 	foreach my $k (keys(%{ $h })) {

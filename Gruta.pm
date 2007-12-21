@@ -11,6 +11,8 @@ sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
 sub cgi { return $_[0]->{cgi}; }
 
+sub version { return $Gruta::VERSION; }
+
 sub log {
 	my $self	= shift;
 	my $msg		= shift;
