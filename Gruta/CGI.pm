@@ -120,6 +120,15 @@ sub run {
 
 	$self->http_headers('X-Powered-By' => 'Gruta ' . $self->data->version());
 
+	if (!$data->auth()) {
+		use Digest::MD5;
+
+		my $md5 = Digest::MD5->new();
+		$md5->add($body);
+
+		$self->http_headers('ETag' => $md5->hexdigest());
+	}
+
 	my $h = $self->http_headers();
 	foreach my $k (keys(%{ $h })) {
 		print $k, ': ', $h->{$k}, "\n";
