@@ -125,8 +125,13 @@ sub run {
 
 		my $md5 = Digest::MD5->new();
 		$md5->add($body);
+		my $etag = $md5->hexdigest();
 
-		$self->http_headers('ETag' => $md5->hexdigest());
+		if ($ENV{HTTP_IF_NONE_MATCH}) {
+			$data->log('IF_NONE_MATCH:' . $ENV{HTTP_IF_NONE_MATCH});
+		}
+
+		$self->http_headers('ETag' => $etag);
 	}
 
 	my $h = $self->http_headers();
