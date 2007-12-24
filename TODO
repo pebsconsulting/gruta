@@ -7,6 +7,8 @@ Release Critical Bugs
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
  * 1004: Support broken lines in message headers in Source::Mbox.
+ * 1011: Templates should live in /usr/share/gruta/templates and,
+   when changed, be saved in the var/templates directory.
 
 Open Bugs
 ---------
