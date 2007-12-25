@@ -1,0 +1,4 @@
+<select name = 'id'>
+{-_select_option|[Nueva]|[]}
+{-loop_templates|_select_option}
+</select>

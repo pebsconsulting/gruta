@@ -1,0 +1,12 @@
+{-assert_admin}
+{-header}
+
+{-box_title|Datos de la secci&oacute;n}
+<form>
+{-edit_topic|{-cgi-topic}}
+<input type = 'submit' class = 'button' value = 'OK'>
+<input type = 'hidden' name = 't' value = 'SAVE_TOPIC'>
+</form>
+{-box_end}
+
+{-footer}

@@ -1,0 +1,11 @@
+{-assert_admin}
+{-header}
+
+{-box_title|Guardar plantilla}
+{-save_template|{-cgi-id}|{-cgi-content}}
+
+<p><a href='{-l|ADMIN}'>Administraci&oacute;n</a>
+
+{-box_end}
+
+{-footer}

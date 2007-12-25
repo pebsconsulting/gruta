@@ -1,0 +1,14 @@
+{-header}
+{-main_menu}
+
+</td><td>
+
+{-box_title|Nube de etiquetas}
+
+<p>
+{-loop_tags|_tag_as_cloud|}
+</p>
+
+{-box_end}
+
+{-footer}

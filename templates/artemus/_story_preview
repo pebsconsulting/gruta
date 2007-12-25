@@ -1,0 +1,11 @@
+=item B<_story_preview>
+
+ _story_preview topic story_id
+
+Shows what is shown as the 'preview' after editing a story, that is,
+a continuation link and a call to _story_complete (so it's not
+really a preview).
+=cut
+<a href='{-l|EDIT_STORY|topic=$0|id=$1}'>Continuar Edici&oacute;n</a>
+<p>
+{-_story_complete|$0|$1}

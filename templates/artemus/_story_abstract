@@ -1,0 +1,23 @@
+=item B<_story_abstract>
+
+ _story_abstract topic story_id
+
+Shows the abstract of a story.
+=cut
+{-story_abstract|$0|$1}<br clear=both>
+
+<br>
+<table width = '100%'>
+<tr>
+<td width = '50%'>
+	<small>
+	{-if|{-is_topic_editor|$0}| Le&iacute;do {-story_hits|$0|$1} veces - }
+	<a href='{-l|STORY|topic=$0|id=$1}'>Completo...</a>
+	{-if|{-is_topic_editor|$0}| - <a href='{-l|EDIT_STORY|topic=$0|id=$1}'>[Modificar]</a>}
+	</small>
+</td>
+<td width = '50%' align = 'right'>
+	<small>{-loop_story_tags|$0|$1|_search_tag|, }</small>
+</td>
+</tr>
+</table>

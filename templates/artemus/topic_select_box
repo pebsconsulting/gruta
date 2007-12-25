@@ -1,0 +1,8 @@
+{-box_title|Secciones}
+<form>
+{-select_topics|topic|1|0}
+
+<input type = 'submit' class = 'button' value = 'Editar secci&oacute;n'>
+<input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
+</form>
+{-box_end}

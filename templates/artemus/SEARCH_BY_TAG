@@ -1,0 +1,18 @@
+{-header}
+{-main_menu}
+
+</td><td>
+
+{-box_title|B&uacute;squedas por etiqueta}
+
+<p><b>{-cgi-tag}</b>:<br>
+
+<ul>
+{-search_stories_by_tag|{-cgi-tag}|_story_link_as_item_with_edit||{-is_admin}}
+</ul>
+
+{-search_hits}
+
+{-box_end}
+
+{-footer}

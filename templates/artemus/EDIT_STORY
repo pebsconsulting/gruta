@@ -1,0 +1,19 @@
+{-assert_topic_editor|{-cgi-topic}}
+{-header}
+{-box_title|Datos del Art&iacute;culo}
+
+<form method=post>
+{-edit_story|{-cgi-topic}|{-cgi-id}}
+<input type=submit class=button value='OK'>
+</form>
+
+<form method=post>
+<input type = 'hidden' name = 't' value = 'DELETE_STORY'>
+<input type = 'hidden' name = 'topic' value = '{-cgi-topic}'>
+<input type = 'hidden' name = 'id' value = '{-cgi-id}'>
+<input type = 'submit' class = 'button' value = 'BORRAR'>
+</form>
+
+{-box_end}
+
+{-footer}

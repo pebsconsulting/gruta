@@ -1,0 +1,3 @@
+<select name = '$0'>
+{-loop_upload_dirs|_select_option}
+</select>

@@ -1,0 +1,4 @@
+<select name = 'userid'>
+{-_select_option|[Nuevo]|[]}
+{-loop_users|_select_option}
+</select>

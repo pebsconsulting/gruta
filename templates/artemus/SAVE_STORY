@@ -1,0 +1,16 @@
+{-assert_topic_editor|{-cgi-topic}}
+{-header}
+
+{-box_title|Guardar art&iacute;culo}
+
+<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
+
+<p>
+{-_story_preview|{-cgi-topic}|{-save_story|{-cgi-topic}|{-cgi-id}|{-cgi-content}|{-cgi-year}|{-cgi-month}|{-cgi-day}||||{-cgi-format}|{-cgi-tags}|{-cgi-year2}|{-cgi-month2}|{-cgi-day2}}}
+
+{-box_end}
+
+{-reindex_topic|{-cgi-topic}}
+{-reindex_topic|{-cgi-topic}-arch}
+
+{-footer}

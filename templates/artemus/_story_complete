@@ -1,0 +1,15 @@
+=item B<_story_complete>
+
+ _story_complete topic story_id
+
+Shows a complete story.
+=cut
+{-story_body|$0|$1|{-cgi-hl}}<br clear=both>
+
+<p align = 'right'><small>{-loop_story_tags|$0|$1|_search_tag|, }</small>
+{-box_brk}
+
+<center><small>
+<a href='{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -
+<a href='http://{-host}/?t=STORY;topic=$0;id=$1'>Enlace permanente a esta p&aacute;gina</a>
+</small></center>

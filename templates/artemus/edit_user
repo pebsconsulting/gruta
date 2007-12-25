@@ -1,0 +1,38 @@
+{-ifelse|{-eq|$0|[]}|
+<p>Id. del usuario:<br>
+
+<input type = 'text' name = 'userid' value = ''>
+|
+<b>$0</b><input type = 'hidden' name = 'userid' value = '$0'>
+}
+
+<p>Nombre completo del usuario:<br>
+
+<input size = '60' type = 'text' name = 'username' value = '{-user_username|$0}'>
+
+<p>Email:<br>
+
+<input size = '60' type = 'text' name = 'email' value = '{-user_email|$0}'>
+
+{-if|{-is_admin}|
+
+<p>Administrador?<br>
+<input type = 'checkbox' name = 'isadmin' {-if|{-user_is_admin|$0}|checked}>
+
+<p>Puede enviar ficheros?<br>
+<input type = 'checkbox' name = 'canupload' {-if|{-user_can_upload|$0}|checked}>
+
+<p>Fecha de expiraci&oacute;n de la cuenta: <small>(vac&iacute;o, nunca)</small><br>
+
+<input type = 'text' size = '2' name = 'day' value = '{-user_xdate|%d|$0}'> /
+<input type = 'text' size = '2' name = 'month' value = '{-user_xdate|%m|$0}'> /
+<input type = 'text' size = '4' name = 'year' value = '{-user_xdate|%y|$0}'>
+}
+
+<p>Passwords: <small>(S&oacute;lo nuevos usuarios &oacute; para cambiarla)</small><br>
+
+<p>Password:<br>
+<input type = password name = pass1 value = ''>
+
+<p>Repetir password:<br>
+<input type = password name = pass2 value = ''>

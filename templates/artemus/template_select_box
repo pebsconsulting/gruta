@@ -1,0 +1,9 @@
+{-box_title|Plantillas (Templates)}
+<form>
+{-select_templates|id|1}
+
+<input type = 'submit' class = 'button' value = 'Editar plantilla'>
+<input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
+</form>
+{-box_end}
+

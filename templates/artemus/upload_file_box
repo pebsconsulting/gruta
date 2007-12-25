@@ -1,0 +1,10 @@
+{-box_title|Uploads}
+<form method = 'post' enctype = 'multipart/form-data'>
+Directorio:<br>
+{-select_upload_dir|updir}<br>
+Fichero:<br>
+<input type = 'file'   name = 'file'><br>
+<input type = 'submit' class = 'button' value = 'Enviar'>
+<input type = 'hidden' name = 't'       value = 'UPLOAD'>
+</form>
+{-box_end}

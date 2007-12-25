@@ -1,0 +1,7 @@
+=item B<_story_link_as_item_with_hits>
+
+ _story_link_as_item_with_hits topic story_id
+
+Shows a link to a story, as an element of a list, including its hits.
+=cut
+<li><a href='{-l|STORY|topic=$0|id=$1}'>{-story_title|$0|$1}</a> ({-story_hits|$0|$1})</li>

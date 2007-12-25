@@ -1,0 +1,12 @@
+{-assert_logged_in}
+{-header}
+
+{-box_title|Datos del Usuario}
+<form method = 'post'>
+{-edit_user|{-cgi-userid}}
+<input type = 'submit' class = 'button' value = 'OK'>
+<input type = 'hidden' name = 't' value = 'SAVE_USER'>
+</form>
+{-box_end}
+
+{-footer}

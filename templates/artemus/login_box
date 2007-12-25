@@ -1,0 +1,22 @@
+{-box_title|Login}
+<center>
+{-ifelse|{-is_logged_in}|
+Est&aacute;s conectado como <b>{-username}</b>.
+<p><a href="{-l|LOGOUT}">Desconectar</a><br>
+<a href="{-l|EDIT_USER|userid={-userid}}">Preferencias</a>
+|
+<form method = 'post'>
+<input type = 'hidden' name = 't' value = 'LOGIN'>
+<table width = '100%'>
+<tr>
+<td align = 'right'>Usuario:
+<td><input type = 'text' name = 'userid' size = '10'>
+<tr>
+<td align = 'right'>Password:
+<td><input type = 'password' name = 'pass' size = '10'>
+</table>
+<input type = 'submit' class = 'button' value = "Entrar">
+</form>
+}
+</center>
+{-box_end}

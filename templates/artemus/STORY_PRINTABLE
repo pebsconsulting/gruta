@@ -1,0 +1,7 @@
+{-redir_if_archived|STORY_PRINTABLE|{-cgi-topic}|{-cgi-id}}
+
+{-header_printable}
+
+{-_story_printable|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
+
+{-footer_printable}

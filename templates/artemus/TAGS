@@ -1,0 +1,14 @@
+{-header}
+{-main_menu}
+
+</td><td>
+
+{-box_title|Etiquetas}
+
+<ul>
+{-loop_tags|_tag_with_count_as_item|}
+</ul>
+
+{-box_end}
+
+{-footer}

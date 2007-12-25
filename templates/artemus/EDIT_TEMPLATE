@@ -1,0 +1,12 @@
+{-assert_admin}
+{-header}
+
+{-box_title|Datos de la plantilla}
+<form method = 'post'>
+{-edit_template|{-cgi-id}}
+<input type = 'submit' class = 'button' value = 'OK'>
+<input type = 'hidden' name = 't' value = 'SAVE_TEMPLATE'>
+</form>
+{-box_end}
+
+{-footer}

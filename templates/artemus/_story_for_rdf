@@ -1,0 +1,10 @@
+=item B<_story_for_rdf>
+
+ _story_for_rdf topic story_id
+
+Generates a story link in RDF format.
+=cut
+<item>
+<title>{-story_title|$0|$1}</title>
+<link>http://{-host}/{-l|STORY|topic=$0|id=$1}</link>
+</item>

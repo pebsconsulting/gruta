@@ -1,0 +1,5 @@
+{-header}
+
+{-login|{-cgi-userid}|{-cgi-pass}}
+
+{-footer}

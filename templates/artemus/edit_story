@@ -1,0 +1,39 @@
+<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
+<input type = 'hidden' name = 'topic' value = '{-cgi-topic}'>
+
+<p>Fecha de publicaci&oacute;n: <small>(Vac&iacute;o, hoy)</small><br>
+
+<input type = 'text' size = '2' name = 'day'
+	value = '{-story_date|%d|{-cgi-topic}|{-cgi-id}}'> /
+<input type = 'text' size = '2' name = 'month'
+	value = '{-story_date|%m|{-cgi-topic}|{-cgi-id}}'> /
+<input type = 'text' size = '4' name = 'year'
+	value = '{-story_date|%y|{-cgi-topic}|{-cgi-id}}'>
+
+<p>Fecha de liberaci&oacute;n a los no suscriptores: <small>(Vac&iacute;o, la misma)</small><br>
+
+<input type = 'text' size = '2' name = 'day2'
+	value = '{-story_date2|%d|{-cgi-topic}|{-cgi-id}}'> /
+<input type = 'text' size = '2' name = 'month2'
+	value = '{-story_date2|%m|{-cgi-topic}|{-cgi-id}}'> /
+<input type = 'text' size = '4' name = 'year2'
+	value = '{-story_date2|%y|{-cgi-topic}|{-cgi-id}}'>
+
+<p>Formato: (<b>grutatxt</b>, <b>html</b> &oacute; <b>raw_html</b>)<br>
+<input type = 'text' name = 'format'
+	value = '{-story_format|{-cgi-topic}|{-cgi-id}}'>
+
+{-ifelse|{-eq|{-cgi-id}|[]}|
+<p>Id de la historia:
+<small>(Opcional; si no sabe lo que significa, d&eacute;jelo en blanco)</small><br>
+<input type = 'text' size = '32' name = 'id' value = ''>
+|
+<input type = 'hidden' name = 'id' value = '{-cgi-id}'>
+}
+
+<p>Etiquetas: <small>(separadas por comas)</small><br>
+<input type = 'text' size = '60' name = 'tags' value = '{-story_tags|{-cgi-topic}|{-cgi-id}}'>
+
+<p>Contenido:<br>
+
+<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>{-story_content|{-cgi-topic}|{-cgi-id}}</textarea>

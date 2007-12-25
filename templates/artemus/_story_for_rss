@@ -1,0 +1,15 @@
+=item B<_story_for_rss>
+
+ _story_for_rss topic story_id
+
+Generates a story link in RSS format.
+=cut
+<item>
+<title>{-story_title|$0|$1}</title>
+<link>http://{-host}/{-l|STORY|topic=$0|id=$1}</link>
+<description>
+<![CDATA[
+{-story_abstract|$0|$1}
+]]>
+</description>
+</item>
