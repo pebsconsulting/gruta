@@ -344,7 +344,8 @@ sub new {
 			id		=> 'admin',
 			is_admin	=> 1,
 			can_upload	=> 1,
-			name		=> 'Admin'
+			username	=> 'Admin',
+			email		=> 'webmaster@localhost'
 		);
 
 		$u->password('admin');
