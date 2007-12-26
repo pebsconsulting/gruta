@@ -3,13 +3,16 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 
 sub MY::postamble {
-return <<EOF;
+return <<'EOF';
 
 install::
+	rm -rf /usr/share/gruta/templates/artemus
 	mkdir -p /usr/share/gruta/templates/artemus
-	install -m 644 templates/artemus/* /usr/share/gruta/templates/artemus
-	mkdir -p /usr/share/gruta/templates/tt
-	install -m 644 templates/tt/* /usr/share/gruta/templates/tt
+	for l in templates/artemus/* ; do \
+		echo $$l ; \
+		mkdir -p /usr/share/gruta/$$l ; \
+		install -m 644 $$l/* /usr/share/gruta/$$l ; \
+	done
 EOF
 }
 
