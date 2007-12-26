@@ -5,20 +5,20 @@ use Carp;
 sub templates {
 	my $self	 = shift;
 
-	my @r = ( );
+	my %r = ( );
 
 	foreach my $p (split(':', $self->{path})) {
 		if (opendir D, $p) {
 			while (my $l = readdir D) {
 				next if -d $p . '/' . $l;
-				push @r, $l;
+				$r{$l}++;
 			}
 
 			closedir D;
 		}
 	}
 
-	return sort @r;
+	return sort keys(%r);
 }
 
 
