@@ -558,10 +558,7 @@ sub _artemus {
 					croak "Passwords are different";
 				}
 
-				my $salt = sprintf('%02d', rand(100));
-				my $pw = crypt($pass1, $salt);
-
-				$user->set('password', $pw);
+				$user->password($pass1);
 			}
 
 			if ($user->source()) {

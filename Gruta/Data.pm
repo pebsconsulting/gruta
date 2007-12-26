@@ -141,6 +141,19 @@ sub vfields { return qw(sid); }
 
 sub xdate { return Gruta::Data::format_date($_[0]->get('xdate'), $_[1]); }
 
+sub password {
+	my $self	= shift;
+	my $passwd	= shift;
+
+	my $salt = sprintf('%02d', rand(100));
+	my $pw = crypt($passwd, $salt);
+
+	$self->set('password', $pw);
+
+	return $self;
+}
+
+
 package Gruta::Data::Session;
 
 use base 'Gruta::Data::BASE';
