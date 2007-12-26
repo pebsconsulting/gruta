@@ -22,7 +22,13 @@
 
 <table width = '100%' cellpadding = '8'>
 <tr><td align = 'right' valign = 'bottom'>
-{-search_form}
+
+<form>
+<input type = 'hidden' name = 't'       value = 'SEARCH'>
+<input type = 'text'   name = 'query'   value = '{-cgi-query}'>
+<input type = 'submit' class = 'button' value = 'Buscar'>
+</form>
+
 <div class = 'slogan'>{-slogan}</div>
 </table>
 

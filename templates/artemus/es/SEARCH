@@ -11,8 +11,6 @@
 
 {-search_hits}<br>
 
-{-search_form|{-cgi-query}}
-
 {-box_end}
 
 {-footer}
