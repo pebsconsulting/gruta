@@ -338,6 +338,8 @@ sub new {
 			$s->create();
 		}
 
+		$g->template->create() if $g->{template};
+
 #		my $u = Gruta::Data::User->new( id => 'admin', password => 'admin' );
 #		$g->insert_user($u);
 	}

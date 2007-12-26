@@ -73,4 +73,13 @@ sub save_template {
 }
 
 
+sub create {
+	my $self	= shift;
+
+	# create first directory
+	my ($p1) = (split(':', $self->{path}))[0];
+
+	mkdir $p1, 0755;
+}
+
 1;
