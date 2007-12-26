@@ -25,7 +25,11 @@ my $g = Gruta->new(
 		Gruta::Renderer::HTML->new(),
 		Gruta::Renderer::HTML->new( valid_tags => undef ),
 	],
-	template	=> Gruta::Template::Artemus->new( path => "$base/templates" ),
+	template	=> Gruta::Template::Artemus->new( path =>
+		"${base}/templates" .
+		':/usr/share/gruta/templates/artemus/ALL' .
+		':/usr/share/gruta/templates/artemus/es'
+	),
 	cgi		=> Gruta::CGI->new()
 );
 
