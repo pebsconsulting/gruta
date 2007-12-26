@@ -1,0 +1,29 @@
+<style type="text/css">
+body {	color: black; background: white;
+	font-family: verdana;
+	margin: 0%; }
+.boxtit { color: black; background: #bbddff; border: 0;
+	font-weight: bold; font-size: 110%; }
+.boxbod { color: black; background: white; border: 0; }
+.superboxbod { color: black; background: #eeeeee; }
+table, tr, td, th, div, blockquote, p, i, b, pre,
+	h1, h2, h3, h4, h5, h6 { color: black; }
+A:link { color: #88aaee; font-weight: bold; text-decoration: underline; }
+A:visited { color: #999999; font-weight: bold; text-decoration: underline; }
+A:active { font-weight: bold; text-decoration: none; }
+A:hover { color: #999999; font-weight: bold; text-decoration: underline; }
+.oddeven { border-style: none }
+.odd { border-style: none; background: #bbddff; color: black; }
+.even { border-style: none; background: #eeeeee; color: black; }
+.footer { color: #444444 }
+.slogan { color: #444444 }
+.highlight { background: yellow }
+h1 { font-size: 175% }
+h2 { font-size: 155% }
+h3 { font-size: 135% }
+h4 { font-size: 120% }
+h5 { font-size: 110% }
+h6 { font-size: 110% }
+table,p { font-size: 12px }
+blockquote { font-style: italic; }
+</style>
