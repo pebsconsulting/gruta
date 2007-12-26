@@ -1,0 +1,26 @@
+{-header}
+
+{-super_box_start}
+{-main_menu}
+{-super_box_end}
+
+<br>
+
+</td><td>
+
+{-super_box_start}
+
+{-box_title|{-topic_name|{-cgi-topic}}}
+
+{-story_loop_by_date|{-cgi-topic}|15|{-cgi-offset}|_story_abstract|{-box_brk}}
+
+{-box_brk}
+
+{-if|{-add|0|{-cgi-offset}}|<a href='{-l|TOPIC|topic={-cgi-topic};offset={-sub|{-cgi-offset}|15}}'>&lt;&lt;</a>|&lt;&lt;} |
+<a href='{-l|TOPIC|topic={-cgi-topic};offset={-add|{-cgi-offset}|15}}'>&gt;&gt;</a>
+
+{-box_end}
+
+{-super_box_end}
+
+{-footer}
