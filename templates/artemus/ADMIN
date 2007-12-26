@@ -1,0 +1,42 @@
+{-assert_admin}
+{-header}
+
+<table width = '100%' cellpadding = '8'>
+<tr valign = 'top'>
+<td>
+
+{-super_box_start}
+
+{-template_select_box}
+
+<br>
+
+{-upload_file_box}
+
+<br>
+
+{-topic_select_box}
+
+<br>
+
+{-user_select_box}
+
+{-box_brk}
+
+<small>{-about}</small>
+
+{-super_box_end}
+
+</td>
+
+<td>
+
+{-super_box_start}
+
+<!-- sections -->
+
+{-super_box_end}
+
+</table>
+
+{-footer}
