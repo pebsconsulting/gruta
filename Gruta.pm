@@ -331,6 +331,17 @@ sub new {
 	$g->template->data($g)	if $g->{template};
 	$g->cgi->data($g)	if $g->{cgi};
 
+	my @u;
+
+	if (not @u = $g->users()) {
+		foreach my $s ($g->sources()) {
+			$s->create();
+		}
+
+#		my $u = Gruta::Data::User->new( id => 'admin', password => 'admin' );
+#		$g->insert_user($u);
+	}
+
 	return $g;
 }
 
