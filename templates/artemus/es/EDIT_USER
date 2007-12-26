@@ -3,7 +3,46 @@
 
 {-box_title|Datos del Usuario}
 <form method = 'post'>
-{-edit_user|{-cgi-userid}}
+
+{-ifelse|{-eq|{-cgi-userid}|[]}|
+<p>Id. del usuario:<br>
+
+<input type = 'text' name = 'userid' value = ''>
+|
+<b>{-cgi-userid}</b><input type = 'hidden' name = 'userid' value = '{-cgi-userid}'>
+}
+
+<p>Nombre completo del usuario:<br>
+
+<input size = '60' type = 'text' name = 'username' value = '{-user_username|{-cgi-userid}}'>
+
+<p>Email:<br>
+
+<input size = '60' type = 'text' name = 'email' value = '{-user_email|{-cgi-userid}}'>
+
+{-if|{-is_admin}|
+
+<p>Administrador?<br>
+<input type = 'checkbox' name = 'isadmin' {-if|{-user_is_admin|{-cgi-userid}}|checked}>
+
+<p>Puede enviar ficheros?<br>
+<input type = 'checkbox' name = 'canupload' {-if|{-user_can_upload|{-cgi-userid}}|checked}>
+
+<p>Fecha de expiraci&oacute;n de la cuenta: <small>(vac&iacute;o, nunca)</small><br>
+
+<input type = 'text' size = '2' name = 'day' value = '{-user_xdate|%d|{-cgi-userid}}'> /
+<input type = 'text' size = '2' name = 'month' value = '{-user_xdate|%m|{-cgi-userid}}'> /
+<input type = 'text' size = '4' name = 'year' value = '{-user_xdate|%y|{-cgi-userid}}'>
+}
+
+<p>Passwords: <small>(S&oacute;lo nuevos usuarios &oacute; para cambiarla)</small><br>
+
+<p>Password:<br>
+<input type = password name = pass1 value = ''>
+
+<p>Repetir password:<br>
+<input type = password name = pass2 value = ''>
+
 <input type = 'submit' class = 'button' value = 'OK'>
 <input type = 'hidden' name = 't' value = 'SAVE_USER'>
 </form>

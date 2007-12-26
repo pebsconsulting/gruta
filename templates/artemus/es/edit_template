@@ -1,9 +1,0 @@
-{-ifelse|{-eq|{-cgi-id}|[]}|
-<input type = 'text' name = 'id' value = ''>
-|
-<b>{-cgi-id}</b><input type = 'hidden' name = 'id' value = '{-cgi-id}'>
-}
-
-<p>Contenido:<br>
-
-<textarea name = 'content' cols = '80' rows = '30'>{-template|{-cgi-id}}</textarea>
