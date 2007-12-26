@@ -1,0 +1,14 @@
+{-header}
+{-main_menu}
+
+</td><td>
+
+{-box_title|Suscripciones a {-sitename}}
+
+<p>
+Condiciones de suscripci&oacute; aqu&iacute;.
+</p>
+
+{-box_end}
+
+{-footer}

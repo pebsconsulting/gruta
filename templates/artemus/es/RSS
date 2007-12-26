@@ -1,0 +1,24 @@
+{-rss_header}
+
+<channel>
+
+<title>{-sitename}</title>
+<link>http://{-host}</link>
+<description>{-slogan}</description>
+<copyright>Copyright ...</copyright>
+<language>es-es</language>
+
+<image>
+<title>{-sitename}</title>
+<url>http://{-host}/img/icon.png</url>
+<link>http://{-host}</link>
+<width>16</width>
+<height>16</height>
+<description>{-slogan}</description>
+</image>
+
+<!-- story loops -->
+
+</channel>
+
+{-rss_footer}

@@ -1,0 +1,19 @@
+{-rdf_header}
+
+<channel>
+<title>{-sitename}</title>
+<link>http://{-host}</link>
+<description>{-slogan}</description>
+<copyright>Copyright ...</copyright>
+<language>es-es</language>
+</channel>
+
+<image>
+<title>{-sitename}</title>
+<url>http://{-host}/img/logo.jpg</url>
+<link>http://{-host}</link>
+</image>
+
+<!-- story loops -->
+
+{-rdf_footer}
