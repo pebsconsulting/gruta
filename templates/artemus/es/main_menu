@@ -2,9 +2,4 @@
 <a href='{-l|INDEX}'>Principal</a><br>
 <a href='{-l|TAGS}'>Etiquetas</a><br>
 
-{-if|{-is_admin}|
-{-box_brk}
-<a href='{-l|ADMIN}'>Administraci&oacute;n</a><br>
-}
-
 {-box_end}

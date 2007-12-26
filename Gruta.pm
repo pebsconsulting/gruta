@@ -340,7 +340,13 @@ sub new {
 
 		$g->template->create() if $g->{template};
 
-		my $u = Gruta::Data::User->new( id => 'admin' );
+		my $u = Gruta::Data::User->new(
+			id		=> 'admin',
+			is_admin	=> 1,
+			can_upload	=> 1,
+			name		=> 'Admin'
+		);
+
 		$u->password('admin');
 		$g->insert_user($u);
 	}

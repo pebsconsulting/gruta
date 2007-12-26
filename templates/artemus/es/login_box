@@ -4,7 +4,7 @@
 Est&aacute;s conectado como <b>{-username}</b>.
 
 <p>
-<a href = '{-l|ADMIN}'>Administraci&oacute;n</a><br>
+{-if|{-is_admin}|<a href = '{-l|ADMIN}'>Administraci&oacute;n</a><br>}
 <a href = "{-l|LOGOUT}">Desconectar</a><br>
 <a href = "{-l|EDIT_USER|userid={-userid}}">Preferencias</a>
 |
