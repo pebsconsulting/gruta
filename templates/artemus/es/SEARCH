@@ -1,0 +1,18 @@
+{-header}
+{-main_menu}
+
+</td><td>
+
+{-box_title|B&uacute;squedas}
+
+<p>Resultados de la b&uacute;squeda <b>{-cgi-query}</b>:<br>
+
+<!-- searches -->
+
+{-search_hits}<br>
+
+{-search_form|{-cgi-query}}
+
+{-box_end}
+
+{-footer}
