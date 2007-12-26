@@ -1,0 +1,37 @@
+{-header}
+
+{-super_box_start}
+
+{-main_menu}
+
+<br>
+
+{-login_box}
+
+<br>
+
+{-top_ten_box}
+
+{-super_box_end}
+
+</td><td width = '66%'>
+
+<div class = 'maincolumn'>
+
+{-super_box_start}
+
+<!-- main column -->
+
+{-super_box_end}
+
+</div>
+
+</td><td>
+
+{-super_box_start}
+
+<!-- right column -->
+
+{-super_box_end}
+
+{-footer}
