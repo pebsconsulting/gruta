@@ -2,8 +2,11 @@
 <center>
 {-ifelse|{-is_logged_in}|
 Est&aacute;s conectado como <b>{-username}</b>.
-<p><a href="{-l|LOGOUT}">Desconectar</a><br>
-<a href="{-l|EDIT_USER|userid={-userid}}">Preferencias</a>
+
+<p>
+<a href = '{-l|ADMIN}'>Administraci&oacute;n</a><br>
+<a href = "{-l|LOGOUT}">Desconectar</a><br>
+<a href = "{-l|EDIT_USER|userid={-userid}}">Preferencias</a>
 |
 <form method = 'post'>
 <input type = 'hidden' name = 't' value = 'LOGIN'>
