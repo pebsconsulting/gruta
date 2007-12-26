@@ -1,0 +1,51 @@
+=item B<STORY>
+
+ cgi-topic: Id of topic
+ cgi-id: Id of story
+ cgi-hl: Words to highlight
+
+Shows a page with a complete story.
+=cut
+
+{-assert_visible_story|{-cgi-topic}|{-cgi-id}}
+{-redir_if_archived|STORY|{-cgi-topic}|{-cgi-id}}
+
+{-header}
+
+{-super_box_start}
+{-main_menu}
+<br>
+
+{-box_title|<font size = '-2'>{-topic_name|{-cgi-topic}}</font>}
+
+<font size = '-2'>
+<ul class = 'list'>
+{-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
+</ul>
+</font>
+
+{-box_end}
+}
+
+<br>
+
+{-super_box_end}
+
+</td><td>
+
+<br>
+
+{-super_box_start}
+
+{-box_title|{-topic_name|{-cgi-topic}}}
+
+<font size = '-2'>{-story_date|%d/%m/%y |{-cgi-topic}|{-cgi-id}}</font><p>
+
+{-_story_complete|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
+{-box_end}
+
+{-super_box_end}
+
+<br>
+
+{-footer}
