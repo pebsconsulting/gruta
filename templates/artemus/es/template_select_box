@@ -1,6 +1,10 @@
 {-box_title|Plantillas (Templates)}
 <form>
-{-select_templates|id|1}
+
+<select name = 'id'>
+{-_select_option|[Nueva]|[]}
+{-loop_templates|_select_option}
+</select>
 
 <input type = 'submit' class = 'button' value = 'Editar plantilla'>
 <input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>

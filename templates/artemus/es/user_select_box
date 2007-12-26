@@ -1,7 +1,11 @@
 {-box_title|Usuarios}
 <form>
 <!-- Id del usuario: <input type=next name=userid><br> -->
-{-select_users}
+
+<select name = 'userid'>
+{-_select_option|[Nuevo]|[]}
+{-loop_users|_select_option}
+</select>
 
 <input type = 'submit' class = 'button' value = 'Editar / nuevo usuario'>
 <input type = 'hidden' name = 't'       value = 'EDIT_USER'>

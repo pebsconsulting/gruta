@@ -1,5 +1,0 @@
-<select name = 'topic'>
-{-_select_option|[Nueva]|[]}
-{-loop_topics|_select_option}
-</select>
-
