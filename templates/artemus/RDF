@@ -4,8 +4,8 @@
 <title>{-sitename}</title>
 <link>http://{-host}</link>
 <description>{-slogan}</description>
-<copyright>Copyright ...</copyright>
-<language>es-es</language>
+<copyright>{-copyright}</copyright>
+<language>en-en</language>
 </channel>
 
 <image>
