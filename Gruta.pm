@@ -328,18 +328,22 @@ sub new {
 		}
 	}
 
-	$g->template->data($g)	if $g->{template};
-	$g->cgi->data($g)	if $g->{cgi};
+	foreach my $s ($g->sources()) {
+		$s->create();
+	}
+
+	if ($g->{template}) {
+		$g->template->data($g);
+		$g->template->create();
+	}
+
+	if ($g->{cgi}) {
+		$g->cgi->data($g);
+	}
 
 	my @u;
 
 	if (not @u = $g->users()) {
-		foreach my $s ($g->sources()) {
-			$s->create();
-		}
-
-		$g->template->create() if $g->{template};
-
 		my $u = Gruta::Data::User->new(
 			id		=> 'admin',
 			is_admin	=> 1,
