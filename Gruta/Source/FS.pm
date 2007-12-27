@@ -687,10 +687,19 @@ sub insert_session { $_[0]->_insert($_[1], 'Gruta::Data::FS::Session'); }
 sub create {
 	my $self	= shift;
 
-	mkdir $self->{path}, 0755;
-	mkdir $self->{path} . Gruta::Data::FS::Topic::base(), 0755;
-	mkdir $self->{path} . Gruta::Data::FS::User::base(), 0755;
-	mkdir $self->{path} . Gruta::Data::FS::Session::base(), 0755;
+	my @l = map { $self->{path} . $_ } (
+		Gruta::Data::FS::Topic::base(),
+		Gruta::Data::FS::User::base(),
+		Gruta::Data::FS::Session::base()
+	);
+
+	foreach my $d (@l) {
+		if (! -d $d) {
+			mkdir $d, 0755 or die "Cannot mkdir $d";
+		}
+	}
+
+	return $self;
 }
 
 
