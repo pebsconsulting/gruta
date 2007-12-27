@@ -512,6 +512,8 @@ sub new {
 	$s->{dbh} = DBI->connect($s->{string},
 		$s->{user}, $s->{passwd}, { RaiseError => 1 });
 
+	$s->create();
+
 	return $s;
 }
 

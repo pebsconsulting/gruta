@@ -328,13 +328,8 @@ sub new {
 		}
 	}
 
-	foreach my $s ($g->sources()) {
-		$s->create();
-	}
-
 	if ($g->{template}) {
 		$g->template->data($g);
-		$g->template->create();
 	}
 
 	if ($g->{cgi}) {

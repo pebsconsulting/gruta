@@ -710,6 +710,8 @@ sub new {
 
 	$s->_assert();
 
+	$s->create();
+
 	return $s;
 }
 

@@ -18,6 +18,8 @@ sub new {
 	$a->{_artemus} = undef;
 	$a->{path} = $args{path};
 
+	$a->create();
+
 	return $a;
 }
 
