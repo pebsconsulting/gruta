@@ -478,6 +478,14 @@ sub insert_session { $_[0]->_insert($_[1], 'sids', 'Gruta::Data::DBI::Session');
 sub create {
 	my $self	= shift;
 
+	eval {
+		my $sth = $self->_prepare('SELECT 1 FROM users');
+	};
+
+	if (! $@) {
+		return $self;
+	}
+
 	my $sql = '';
 
 	while(<DATA>) {
@@ -491,6 +499,8 @@ sub create {
 			$sql .= $_;
 		}
 	}
+
+	return $self;
 }
 
 
