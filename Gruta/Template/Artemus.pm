@@ -588,6 +588,18 @@ sub _artemus {
 				$data->tags());
 		};
 
+		$f{topics} = sub {
+			return join(':', $data->topics());
+		};
+
+		$f{templates} = sub {
+			return join(':', $data->template->templates());
+		};
+
+		$f{users} = sub {
+			return join(':', $data->users());
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
