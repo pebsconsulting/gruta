@@ -79,7 +79,11 @@ sub create {
 	# create first directory
 	my ($p1) = (split(':', $self->{path}))[0];
 
-	mkdir $p1, 0755;
+	if (! -d $p1) {
+		mkdir $p1, 0755 or die "Cannot mkdir $p1";
+	}
+
+	return $self;
 }
 
 1;
