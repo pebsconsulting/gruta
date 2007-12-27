@@ -588,17 +588,13 @@ sub _artemus {
 				$data->tags());
 		};
 
-		$f{topics} = sub {
-			return join(':', $data->topics());
-		};
+		$f{topics}	= sub { join(':', $data->topics()); };
+		$f{templates}	= sub { join(':', $data->template->templates()); };
+		$f{users}	= sub { join(':', $data->users()); };
 
-		$f{templates} = sub {
-			return join(':', $data->template->templates());
-		};
-
-		$f{users} = sub {
-			return join(':', $data->users());
-		};
+		$f{renderers}	= sub { join(':', sort(keys(%{$data->{renderers_h}}))); };
+		$f{upload_dirs}	= sub { join(':', $data->cgi->upload_dirs()); };
+		$f{tags}	= sub { join(':', $data->tags()); };
 
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
