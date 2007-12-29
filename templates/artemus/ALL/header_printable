@@ -6,6 +6,6 @@
 </head>
 <body bgcolor="white">
 
-<img src = "img/logo_g.jpg" alt = "{-sitename}" border = '0'>
+<img src = 'img/logo.jpg' alt = "{-sitename}" border = '0'>
 <p>{-slogan}
 <br>
