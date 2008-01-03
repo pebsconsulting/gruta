@@ -1,85 +1,84 @@
 {-assert_admin}
 {-header}
 
-<table width = '100%' cellpadding = '8'>
-<tr valign = 'top'>
-<td>
-
-{-super_box_start}
+<div class = 'navigation1'>
 
 {-box_title|Plantillas (Templates)}
 <form method = 'post'>
 
 <select name = 'id'>
-{-_select_option|[Nueva]|[]}
-{-loop_templates|_select_option}
+  <option value = '[]'>[Nueva]</option>
+  {-foreach|{-templates}|<option value = '\$0'>\$0</option>|}
 </select>
 
 <input type = 'submit' class = 'button' value = 'Editar plantilla'>
 <input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
 </form>
-{-box_end}
 
-<br>
+{-box_end}
 
 {-box_title|Uploads}
 <form method = 'post' enctype = 'multipart/form-data'>
+
 Directorio:<br>
-{-select_upload_dir|updir}<br>
+<select name = 'updir'>
+  {-foreach|{-upload_dirs}|<option = '\$0'>\$0</option>|}
+</select>
+<br>
+
 Fichero:<br>
 <input type = 'file'   name = 'file'><br>
 <input type = 'submit' class = 'button' value = 'Enviar'>
 <input type = 'hidden' name = 't'       value = 'UPLOAD'>
 </form>
-{-box_end}
 
-<br>
+{-box_end}
 
 {-box_title|Secciones}
 <form method = 'post'>
 
 <select name = 'topic'>
-{-_select_option|[Nueva]|[]}
-{-loop_topics|_select_option}
+  <option value = '[]'>[Nueva]</option>
+  {-foreach|{-topics}|<option value = '\$0'>\{-topic_name\|\$0\}</option>|}
 </select>
 
 <input type = 'submit' class = 'button' value = 'Editar secci&oacute;n'>
 <input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
 </form>
-{-box_end}
 
-<br>
+{-box_end}
 
 {-box_title|Usuarios}
 
 <form method = 'post'>
 
 <select name = 'userid'>
-{-_select_option|[Nuevo]|[]}
-{-loop_users|_select_option}
+  <option value = '[]'>[Nuevo]</option>
+  {-foreach|{-users}|<option value = '\$0'>\$0</option>|}
 </select>
 
 <input type = 'submit' class = 'button' value = 'Editar / nuevo usuario'>
 <input type = 'hidden' name = 't'       value = 'EDIT_USER'>
 </form>
+
 {-box_end}
 
-{-box_brk}
+{-about}
 
-<small>{-about}</small>
+</div>
+
+<div class = 'main'>
+
+{-box_title|Art&iacute;culos por Secciones}
+
+{-foreach|{-topics}|
+   \{-list_edit_stories\|\$0\|1\}
+|}
+
+{-box_end}
 
 {-super_box_end}
 
-</td>
-
-<td>
-
-{-super_box_start}
-
-<!-- sections -->
-
-{-super_box_end}
-
-</table>
+</div>
 
 {-footer}
