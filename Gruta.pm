@@ -5,7 +5,7 @@ use warnings;
 
 use Gruta::Data;
 
-$Gruta::VERSION = '2.0.0-rc1';
+$Gruta::VERSION = '2.0.0-rc2';
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
