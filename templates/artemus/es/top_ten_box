@@ -1,6 +1,6 @@
 {-box_title|Los m&aacute;s le&iacute;dos}
 
-    <ul class = 'list'>
+    <ul>
     {-story_loop_top_ten|10|1|_story_link_as_item_with_hits|}
     </ul>
 

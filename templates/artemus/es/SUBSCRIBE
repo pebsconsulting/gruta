@@ -1,14 +1,21 @@
 {-header}
-{-main_menu}
 
-</td><td>
+<div class = 'navigation1'>
 
-{-box_title|Suscripciones a {-sitename}}
+	{-main_menu}
 
-<p>
-Condiciones de suscripci&oacute; aqu&iacute;.
-</p>
+</div>
 
-{-box_end}
+<div class = 'main'>
+
+	{-box_title|Suscripciones a {-sitename}}
+
+	<p>
+	Condiciones de suscripci&oacute; aqu&iacute;.
+	</p>
+
+	{-box_end}
+
+</div>
 
 {-footer}

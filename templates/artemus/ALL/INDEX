@@ -2,29 +2,33 @@
 
 <div class = 'navigation1'>
 
-{-main_menu}
+	{-main_menu}
 
-{-login_box}
+	{-login_box}
 
-{-top_ten_box}
+	{-top_ten_box}
 
 </div>
 
 <div class = 'main'>
 
-	{-box_title|Secciones}
-
 	{-foreach|{-topics}|
-	   \{-list_edit_stories\|\$0\|1\}
-	|}
+		\{-box_title\|\{-topic_name\|\$0\}\}
 
-	{-box_end}
+		\{-if\|\{-is_topic_editor\|\$0\}\|
+			<p><a href='\{-l\|EDIT_STORY\|topic=\$0\|id=[]\}'>[Nueva]</a></p>
+		\}
+
+		\{-story_loop_by_date\|\$0\|5\|\|_story_abstract\|<hr>\}
+
+		\{-box_end\}
+	|}
 
 </div>
 
 <div class = 'navigation2'>
 
-{-login_box}
+	{-login_box}
 
 </div>
 

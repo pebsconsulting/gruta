@@ -1,18 +1,25 @@
 {-header}
-{-main_menu}
 
-</td><td>
+<div class = 'navigation1'>
 
-{-box_title|B&uacute;squedas por etiqueta}
+	{-main_menu}
 
-<p><b>{-cgi-tag}</b>:<br>
+</div>
 
-<ul>
-{-search_stories_by_tag|{-cgi-tag}|_story_link_as_item_with_edit||{-is_admin}}
-</ul>
+<div class = 'main'>
 
-{-search_hits}
+	{-box_title|B&uacute;squedas por etiqueta}
 
-{-box_end}
+	<p><b>{-cgi-tag}</b>:<br>
+
+	<ul>
+		{-search_stories_by_tag|{-cgi-tag}|_story_link_as_item_with_edit||{-is_admin}}
+	</ul>
+
+	{-search_hits}
+
+	{-box_end}
+
+</div>
 
 {-footer}

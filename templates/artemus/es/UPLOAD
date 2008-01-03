@@ -1,9 +1,12 @@
 {-header}
 
-{-box_title|Uploads}
-{-upload|{-cgi-updir}|file}
+<div class = 'main'>
 
-<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
-{-box_end}
+	{-box_title|Uploads}
+	{-upload|{-cgi-updir}|file}
+
+	<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
+	{-box_end}
+</div>
 
 {-footer}

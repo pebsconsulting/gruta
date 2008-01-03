@@ -1,10 +1,14 @@
 {-assert_admin}
 {-header}
 
-{-box_title|Guardar secci&oacute;n}
-{-save_topic|{-cgi-topic}|{-cgi-name}|{-cgi-editors}|{-cgi-internal}|{-cgi-max}}
+<div class = 'main'>
 
-<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
-{-box_end}
+	{-box_title|Guardar secci&oacute;n}
+	{-save_topic|{-cgi-topic}|{-cgi-name}|{-cgi-editors}|{-cgi-internal}|{-cgi-max}}
+
+	<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
+	{-box_end}
+
+</div>
 
 {-footer}

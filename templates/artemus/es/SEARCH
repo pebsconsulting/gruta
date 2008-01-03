@@ -1,16 +1,25 @@
 {-header}
-{-main_menu}
 
-</td><td>
+<div class = 'navigation1'>
 
-{-box_title|B&uacute;squedas}
+	{-main_menu}
 
-<p>Resultados de la b&uacute;squeda <b>{-cgi-query}</b>:<br>
+</div>
 
-<!-- searches -->
+<div class = 'main'>
 
-{-search_hits}<br>
+	{-box_title|B&uacute;squedas}
 
-{-box_end}
+	<p>Resultados de la b&uacute;squeda <b>{-cgi-query}</b>:<br>
+
+	{-foreach|{-topics}|
+		\{-search_stories\|\$0\|\{-cgi-query\}\|\{-is_admin\}\}
+	}
+
+	{-search_hits}
+
+	{-box_end}
+
+</div>
 
 {-footer}

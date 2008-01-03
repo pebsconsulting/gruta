@@ -1,6 +1,8 @@
 {-assert_topic_editor|{-cgi-topic}}
 {-header}
 
+<div class = 'main'>
+
 {-box_title|Guardar art&iacute;culo}
 
 <p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
@@ -10,7 +12,6 @@
 
 {-box_end}
 
-{-reindex_topic|{-cgi-topic}}
-{-reindex_topic|{-cgi-topic}-arch}
+</div>
 
 {-footer}

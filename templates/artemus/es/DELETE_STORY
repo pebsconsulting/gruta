@@ -1,13 +1,17 @@
 {-assert_topic_editor|{-cgi-topic}}
 {-header}
 
-{-box_title|Borrar art&iacute;culo}
+<div class = 'main'>
 
-<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
+	{-box_title|Borrar art&iacute;culo}
 
-<p>
-{-delete_story|{-cgi-topic}|{-cgi-id}}
+	<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
 
-{-box_end}
+	<p>
+	{-delete_story|{-cgi-topic}|{-cgi-id}}
+
+	{-box_end}
+
+</div>
 
 {-footer}

@@ -1,5 +1,9 @@
 {-header}
 
-{-login|{-cgi-userid}|{-cgi-pass}}
+<div class = 'main'>
+
+	{-login|{-cgi-userid}|{-cgi-pass}}
+
+</div>
 
 {-footer}

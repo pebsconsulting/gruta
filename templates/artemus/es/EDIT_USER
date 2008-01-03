@@ -1,6 +1,8 @@
 {-assert_logged_in}
 {-header}
 
+<div class = 'main'>
+
 {-box_title|Datos del Usuario}
 <form method = 'post'>
 
@@ -47,5 +49,7 @@
 <input type = 'hidden' name = 't' value = 'SAVE_USER'>
 </form>
 {-box_end}
+
+</div>
 
 {-footer}

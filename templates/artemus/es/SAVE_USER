@@ -1,9 +1,15 @@
 {-assert_logged_in}
 {-header}
-{-box_title|Datos del Usuario}
 
-{-save_user|{-cgi-new}|{-cgi-userid}|{-cgi-username}|{-cgi-email}|{-cgi-isadmin}|{-cgi-canupload}|{-cgi-pass1}|{-cgi-pass2}|{-cgi-year}|{-cgi-month}|{-cgi-day}}
+<div class = 'main'>
 
-<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
-{-box_end}
+	{-box_title|Datos del Usuario}
+
+	{-save_user|{-cgi-new}|{-cgi-userid}|{-cgi-username}|{-cgi-email}|{-cgi-isadmin}|{-cgi-canupload}|{-cgi-pass1}|{-cgi-pass2}|{-cgi-year}|{-cgi-month}|{-cgi-day}}
+
+	<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
+	{-box_end}
+
+</div>
+
 {-footer}
