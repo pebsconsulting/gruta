@@ -24,9 +24,9 @@ h6 { font-size: 80%; }
 
 .footer { clear: both; }
 
-.navigation1 { float: left; padding: 1em; }
-.main { float: left; padding: 1em; }
-.navigation2 { float: right; padding: 1em; }
+.navigation1 { float: left; padding: 1em; width: 20%; }
+.main { float: left; padding: 1em; width: 60%; }
+.navigation2 { float: right; padding: 1em; width: 20%; }
 
 .clearer { clear: both; }
 
