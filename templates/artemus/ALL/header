@@ -12,35 +12,21 @@
 	{-css}
 </head>
 
-<body marginwidth = '0' marginheight = '0' topmargin = '0' leftmargin = '0'>
+<body>
+<div class = 'outer-container'>
 
-<table width = '100%' cellpadding = '0' cellspacing = '0' class = 'header'>
-<tr class = 'header'>
-	<td align = 'left'>
-		<a href="{-l|INDEX}"><img src = "img/logo.jpg" alt = "{-sitename}" border = '0'></a>
-	</td>
+<div class = 'header'>
 
-	<td valign = 'bottom'>
+	<a href = '{-l|INDEX}'><img src = 'img/logo.jpg' alt = '{-sitename}' border = '0'></a>
 
-		<table width = '100%' cellpadding = '8'>
-		<tr>
-			<td align = 'right' valign = 'bottom'>
+	<form>
+		<input type = 'hidden' name = 't'       value = 'SEARCH'>
+		<input type = 'text'   name = 'query'   value = ''>
+		<input type = 'submit' class = 'button' value = 'Buscar'>
+	</form>
 
-				<form>
-					<input type = 'hidden' name = 't'       value = 'SEARCH'>
-					<input type = 'text'   name = 'query'   value = ''>
-					<input type = 'submit' class = 'button' value = 'Buscar'>
-				</form>
+	<div class = 'slogan'>{-slogan}</div>
 
-				<div class = 'slogan'>{-slogan}</div>
-			</td>
-		</tr>
-		</table>
+</div>
 
-	</td>
-</tr>
-</table>
-
-<table width = '100%' cellpadding = '8'>
-<tr valign = 'top'>
-	<td class = 'leftbar'>
+<div class = 'inner-container'>

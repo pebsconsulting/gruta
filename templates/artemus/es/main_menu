@@ -1,5 +1,12 @@
-{-box_title|{-sitename}}
-<a href='{-l|INDEX}'>Principal</a><br>
-<a href='{-l|TAGS}'>Etiquetas</a><br>
+<div class = 'main_menu'>
 
-{-box_end}
+	{-box_title|{-sitename}}
+
+	<ul>
+		<li><a href = '{-l|INDEX}'>Principal</a></li>
+		<li><a href = '{-l|TAGS}'>Etiquetas</a></li>
+	</ul>
+
+	{-box_end}
+
+</div>

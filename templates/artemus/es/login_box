@@ -1,25 +1,21 @@
 {-box_title|Login}
-<center>
-{-ifelse|{-is_logged_in}|
-Est&aacute;s conectado como <b>{-username}</b>.
 
-<p>
-{-if|{-is_admin}|<a href = '{-l|ADMIN}'>Administraci&oacute;n</a><br>}
-<a href = "{-l|LOGOUT}">Desconectar</a><br>
-<a href = "{-l|EDIT_USER|userid={-userid}}">Preferencias</a>
+{-ifelse|{-is_logged_in}|
+	Est&aacute;s conectado como <b>{-username}</b>.
+
+	<ul>
+	{-if|{-is_admin}|<li><a href = '{-l|ADMIN}'>Administraci&oacute;n</a></li>}
+	<li><a href = "{-l|LOGOUT}">Desconectar</a></li>
+	<li><a href = "{-l|EDIT_USER|userid={-userid}}">Preferencias</a></li>
+	</ul>
 |
-<form method = 'post'>
-<input type = 'hidden' name = 't' value = 'LOGIN'>
-<table width = '100%'>
-<tr>
-<td align = 'right'>Usuario:
-<td><input type = 'text' name = 'userid' size = '10'>
-<tr>
-<td align = 'right'>Password:
-<td><input type = 'password' name = 'pass' size = '10'>
-</table>
-<input type = 'submit' class = 'button' value = "Entrar">
-</form>
+	<form method = 'post'>
+		<input type = 'hidden' name = 't' value = 'LOGIN'>
+		Usuario:<br>
+		<input type = 'text' name = 'userid' size = '10'><br>
+		Password:<br>
+		<input type = 'password' name = 'pass' size = '10'><br>
+		<input type = 'submit' class = 'button' value = "Entrar">
+	</form>
 }
-</center>
 {-box_end}

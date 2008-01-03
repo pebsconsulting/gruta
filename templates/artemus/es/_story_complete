@@ -4,12 +4,20 @@
 
 Shows a complete story.
 =cut
-{-story_body|$0|$1|{-cgi-hl}}<br clear=both>
 
-<p align = 'right'><small>{-loop_story_tags|$0|$1|_search_tag|, }</small>
-{-box_brk}
+<div class = 'story_complete'>
 
-<center><small>
-<a href='{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -
-<a href='http://{-host}/?t=STORY;topic=$0;id=$1'>Enlace permanente a esta p&aacute;gina</a>
-</small></center>
+	{-story_body|$0|$1|{-cgi-hl}}
+
+	<p>
+	<div class = 'tags'>{-loop_story_tags|$0|$1|_search_tag|, }</div>
+	</p>
+
+	<hr>
+
+	<div class = 'links'>
+		<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -
+		<a href = 'http://{-host}/?t=STORY;topic=$0;id=$1'>Enlace permanente a esta p&aacute;gina</a>
+	</div>
+
+</div>

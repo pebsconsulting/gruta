@@ -1,50 +1,34 @@
-=item B<STORY>
-
- cgi-topic: Id of topic
- cgi-id: Id of story
- cgi-hl: Words to highlight
-
-Shows a page with a complete story.
-=cut
-
 {-assert_visible_story|{-cgi-topic}|{-cgi-id}}
 {-redir_if_archived|STORY|{-cgi-topic}|{-cgi-id}}
 
 {-header}
 
-{-super_box_start}
-{-main_menu}
-<br>
+<div class = 'navigator1'>
 
-{-box_title|{-small|{-topic_name|{-cgi-topic}}}}
+	{-main_menu}
 
-{-small|
-    <ul class = 'list'>
-    {-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
-    </ul>
-}
+	{-box_title|{-topic_name|{-cgi-topic}}}
 
-{-box_end}
+	<ul class = 'list'>
+	{-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
+	</ul>
 
-<br>
+	{-box_end}
 
-{-super_box_end}
+</div>
 
-</td><td>
+<div class = 'main'>
 
-<br>
+	{-box_title|{-topic_name|{-cgi-topic}}}
 
-{-super_box_start}
+	{-small|{-story_date|%d/%m/%y|{-cgi-topic}|{-cgi-id}}}
 
-{-box_title|{-topic_name|{-cgi-topic}}}
+	<p>
 
-{-small|{-story_date|%d/%m/%y |{-cgi-topic}|{-cgi-id}}}<p>
+	{-_story_complete|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
 
-{-_story_complete|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
-{-box_end}
+	{-box_end}
 
-{-super_box_end}
-
-<br>
+</div>
 
 {-footer}

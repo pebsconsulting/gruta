@@ -1,37 +1,31 @@
 {-header}
 
-{-super_box_start}
+<div class = 'navigator1'>
 
 {-main_menu}
 
-<br>
-
 {-login_box}
-
-<br>
 
 {-top_ten_box}
 
-{-super_box_end}
+</div>
 
-</td><td width = '66%'>
+<div class = 'main'>
 
-<div class = 'maincolumn'>
+	{-box_title|Secciones}
 
-{-super_box_start}
+	{-foreach|{-topics}|
+	   \{-list_edit_stories\|\$0\|1\}
+	|}
 
-<!-- main column -->
-
-{-super_box_end}
+	{-box_end}
 
 </div>
 
-</td><td>
+<div class = 'navigator2'>
 
-{-super_box_start}
+{-login_box}
 
-<!-- right column -->
-
-{-super_box_end}
+</div>
 
 {-footer}
