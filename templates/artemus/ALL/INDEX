@@ -1,6 +1,6 @@
 {-header}
 
-<div class = 'navigator1'>
+<div class = 'navigation1'>
 
 {-main_menu}
 
@@ -22,7 +22,7 @@
 
 </div>
 
-<div class = 'navigator2'>
+<div class = 'navigation2'>
 
 {-login_box}
 

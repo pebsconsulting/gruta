@@ -15,7 +15,7 @@ Shows a complete story.
 
 	<hr>
 
-	<div class = 'links'>
+	<div class = 'self_links'>
 		<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -
 		<a href = 'http://{-host}/?t=STORY;topic=$0;id=$1'>Enlace permanente a esta p&aacute;gina</a>
 	</div>

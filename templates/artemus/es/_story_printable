@@ -4,11 +4,20 @@
 
 Shows a complete story, in 'printer-friendly' format.
 =cut
-{-story_body|$0|$1}<br clear=both>
 
-{-box_brk}
+<div class = 'story_printable'>
 
-<center><small>
-Enlace permanente a esta p&aacute;gina:
-<a href='http://{-host}/?t=STORY;topic=$0;id=$1'>http://{-host}/?t=STORY;topic=$0;id=$1</a>
-</small></center>
+	{-story_body|$0|$1}
+
+	<p>
+	<div class = 'tags'>Etiquetas: {-loop_story_tags|$0|$1|_search_tag|, }</div>
+	</p>
+
+	<hr>
+
+	<div class = 'self_links'>
+		Enlace permanente a esta p&aacute;gina:
+		<a href='http://{-host}/?t=STORY;topic=$0;id=$1'>http://{-host}/?t=STORY;topic=$0;id=$1</a>
+	</div>
+
+</div>

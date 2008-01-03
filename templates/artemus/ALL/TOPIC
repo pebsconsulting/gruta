@@ -1,6 +1,6 @@
 {-header}
 
-<div class = 'navigator1'>
+<div class = 'navigation1'>
 
 	{-main_menu}
 
@@ -8,17 +8,15 @@
 
 <div class = 'main'>
 
-	{-box_title|{-topic_name|{-cgi-topic}}}
+	<h1>{-topic_name|{-cgi-topic}}</h1>
 
-	{-story_loop_by_date|{-cgi-topic}|15|{-cgi-offset}|_story_abstract|{-box_brk}}
+	{-story_loop_by_date|{-cgi-topic}|15|{-cgi-offset}|_story_abstract|<hr>}
 
-	{-box_brk}
+	<hr>
 
 	{-if|{-add|0|{-cgi-offset}}|
 	<a href='{-l|TOPIC|topic={-cgi-topic};offset={-sub|{-cgi-offset}|15}}'>&lt;&lt;</a>|&lt;&lt;} |
 	<a href='{-l|TOPIC|topic={-cgi-topic};offset={-add|{-cgi-offset}|15}}'>&gt;&gt;</a>
-
-	{-box_end}
 
 </div>
 

@@ -3,7 +3,7 @@
 
 {-header}
 
-<div class = 'navigator1'>
+<div class = 'navigation1'>
 
 	{-main_menu}
 
@@ -21,9 +21,7 @@
 
 	{-box_title|{-topic_name|{-cgi-topic}}}
 
-	{-small|{-story_date|%d/%m/%y|{-cgi-topic}|{-cgi-id}}}
-
-	<p>
+	<div class = 'date'>{-story_date|%d/%m/%y|{-cgi-topic}|{-cgi-id}}</div>
 
 	{-_story_complete|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
 
