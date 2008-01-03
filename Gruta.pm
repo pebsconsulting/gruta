@@ -97,7 +97,7 @@ sub stories_top_ten {
 
 	my @l = $self->_call('stories_top_ten', 0, @_);
 
-	return sort { $b->[0] cmp $a->[0] } @l;
+	return sort { $b->[0] <=> $a->[0] } @l;
 }
 
 sub search_stories_by_tag {
