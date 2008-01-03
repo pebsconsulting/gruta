@@ -1,7 +1,7 @@
-{-box_title|<font size = '-2'>Los m&aacute;s le&iacute;dos</font>}
-<font size = '-2'>
-<ul class = 'list'>
-{-story_loop_top_ten|10|1|_story_link_as_item_with_hits|}
-</ul>
-</font>
+{-box_title|{-small|Los m&aacute;s le&iacute;dos}}
+{-small|
+    <ul class = 'list'>
+    {-story_loop_top_ten|10|1|_story_link_as_item_with_hits|}
+    </ul>
+}
 {-box_end}

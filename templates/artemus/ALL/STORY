@@ -16,13 +16,13 @@ Shows a page with a complete story.
 {-main_menu}
 <br>
 
-{-box_title|<font size = '-2'>{-topic_name|{-cgi-topic}}</font>}
+{-box_title|{-small|{-topic_name|{-cgi-topic}}}}
 
-<font size = '-2'>
-<ul class = 'list'>
-{-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
-</ul>
-</font>
+{-small|
+    <ul class = 'list'>
+    {-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
+    </ul>
+}
 
 {-box_end}
 
@@ -38,7 +38,7 @@ Shows a page with a complete story.
 
 {-box_title|{-topic_name|{-cgi-topic}}}
 
-<font size = '-2'>{-story_date|%d/%m/%y |{-cgi-topic}|{-cgi-id}}</font><p>
+{-small|{-story_date|%d/%m/%y |{-cgi-topic}|{-cgi-id}}}<p>
 
 {-_story_complete|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
 {-box_end}
