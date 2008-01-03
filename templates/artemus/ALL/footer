@@ -1,1 +1,5 @@
-</table><div class=footer>{-copyright}</div>
+	</td>
+</tr>
+</table>
+
+<div class = 'footer'>{-copyright}</div>

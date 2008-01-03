@@ -1,29 +1,28 @@
 <style type="text/css">
-body {	color: black; background: white;
-	font-family: verdana;
-	margin: 0%; }
-.boxtit { color: black; background: #bbddff; border: 0;
-	font-weight: bold; font-size: 110%; }
-.boxbod { color: black; background: white; border: 0; }
-.superboxbod { color: black; background: #eeeeee; }
-table, tr, td, th, div, blockquote, p, i, b, pre,
-	h1, h2, h3, h4, h5, h6 { color: black; }
-A:link { color: #88aaee; font-weight: bold; text-decoration: underline; }
-A:visited { color: #999999; font-weight: bold; text-decoration: underline; }
-A:active { font-weight: bold; text-decoration: none; }
-A:hover { color: #999999; font-weight: bold; text-decoration: underline; }
+body { font-family: verdana; background: white; color: black; margin: 0; padding: 0; }
+.boxtit { background: #eeeecd; font-family: verdana; color: Black; padding: 0em 1em 0em 1em; }
+.boxbod { font-family: verdana;	padding: 0.5em 0.2em 0.5em 0.2em; }
+.superboxbod { color: black; background: white; }
+table, tr, td, th, div, blockquote, p, i, b, pre, h1, h2, h3, h4, h5, h6 { color: black; }
+A:link { color: #c0803c; font-weight: bold; text-decoration: underline; }
+A:visited { color: #c0803c; font-weight: bold; text-decoration: underline; }
+A:active { color: #c0803c; font-weight: bold; text-decoration: none; }
+A:hover { color: #c0803c; font-weight: bold; text-decoration: underline; }
 .oddeven { border-style: none }
 .odd { border-style: none; background: #bbddff; color: black; }
 .even { border-style: none; background: #eeeeee; color: black; }
 .footer { color: #444444 }
-.slogan { color: #444444 }
+.slogan { color: white }
 .highlight { background: yellow }
-h1 { font-size: 175% }
-h2 { font-size: 155% }
-h3 { font-size: 135% }
+h1 { font-family: trebuchet ms; font-size: 160%; }
+h2 { font-size: 150%; font-family: trebuchet ms }
+h3 { font-size: 140%; font-family: georgia }
 h4 { font-size: 120% }
-h5 { font-size: 110% }
-h6 { font-size: 110% }
-table,p { font-size: 12px }
-blockquote { font-style: italic; }
+h5 { font-size: 100% }
+h6 { font-size: 80% }
+table,p { font-size: 14px }
+.list { margin: 0px 0px 0px 16px; padding: 0px }
+hr { clear: both; color: #8CACBB; height: 1px; }
+div.hr { border-top: 1px dashed; color: #aaaaaa; }
+.header { background: #d89433 }
 </style>

@@ -3,38 +3,44 @@
 <html>
 
 <head>
-<link rel = "icon" href = "img/favicon.ico" type = "image/ico">
-<link rel = "shortcut icon" href = "img/favicon.ico">
-<link rel = "alternate" type = "text/xml" title = "RDF" href = "http://{-host}/?t=RDF">
-<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
-<meta http-equiv = "Content-Type" content = "text/html; charset=iso-8859-1">
-<title>{-slogan}</title>
-{-css}
+	<link rel = "icon" href = "img/favicon.ico" type = "image/ico">
+	<link rel = "shortcut icon" href = "img/favicon.ico">
+	<link rel = "alternate" type = "text/xml" title = "RDF" href = "http://{-host}/?t=RDF">
+	<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
+	<meta http-equiv = "Content-Type" content = "text/html; charset=iso-8859-1">
+	<title>{-slogan}</title>
+	{-css}
 </head>
 
-<body bgcolor = "white" marginwidth = '0' marginheight = '0' topmargin = '0' leftmargin = '0'>
-<table width = '100%' cellpadding = '0' cellspacing = '0'>
+<body marginwidth = '0' marginheight = '0' topmargin = '0' leftmargin = '0'>
+
+<table width = '100%' cellpadding = '0' cellspacing = '0' class = 'header'>
 <tr class = 'header'>
-<td align = 'left'>
-<a href="{-l|INDEX}"><img src = "img/logo.jpg" alt = "{-sitename}" border = '0'></a>
-</td>
-<td valign = 'bottom'>
+	<td align = 'left'>
+		<a href="{-l|INDEX}"><img src = "img/logo.jpg" alt = "{-sitename}" border = '0'></a>
+	</td>
 
-<table width = '100%' cellpadding = '8'>
-<tr><td align = 'right' valign = 'bottom'>
+	<td valign = 'bottom'>
 
-<form>
-<input type = 'hidden' name = 't'       value = 'SEARCH'>
-<input type = 'text'   name = 'query'   value = ''>
-<input type = 'submit' class = 'button' value = 'Buscar'>
-</form>
+		<table width = '100%' cellpadding = '8'>
+		<tr>
+			<td align = 'right' valign = 'bottom'>
 
-<div class = 'slogan'>{-slogan}</div>
-</table>
+				<form>
+					<input type = 'hidden' name = 't'       value = 'SEARCH'>
+					<input type = 'text'   name = 'query'   value = ''>
+					<input type = 'submit' class = 'button' value = 'Buscar'>
+				</form>
 
-</td>
+				<div class = 'slogan'>{-slogan}</div>
+			</td>
+		</tr>
+		</table>
+
+	</td>
+</tr>
 </table>
 
 <table width = '100%' cellpadding = '8'>
 <tr valign = 'top'>
-<td class = 'leftbar'>
+	<td class = 'leftbar'>
