@@ -1,6 +1,6 @@
 {-header}
 
-<div class = 'navigation1'>
+<div class = 'column1'>
 
 	{-main_menu}
 
@@ -26,7 +26,7 @@
 
 </div>
 
-<div class = 'navigation2'>
+<div class = 'column2'>
 
 	{-login_box}
 
