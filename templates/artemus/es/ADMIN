@@ -1,7 +1,7 @@
 {-assert_admin}
 {-header}
 
-<div class = 'column1'>
+<div class = 'main'>
 
 {-box_title|Plantillas (Templates)}
 <form method = 'post'>
@@ -64,10 +64,6 @@ Fichero:<br>
 {-box_end}
 
 {-about}
-
-</div>
-
-<div class = 'main'>
 
 {-box_title|Art&iacute;culos por Secciones}
 

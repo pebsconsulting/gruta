@@ -10,6 +10,12 @@
 
 </div>
 
+<div class = 'column2'>
+
+	{-login_box}
+
+</div>
+
 <div class = 'main'>
 
 	{-foreach|{-topics}|
@@ -23,12 +29,6 @@
 
 		\{-box_end\}
 	|}
-
-</div>
-
-<div class = 'column2'>
-
-	{-login_box}
 
 </div>
 
