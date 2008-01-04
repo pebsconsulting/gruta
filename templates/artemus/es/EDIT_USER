@@ -3,52 +3,54 @@
 
 <div class = 'main'>
 
-{-box_title|Datos del Usuario}
-<form method = 'post'>
+	{-box_title|Datos del Usuario}
 
-{-ifelse|{-eq|{-cgi-userid}|[]}|
-<p>Id. del usuario:<br>
+	<form method = 'post'>
 
-<input type = 'text' name = 'userid' value = ''>
-|
-<b>{-cgi-userid}</b><input type = 'hidden' name = 'userid' value = '{-cgi-userid}'>
-}
+		{-ifelse|{-eq|{-cgi-userid}|[]}|
+		<p>Id. del usuario:<br>
 
-<p>Nombre completo del usuario:<br>
+		<input type = 'text' name = 'userid' value = ''>
+		|
+		<b>{-cgi-userid}</b><input type = 'hidden' name = 'userid' value = '{-cgi-userid}'>
+		}
 
-<input size = '60' type = 'text' name = 'username' value = '{-user_username|{-cgi-userid}}'>
+		<p>Nombre completo del usuario:<br>
 
-<p>Email:<br>
+		<input size = '60' type = 'text' name = 'username' value = '{-user_username|{-cgi-userid}}'>
 
-<input size = '60' type = 'text' name = 'email' value = '{-user_email|{-cgi-userid}}'>
+		<p>Email:<br>
 
-{-if|{-is_admin}|
+		<input size = '60' type = 'text' name = 'email' value = '{-user_email|{-cgi-userid}}'>
 
-<p>Administrador?<br>
-<input type = 'checkbox' name = 'isadmin' {-if|{-user_is_admin|{-cgi-userid}}|checked}>
+		{-if|{-is_admin}|
 
-<p>Puede enviar ficheros?<br>
-<input type = 'checkbox' name = 'canupload' {-if|{-user_can_upload|{-cgi-userid}}|checked}>
+		<p>Administrador?<br>
+		<input type = 'checkbox' name = 'isadmin' {-if|{-user_is_admin|{-cgi-userid}}|checked}>
 
-<p>Fecha de expiraci&oacute;n de la cuenta: <small>(vac&iacute;o, nunca)</small><br>
+		<p>Puede enviar ficheros?<br>
+		<input type = 'checkbox' name = 'canupload' {-if|{-user_can_upload|{-cgi-userid}}|checked}>
 
-<input type = 'text' size = '2' name = 'day' value = '{-user_xdate|%d|{-cgi-userid}}'> /
-<input type = 'text' size = '2' name = 'month' value = '{-user_xdate|%m|{-cgi-userid}}'> /
-<input type = 'text' size = '4' name = 'year' value = '{-user_xdate|%y|{-cgi-userid}}'>
-}
+		<p>Fecha de expiraci&oacute;n de la cuenta: <small>(vac&iacute;o, nunca)</small><br>
 
-<p>Passwords: <small>(S&oacute;lo nuevos usuarios &oacute; para cambiarla)</small><br>
+		<input type = 'text' size = '2' name = 'day' value = '{-user_xdate|%d|{-cgi-userid}}'> /
+		<input type = 'text' size = '2' name = 'month' value = '{-user_xdate|%m|{-cgi-userid}}'> /
+		<input type = 'text' size = '4' name = 'year' value = '{-user_xdate|%y|{-cgi-userid}}'>
+		}
 
-<p>Password:<br>
-<input type = password name = pass1 value = ''>
+		<p>Passwords: <small>(S&oacute;lo nuevos usuarios &oacute; para cambiarla)</small><br>
 
-<p>Repetir password:<br>
-<input type = password name = pass2 value = ''>
+		<p>Password:<br>
+		<input type = password name = pass1 value = ''>
 
-<input type = 'submit' class = 'button' value = 'OK'>
-<input type = 'hidden' name = 't' value = 'SAVE_USER'>
-</form>
-{-box_end}
+		<p>Repetir password:<br>
+		<input type = password name = pass2 value = ''>
+
+		<input type = 'submit' class = 'button' value = 'OK'>
+		<input type = 'hidden' name = 't' value = 'SAVE_USER'>
+	</form>
+
+	{-box_end}
 
 </div>
 

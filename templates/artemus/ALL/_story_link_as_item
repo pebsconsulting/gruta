@@ -1,7 +1,1 @@
-=item B<_story_link_as_item>
-
- _story_link_as_item topic story_id
-
-Shows a link to a story, as an element of a list.
-=cut
 <li><a href='{-l|STORY|topic=$0|id=$1}'>{-story_title|$0|$1}</a></li>

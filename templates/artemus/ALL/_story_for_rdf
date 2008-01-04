@@ -5,6 +5,6 @@
 Generates a story link in RDF format.
 =cut
 <item>
-<title>{-story_title|$0|$1}</title>
-<link>http://{-host}/{-l|STORY|topic=$0|id=$1}</link>
+	<title>{-story_title|$0|$1}</title>
+	<link>http://{-host}/{-l|STORY|topic=$0|id=$1}</link>
 </item>

@@ -1,17 +1,17 @@
 {-rdf_header}
 
 <channel>
-<title>{-sitename}</title>
-<link>http://{-host}</link>
-<description>{-slogan}</description>
-<copyright>{-copyright}</copyright>
-<language>en-en</language>
+	<title>{-sitename}</title>
+	<link>http://{-host}</link>
+	<description>{-slogan}</description>
+	<copyright>{-copyright}</copyright>
+	<language>en-en</language>
 </channel>
 
 <image>
-<title>{-sitename}</title>
-<url>http://{-host}/img/logo.jpg</url>
-<link>http://{-host}</link>
+	<title>{-sitename}</title>
+	<url>http://{-host}/img/logo.jpg</url>
+	<link>http://{-host}</link>
 </image>
 
 <!-- story loops -->

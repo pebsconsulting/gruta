@@ -9,8 +9,8 @@
 
 	{-box_title|{-topic_name|{-cgi-topic}}}
 
-	<ul class = 'list'>
-	{-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
+	<ul>
+		{-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
 	</ul>
 
 	{-box_end}

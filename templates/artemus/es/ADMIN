@@ -4,46 +4,47 @@
 <div class = 'main'>
 
 {-box_title|Plantillas (Templates)}
+
 <form method = 'post'>
+	<select name = 'id'>
+		<option value = '[]'>[Nueva]</option>
+		{-foreach|{-templates}|<option value = '\$0'>\$0</option>|}
+	</select>
 
-<select name = 'id'>
-  <option value = '[]'>[Nueva]</option>
-  {-foreach|{-templates}|<option value = '\$0'>\$0</option>|}
-</select>
-
-<input type = 'submit' class = 'button' value = 'Editar plantilla'>
-<input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
+	<input type = 'submit' class = 'button' value = 'Editar plantilla'>
+	<input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
 </form>
 
 {-box_end}
 
 {-box_title|Uploads}
+
 <form method = 'post' enctype = 'multipart/form-data'>
+	Directorio:<br>
+	<select name = 'updir'>
+		{-foreach|{-upload_dirs}|<option = '\$0'>\$0</option>|}
+	</select>
+	<br>
 
-Directorio:<br>
-<select name = 'updir'>
-  {-foreach|{-upload_dirs}|<option = '\$0'>\$0</option>|}
-</select>
-<br>
-
-Fichero:<br>
-<input type = 'file'   name = 'file'><br>
-<input type = 'submit' class = 'button' value = 'Enviar'>
-<input type = 'hidden' name = 't'       value = 'UPLOAD'>
+	Fichero:<br>
+	<input type = 'file'   name = 'file'><br>
+	<input type = 'submit' class = 'button' value = 'Enviar'>
+	<input type = 'hidden' name = 't'       value = 'UPLOAD'>
 </form>
 
 {-box_end}
 
 {-box_title|Secciones}
+
 <form method = 'post'>
 
-<select name = 'topic'>
-  <option value = '[]'>[Nueva]</option>
-  {-foreach|{-topics}|<option value = '\$0'>\{-topic_name\|\$0\}</option>|}
-</select>
+	<select name = 'topic'>
+		<option value = '[]'>[Nueva]</option>
+		{-foreach|{-topics}|<option value = '\$0'>\{-topic_name\|\$0\}</option>|}
+	</select>
 
-<input type = 'submit' class = 'button' value = 'Editar secci&oacute;n'>
-<input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
+	<input type = 'submit' class = 'button' value = 'Editar secci&oacute;n'>
+	<input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
 </form>
 
 {-box_end}
@@ -52,13 +53,13 @@ Fichero:<br>
 
 <form method = 'post'>
 
-<select name = 'userid'>
-  <option value = '[]'>[Nuevo]</option>
-  {-foreach|{-users}|<option value = '\$0'>\$0</option>|}
-</select>
+	<select name = 'userid'>
+		<option value = '[]'>[Nuevo]</option>
+		{-foreach|{-users}|<option value = '\$0'>\$0</option>|}
+	</select>
 
-<input type = 'submit' class = 'button' value = 'Editar / nuevo usuario'>
-<input type = 'hidden' name = 't'       value = 'EDIT_USER'>
+	<input type = 'submit' class = 'button' value = 'Editar / nuevo usuario'>
+	<input type = 'hidden' name = 't'       value = 'EDIT_USER'>
 </form>
 
 {-box_end}
@@ -67,9 +68,9 @@ Fichero:<br>
 
 {-box_title|Art&iacute;culos por Secciones}
 
-{-foreach|{-topics}|
-   \{-list_edit_stories\|\$0\|1\}
-|}
+	{-foreach|{-topics}|
+		\{-list_edit_stories\|\$0\|1\}
+	|}
 
 {-box_end}
 

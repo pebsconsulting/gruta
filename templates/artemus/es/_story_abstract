@@ -1,10 +1,3 @@
-=item B<_story_abstract>
-
- _story_abstract topic story_id
-
-Shows the abstract of a story.
-=cut
-
 <div class = 'story_abstract'>
 
 	{-story_abstract|$0|$1}

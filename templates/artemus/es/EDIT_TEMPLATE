@@ -3,23 +3,25 @@
 
 <div class = 'main'>
 
-{-box_title|Datos de la plantilla}
-<form method = 'post'>
+	{-box_title|Datos de la plantilla}
 
-{-ifelse|{-eq|{-cgi-id}|[]}|
-<input type = 'text' name = 'id' value = ''>
-|
-<b>{-cgi-id}</b><input type = 'hidden' name = 'id' value = '{-cgi-id}'>
-}
+	<form method = 'post'>
 
-<p>Contenido:<br>
+		{-ifelse|{-eq|{-cgi-id}|[]}|
+		<input type = 'text' name = 'id' value = ''>
+		|
+		<b>{-cgi-id}</b><input type = 'hidden' name = 'id' value = '{-cgi-id}'>
+		}
 
-<textarea name = 'content' cols = '80' rows = '30'>{-template|{-cgi-id}}</textarea>
+		<p>Contenido:<br>
 
-<input type = 'submit' class = 'button' value = 'OK'>
-<input type = 'hidden' name = 't' value = 'SAVE_TEMPLATE'>
-</form>
-{-box_end}
+		<textarea name = 'content' cols = '80' rows = '30'>{-template|{-cgi-id}}</textarea>
+
+		<input type = 'submit' class = 'button' value = 'OK'>
+		<input type = 'hidden' name = 't' value = 'SAVE_TEMPLATE'>
+	</form>
+
+	{-box_end}
 
 </div>
 

@@ -5,11 +5,11 @@
 Generates a story link in RSS format.
 =cut
 <item>
-<title>{-story_title|$0|$1}</title>
-<link>http://{-host}/{-l|STORY|topic=$0|id=$1}</link>
-<description>
+	<title>{-story_title|$0|$1}</title>
+	<link>http://{-host}/{-l|STORY|topic=$0|id=$1}</link>
+	<description>
 <![CDATA[
 {-story_abstract|$0|$1}
 ]]>
-</description>
+	</description>
 </item>

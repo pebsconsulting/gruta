@@ -1,9 +1,3 @@
-=item B<list_edit_stories>
-
- list_edit_stories topic new_story_link num offset
-
-Generate a list of links to edit stories.
-=cut
 <h3>{-topic_name|$0}</h3>
 
 <ul>

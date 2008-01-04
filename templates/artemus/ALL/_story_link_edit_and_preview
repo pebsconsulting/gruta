@@ -1,12 +1,6 @@
-=item B<_story_link_edit_and_preview>
-
- _story_link_edit_and_preview topic story_id
-
-Shows links to edit and preview a story.
-=cut
 <li>
-{-if|{-is_future_story|$0|$1}|<em>|}
-<a href='{-l|EDIT_STORY|topic=$0|id=$1}'>{-story_date|%d/%m/%y|$0|$1} - {-story_title|$0|$1}</a>
-{-if|{-is_future_story|$0|$1}|</em>|}
-<small><a href='{-l|STORY|topic=$0|id=$1}'>[Preview]</a></small>
+	{-if|{-is_future_story|$0|$1}|<em>|}
+	<a href = '{-l|EDIT_STORY|topic=$0|id=$1}'>{-story_date|%d/%m/%y|$0|$1} - {-story_title|$0|$1}</a>
+	{-if|{-is_future_story|$0|$1}|</em>|}
+	<a href = '{-l|STORY|topic=$0|id=$1}'>[Preview]</a>
 </li>

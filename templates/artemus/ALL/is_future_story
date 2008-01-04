@@ -1,7 +1,1 @@
-=item is_future_story
-
- is_future_story topic story_id
-
-Returns 1 if the story is to be published in the future.
-=cut
 {-gt|{-story_date|%y%m%d%H%M%S|$0|$1}|{-date|%y%m%d%H%M%S}}

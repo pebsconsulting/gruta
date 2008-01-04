@@ -9,12 +9,12 @@
 <language>en-en</language>
 
 <image>
-<title>{-sitename}</title>
-<url>http://{-host}/img/icon.png</url>
-<link>http://{-host}</link>
-<width>16</width>
-<height>16</height>
-<description>{-slogan}</description>
+	<title>{-sitename}</title>
+	<url>http://{-host}/img/icon.png</url>
+	<link>http://{-host}</link>
+	<width>16</width>
+	<height>16</height>
+	<description>{-slogan}</description>
 </image>
 
 <!-- story loops -->

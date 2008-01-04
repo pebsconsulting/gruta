@@ -9,7 +9,7 @@
 	<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
 	<meta http-equiv = "Content-Type" content = "text/html; charset=iso-8859-1">
 	<title>{-slogan}</title>
-	{-css}
+	<style type = 'text/css'>{-css}</style>
 </head>
 
 <body>
