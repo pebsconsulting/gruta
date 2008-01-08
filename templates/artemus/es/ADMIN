@@ -22,7 +22,7 @@
 <form method = 'post' enctype = 'multipart/form-data'>
 	Directorio:<br>
 	<select name = 'updir'>
-		{-foreach|{-upload_dirs}|<option = '\$0'>\$0</option>|}
+		{-foreach|{-upload_dirs}|<option value = '\$0'>\$0</option>|}
 	</select>
 	<br>
 
