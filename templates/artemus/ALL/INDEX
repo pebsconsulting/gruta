@@ -18,7 +18,9 @@
 
 <div class = 'main'>
 
-	{-foreach|{-topics}|
+	{-set|my_index_topics|{-topics}}
+
+	{-foreach|{-my_index_topics}|
 		\{-box_title\|\{-topic_name\|\$0\}\}
 
 		\{-if\|\{-is_topic_editor\|\$0\}\|
