@@ -10,7 +10,9 @@
 
 	<h1>{-topic_name|{-var|topic}}</h1>
 
-	{-story_loop_by_date|{-var|topic}|15|{-var|offset}|_story_abstract|<hr>}
+	{-foreach|{-stories_by_date|{-var|topic}|15|{-var|offset|0}}|
+	\{-_story_abstract\|{-var|topic}\|\$0\}
+	|<hr>}
 
 	<hr>
 

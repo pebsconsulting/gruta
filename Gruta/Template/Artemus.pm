@@ -602,6 +602,26 @@ sub _artemus {
 			return $ret;
 		};
 
+		$f{stories_by_date} = sub {
+			my $topic	= shift;
+			my $num		= shift;
+			my $offset	= shift;
+			my $from_date	= shift;
+			my $to_date	= shift;
+			my $future	= shift;
+
+			return join(':',
+				$data->stories_by_date(
+					$topic,
+					num	=> $num,
+					offset	=> $offset,
+					from	=> $from_date,
+					to	=> $to_date,
+					future	=> $future
+				)
+			);
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;

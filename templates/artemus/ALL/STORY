@@ -10,7 +10,9 @@
 	{-box_title|{-topic_name|{-var|topic}}}
 
 	<ul>
-		{-story_loop_by_date|{-var|topic}|8|0|_story_link_as_item|}
+	{-foreach|{-stories_by_date|{-var|topic}|8}|
+	<li><a href = '\{-l\|STORY\|topic={-var|topic}\|id=\$0\}'>\{-story_title\|{-var|topic}\|\$0\}</li>
+	}
 	</ul>
 
 	{-box_end}
