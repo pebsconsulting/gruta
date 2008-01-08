@@ -28,7 +28,7 @@
 	<input type = 'text' size = '4' name = 'year2'
 		value = '{-story_date2|%y|{-var|topic}|{-var|id}}'>
 
-	<p>Formato: (<b>grutatxt</b>, <b>html</b> &oacute; <b>raw_html</b>)<br>
+	<p>Formato: (valores posibles: <b>{-foreach|{-renderers}|\$0|, }</b>)<br>
 	<input type = 'text' name = 'format'
 		value = '{-story_format|{-var|topic}|{-var|id}}'>
 
