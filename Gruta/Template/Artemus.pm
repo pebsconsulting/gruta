@@ -580,7 +580,7 @@ sub _artemus {
 
 		$f{renderers}	= sub { join(':', sort(keys(%{$data->{renderers_h}}))); };
 		$f{upload_dirs}	= sub { join(':', $data->cgi->upload_dirs()); };
-		$f{tags}	= sub { join(':', $data->tags()); };
+		$f{tags}	= sub { join(':', map { $_->[0] . ',' . $_->[1] } $data->tags()); };
 
 		$f{var}		= sub {
 			my $ret = $self->{cgi_vars}->{$_[0]} || $_[1] || '';
