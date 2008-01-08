@@ -21,6 +21,7 @@ Open Bugs
  * 1017: Delete Artemus function loop_renderers.
  * 1018: Delete Artemus function loop_templates.
  * 1019: Delete Artemus function loop_upload_dirs.
+ * 1020: Delete Artemus function search_stories_by_tag.
 
 Pending Enhancements
 --------------------

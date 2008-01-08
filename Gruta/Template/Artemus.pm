@@ -622,6 +622,16 @@ sub _artemus {
 			);
 		};
 
+		$f{stories_by_tag} = sub {
+			my $tag		= shift;
+			my $future	= shift;
+
+			my @ret = $data->search_stories_by_tag($tag, $future);
+			$self->{search_count} += scalar(@ret);
+
+			return join(':', map { $_->[0] . ',' . $_->[1] } @ret);
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
