@@ -8,7 +8,7 @@
 		<li><a href = '{-l|INDEX}'>Principal</a></li>
 
 		{-foreach|{-my_menu_topics}|
-		<li><a href = '\{-l\|TOPIC\|\$0\}'>\{-topic_name\|\$0\}</a></li>
+		<li><a href = '\{-l\|TOPIC\|topic=\$0\}'>\{-topic_name\|\$0\}</a></li>
 		}
 
 		<li><a href = '{-l|TAGS}'>Etiquetas</a></li>
