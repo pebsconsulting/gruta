@@ -2,11 +2,9 @@
 
 	{-story_body|$0|$1|{-var|hl}}
 
-	<p>
-	<div class = 'tags'>{-loop_story_tags|$0|$1|_search_tag|, }</div>
-	</p>
+	{-_story_footer|$0|$1}
 
-	<hr>
+	<p>
 
 	<div class = 'self_links'>
 		<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -

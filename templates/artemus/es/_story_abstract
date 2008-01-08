@@ -2,18 +2,5 @@
 
 	{-story_abstract|$0|$1}
 
-	<p>
-	{-if|{-is_topic_editor|$0}|
-		<span class = 'hits'>Le&iacute;do {-story_hits|$0|$1} veces - </span>
-	}
-
-	<span class = 'full_story_link'><a href='{-l|STORY|topic=$0|id=$1}'>Completo...</a></span>
-
-	{-if|{-is_topic_editor|$0}|
-		- <span class = 'edit_link'><a href='{-l|EDIT_STORY|topic=$0|id=$1}'>[Modificar]</a></span>
-	}
-
-	<span class = 'tags'>{-loop_story_tags|$0|$1|_search_tag|, }</span>
-	</p>
-
+	{-_story_footer|$0|$1}
 </div>

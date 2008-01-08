@@ -29,11 +29,12 @@ h6 { font-size: 80%; }
 
 .clearer { clear: both; }
 
-.tags { text-align: right; font-size: 90%; }
+.tags { float: right; font-size: 90%; }
 .self_links { text-align: center; font-size: 90%; }
 .hits { font-size: 90% }
 .full_story_link { font-size: 90% }
 .edit_link { font-size: 90% }
 .date { font-size: 90% }
+.story_footer { background: #eeeecd; }
 
 hr { size: 1; }
