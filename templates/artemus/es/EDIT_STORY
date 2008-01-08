@@ -28,7 +28,7 @@
 	<input type = 'text' size = '4' name = 'year2'
 		value = '{-story_date2|%y|{-var|topic}|{-var|id}}'>
 
-	<p>Formato: (valores posibles: <b>{-foreach|{-renderers}|\$0|, }</b>)<br>
+	<p>Formato: (valores posibles: {-foreach|{-renderers}|<b>\$0</b>|, })<br>
 	<input type = 'text' name = 'format'
 		value = '{-story_format|{-var|topic}|{-var|id}}'>
 
@@ -42,7 +42,7 @@
 
 	<p>Etiquetas: <small>(separadas por comas)</small><br>
 	<input type = 'text' size = '60' name = 'tags'
-		value = '{-foreach|{-story_tags|{-var|topic}|{-var|id}}|\$0|, }'>
+		value = '{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }'>
 
 	<p>Contenido:<br>
 
