@@ -596,6 +596,12 @@ sub _artemus {
 		$f{upload_dirs}	= sub { join(':', $data->cgi->upload_dirs()); };
 		$f{tags}	= sub { join(':', $data->tags()); };
 
+		$f{var}		= sub {
+			my $ret = $self->{cgi_vars}->{$_[0]} || $_[1] || '';
+
+			return $self->{_artemus}->armor($ret);
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
