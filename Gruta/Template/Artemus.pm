@@ -325,17 +325,6 @@ sub _artemus {
 			return $ret;
 		};
 
-		$f{story_loop_top_ten} = sub {
-			my $num		= shift;
-			my $internal	= shift; # ignored
-			my $template	= shift;
-			my $sep		= shift;
-
-			return join($sep, map { "{-$template|$_->[1]|$_->[2]}" }
-				$data->stories_top_ten($num)
-			);
-		};
-
 		$f{is_visible_story} = sub {
 			if (my $story = $data->story($_[0], $_[1])) {
 				return $story->is_visible($data->auth()) ? 1 : 0;
@@ -550,28 +539,11 @@ sub _artemus {
 			return 'OK';
 		};
 
-		$f{search_stories_by_tag} = sub {
-			my $tag		= shift;
-			my $template	= shift;
-			my $sep		= shift;
-			my $future	= shift;
-
-			my @ret = $data->search_stories_by_tag($tag, $future);
-			$self->{search_count} = scalar(@ret);
-
-			return join($sep, map { "{-$template|$_->[0]|$_->[1]}" } @ret);
-		};
-
 		$f{search_count} = sub { $self->{search_count}; };
 
 		$f{content_type} = sub {
 			$data->cgi->http_headers('Content-Type' => $_[0]);
 			return '';
-		};
-
-		$f{loop_tags} = sub {
-			return join($_[1], map { "{-$_[0]|$_->[0]|$_->[1]}" }
-				$data->tags());
 		};
 
 		$f{topics}	= sub { join(':', $data->topics()); };

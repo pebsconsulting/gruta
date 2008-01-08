@@ -13,16 +13,11 @@ Release Critical Bugs
 Open Bugs
 ---------
 
- * 1012: Delete Artemus function loop_tags.
- * 1013: Delete template _tag_with_count_as_item.
- * 1014: Delete template _tag_as_cloud.
  * 1015: Delete Artemus function loop_topics.
  * 1016: Delete Artemus function loop_users.
  * 1017: Delete Artemus function loop_renderers.
  * 1018: Delete Artemus function loop_templates.
  * 1019: Delete Artemus function loop_upload_dirs.
- * 1020: Delete Artemus function search_stories_by_tag.
- * 1021: Delete Artemus function story_loop_top_ten.
 
 Pending Enhancements
 --------------------
@@ -53,5 +48,10 @@ Closed
    future stories should not depend only on the user logged in, but
    in the editing capabilities of the user upon the story
    (Thu, 22 Nov 2007 14:00:57 +0100).
+ * 1012: Delete Artemus function loop_tags (Tue, 08 Jan 2008 14:10:18 +0100).
+ * 1013: Delete template _tag_with_count_as_item (Tue, 08 Jan 2008 14:10:18 +0100).
+ * 1014: Delete template _tag_as_cloud (Tue, 08 Jan 2008 14:10:18 +0100).
+ * 1020: Delete Artemus function search_stories_by_tag (Tue, 08 Jan 2008 14:10:18 +0100).
+ * 1021: Delete Artemus function story_loop_top_ten (Tue, 08 Jan 2008 14:10:18 +0100).
 
 Email bugs to angel@triptico.com
