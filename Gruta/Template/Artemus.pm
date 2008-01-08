@@ -75,20 +75,6 @@ sub _artemus {
 			};
 		}
 
-		$f{story_tags} = sub {
-			my $topic_id	= shift;
-			my $id		= shift;
-			my $ret		= '';
-
-			if ($id ne '[]') {
-				my $story = $data->story($topic_id, $id);
-
-				$ret = join(', ', $story->tags());
-			}
-
-			return $ret;
-		};
-
 		$f{story_abstract} = sub {
 			my $story = $data->story($_[0], $_[1]);
 
@@ -600,6 +586,20 @@ sub _artemus {
 			my $ret = $self->{cgi_vars}->{$_[0]} || $_[1] || '';
 
 			return $self->{_artemus}->armor($ret);
+		};
+
+		$f{story_tags} = sub {
+			my $topic_id	= shift;
+			my $id		= shift;
+			my $ret		= '';
+
+			if ($id ne '[]') {
+				my $story = $data->story($topic_id, $id);
+
+				$ret = join(':', $story->tags());
+			}
+
+			return $ret;
 		};
 
 		$self->{abort}		= 0;
