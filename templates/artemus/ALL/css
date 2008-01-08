@@ -36,5 +36,6 @@ h6 { font-size: 80%; }
 .edit_link { font-size: 90% }
 .date { font-size: 90% }
 .story_footer { background: #eeeecd; }
+.topic_list { margin-left: 2em; }
 
 hr { size: 1; }
