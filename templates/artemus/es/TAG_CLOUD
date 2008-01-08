@@ -11,7 +11,11 @@
 	{-box_title|Nube de etiquetas}
 
 	<p>
-	{-loop_tags|_tag_as_cloud|}
+
+	{-foreach|{-tags}|
+	<font size = '\$1'><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0</a></font> 
+	}
+
 	</p>
 
 	{-box_end}

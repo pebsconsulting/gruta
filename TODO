@@ -13,6 +13,10 @@ Release Critical Bugs
 Open Bugs
 ---------
 
+ * 1012: Delete Artemus function loop_tags.
+ * 1013: Delete template _tag_with_count_as_item.
+ * 1014: Delete template _tag_as_cloud.
+
 Pending Enhancements
 --------------------
 

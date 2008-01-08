@@ -11,7 +11,9 @@
 	{-box_title|Etiquetas}
 
 	<ul>
-		{-loop_tags|_tag_with_count_as_item|}
+		{-foreach|{-tags}|
+		<li><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0 (\$1)</a></li>
+		}
 	</ul>
 
 	{-box_end}
