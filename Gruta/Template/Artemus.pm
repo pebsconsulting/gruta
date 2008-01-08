@@ -632,6 +632,14 @@ sub _artemus {
 			return join(':', map { $_->[0] . ',' . $_->[1] } @ret);
 		};
 
+		$f{stories_top_ten} = sub {
+			my $num		= shift;
+
+			return join(':', map { join(',', @{$_}) }
+				$data->stories_top_ten($num)
+			);
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
