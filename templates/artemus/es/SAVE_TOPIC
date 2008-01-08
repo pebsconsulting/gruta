@@ -4,7 +4,7 @@
 <div class = 'main'>
 
 	{-box_title|Guardar secci&oacute;n}
-	{-save_topic|{-cgi-topic}|{-cgi-name}|{-cgi-editors}|{-cgi-internal}|{-cgi-max}}
+	{-save_topic|{-var|topic}|{-var|name}|{-var|editors}|{-var|internal}|{-var|max}}
 
 	<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
 	{-box_end}

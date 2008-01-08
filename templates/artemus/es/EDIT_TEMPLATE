@@ -7,15 +7,15 @@
 
 	<form method = 'post'>
 
-		{-ifelse|{-eq|{-cgi-id}|[]}|
+		{-ifelse|{-eq|{-var|id}|[]}|
 		<input type = 'text' name = 'id' value = ''>
 		|
-		<b>{-cgi-id}</b><input type = 'hidden' name = 'id' value = '{-cgi-id}'>
+		<b>{-var|id}</b><input type = 'hidden' name = 'id' value = '{-var|id}'>
 		}
 
 		<p>Contenido:<br>
 
-		<textarea name = 'content' cols = '80' rows = '30'>{-template|{-cgi-id}}</textarea>
+		<textarea name = 'content' cols = '80' rows = '30'>{-template|{-var|id}}</textarea>
 
 		<input type = 'submit' class = 'button' value = 'OK'>
 		<input type = 'hidden' name = 't' value = 'SAVE_TEMPLATE'>

@@ -2,7 +2,7 @@
 
 <div class = 'main'>
 
-	{-login|{-cgi-userid}|{-cgi-pass}}
+	{-login|{-var|userid}|{-var|pass}}
 
 </div>
 

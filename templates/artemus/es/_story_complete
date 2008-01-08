@@ -1,6 +1,6 @@
 <div class = 'story_complete'>
 
-	{-story_body|$0|$1|{-cgi-hl}}
+	{-story_body|$0|$1|{-var|hl}}
 
 	<p>
 	<div class = 'tags'>{-loop_story_tags|$0|$1|_search_tag|, }</div>

@@ -1,4 +1,4 @@
-{-assert_topic_editor|{-cgi-topic}}
+{-assert_topic_editor|{-var|topic}}
 {-header}
 
 <div class = 'main'>
@@ -8,7 +8,7 @@
 	<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
 
 	<p>
-	{-_story_preview|{-cgi-topic}|{-save_story|{-cgi-topic}|{-cgi-id}|{-cgi-content}|{-cgi-year}|{-cgi-month}|{-cgi-day}||||{-cgi-format}|{-cgi-tags}|{-cgi-year2}|{-cgi-month2}|{-cgi-day2}}}
+	{-_story_preview|{-var|topic}|{-save_story|{-var|topic}|{-var|id}|{-var|content}|{-var|year}|{-var|month}|{-var|day}||||{-var|format}|{-var|tags}|{-var|year2}|{-var|month2}|{-var|day2}}}
 
 	{-box_end}
 

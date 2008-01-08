@@ -5,7 +5,7 @@
 
 	{-box_title|Datos del Usuario}
 
-	{-save_user|{-cgi-new}|{-cgi-userid}|{-cgi-username}|{-cgi-email}|{-cgi-isadmin}|{-cgi-canupload}|{-cgi-pass1}|{-cgi-pass2}|{-cgi-year}|{-cgi-month}|{-cgi-day}}
+	{-save_user|{-var|new}|{-var|userid}|{-var|username}|{-var|email}|{-var|isadmin}|{-var|canupload}|{-var|pass1}|{-var|pass2}|{-var|year}|{-var|month}|{-var|day}}
 
 	<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
 	{-box_end}

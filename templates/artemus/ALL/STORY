@@ -1,5 +1,5 @@
-{-assert_visible_story|{-cgi-topic}|{-cgi-id}}
-{-redir_if_archived|STORY|{-cgi-topic}|{-cgi-id}}
+{-assert_visible_story|{-var|topic}|{-var|id}}
+{-redir_if_archived|STORY|{-var|topic}|{-var|id}}
 
 {-header}
 
@@ -7,10 +7,10 @@
 
 	{-main_menu}
 
-	{-box_title|{-topic_name|{-cgi-topic}}}
+	{-box_title|{-topic_name|{-var|topic}}}
 
 	<ul>
-		{-story_loop_by_date|{-cgi-topic}|8|0|_story_link_as_item|}
+		{-story_loop_by_date|{-var|topic}|8|0|_story_link_as_item|}
 	</ul>
 
 	{-box_end}
@@ -19,11 +19,11 @@
 
 <div class = 'main'>
 
-	{-box_title|{-topic_name|{-cgi-topic}}}
+	{-box_title|{-topic_name|{-var|topic}}}
 
-	<div class = 'date'>{-story_date|%d/%m/%y|{-cgi-topic}|{-cgi-id}}</div>
+	<div class = 'date'>{-story_date|%d/%m/%y|{-var|topic}|{-var|id}}</div>
 
-	{-_story_complete|{-cgi-topic}|{-cgi-id}|{-cgi-hl}}
+	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
 
 	{-box_end}
 

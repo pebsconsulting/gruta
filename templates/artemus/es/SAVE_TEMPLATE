@@ -4,7 +4,7 @@
 <div class = 'main'>
 
 	{-box_title|Guardar plantilla}
-	{-save_template|{-cgi-id}|{-cgi-content}}
+	{-save_template|{-var|id}|{-var|content}}
 
 	<p><a href='{-l|ADMIN}'>Administraci&oacute;n</a>
 
