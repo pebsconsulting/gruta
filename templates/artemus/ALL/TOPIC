@@ -8,18 +8,7 @@
 
 <div class = 'main'>
 
-	<div class = 'topic'>
-
-		<h1 class = 'topic_header'>{-topic_name|{-var|topic}}</h1>
-
-		<div class = 'topic_list'>
-
-			{-foreach|{-stories_by_date|{-var|topic}|15|{-var|offset|0}}|
-			\{-_story_abstract\|{-var|topic}\|\$0\}
-			|}
-
-		</div>
-	</div>
+	{-story_list|{-var|topic}}
 
 	<div class = 'topic_navigator'>
 		{-if|{-add|0|{-var|offset}}|
