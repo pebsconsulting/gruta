@@ -45,5 +45,6 @@ h6 { font-size: 80%; }
 .story_abstract { float: left; }
 .story_footer { float: left; width: 100%; background: #eeeecd; margin-bottom: 1em; }
 .topic_list { margin-left: 2em; }
+.topic_navigator { clear: both; }
 
 hr { size: 1; }
