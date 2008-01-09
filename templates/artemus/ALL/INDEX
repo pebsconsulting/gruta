@@ -18,9 +18,7 @@
 
 <div class = 'main'>
 
-	{-set|my_index_topics|{-topics}}
-
-	{-foreach|{-my_index_topics}|
+	{-foreach|{-cfg_index_topics}|
 
 		<div class = 'topic'>
 
