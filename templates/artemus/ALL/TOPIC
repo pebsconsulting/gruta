@@ -12,8 +12,8 @@
 
 	<div class = 'topic_navigator'>
 		{-if|{-add|0|{-var|offset}}|
-		<a href='{-l|TOPIC|topic={-var|topic};offset={-sub|{-var|offset}|15}}'>&lt;&lt;</a>|&lt;&lt;} |
-		<a href='{-l|TOPIC|topic={-var|topic};offset={-add|{-var|offset}|15}}'>&gt;&gt;</a>
+		<a href='{-l|TOPIC|topic={-var|topic};offset={-sub|{-var|offset}|5}}'>&lt;&lt;</a>|&lt;&lt;} |
+		<a href='{-l|TOPIC|topic={-var|topic};offset={-add|{-var|offset}|5}}'>&gt;&gt;</a>
 	</div>
 </div>
 
