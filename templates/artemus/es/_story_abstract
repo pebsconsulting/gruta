@@ -1,6 +1,5 @@
 <div class = 'story_abstract'>
-
 	{-story_abstract|$0|$1}
-
-	{-_story_footer|$0|$1}
 </div>
+
+{-_story_footer|$0|$1}

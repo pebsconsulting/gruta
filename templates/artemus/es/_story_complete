@@ -1,14 +1,10 @@
 <div class = 'story_complete'>
-
 	{-story_body|$0|$1|{-var|hl}}
+</div>
 
-	{-_story_footer|$0|$1}
+{-_story_footer|$0|$1}
 
-	<p>
-
-	<div class = 'self_links'>
-		<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -
-		<a href = 'http://{-host}/?t=STORY;topic=$0;id=$1'>Enlace permanente a esta p&aacute;gina</a>
-	</div>
-
+<div class = 'self_links'>
+	<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Versi&oacute;n para Imprimir</a> -
+	<a href = 'http://{-host}/?t=STORY;topic=$0;id=$1'>Enlace permanente a esta p&aacute;gina</a>
 </div>
