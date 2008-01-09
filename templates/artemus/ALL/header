@@ -17,8 +17,6 @@
 
 <div class = 'header'>
 
-	<a href = '{-l|INDEX}'><img src = 'img/logo.jpg' alt = '{-sitename}' border = '0'></a>
-
 	<form>
 		<input type = 'hidden' name = 't'       value = 'SEARCH'>
 		<input type = 'text'   name = 'query'   value = ''>
