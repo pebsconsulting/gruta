@@ -42,7 +42,8 @@ h6 { font-size: 80%; }
 .full_story_link { font-size: 90% }
 .edit_link { font-size: 90% }
 .date { font-size: 90% }
-.story_footer { background: #eeeecd; }
+.story_abstract { float: left; }
+.story_footer { float: left; width: 100%; background: #eeeecd; }
 .topic_list { margin-left: 2em; }
 
 hr { size: 1; }
