@@ -1,0 +1,15 @@
+<div class = 'topic'>
+
+	<h1 class = 'topic_header'>{-topic_name|$0}</h1>
+
+	<div class = 'topic_list'>
+
+		{-if|{-is_topic_editor|$0}|
+			<p><a href='{-l|EDIT_STORY|topic=$0|id=[]}'>[Nueva]</a></p>
+		}
+
+		{-foreach|{-stories_by_date|$0|5}|\{-_story_abstract\|$0\|\$0\}}
+
+	</div>
+
+</div>
