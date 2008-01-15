@@ -2,17 +2,13 @@
 
 <div class = 'column1'>
 
-	{-main_menu}
-
-	{-login_box}
-
-	{-top_ten_box}
+	{-column1}
 
 </div>
 
 <div class = 'column2'>
 
-	{-login_box}
+	{-column2}
 
 </div>
 
