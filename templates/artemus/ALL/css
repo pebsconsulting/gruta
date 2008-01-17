@@ -31,7 +31,12 @@ h6 { font-size: 80%; }
 .topnav { background: #eeeecd; }
 .topnav ul { list-style-type: none; margin: 0; padding: 0; }
 .topnav ul li { display: inline; padding-left: 1em; font-size: 90%; }
-.topnav .main_menu .boxtit { display: none; }
+.topnav .boxtit { display: none; }
+
+.topnav2 { background: #ffffcd; }
+.topnav2 ul { list-style-type: none; margin: 0; padding: 0; }
+.topnav2 ul li { display: inline; padding-left: 1em; font-size: 90%; }
+.topnav2 .boxtit { display: none; }
 
 .footer { clear: both; }
 
