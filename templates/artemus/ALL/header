@@ -15,6 +15,6 @@
 <body>
 <div class = 'outer-container'>
 
-{-header_content}
+{-top}
 
 <div class = 'inner-container'>
