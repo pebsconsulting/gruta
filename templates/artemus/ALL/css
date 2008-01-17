@@ -20,6 +20,7 @@ h6 { font-size: 80%; }
 .top {
 	height: 80px;
 	padding-top: 1em;
+	padding-right: 1em;
 	background-color: #d89433;
 	background-image: url(/img/logo.jpg);
 	background-repeat: no-repeat;
@@ -27,6 +28,11 @@ h6 { font-size: 80%; }
 }
 
 .top .slogan { color: white; }
+
+.topnav { background: #eeeecd; }
+.topnav ul { list-style-type: none; margin: 0; padding: 0; }
+.topnav ul li { display: inline; padding-left: 1em; font-size: 90%; }
+.topnav .main_menu .boxtit { display: none; }
 
 .footer { clear: both; }
 
