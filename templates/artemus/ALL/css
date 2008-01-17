@@ -38,7 +38,7 @@ h6 { font-size: 80%; }
 .topnav2 ul li { display: inline; padding-left: 1em; font-size: 90%; }
 .topnav2 .boxtit { display: none; }
 
-.footer { clear: both; }
+.footer { clear: both; text-align: center; }
 
 .column1	{ float: left; padding: 1em; width: 160px; }
 .main		{ padding: 1em; margin-left: 200px ; margin-right: 200px; }
