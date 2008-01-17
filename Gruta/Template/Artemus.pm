@@ -45,7 +45,7 @@ sub _artemus {
 		$f{'lt'} = sub { $_[0] < $_[1]; };
 		$f{'eq'} = sub { $_[0] eq $_[1] ? 1 : 0; };
 
-		$f{date} = sub { Gruta::Data::today(); };
+		$f{date} = sub { Gruta::Data::today($_[0]); };
 		$f{random} = sub { $_[rand(scalar(@_))]; };
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
