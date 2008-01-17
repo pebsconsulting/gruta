@@ -7,7 +7,6 @@ A:visited { color: #c0803c; font-weight: bold; text-decoration: underline; }
 A:active { color: #c0803c; font-weight: bold; text-decoration: none; }
 A:hover { color: #c0803c; font-weight: bold; text-decoration: underline; }
 
-.slogan { color: white; }
 .highlight { background: yellow }
 
 h1 { font-size: 160%; font-family: trebuchet ms; }
