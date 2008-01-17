@@ -1,0 +1,11 @@
+<div class = 'header'>
+
+	<form>
+		<input type = 'hidden' name = 't'       value = 'SEARCH'>
+		<input type = 'text'   name = 'query'   value = ''>
+		<input type = 'submit' class = 'button' value = 'Buscar'>
+	</form>
+
+	<div class = 'slogan'>{-slogan}</div>
+
+</div>
