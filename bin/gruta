@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+use Gruta;
+use Gruta::Source::DBI;
+use Gruta::Source::FS;
+
+my $src_str = ARGV[0];
+
+print $src_str, "\n";
+
+exit 0;
