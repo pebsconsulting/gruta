@@ -9,27 +9,44 @@ use Gruta::Source::FS;
 
 my $usage = 0;
 
+my $g;
 my $src;
 my $cmd;
 my $src_str;
 
-$cmd = shift(@ARGV) or $usage = 1;
-$src_str = shift(@ARGV) or $usage = 1;
-
-if ($usage) {
-	usage();
-	exit 1;
-}
+$cmd = shift(@ARGV) or usage();
+$src_str = shift(@ARGV) or usage();
 
 $src = new_source($src_str);
+$g = Gruta->new( sources => $src );
 
 if ($cmd eq 'copy') {
-	my $dst = new_source(shift(@ARGV));
+	my $new_src = shift(@ARGV) or usage();
+	my $dst = new_source( $new_src );
 
 	$dst->create();
 
-	my $g = Gruta->new( sources => $src );
 	$g->transfer_to_source( $dst );
+}
+elsif ($cmd eq 'topics') {
+	foreach my $t ($g->topics()) {
+		print $t, "\n";
+	}
+}
+elsif ($cmd eq 'topic') {
+	my $topic_id = shift(@ARGV) or usage();
+
+	my $topic = $g->topic($topic_id);
+
+	foreach my $f ($topic->afields()) {
+		print $f, ': ', ($topic->get($f) || 'UNDEF'), "\n";
+	}
+}
+elsif ($cmd eq 'edit_story') {
+	my $topic	= shift(@ARGV) or usage();
+	my $id		= shift(@ARGV) or usage();
+
+	my $story = $g->story($topic, $id);
 }
 else {
 	usage();
@@ -41,6 +58,7 @@ exit 0;
 sub usage
 {
 	print "Usage: $0 {cmd} {source}\n";
+	exit 1;
 }
 
 sub new_source
