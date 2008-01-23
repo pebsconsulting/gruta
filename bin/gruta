@@ -43,10 +43,20 @@ elsif ($cmd eq 'topic') {
 	}
 }
 elsif ($cmd eq 'edit_story') {
-	my $topic	= shift(@ARGV) or usage();
+	my $topic_id	= shift(@ARGV) or usage();
 	my $id		= shift(@ARGV) or usage();
 
-	my $story = $g->story($topic, $id);
+	my $story = $g->story($topic_id, $id);
+
+	foreach my $f ($story->afields()) {
+		if ($f ne 'content') {
+			print $f, ': ', ($story->get($f) || 'UNDEF'), "\n";
+		}
+	}
+
+	print "\n";
+
+	print $story->get('content'), "\n";
 }
 else {
 	usage();
