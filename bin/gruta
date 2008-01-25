@@ -58,6 +58,10 @@ elsif ($cmd eq 'edit_story') {
 
 	print $story->get('content'), "\n";
 }
+elsif ($cmd eq 'create') {
+	# do nothing
+	1;
+}
 else {
 	usage();
 }
