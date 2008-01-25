@@ -80,7 +80,12 @@ sub story {
 
 
 sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
-sub stories_by_date { my $self = shift; return $self->_call('stories_by_date', 1, @_); }
+
+sub stories_by_date {
+	my $self = shift;
+
+	return sort { $b->[2] cmp $a->[2] } $self->_call('stories_by_date', 0, @_);
+}
 
 sub search_stories {
 	my $self	= shift;
