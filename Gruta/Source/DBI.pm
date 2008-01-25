@@ -256,14 +256,16 @@ sub stories {
 
 sub stories_by_date {
 	my $self	= shift;
-	my $topic_id	= shift;
+	my $topics	= shift;
 	my %args	= @_;
 
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
 
-	my @args = ( $topic_id );
-	my $sql = 'SELECT id, topic_id, date FROM stories WHERE topic_id = ?';
+	my $sql = 'SELECT id, topic_id, date FROM stories WHERE ';
+
+	$sql .= '(' . join(' AND ', map { 'topic_id = ?' } @{$topics}) . ')';
+	my @args = ( @{$topics} );
 
 	if ($args{from}) {
 		$sql .= ' AND date > ?';
