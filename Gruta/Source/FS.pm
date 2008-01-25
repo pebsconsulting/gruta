@@ -348,8 +348,13 @@ sub _topic_index {
 	my $self	= shift;
 	my $topic_id	= shift;
 
-	my $index = $self->{path} . Gruta::Data::FS::Topic::base() .
-		$topic_id . '/.INDEX';
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . $topic_id;
+
+	if (! -d $index) {
+		return undef;
+	}
+
+	$index .= '/.INDEX';
 
 	if (not open I, $index) {
 
@@ -442,7 +447,8 @@ sub stories_by_date {
 	my @R = ();
 
 	foreach my $topic_id (@{ $topics }) {
-		open I, $self->_topic_index($topic_id) or next;
+		my $i = $self->_topic_index($topic_id) or next;
+		open I, $i or next;
 		flock I, 1;
 
 		my @r = ();
