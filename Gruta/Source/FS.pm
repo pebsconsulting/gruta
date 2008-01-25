@@ -495,9 +495,9 @@ sub search_stories {
 
 	my @r = ();
 
-	foreach my $id ($self->stories_by_date( $topic_id, future => $future )) {
+	foreach my $id ($self->stories_by_date( [ $topic_id ], future => $future )) {
 
-		my $story = $self->story($topic_id, $id);
+		my $story = $self->story($topic_id, $id->[0]);
 		my $content = $story->get('content');
 		my $found = 0;
 
@@ -514,7 +514,7 @@ sub search_stories {
 			}
 		}
 
-		push(@r, $id) if $found == scalar(@q);
+		push(@r, $id->[0]) if $found == scalar(@q);
 	}
 
 	return @r;
