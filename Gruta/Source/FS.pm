@@ -460,16 +460,16 @@ sub stories_by_date {
 			my ($date, $id) = (/^(\d*):(.*)$/);
 
 			# skip future stories
-			next if not $args{future} and $date > Gruta::Data::today();
+			next if not $args{future} and $date gt Gruta::Data::today();
 
 			# skip if date is above the threshold
-			next if $args{'to'} and $date > $args{'to'};
+			next if $args{'to'} and $date gt $args{'to'};
 
 			# exit if date is below the threshold
-			last if $args{'from'} and $date < $args{'from'};
+			last if $args{'from'} and $date lt $args{'from'};
 
 			# skip offset stories
-			next if $args{'offset'} and ++$o <= $args{'offset'};
+			next if $args{'offset'} and ++$o le $args{'offset'};
 
 			push(@r, [ $id, $topic_id, $date ]);
 
