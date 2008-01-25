@@ -263,7 +263,7 @@ sub stories_by_date {
 	$args{offset} = 0 if $args{offset} < 0;
 
 	my @args = ( $topic_id );
-	my $sql = 'SELECT id FROM stories WHERE topic_id = ?';
+	my $sql = 'SELECT id, topic_id, date FROM stories WHERE topic_id = ?';
 
 	if ($args{from}) {
 		$sql .= ' AND date > ?';
@@ -299,7 +299,7 @@ sub stories_by_date {
 	my @r = ();
 
 	while(my $r = $sth->fetchrow_arrayref()) {
-		push(@r, $r->[0]);
+		push(@r, $r);
 	}
 
 	return @r;

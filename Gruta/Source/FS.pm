@@ -462,7 +462,7 @@ sub stories_by_date {
 		# skip offset stories
 		next if $args{'offset'} and ++$o <= $args{'offset'};
 
-		push(@r, $id);
+		push(@r, [ $id, $topic_id, $date ]);
 
 		# exit if we have all we need
 		last if $args{'num'} and $args{'num'} == scalar(@r);

@@ -233,7 +233,7 @@ sub _artemus {
 			my $to		= shift;
 			my $future	= shift;
 
-			return join($sep, map { "{-$template|$topic|$_}" }
+			return join($sep, map { "{-$template|$topic|$_->[0]}" }
 				$data->stories_by_date(
 					$topic,
 					num	=> $num,
@@ -583,6 +583,7 @@ sub _artemus {
 			my $future	= shift;
 
 			return join(':',
+				map { join(',', @{$_}) }
 				$data->stories_by_date(
 					$topic,
 					num	=> $num,
