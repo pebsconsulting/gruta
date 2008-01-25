@@ -82,9 +82,21 @@ sub story {
 sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
 
 sub stories_by_date {
-	my $self = shift;
+	my $self	= shift;
+	my $topics	= shift;
+	my %opts	= @_;
 
-	return sort { $b->[2] cmp $a->[2] } $self->_call('stories_by_date', 0, @_);
+	if (!$topics) {
+		$topics = [ $self->topics() ];
+	}
+
+	my @r = sort { $b->[2] cmp $a->[2] } $self->_call('stories_by_date', 0, $topics, %opts);
+
+	if (scalar(@r) > $opts{num}) {
+		@r = @r[0 .. $opts{num} - 1];
+	}
+
+	return @r;
 }
 
 sub search_stories {
