@@ -13,8 +13,6 @@
 </div>
 
 <div class = 'main'>
-
-	<!-- {-foreach|{-cfg_index_topics}|\{-story_list\|\$0\|\$1\}} -->
 	{-foreach|{-stories_by_date|{-cfg_index_topics}|10}|\{-_story_abstract\|\$1\|\$0\}}
 </div>
 
