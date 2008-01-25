@@ -585,7 +585,10 @@ sub _artemus {
 			return join(':',
 				map { join(',', @{$_}) }
 				$data->stories_by_date(
-					$topic ? [ split(':', $topic) ] : undef,
+					$topic ?
+						[ map { (split(',', $_))[0] }
+							split(':', $topic)
+						] : undef,
 					num	=> $num,
 					offset	=> $offset,
 					from	=> $from_date,
