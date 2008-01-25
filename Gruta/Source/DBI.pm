@@ -264,7 +264,7 @@ sub stories_by_date {
 
 	my $sql = 'SELECT id, topic_id, date FROM stories WHERE ';
 
-	$sql .= '(' . join(' AND ', map { 'topic_id = ?' } @{$topics}) . ')';
+	$sql .= '(' . join(' OR ', map { 'topic_id = ?' } @{$topics}) . ')';
 	my @args = ( @{$topics} );
 
 	if ($args{from}) {
@@ -298,13 +298,13 @@ sub stories_by_date {
 	my $sth = $self->_prepare($sql);
 	$self->_execute($sth, @args);
 
-	my @r = ();
+	my @R = ();
 
-	while(my $r = $sth->fetchrow_arrayref()) {
-		push(@r, $r);
+	while(my @r = $sth->fetchrow_array()) {
+		push(@R, [ @r ]);
 	}
 
-	return @r;
+	return @R;
 }
 
 
