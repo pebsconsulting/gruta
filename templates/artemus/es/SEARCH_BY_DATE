@@ -1,0 +1,23 @@
+{-header}
+
+<div class = 'column1'>
+
+	{-main_menu}
+
+</div>
+
+<div class = 'main'>
+
+	{-box_title|B&uacute;squedas por fecha ({-date|%d/%m/%y|{-var|from}} - {-date|%d/%m/%y|{-var|to}})}
+
+	<ul>
+		{-foreach|{-stories_by_date||100|0|{-var|from|{-date|%y%m%d000000}}|{-var|to|{-date}}|{-is_admin}}|
+		\{-_story_link_as_item_with_edit\|\$1\|\$0\}
+		}
+	</ul>
+
+	{-box_end}
+
+</div>
+
+{-footer}
