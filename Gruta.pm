@@ -3,6 +3,8 @@ package Gruta;
 use strict;
 use warnings;
 
+use locale;
+
 use Gruta::Data;
 
 $Gruta::VERSION = '2.0.0-rc3';
