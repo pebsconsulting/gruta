@@ -588,8 +588,7 @@ sub _artemus {
 			my $to_date	= shift;
 			my $future	= shift;
 
-			return join(':',
-				map { join(',', @{$_}) }
+			my @ret = map { join(',', @{$_}) }
 				$data->stories_by_date(
 					$topic ?
 						[ map { (split(',', $_))[0] }
@@ -600,8 +599,11 @@ sub _artemus {
 					from	=> $from_date,
 					to	=> $to_date,
 					future	=> $future
-				)
 			);
+
+			$self->{search_count} += scalar(@ret);
+
+			return join(':', @ret);
 		};
 
 		$f{stories_by_tag} = sub {
