@@ -16,6 +16,8 @@
 		}
 	</ul>
 
+	{-search_hits}
+
 	{-box_end}
 
 </div>
