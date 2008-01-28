@@ -62,6 +62,11 @@ elsif ($cmd eq 'create') {
 	# do nothing
 	1;
 }
+elsif ($cmd eq 'tags') {
+	foreach my $t ($g->tags()) {
+		print join(', ', @{$t}), "\n";
+	}
+}
 else {
 	usage();
 }
