@@ -23,7 +23,12 @@
 
 	{-box_title|{-topic_name|{-var|topic}}}
 
-	<div class = 'date'>{-story_date|%d/%m/%y|{-var|topic}|{-var|id}}</div>
+	{-set|_date_from|{-story_date|%y%m%d000000|{-var|topic}|{-var|id}}}
+	{-set|_date_to|{-story_date|%y%m%d235959|{-var|topic}|{-var|id}}}
+
+	<div class = 'date'>
+	<a href = '?t=SEARCH_BY_DATE;from={-_date_from};to={-_date_to}'>{-story_date|%d/%m/%y|{-var|topic}|{-var|id}}</a>
+	</div>
 
 	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
 
