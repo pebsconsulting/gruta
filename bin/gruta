@@ -3,25 +3,20 @@
 use strict;
 use warnings;
 
+use File::Temp;
+
 use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
 
-my $usage = 0;
+my $cmd = arg();
+my $src_str = arg();
 
-my $g;
-my $src;
-my $cmd;
-my $src_str;
-
-$cmd = shift(@ARGV) or usage();
-$src_str = shift(@ARGV) or usage();
-
-$src = new_source($src_str);
-$g = Gruta->new( sources => $src );
+my $src = new_source($src_str);
+my $g = Gruta->new( sources => $src );
 
 if ($cmd eq 'copy') {
-	my $new_src = shift(@ARGV) or usage();
+	my $new_src = arg();
 	my $dst = new_source( $new_src );
 
 	$dst->create();
@@ -34,7 +29,7 @@ elsif ($cmd eq 'topics') {
 	}
 }
 elsif ($cmd eq 'topic') {
-	my $topic_id = shift(@ARGV) or usage();
+	my $topic_id = arg();
 
 	my $topic = $g->topic($topic_id);
 
@@ -43,29 +38,27 @@ elsif ($cmd eq 'topic') {
 	}
 }
 elsif ($cmd eq 'stories') {
-	my $topic_id = shift(@ARGV) or usage();
+	my $topic_id = arg();
 
 	foreach my $s ($g->stories($topic_id)) {
 		print $s, "\n";
 	}
 }
 elsif ($cmd eq 'edit_story') {
-	my $topic_id	= shift(@ARGV) or usage();
-	my $id		= shift(@ARGV) or usage();
+	my $topic_id	= arg();
+	my $id		= arg();
 
-	my $story = $g->story($topic_id, $id);
+	my $fh = File::Temp->new();
+	print $fh get_story($topic_id, $id);
+	my $fn = $fh->filename();
+	$fh->close();
 
-	foreach my $f ($story->afields()) {
-		if ($f ne 'content') {
-			print $f, ': ', ($story->get($f) || ''), "\n";
-		}
+	my $mtime = (stat($fn))[9];
+	system('$EDITOR ' . $fn);
+
+	if ($mtime != (stat($fn))[9]) {
+		print "Changed!\n";
 	}
-
-	print 'tags: ', join(', ', $story->tags()), "\n";
-
-	print "\n";
-
-	print $story->get('content'), "\n";
 }
 elsif ($cmd eq 'create') {
 	# do nothing
@@ -83,9 +76,17 @@ else {
 exit 0;
 
 
+sub arg
+{
+	my $r = shift(@ARGV) or usage();
+	return $r;
+}
+
+
 sub usage
 {
-	print "Usage: $0 {cmd} {source}\n";
+	print "Usage: $0 {cmd} {source} [args]\n";
+
 	exit 1;
 }
 
@@ -102,4 +103,26 @@ sub new_source
 	}
 
 	return $src;
+}
+
+sub get_story
+{
+	my $topic_id	= shift;
+	my $id		= shift;
+	my @r		= ();
+
+	my $story = $g->story($topic_id, $id);
+
+	foreach my $f ($story->afields()) {
+		if ($f ne 'content') {
+			push (@r, $f . ': ' . ($story->get($f) || ''));
+		}
+	}
+
+	push(@r, 'tags: ' . join(', ', $story->tags()));
+	push(@r, '');
+	push(@r, $story->get('content'));
+	push(@r, '');
+
+	return join("\n", @r);
 }
