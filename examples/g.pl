@@ -83,6 +83,7 @@ my $u = $w->user('basurilla');
 
 my @ss = $w->stories_by_date( [ 'noticias' ], num => 10 );
 @ss = $w->stories_by_date( '', num => 10 );
+@ss = $w->stories_by_date( '' );
 
 @ss = $w->stories('links');
 my $story_n = $w->story('links', $ss[0]);
