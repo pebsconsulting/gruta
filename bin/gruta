@@ -39,7 +39,14 @@ elsif ($cmd eq 'topic') {
 	my $topic = $g->topic($topic_id);
 
 	foreach my $f ($topic->afields()) {
-		print $f, ': ', ($topic->get($f) || 'UNDEF'), "\n";
+		print $f, ': ', ($topic->get($f) || ''), "\n";
+	}
+}
+elsif ($cmd eq 'stories') {
+	my $topic_id = shift(@ARGV) or usage();
+
+	foreach my $s ($g->stories($topic_id)) {
+		print $s, "\n";
 	}
 }
 elsif ($cmd eq 'edit_story') {
@@ -50,7 +57,7 @@ elsif ($cmd eq 'edit_story') {
 
 	foreach my $f ($story->afields()) {
 		if ($f ne 'content') {
-			print $f, ': ', ($story->get($f) || 'UNDEF'), "\n";
+			print $f, ': ', ($story->get($f) || ''), "\n";
 		}
 	}
 
