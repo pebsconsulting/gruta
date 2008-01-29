@@ -44,6 +44,12 @@ elsif ($cmd eq 'stories') {
 		print $s, "\n";
 	}
 }
+elsif ($cmd eq 'story') {
+	my $topic_id	= arg();
+	my $id		= arg();
+
+	print get_story($topic_id, $id);
+}
 elsif ($cmd eq 'edit_story') {
 	my $topic_id	= arg();
 	my $id		= arg();
