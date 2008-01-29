@@ -469,7 +469,7 @@ sub stories_by_date {
 			last if $args{'from'} and $date lt $args{'from'};
 
 			# skip offset stories
-			next if $args{'offset'} and ++$o le $args{'offset'};
+			next if $args{'offset'} and ++$o <= $args{'offset'};
 
 			push(@r, [ $id, $topic_id, $date ]);
 
