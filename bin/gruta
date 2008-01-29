@@ -75,6 +75,16 @@ elsif ($cmd eq 'tags') {
 		print join(', ', @{$t}), "\n";
 	}
 }
+elsif ($cmd eq 'stories_by_date') {
+	my $topics	= arg();
+	my $num		= arg();
+	my $offset	= arg();
+
+	foreach my $s ($g->stories_by_date( [ split(':', $topics) ],
+		num => $num, offset => $offset) ) {
+		print join(', ', @{$s}), "\n";
+	}
+}
 else {
 	usage();
 }
@@ -84,8 +94,11 @@ exit 0;
 
 sub arg
 {
-	my $r = shift(@ARGV) or usage();
-	return $r;
+	if (@ARGV) {
+		return shift(@ARGV);
+	}
+
+	usage();
 }
 
 
