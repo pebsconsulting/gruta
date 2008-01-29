@@ -11,9 +11,9 @@
 	{-story_list|{-var|topic}|{-var|num}}
 
 	<div class = 'topic_navigator'>
-		{-if|{-add|0|{-var|offset}}|
-		<a href='{-l|TOPIC|topic={-var|topic};offset={-sub|{-var|offset}|5}}'>&lt;&lt;</a>|&lt;&lt;} |
-		<a href='{-l|TOPIC|topic={-var|topic};offset={-add|{-var|offset}|5}}'>&gt;&gt;</a>
+		{-if|{-var|offset|0}|
+		<a href='{-l|TOPIC|topic={-var|topic};offset={-sub|{-var|offset|0}|{-var|num|5}}}'>&lt;&lt;</a>|&lt;&lt;} |
+		<a href='{-l|TOPIC|topic={-var|topic};offset={-add|{-var|offset|0}|{-var|num|5}}}'>&gt;&gt;</a>
 	</div>
 </div>
 
