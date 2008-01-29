@@ -1,0 +1,3 @@
+{-if|$2|<a href='{-l|TOPIC|topic=$0;offset={-sub|$2|$1}}'>&lt;&lt;</a>|&lt;&lt;
+} |
+<a href='{-l|TOPIC|topic=$0;offset={-add|$2|$1}}'>&gt;&gt;</a>
