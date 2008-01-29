@@ -72,7 +72,7 @@ elsif ($cmd eq 'create') {
 }
 elsif ($cmd eq 'tags') {
 	foreach my $t ($g->tags()) {
-		print join(', ', @{$t}), "\n";
+		print join(' ', @{$t}), "\n";
 	}
 }
 elsif ($cmd eq 'stories_by_date') {
@@ -82,7 +82,7 @@ elsif ($cmd eq 'stories_by_date') {
 
 	foreach my $s ($g->stories_by_date( [ split(':', $topics) ],
 		num => $num, offset => $offset) ) {
-		print join(', ', @{$s}), "\n";
+		print join(' ', @{$s}), "\n";
 	}
 }
 else {
