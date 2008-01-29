@@ -8,7 +8,7 @@
 			<p><a href='{-l|EDIT_STORY|topic=$0|id=[]}'>[Nueva]</a></p>
 		}
 
-		{-foreach|{-stories_by_date|$0|{-ifelse|$1|$1|5}|{-var|offset}}|\{-_story_abstract\|$0\|\$0\}}
+		{-foreach|{-stories_by_date|$0|$1|$2}|\{-_story_abstract\|$0\|\$0\}}
 
 	</div>
 

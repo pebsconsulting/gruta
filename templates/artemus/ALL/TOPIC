@@ -8,7 +8,7 @@
 
 <div class = 'main'>
 
-	{-story_list|{-var|topic}|{-var|num}}
+	{-story_list|{-var|topic}|{-var|num|5}|{-var|offset|0}}
 
 	<div class = 'topic_navigator'>
 		{-if|{-var|offset|0}|
