@@ -9,8 +9,8 @@ use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
 
-my $cmd = arg();
 my $src_str = arg();
+my $cmd = arg();
 
 my $src = new_source($src_str);
 my $g = Gruta->new( sources => $src );
@@ -63,7 +63,7 @@ elsif ($cmd eq 'edit_story') {
 	system('$EDITOR ' . $fn);
 
 	if ($mtime != (stat($fn))[9]) {
-		print "Changed!\n";
+		save_story($topic_id, $id, $fn);
 	}
 }
 elsif ($cmd eq 'create') {
@@ -104,7 +104,7 @@ sub arg
 
 sub usage
 {
-	print "Usage: $0 {cmd} {source} [args]\n";
+	print "Usage: $0 {source} {command} [args]\n";
 
 	exit 1;
 }
@@ -144,4 +144,53 @@ sub get_story
 	push(@r, '');
 
 	return join("\n", @r);
+}
+
+
+sub save_story
+{
+	my $topic_id	= shift;
+	my $id		= shift;
+	my $fn		= shift;
+
+	open F, $fn or die "Can't open $fn";
+
+	my $story = undef;
+
+	if ($id) {
+		$story = $g->story($topic_id, $id);
+	}
+	else {
+		$story = Gruta::Data::Story->new (
+			topic_id	=> $topic_id,
+			id		=> $id
+		);
+	}
+
+	while (<F>) {
+		chomp();
+
+		last if /^$/;
+
+		my ($key, $value) = (/^(\w+):\s*(.*)$/);
+
+		if ($key eq 'tags') {
+			$story->tags(split(/,\s*/, $value));
+		}
+		else {
+			$story->set($key, $value);
+		}
+	}
+
+	my $c = join('', <F>);
+	close F;
+
+	$story->set('content', $c);
+
+	if ($story->source()) {
+		$story->save();
+	}
+	else {
+		$g->insert_story($story);
+	}
 }
