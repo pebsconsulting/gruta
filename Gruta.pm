@@ -267,11 +267,13 @@ sub _img_special_uri {
 	my $src		= shift;
 	my $class	= shift;
 
+	my $r = "<img src = 'img/$src' />";
+
 	if ($class) {
-		return "<img src = 'img/$src' class = '$class' />";
+		$r = "<span class = '$class'>" . $r . '</span>';
 	}
 
-	return "<img src = 'img/$src' />";
+	return $r;
 }
 
 sub special_uris {
