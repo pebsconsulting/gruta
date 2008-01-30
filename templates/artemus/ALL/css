@@ -59,4 +59,7 @@ h6 { font-size: 80%; }
 .topic_navigator .prev { float: left; }
 .topic_navigator .next { float: right; }
 
+.right { float: right; margin: 0.5em; padding: 1em; }
+.left { float: left; margin: 0.5em; padding: 1em; }
+
 hr { size: 1; }
