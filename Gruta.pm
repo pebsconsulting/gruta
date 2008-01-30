@@ -225,7 +225,7 @@ sub logout {
 }
 
 
-sub _link_to_topic {
+sub _topic_special_uri {
 	my $self	= shift;
 	my $topic_id	= shift;
 
@@ -243,7 +243,7 @@ sub _link_to_topic {
 }
 
 
-sub _link_to_story {
+sub _story_special_uri {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my $story_id	= shift;
@@ -262,12 +262,25 @@ sub _link_to_story {
 }
 
 
+sub _img_special_uri {
+	my $self	= shift;
+	my $src		= shift;
+	my $class	= shift;
+
+	if ($class) {
+		return "<img src = 'img/$src' class = '$class' />";
+	}
+
+	return "<img src = 'img/$src' />";
+}
+
 sub special_uris {
 	my $self	= shift;
 	my $string	= shift;
 
-	$string =~ s!topic://([\w\d_]+)!$self->_link_to_topic($1)!ge;
-	$string =~ s!story://([\w\d_]+)/([\w\d_]+)!$self->_link_to_story($1,$2)!ge;
+	$string =~ s!topic://([\w\d_]+)!$self->_topic_special_uri($1)!ge;
+	$string =~ s!story://([\w\d_]+)/([\w\d_]+)!$self->_story_special_uri($1,$2)!ge;
+	$string =~ s!img://([\w\d_\.-]+)/?([\w\d_]*)!$self->_img_special_uri($1,$2)!ge;
 
 	return $string;
 }
