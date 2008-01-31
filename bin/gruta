@@ -66,6 +66,24 @@ elsif ($cmd eq 'edit_story') {
 		save_story($topic_id, $id, $fn);
 	}
 }
+elsif ($cmd eq 'filter_story') {
+	my $topic_id	= arg();
+	my $id		= arg();
+	my $filter_cmd	= arg();
+
+	my $fhr = File::Temp->new();
+	print $fhr get_story($topic_id, $id);
+	my $fnr = $fhr->filename();
+	$fhr->close();
+
+	my $fhw = File::Temp->new();
+	my $fnw = $fhw->filename();
+	$fhw->close();
+
+	system("$filter_cmd < $fnr > $fnw");
+
+	save_story($topic_id, $id, $fnw);
+}
 elsif ($cmd eq 'create') {
 	# do nothing
 	1;
