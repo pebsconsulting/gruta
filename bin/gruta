@@ -98,7 +98,11 @@ elsif ($cmd eq 'stories_by_date') {
 	my $num		= arg();
 	my $offset	= arg();
 
-	foreach my $s ($g->stories_by_date( [ split(':', $topics) ],
+	if ($topics) {
+		$topics = [ split(':', $topics) ];
+	}
+
+	foreach my $s ($g->stories_by_date( $topics,
 		num => $num, offset => $offset) ) {
 		print join(' ', @{$s}), "\n";
 	}
