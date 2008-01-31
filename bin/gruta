@@ -154,7 +154,7 @@ sub get_story
 
 	my $story = $g->story($topic_id, $id);
 
-	foreach my $f ($story->afields()) {
+	foreach my $f ($story->fields()) {
 		if ($f ne 'content') {
 			push (@r, $f . ': ' . ($story->get($f) || ''));
 		}
