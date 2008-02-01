@@ -225,6 +225,8 @@ sub logout {
 }
 
 
+sub base_url { $_[0]->{base_url} || '' };
+
 sub _topic_special_uri {
 	my $self	= shift;
 	my $topic_id	= shift;
@@ -232,8 +234,9 @@ sub _topic_special_uri {
 	my $ret = undef;
 
 	if (my $t = $self->topic($topic_id)) {
-		$ret = "<a href='?t=TOPIC;topic=$topic_id'>" .
-			$t->get('name') . '</a>';
+		$ret = sprintf('<a href="%s?t=TOPIC;topic=%s">%s</a>',
+			$self->base_url(), $topic_id, $t->get('name')
+		);
 	}
 	else {
 		$ret = "Bad topic $topic_id";
@@ -251,8 +254,9 @@ sub _story_special_uri {
 	my $ret = undef;
 
 	if (my $s = $self->story($topic_id, $story_id)) {
-		$ret = "<a href='?t=STORY;topic=$topic_id;id=$story_id'>" .
-			$s->get('title') . '</a>';
+		$ret = sprintf('<a href="%s?t=STORY;topic=%s;id=%s">%s</a>',
+			$self->base_url(), $topic_id, $story_id, $s->get('title')
+		);
 	}
 	else {
 		$ret = "Bad story '$topic_id/$story_id'";
@@ -267,7 +271,9 @@ sub _img_special_uri {
 	my $src		= shift;
 	my $class	= shift;
 
-	my $r = "<img src = 'img/$src' />";
+	my $r = sprintf('<img src = "%simg/%s" />',
+		$self->base_url(), $src
+	);
 
 	if ($class) {
 		$r = "<span class = '$class'>" . $r . '</span>';
