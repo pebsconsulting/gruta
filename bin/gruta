@@ -107,6 +107,25 @@ elsif ($cmd eq 'stories_by_date') {
 		print join(' ', @{$s}), "\n";
 	}
 }
+elsif ($cmd eq 'stats') {
+	my $n_topics	= 0;
+	my $n_stories	= 0;
+	my $n_hits	= 0;
+
+	foreach my $t ($g->topics()) {
+		$n_topics++;
+
+		foreach my $s ($g->stories($t)) {
+			$n_stories++;
+
+			my $story = $g->story($t, $s);
+
+			$n_hits += $story->get('hits') || 0;
+		}
+	}
+
+	print "Topics: $n_topics, Stories: $n_stories, Hits: $n_hits\n";
+}
 else {
 	usage();
 }
