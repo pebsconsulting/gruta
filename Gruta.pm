@@ -94,7 +94,7 @@ sub stories_by_date {
 
 	my @r = sort { $b->[2] cmp $a->[2] } $self->_call('stories_by_date', 0, $topics, %opts);
 
-	if (defined($opts{num}) && scalar(@r) > $opts{num}) {
+	if ($opts{num} && scalar(@r) > $opts{num}) {
 		@r = @r[0 .. $opts{num} - 1];
 	}
 
