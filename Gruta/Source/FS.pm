@@ -441,12 +441,21 @@ sub stories_by_date {
 	my $topics	= shift;
 	my %args	= @_;
 
+	my @topics;
+
+	if (!$topics) {
+		@topics = $self->topics();
+	}
+	else {
+		@topics = @{ $topics };
+	}
+
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
 
 	my @R = ();
 
-	foreach my $topic_id (@{ $topics }) {
+	foreach my $topic_id (@topics) {
 		my $i = $self->_topic_index($topic_id) or next;
 		open I, $i or next;
 		flock I, 1;

@@ -262,24 +262,32 @@ sub stories_by_date {
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
 
-	my $sql = 'SELECT id, topic_id, date FROM stories WHERE ';
+	my $sql = 'SELECT id, topic_id, date FROM stories ';
+	my @args = ();
+	my @sql_w = ();
 
-	$sql .= '(' . join(' OR ', map { 'topic_id = ?' } @{$topics}) . ')';
-	my @args = ( @{$topics} );
+	if ($topics) {
+		push(@sql_w, '(' . join(' OR ', map { 'topic_id = ?' } @{$topics}) . ')');
+		@args = ( @{$topics} );
+	}
 
 	if ($args{from}) {
-		$sql .= ' AND date > ?';
+		push(@sql_w, 'date > ?');
 		push(@args, $args{from});
 	}
 
 	if ($args{to}) {
-		$sql .= ' AND date < ?';
+		push(@sql_w, 'date < ?');
 		push(@args, $args{to});
 	}
 
 	if (!$args{future}) {
-		$sql .= ' AND date <= ?';
+		push(@sql_w, 'date <= ?');
 		push(@args, Gruta::Data::today());
+	}
+
+	if (@sql_w) {
+		$sql .= ' WHERE ' . join(' AND ', @sql_w);
 	}
 
 	$sql .= ' ORDER BY date DESC';

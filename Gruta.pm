@@ -88,10 +88,6 @@ sub stories_by_date {
 	my $topics	= shift;
 	my %opts	= @_;
 
-	if (!$topics) {
-		$topics = [ $self->topics() ];
-	}
-
 	my @r = sort { $b->[2] cmp $a->[2] } $self->_call('stories_by_date', 0, $topics, %opts);
 
 	if ($opts{num} && scalar(@r) > $opts{num}) {
