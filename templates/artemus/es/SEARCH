@@ -13,7 +13,7 @@
 	<p>Resultados de la b&uacute;squeda <b>{-var|query}</b>:<br>
 
 	{-foreach|{-topics}|
-		\{-search_stories\|\$0\|\{-var|query\}\|\{-is_admin\}\}
+		\{-search_stories\|\$0\|\{-var\|query\}\|\{-is_admin\}\}
 	}
 
 	{-search_hits}
