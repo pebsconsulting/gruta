@@ -323,7 +323,9 @@ sub _artemus {
 			if (@l) {
 				$ret = "<p><b>{-topic_name|$topic_id}</b><br>\n";
 
+				$ret .= '<ul>';
 				$ret .= join($sep, map { "{-$template|$topic_id|$_}" } @l);
+				$ret .= '</ul>';
 
 				$self->{search_count} += scalar(@l);
 			}
