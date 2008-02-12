@@ -553,11 +553,12 @@ sub stories_top_ten {
 
 
 sub _collect_tags {
-	my $self = shift;
+	my $self	= shift;
+	my @topics	= @_;
 
 	my @ret = ();
 
-	foreach my $topic_id ($self->topics()) {
+	foreach my $topic_id (@topics) {
 
 		my $topic = $self->topic($topic_id);
 
@@ -594,8 +595,16 @@ sub stories_by_tag {
 	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
 	my @ret = ();
+	my @topics;
 
-	foreach my $tr ($self->_collect_tags()) {
+	if (!$topics) {
+		@topics = $self->topics();
+	}
+	else {
+		@topics = @{ $topics };
+	}
+
+	foreach my $tr ($self->_collect_tags(@topics)) {
 
 		my @ts = @{$tr->[2]};
 

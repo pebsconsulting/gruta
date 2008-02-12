@@ -187,6 +187,10 @@ my $X = {
 			my $topics	= arg();
 			my $tags	= arg();
 
+			if ($topics) {
+				$topics = [ split(':', $topics) ];
+			}
+
 			foreach my $s ($g->stories_by_tag($topics, $tags)) {
 				print join(' ', @{$s}), "\n";
 			}
