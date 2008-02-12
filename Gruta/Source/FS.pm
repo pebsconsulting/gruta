@@ -596,25 +596,34 @@ sub search_stories_by_tag {
 
 	foreach my $tr ($self->_collect_tags()) {
 
-		foreach my $t (@{$tr->[2]}) {
+		my @ts = @{$tr->[2]};
+
+		# skip stories with less tags than the wanted ones
+		if (scalar(@ts) < scalar(@tags)) {
+			next;
+		}
+
+		# count matches
+		my $c = 0;
+
+		foreach my $t (@ts) {
 			if (grep(/^$t$/, @tags)) {
-
-				# if no future stories are to be shown,
-				# discard them
-				if (!$future) {
-					my $story = $self->story(
-						$tr->[0], $tr->[1]
-					);
-
-					if ($story->get('date') >
-						Gruta::Data::today()) {
-						last;
-					}
-				}
-
-				push(@ret, [ $tr->[0], $tr->[1] ]);
-				last;
+				$c++;
 			}
+		}
+
+		if ($c >= scalar(@tags)) {
+
+			# if no future stories are wanted, discard them
+			if (!$future) {
+				my $story = $self->story($tr->[0], $tr->[1]);
+
+				if ($story->get('date') > Gruta::Data::today()) {
+					next;
+				}
+			}
+
+			push(@ret, [ $tr->[0], $tr->[1] ]);
 		}
 	}
 
