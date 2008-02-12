@@ -647,7 +647,7 @@ sub tags {
 	my @ret = ();
 	my %h = ();
 
-	foreach my $tr ($self->_collect_tags()) {
+	foreach my $tr ($self->_collect_tags($self->topics())) {
 
 		foreach my $t (@{$tr->[2]}) {
 			$h{$t}++;
