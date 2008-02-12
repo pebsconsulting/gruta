@@ -14,8 +14,8 @@ use Gruta::Source::FS;
 
 my $X = {
 	'copy' =>	[
-		'copy {destination}',
-		'Copies the full {source} to {destination}',
+		'copy {src} {dst}',
+		'Copies the full source {src} to {dst}',
 		sub {
 			my $g		= init();
 			my $new_src	= arg();
@@ -27,8 +27,8 @@ my $X = {
 		}
 	],
 	'topics' =>	[
-		'topics',
-		'Lists the topics in {source}',
+		'topics {src}',
+		'Lists the topics in {src}',
 		sub {
 			my $g = init();
 
@@ -38,7 +38,7 @@ my $X = {
 		}
 	],
 	'topic' =>	[
-		'topic {topic_id}',
+		'topic {src} {topic_id}',
 		'Dumps topic data',
 		sub {
 			my $g		= init();
@@ -52,7 +52,7 @@ my $X = {
 		}
 	],
 	'stories' =>	[
-		'stories {topic_id}',
+		'stories {src} {topic_id}',
 		'Lists all stories of a topic',
 		sub {
 			my $g		= init();
@@ -64,7 +64,7 @@ my $X = {
 		}
 	],
 	'story' =>	[
-		'story {topic_id} {id}',
+		'story {src} {topic_id} {id}',
 		'Dumps story data',
 		sub {
 			my $g		= init();
@@ -75,7 +75,7 @@ my $X = {
 		}
 	],
 	'edit_story' =>	[
-		'edit_story {topic_id} {id}',
+		'edit_story {src} {topic_id} {id}',
 		'Calls $EDITOR to edit story data',
 		sub {
 			my $g		= init();
@@ -96,7 +96,7 @@ my $X = {
 		}
 	],
 	'filter_story' => [
-		'filter_story {topic_id} {id} {command}',
+		'filter_story {src} {topic_id} {id} {command}',
 		'Filters story data through command (STDIN, STDOUT)',
 		sub {
 			my $g		= init();
@@ -119,15 +119,15 @@ my $X = {
 		}
 	],
 	'create' =>	[
-		'create',
-		'Creates {source}',
+		'create {src}',
+		'Creates {src}',
 		sub {
 			init();
 		}
 	],
 	'tags' =>	[
-		'tags',
-		'Lists all tags in {source}',
+		'tags {src}',
+		'Lists all tags in {src}',
 		sub {
 			my $g	= init();
 
@@ -137,8 +137,8 @@ my $X = {
 		}
 	],
 	'stories_by_date' => [
-		'stories_by_date {topic(s)} {num} {offset}',
-		'Search stories by date',
+		'stories_by_date {src} {topic(s)} {num} {offset}',
+		'Searches stories by date',
 		sub {
 			my $g		= init();
 			my $topics	= arg();
@@ -156,8 +156,8 @@ my $X = {
 		}
 	],
 	'stats' =>	[
-		'stats',
-		'Dump statistics for {source}',
+		'stats {src}',
+		'Dumps statistics for {src}',
 		sub {
 			my $g		= init();
 			my $n_topics	= 0;
@@ -220,13 +220,14 @@ sub usage
 	if ($cmd) {
 		my $c = $X->{$cmd};
 
-		print "Usage: $0 {source} ", $c->[0], "\t\t", $c->[1], "\n";
+		print "Usage: $0 ", $c->[0], "\t\t", $c->[1], "\n";
 	}
 	else {
-		print "Usage: $0 {source} [args...]\n\n";
+		print "Usage: $0 {cmd} [args...]\n\n";
 
 		foreach my $c (values(%{$X})) {
-			print "\t", $c->[0], "\t\t", $c->[1], "\n";
+			print ' ', sprintf('%-50s %s',
+				$c->[0], $c->[1]), "\n";
 		}
 	}
 
