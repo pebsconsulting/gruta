@@ -9,19 +9,17 @@ use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
 
-my $src_str = arg();
-my $cmd = arg();
-
-my $src = new_source($src_str);
-my $g = Gruta->new( sources => $src );
+# = new_source($src_str);
+# = Gruta->new( sources => $src );
 
 my $X = {
 	'copy' =>	[
 		'copy {destination}',
 		'Copies the full {source} to {destination}',
 		sub {
-			my $new_src = arg();
-			my $dst = new_source( $new_src );
+			my $g		= init();
+			my $new_src	= arg();
+			my $dst		= new_source( $new_src );
 
 			$dst->create();
 
@@ -32,6 +30,8 @@ my $X = {
 		'topics',
 		'Lists the topics in {source}',
 		sub {
+			my $g = init();
+
 			foreach my $t ($g->topics()) {
 				print $t, "\n";
 			}
@@ -41,7 +41,8 @@ my $X = {
 		'topic {topic_id}',
 		'Dumps topic data',
 		sub {
-			my $topic_id = arg();
+			my $g		= init();
+			my $topic_id	= arg();
 
 			my $topic = $g->topic($topic_id);
 
@@ -54,7 +55,8 @@ my $X = {
 		'stories {topic_id}',
 		'Lists all stories of a topic',
 		sub {
-			my $topic_id = arg();
+			my $g		= init();
+			my $topic_id	= arg();
 
 			foreach my $s ($g->stories($topic_id)) {
 				print $s, "\n";
@@ -65,21 +67,23 @@ my $X = {
 		'story {topic_id} {id}',
 		'Dumps story data',
 		sub {
+			my $g		= init();
 			my $topic_id	= arg();
 			my $id		= arg();
 
-			print get_story($topic_id, $id);
+			print get_story($g, $topic_id, $id);
 		}
 	],
 	'edit_story' =>	[
 		'edit_story {topic_id} {id}',
 		'Calls $EDITOR to edit story data',
 		sub {
+			my $g		= init();
 			my $topic_id	= arg();
 			my $id		= arg();
 
 			my $fh = File::Temp->new();
-			print $fh get_story($topic_id, $id);
+			print $fh get_story($g, $topic_id, $id);
 			my $fn = $fh->filename();
 			$fh->close();
 
@@ -87,7 +91,7 @@ my $X = {
 			system('$EDITOR ' . $fn);
 
 			if ($mtime != (stat($fn))[9]) {
-				save_story($topic_id, $id, $fn);
+				save_story($g, $topic_id, $id, $fn);
 			}
 		}
 	],
@@ -95,12 +99,13 @@ my $X = {
 		'filter_story {topic_id} {id} {command}',
 		'Filters story data through command (STDIN, STDOUT)',
 		sub {
+			my $g		= init();
 			my $topic_id	= arg();
 			my $id		= arg();
 			my $filter_cmd	= arg();
 
 			my $fhr = File::Temp->new();
-			print $fhr get_story($topic_id, $id);
+			print $fhr get_story($g, $topic_id, $id);
 			my $fnr = $fhr->filename();
 			$fhr->close();
 
@@ -110,21 +115,22 @@ my $X = {
 
 			system("$filter_cmd < $fnr > $fnw");
 
-			save_story($topic_id, $id, $fnw);
+			save_story($g, $topic_id, $id, $fnw);
 		}
 	],
 	'create' =>	[
 		'create',
 		'Creates {source}',
 		sub {
-			# do nothing
-			1;
+			init();
 		}
 	],
 	'tags' =>	[
 		'tags',
 		'Lists all tags in {source}',
 		sub {
+			my $g	= init();
+
 			foreach my $t ($g->tags()) {
 				print join(' ', @{$t}), "\n";
 			}
@@ -134,6 +140,7 @@ my $X = {
 		'stories_by_date {topic(s)} {num} {offset}',
 		'Search stories by date',
 		sub {
+			my $g		= init();
 			my $topics	= arg();
 			my $num		= arg();
 			my $offset	= arg();
@@ -152,6 +159,7 @@ my $X = {
 		'stats',
 		'Dump statistics for {source}',
 		sub {
+			my $g		= init();
 			my $n_topics	= 0;
 			my $n_stories	= 0;
 			my $n_hits	= 0;
@@ -173,6 +181,8 @@ my $X = {
 	]
 };
 
+my $cmd = arg();
+
 my $c;
 
 if (not $c = $X->{$cmd}) {
@@ -193,6 +203,15 @@ sub arg
 	}
 
 	usage();
+}
+
+
+sub init
+{
+	my $src = new_source(arg());
+	my $g	= Gruta->new( sources => $src );
+
+	return $g;
 }
 
 
@@ -231,6 +250,7 @@ sub new_source
 
 sub get_story
 {
+	my $g		= shift;
 	my $topic_id	= shift;
 	my $id		= shift;
 	my @r		= ();
@@ -254,6 +274,7 @@ sub get_story
 
 sub save_story
 {
+	my $g		= shift;
 	my $topic_id	= shift;
 	my $id		= shift;
 	my $fn		= shift;
