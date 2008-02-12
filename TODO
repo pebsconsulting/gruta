@@ -11,7 +11,10 @@ Release Critical Bugs
    when changed, be saved in the var/templates directory.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
- * 1024: search_stories_by_tag() should be AND, not OR.
+ * 1024: search_stories_by_tag() FS should be AND, not OR.
+ * 1025: search_stories_by_tag() DBI query must be:
+   select topic_id, id from tags where (tag = 'entrantes' or tag = 'setas') 
+   group by topic_id, id having count(id) = 2;
 
 Open Bugs
 ---------
