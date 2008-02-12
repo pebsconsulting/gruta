@@ -377,6 +377,8 @@ sub stories_by_tag {
 
 	my @r = ();
 
+	my @args = ( @tags );
+
 	if (@tags) {
 		my $sql;
 
@@ -391,10 +393,17 @@ sub stories_by_tag {
 				join(' OR ', map { 'tag = ?' } @tags) . ')';
 		}
 
+		if ($topics) {
+			$sql .= ' AND (' .
+				join(' OR ', map { 'tags.topic_id = ?' } @{$topics}) . ')';
+
+			push(@args, @{$topics});
+		}
+
 		$sql .= ' GROUP BY tags.topic_id, tags.id HAVING count(tags.id) = ' . scalar(@tags);
 
 		my $sth = $self->_prepare($sql);
-		$self->_execute($sth, map { lc($_) } @tags);
+		$self->_execute($sth, map { lc($_) } @args);
 
 		while (my @a = $sth->fetchrow_array()) {
 			push(@r, [ @a ]);
