@@ -390,6 +390,8 @@ sub search_stories_by_tag {
 				join(' OR ', map { 'tag = ?' } @tags) . ')';
 		}
 
+		$sql .= ' GROUP BY tags.topic_id, tags.id HAVING count(tags.id) = ' . scalar(@tags);
+
 		my $sth = $self->_prepare($sql);
 		$self->_execute($sth, map { lc($_) } @tags);
 

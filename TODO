@@ -11,9 +11,6 @@ Release Critical Bugs
    when changed, be saved in the var/templates directory.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
- * 1025: search_stories_by_tag() DBI query must be:
-   select topic_id, id from tags where (tag = 'entrantes' or tag = 'setas') 
-   group by topic_id, id having count(id) = 2;
 
 Open Bugs
 ---------
@@ -61,5 +58,9 @@ Closed
  * 1021: Delete Artemus function story_loop_top_ten (Tue, 08 Jan 2008 14:10:18 +0100).
  * 1024: search_stories_by_tag() FS should be AND, not OR
    (Tue, 12 Feb 2008 12:49:51 +0100).
+ * 1025: search_stories_by_tag() DBI query must be:
+   select topic_id, id from tags where (tag = 'entrantes' or tag = 'setas') 
+   group by topic_id, id having count(id) = 2
+   (Tue, 12 Feb 2008 13:07:02 +0100).
 
 Email bugs to angel@triptico.com
