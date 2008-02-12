@@ -609,11 +609,17 @@ sub _artemus {
 		};
 
 		$f{stories_by_tag} = sub {
+			my $topic	= shift;
 			my $tag		= shift;
-			my $topics	= shift;
 			my $future	= shift;
 
-			my @ret = $data->stories_by_tag($tag, $topics, $future);
+			my @ret = $data->stories_by_tag(
+				$topic ?
+					[ map { (split(',', $_))[0] }
+						split(':', $topic)
+					] : undef,
+				$tag, $future);
+
 			$self->{search_count} += scalar(@ret);
 
 			return join(':', map { $_->[0] . ',' . $_->[1] } @ret);
