@@ -15,119 +15,162 @@ my $cmd = arg();
 my $src = new_source($src_str);
 my $g = Gruta->new( sources => $src );
 
-if ($cmd eq 'copy') {
-	my $new_src = arg();
-	my $dst = new_source( $new_src );
+my %X = {
+	'copy' =>	[
+		'copy {destination}',
+		'Copies the full {source} to {destination}',
+		sub {
+			my $new_src = arg();
+			my $dst = new_source( $new_src );
 
-	$dst->create();
+			$dst->create();
 
-	$g->transfer_to_source( $dst );
-}
-elsif ($cmd eq 'topics') {
-	foreach my $t ($g->topics()) {
-		print $t, "\n";
-	}
-}
-elsif ($cmd eq 'topic') {
-	my $topic_id = arg();
-
-	my $topic = $g->topic($topic_id);
-
-	foreach my $f ($topic->afields()) {
-		print $f, ': ', ($topic->get($f) || ''), "\n";
-	}
-}
-elsif ($cmd eq 'stories') {
-	my $topic_id = arg();
-
-	foreach my $s ($g->stories($topic_id)) {
-		print $s, "\n";
-	}
-}
-elsif ($cmd eq 'story') {
-	my $topic_id	= arg();
-	my $id		= arg();
-
-	print get_story($topic_id, $id);
-}
-elsif ($cmd eq 'edit_story') {
-	my $topic_id	= arg();
-	my $id		= arg();
-
-	my $fh = File::Temp->new();
-	print $fh get_story($topic_id, $id);
-	my $fn = $fh->filename();
-	$fh->close();
-
-	my $mtime = (stat($fn))[9];
-	system('$EDITOR ' . $fn);
-
-	if ($mtime != (stat($fn))[9]) {
-		save_story($topic_id, $id, $fn);
-	}
-}
-elsif ($cmd eq 'filter_story') {
-	my $topic_id	= arg();
-	my $id		= arg();
-	my $filter_cmd	= arg();
-
-	my $fhr = File::Temp->new();
-	print $fhr get_story($topic_id, $id);
-	my $fnr = $fhr->filename();
-	$fhr->close();
-
-	my $fhw = File::Temp->new();
-	my $fnw = $fhw->filename();
-	$fhw->close();
-
-	system("$filter_cmd < $fnr > $fnw");
-
-	save_story($topic_id, $id, $fnw);
-}
-elsif ($cmd eq 'create') {
-	# do nothing
-	1;
-}
-elsif ($cmd eq 'tags') {
-	foreach my $t ($g->tags()) {
-		print join(' ', @{$t}), "\n";
-	}
-}
-elsif ($cmd eq 'stories_by_date') {
-	my $topics	= arg();
-	my $num		= arg();
-	my $offset	= arg();
-
-	if ($topics) {
-		$topics = [ split(':', $topics) ];
-	}
-
-	foreach my $s ($g->stories_by_date( $topics,
-		num => $num, offset => $offset) ) {
-		print join(' ', @{$s}), "\n";
-	}
-}
-elsif ($cmd eq 'stats') {
-	my $n_topics	= 0;
-	my $n_stories	= 0;
-	my $n_hits	= 0;
-
-	foreach my $t ($g->topics()) {
-		$n_topics++;
-
-		foreach my $s ($g->stories($t)) {
-			$n_stories++;
-
-			my $story = $g->story($t, $s);
-
-			$n_hits += $story->get('hits') || 0;
+			$g->transfer_to_source( $dst );
 		}
-	}
+	],
+	'topics' =>	[
+		'topics',
+		'Lists the topics in {source}',
+		sub {
+			foreach my $t ($g->topics()) {
+				print $t, "\n";
+			}
+		}
+	],
+	'topic' =>	[
+		'topic {topic_id}',
+		'Dumps topic data',
+		sub {
+			my $topic_id = arg();
 
-	print "Topics: $n_topics, Stories: $n_stories, Hits: $n_hits\n";
-}
-else {
-	usage();
+			my $topic = $g->topic($topic_id);
+
+			foreach my $f ($topic->afields()) {
+				print $f, ': ', ($topic->get($f) || ''), "\n";
+			}
+		}
+	],
+	'stories' =>	[
+		'stories {topic_id}',
+		'Lists all stories of a topic',
+		sub {
+			my $topic_id = arg();
+
+			foreach my $s ($g->stories($topic_id)) {
+				print $s, "\n";
+			}
+		}
+	],
+	'story' =>	[
+		'story {topic_id} {id}',
+		'Dumps story data',
+		sub {
+			my $topic_id	= arg();
+			my $id		= arg();
+
+			print get_story($topic_id, $id);
+		}
+	],
+	'edit_story' =>	[
+		'edit_story {topic_id} {id}',
+		'Calls $EDITOR to edit story data',
+		sub {
+			my $topic_id	= arg();
+			my $id		= arg();
+
+			my $fh = File::Temp->new();
+			print $fh get_story($topic_id, $id);
+			my $fn = $fh->filename();
+			$fh->close();
+
+			my $mtime = (stat($fn))[9];
+			system('$EDITOR ' . $fn);
+
+			if ($mtime != (stat($fn))[9]) {
+				save_story($topic_id, $id, $fn);
+			}
+		}
+	],
+	'filter_story' => [
+		'filter_story {topic_id} {id} {command}',
+		'Filters story data through command (STDIN, STDOUT)',
+		sub {
+			my $topic_id	= arg();
+			my $id		= arg();
+			my $filter_cmd	= arg();
+
+			my $fhr = File::Temp->new();
+			print $fhr get_story($topic_id, $id);
+			my $fnr = $fhr->filename();
+			$fhr->close();
+
+			my $fhw = File::Temp->new();
+			my $fnw = $fhw->filename();
+			$fhw->close();
+
+			system("$filter_cmd < $fnr > $fnw");
+
+			save_story($topic_id, $id, $fnw);
+		}
+	],
+	'create' =>	[
+		'create',
+		'Creates {source}',
+		sub {
+			# do nothing
+			1;
+		}
+	],
+	'tags' =>	[
+		'tags',
+		'Lists all tags in {source}',
+		sub {
+			foreach my $t ($g->tags()) {
+				print join(' ', @{$t}), "\n";
+			}
+		}
+	],
+	'stories_by_date' => [
+		'stories_by_date {topic(s)} {num} {offset}',
+		'Search stories by date',
+		sub {
+			my $topics	= arg();
+			my $num		= arg();
+			my $offset	= arg();
+
+			if ($topics) {
+				$topics = [ split(':', $topics) ];
+			}
+
+			foreach my $s ($g->stories_by_date( $topics,
+				num => $num, offset => $offset) ) {
+				print join(' ', @{$s}), "\n";
+			}
+		}
+	],
+	'stats' =>	[
+		'stats',
+		'Dump statistics for {source}',
+		sub {
+			my $n_topics	= 0;
+			my $n_stories	= 0;
+			my $n_hits	= 0;
+
+			foreach my $t ($g->topics()) {
+				$n_topics++;
+
+				foreach my $s ($g->stories($t)) {
+					$n_stories++;
+
+					my $story = $g->story($t, $s);
+
+					$n_hits += $story->get('hits') || 0;
+				}
+			}
+
+			print "Topics: $n_topics, Stories: $n_stories, Hits: $n_hits\n";
+		}
+	]
 }
 
 exit 0;
