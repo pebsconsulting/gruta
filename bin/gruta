@@ -15,7 +15,7 @@ my $cmd = arg();
 my $src = new_source($src_str);
 my $g = Gruta->new( sources => $src );
 
-my %X = {
+my $X = {
 	'copy' =>	[
 		'copy {destination}',
 		'Copies the full {source} to {destination}',
@@ -171,7 +171,17 @@ my %X = {
 			print "Topics: $n_topics, Stories: $n_stories, Hits: $n_hits\n";
 		}
 	]
+};
+
+my $c;
+
+if (not $c = $X->{$cmd}) {
+	$cmd = undef;
+	usage();
 }
+
+# execute
+$c->[2]();
 
 exit 0;
 
@@ -188,7 +198,18 @@ sub arg
 
 sub usage
 {
-	print "Usage: $0 {source} {command} [args]\n";
+	if ($cmd) {
+		my $c = $X->{$cmd};
+
+		print "Usage: $0 {source} ", $c->[0], "\t\t", $c->[1], "\n";
+	}
+	else {
+		print "Usage: $0 {source} [args...]\n\n";
+
+		foreach my $c (values(%{$X})) {
+			print "\t", $c->[0], "\t\t", $c->[1], "\n";
+		}
+	}
 
 	exit 1;
 }
