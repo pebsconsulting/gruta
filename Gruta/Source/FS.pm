@@ -587,6 +587,7 @@ sub _collect_tags {
 
 sub stories_by_tag {
 	my $self	= shift;
+	my $topics	= shift;
 	my $tag		= shift;
 	my $future	= shift;
 

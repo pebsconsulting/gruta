@@ -180,13 +180,14 @@ my $X = {
 		}
 	],
 	'stories_by_tag' => [
-		'stories_by_tag {src} {tag(s)}',
+		'stories_by_tag {src} {topic(s)} {tag(s)}',
 		'Searches stories by tag(s)',
 		sub {
 			my $g		= init();
+			my $topics	= arg();
 			my $tags	= arg();
 
-			foreach my $s ($g->stories_by_tag($tags)) {
+			foreach my $s ($g->stories_by_tag($topics, $tags)) {
 				print join(' ', @{$s}), "\n";
 			}
 		}

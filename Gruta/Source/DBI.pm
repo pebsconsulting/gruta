@@ -369,6 +369,7 @@ sub stories_top_ten {
 
 sub stories_by_tag {
 	my $self	= shift;
+	my $topics	= shift;
 	my $tag		= shift;
 	my $future	= shift;
 
