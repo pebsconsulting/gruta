@@ -11,6 +11,7 @@ Release Critical Bugs
    when changed, be saved in the var/templates directory.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
+ * 1024: search_stories_by_tag() should be AND, not OR.
 
 Open Bugs
 ---------
