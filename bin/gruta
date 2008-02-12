@@ -186,7 +186,7 @@ my $X = {
 			my $g		= init();
 			my $tags	= arg();
 
-			foreach my $s ($g->search_stories_by_tag($tags)) {
+			foreach my $s ($g->stories_by_tag($tags)) {
 				print join(' ', @{$s}), "\n";
 			}
 		}

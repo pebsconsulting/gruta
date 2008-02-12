@@ -326,7 +326,7 @@ sub stories_top_ten {
 	return ();
 }
 
-sub search_stories_by_tag {
+sub stories_by_tag {
 	my $self	= shift;
 	my @tags	= shift;
 

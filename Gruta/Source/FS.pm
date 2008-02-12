@@ -585,7 +585,7 @@ sub _collect_tags {
 }
 
 
-sub search_stories_by_tag {
+sub stories_by_tag {
 	my $self	= shift;
 	my $tag		= shift;
 	my $future	= shift;

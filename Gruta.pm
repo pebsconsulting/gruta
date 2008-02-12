@@ -115,10 +115,10 @@ sub stories_top_ten {
 	return sort { $b->[0] <=> $a->[0] } @l;
 }
 
-sub search_stories_by_tag {
+sub stories_by_tag {
 	my $self = shift;
 
-	my @l = $self->_call('search_stories_by_tag', 0, @_);
+	my @l = $self->_call('stories_by_tag', 0, @_);
 
 	return sort { $self->story($a->[0], $a->[1])->get('title') cmp
 			$self->story($b->[0], $b->[1])->get('title') } @l;
