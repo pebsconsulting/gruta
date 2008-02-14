@@ -1,3 +1,4 @@
+{-assert|{-topic_id|{-var|topic}}|404}
 {-header}
 
 <div class = 'column1'>
