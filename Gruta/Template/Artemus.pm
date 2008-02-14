@@ -74,7 +74,11 @@ sub _artemus {
 				my $ret		= '';
 
 				if ($id ne '[]') {
-					$ret = $data->story($topic_id, $id)->get($p);
+					my $story;
+
+					if ($story = $data->story($topic_id, $id)) {
+						$ret = $story->get($p);
+					}
 				}
 
 				return $ret;
@@ -127,7 +131,11 @@ sub _artemus {
 			my $ret		= '';
 
 			if ($id ne '[]') {
-				$ret = $data->story($topic_id, $id)->date($format);
+				my $story;
+
+				if ($story = $data->story($topic_id, $id)) {
+					$ret = $story->date($format);
+				}
 			}
 
 			return $ret;
@@ -140,7 +148,11 @@ sub _artemus {
 			my $ret		= '';
 
 			if ($id ne '[]') {
-				$ret = $data->story($topic_id, $id)->date2($format);
+				my $story;
+
+				if ($story = $data->story($topic_id, $id)) {
+					$ret = $story->date2($format);
+				}
 			}
 
 			return $ret;
