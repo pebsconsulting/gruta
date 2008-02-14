@@ -90,7 +90,7 @@ sub _artemus {
 		$f{story_body} = sub {
 			my $topic_id	= shift;
 			my $id		= shift;
-			my $ret		= '{-404}';
+			my $ret		= undef;
 
 			if (my $topic = $data->topic($topic_id)) {
 				if (my $story = $data->story($topic_id, $id)) {
@@ -110,6 +110,11 @@ sub _artemus {
 						$ret = $data->special_uris($story->get('body'));
 					}
 				}
+			}
+
+			if (!defined($ret)) {
+				$data->cgi->status(404);
+				$ret = '';
 			}
 
 			return $ret;
@@ -352,7 +357,7 @@ sub _artemus {
 
 			my $story = $data->story($topic_id, $id);
 
-			if ($story->get('topic_id') =~ /-arch$/) {
+			if ($story && $story->get('topic_id') =~ /-arch$/) {
 				$data->cgi->redirect(
 					sprintf('?t=%s;topic=%s;id=%s',
 					$template,
