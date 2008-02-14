@@ -241,9 +241,16 @@ sub _artemus {
 		$f{loop_story_tags} = sub {
 			my $topic_id	= shift;
 			my $id		= shift;
+			my $ret		= '';
 
-			return join($_[1], map { "{-$_[0]|$_}" }
-				$data->story($topic_id, $id)->tags());
+			my $story;
+
+			if ($story = $data->story($topic_id, $id)) {
+				$ret = join($_[1], map { "{-$_[0]|$_}" }
+					$story->tags());
+			}
+
+			return $ret;
 		};
 
 		$f{story_loop_by_date} = sub {
