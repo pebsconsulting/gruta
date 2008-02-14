@@ -60,7 +60,9 @@ sub _artemus {
 				my $ret = '';
 
 				if ($topic ne '[]') {
-					$ret = $data->topic($topic)->get($p) || '';
+					if (my $topic = $data->topic($topic)) {
+						$ret = $topic->get($p) || '';
+					}
 				}
 
 				return $ret;
