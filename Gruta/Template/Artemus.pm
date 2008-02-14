@@ -117,7 +117,7 @@ sub _artemus {
 			}
 
 			if (!defined($ret)) {
-				$data->cgi->status(404);
+				$data->cgi->redirect('?t=404');
 				$ret = '';
 			}
 
