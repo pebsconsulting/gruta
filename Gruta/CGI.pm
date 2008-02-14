@@ -28,6 +28,7 @@ sub cookie {
 }
 
 sub redirect { $_[0]->http_headers( 'Location', $_[1] ); }
+sub status { $_[0]->http_headers( 'Status', $_[1] ); }
 
 sub data {
 	my $self	= shift;
@@ -130,7 +131,7 @@ sub run {
 		my $inm = $ENV{HTTP_IF_NONE_MATCH} || '';
 
 		if ($inm eq $etag) {
-			$self->http_headers('Status' => '304');
+			$self->status(304);
 			$body = '';
 		}
 		else {
