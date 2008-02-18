@@ -7,7 +7,6 @@
 	<link rel = "shortcut icon" href = "img/favicon.ico">
 	<link rel = "alternate" type = "text/xml" title = "RDF" href = "http://{-host}/?t=RDF">
 	<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
-	<meta http-equiv = "Content-Type" content = "text/html; charset=iso-8859-1">
 	<title>{-slogan}</title>
 	<style type = 'text/css'>{-css}</style>
 </head>
