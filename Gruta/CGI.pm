@@ -70,8 +70,10 @@ sub new {
 
 	my $obj = bless( { @_ }, $class );
 
+	$obj->{charset} ||= 'UTF-8';
+
 	$obj->{http_headers} = {
-		'Content-Type'		=> 'text/html; charset=ISO-8859-1',
+		'Content-Type'		=> 'text/html; charset=' . $obj->{charset},
 		'X-Gateway-Interface'	=> $ENV{'GATEWAY_INTERFACE'},
 		'X-Server-Name'		=> $ENV{'SERVER_NAME'}
 	};
