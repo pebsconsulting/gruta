@@ -316,9 +316,9 @@ sub story {
 
 	open F, $file or croak "Can't open $file content: $!";
 
-#	if ($ENV{LANG} =~ /utf-?8/i) {
-#		binmode(F, ':utf8');
-#	}
+	if ($ENV{LANG} =~ /utf-?8/i) {
+		binmode(F, ':utf8');
+	}
 
 	$story->set('content', join('', <F>));
 	close F;
