@@ -9,9 +9,6 @@ use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
 
-# = new_source($src_str);
-# = Gruta->new( sources => $src );
-
 my $X = {
 	'copy' =>	[
 		'copy {src} {dst}',
@@ -137,20 +134,29 @@ my $X = {
 		}
 	],
 	'stories_by_date' => [
-		'stories_by_date {src} {topic(s)} {num} {offset}',
+		'stories_by_date {src} {topic(s)} {num} {offset} [{from}] [{to}] [{future}]',
 		'Searches stories by date',
 		sub {
 			my $g		= init();
 			my $topics	= arg();
 			my $num		= arg();
 			my $offset	= arg();
+			my $from	= arg_o();
+			my $to		= arg_o();
+			my $future	= arg_o();
 
 			if ($topics) {
 				$topics = [ split(':', $topics) ];
 			}
 
-			foreach my $s ($g->stories_by_date( $topics,
-				num => $num, offset => $offset) ) {
+			foreach my $s ($g->stories_by_date(
+					$topics,
+					num	=> $num,
+					offset	=> $offset,
+					from	=> $from,
+					to	=> $to,
+					future	=> $future
+				) ) {
 				print join(' ', @{$s}), "\n";
 			}
 		}
@@ -222,6 +228,11 @@ sub arg
 	usage();
 }
 
+
+sub arg_o
+{
+	return shift(@ARGV) || shift;
+}
 
 sub init
 {
