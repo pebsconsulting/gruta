@@ -6,8 +6,9 @@ use warnings;
 use File::Temp;
 
 use Gruta;
-use Gruta::Source::DBI;
+#use Gruta::Source::DBI;
 use Gruta::Source::FS;
+use Gruta::Source::Mbox;
 
 my $X = {
 	'copy' =>	[
@@ -269,6 +270,17 @@ sub new_source
 
 	if ($src_str =~ /^dbi:/) {
 		$src = Gruta::Source::DBI->new( string => $src_str );
+	}
+	elsif ($src_str =~ /^mbox:(.+)/) {
+		my $file = $1;
+		my ($topic_id) = ($file =~ /^(\w+)\.?.*$/);
+
+		$src = Gruta::Source::Mbox->new(
+			file		=>	$file,
+			topic_id	=>	$topic_id,
+			topic_name	=>	$topic_id,
+			index_file	=>	'/tmp/' . $topic_id . '.idx'
+		);
 	}
 	else {
 		$src = Gruta::Source::FS->new( path => $src_str );
