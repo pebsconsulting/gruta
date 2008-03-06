@@ -134,7 +134,7 @@ sub _build_index {
 			elsif (/^Content-Type: .*text\/html/i and not $r->{format}) {
 				$r->{format} = 'filtered_html';
 			}
-			elsif (/^X-Tags: (.+)$/i) {
+			elsif (/^X-Tags: (.+)$/i || /^Keywords: (.+)$/i) {
 				$r->{tags} = $1;
 			}
 			elsif (/^$/) {
@@ -301,7 +301,7 @@ sub stories_by_date {
 			# skip offset stories
 			next if $args{'offset'} and ++$o <= $args{'offset'};
 
-			push(@r, $s->{id});
+			push(@r, [ $s->{id}, $topic_id, $date ]);
 
 			# exit if we have all we need
 			last if $args{'num'} and $args{'num'} == scalar(@r);
