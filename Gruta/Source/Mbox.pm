@@ -347,7 +347,22 @@ sub stories_by_tag {
 sub tags {
 	my $self	= shift;
 
-	return ();
+	my @ret = ();
+	my %h = ();
+
+	foreach my $e (@{$self->{stories_l}}) {
+		my $tags = $e->{tags};
+
+		foreach my $t (split(/\s*,\s*/, $tags)) {
+			$h{$t}++;
+		}
+	}
+
+	foreach my $k (keys(%h)) {
+		push(@ret, [ $k, $h{$k} ]);
+	}
+
+	return @ret;
 }
 
 
