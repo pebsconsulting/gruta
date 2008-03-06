@@ -274,8 +274,17 @@ sub stories {
 
 sub stories_by_date {
 	my $self	= shift;
-	my $topic_id	= shift;
+	my $topics	= shift;
 	my %args	= @_;
+
+	my $topic_id;
+
+	if (!$topics) {
+		$topic_id = $self->{topic_id};
+	}
+	else {
+		$topic_id = $topics->[0];
+	}
 
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
