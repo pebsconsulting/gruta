@@ -11,6 +11,8 @@ Release Critical Bugs
    when changed, be saved in the var/templates directory.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
+ * 1027: Fill the RDF template.
+ * 1028: Fill the RSS template.
 
 Open Bugs
 ---------
