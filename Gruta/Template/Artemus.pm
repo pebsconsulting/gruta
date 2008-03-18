@@ -470,6 +470,11 @@ sub _artemus {
 
 			$story->set('date2', $date);
 
+			# if there is no userid, add one
+			if (!$story->get('userid')) {
+				$story->set('userid', $data->auth->get('id'));
+			}
+
 			# drop all cached stories
 			$data->flush_story_cache();
 
