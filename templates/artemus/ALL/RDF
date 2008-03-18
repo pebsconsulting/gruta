@@ -1,4 +1,4 @@
-{-content_type|text/xml}<?xml version="1.0" encoding="ISO-8859-1"?>
+{-content_type|text/xml}<?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns="http://my.netscape.com/rdf/simple/0.9/">
@@ -17,6 +17,6 @@
 	<link>http://{-host}</link>
 </image>
 
-<!-- story loops -->
+{-foreach|{-stories_by_date|{-cfg_index_topics}|{-var|num|{-cfg_index_num}}}|\{-_story_for_rdf\|\$1\|\$0\}}
 
 </rdf:RDF>

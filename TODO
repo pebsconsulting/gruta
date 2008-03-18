@@ -11,8 +11,6 @@ Release Critical Bugs
    when changed, be saved in the var/templates directory.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
- * 1027: Fill the RDF template.
- * 1028: Fill the RSS template.
 
 Open Bugs
 ---------
@@ -65,5 +63,7 @@ Closed
    select topic_id, id from tags where (tag = 'entrantes' or tag = 'setas') 
    group by topic_id, id having count(id) = 2
    (Tue, 12 Feb 2008 13:07:02 +0100).
+ * 1027: Fill the RDF template (Tue, 18 Mar 2008 11:17:02 +0100).
+ * 1028: Fill the RSS template (Tue, 18 Mar 2008 11:17:02 +0100).
 
 Email bugs to angel@triptico.com
