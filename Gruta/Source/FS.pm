@@ -362,7 +362,7 @@ sub _topic_index {
 		foreach my $id ($self->stories($topic_id)) {
 			my $story = $self->story($topic_id, $id);
 
-			push(@i, $story->get('date') . ':' . $id);
+			push(@i, ($story->get('date') || ('0' x 14)). ':' . $id);
 		}
 
 		open I, '>' . $index or croak "Can't create INDEX for $topic_id: $!";
