@@ -42,10 +42,27 @@ my $X = {
 			my $g		= init();
 			my $topic_id	= arg();
 
-			my $topic = $g->topic($topic_id);
+			print get_topic($g, $topic_id);
+		}
+	],
+	'edit_topic' =>	[
+		'edit_topic {src} {topic_id}',
+		'Edits topic data',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
 
-			foreach my $f ($topic->afields()) {
-				print $f, ': ', ($topic->get($f) || ''), "\n";
+			my $fh = File::Temp->new();
+			print $fh get_topic($g, $topic_id);
+			my $fn = $fh->filename();
+			$fh->close();
+
+			my $mtime = (stat($fn))[9];
+			system('$EDITOR ' . $fn);
+
+			if ($mtime != (stat($fn))[9]) {
+				save_topic($g, $topic_id, $fn);
+				1;
 			}
 		}
 	],
@@ -313,6 +330,22 @@ sub get_story
 }
 
 
+sub get_topic
+{
+	my $g		= shift;
+	my $topic_id	= shift;
+	my @r		= ();
+
+	my $topic = $g->topic($topic_id);
+
+	foreach my $f ($topic->afields()) {
+		push(@r, $f . ': ' . ($topic->get($f) || ''));
+	}
+
+	return join("\n", @r);
+}
+
+
 sub save_story
 {
 	my $g		= shift;
@@ -359,5 +392,43 @@ sub save_story
 	}
 	else {
 		$g->insert_story($story);
+	}
+}
+
+
+sub save_topic
+{
+	my $g		= shift;
+	my $topic_id	= shift;
+	my $fn		= shift;
+
+	open F, $fn or die "Can't open $fn";
+
+	my $topic = undef;
+
+	if ($topic_id) {
+		$topic = $g->topic($topic_id);
+	}
+	else {
+		$topic = Gruta::Data::Topic->new (
+			topic_id	=> $topic_id,
+		);
+	}
+
+	while (<F>) {
+		chomp();
+
+		last if /^$/;
+
+		my ($key, $value) = (/^(\w+):\s*(.*)$/);
+
+		$topic->set($key, $value);
+	}
+
+	if ($topic->source()) {
+		$topic->save();
+	}
+	else {
+		$g->insert_topic($topic);
 	}
 }
