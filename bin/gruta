@@ -271,7 +271,9 @@ sub usage
 	else {
 		print "Usage: gruta {cmd} [args...]\n\n";
 
-		foreach my $c (values(%{$X})) {
+		foreach my $k (sort keys %{$X}) {
+			my $c = $X->{$k};
+
 			print ' ', sprintf('%-50s %s',
 				$c->[0], $c->[1]), "\n";
 		}
