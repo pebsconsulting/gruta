@@ -1,5 +1,6 @@
 <div class = 'top'>
 
+	Legal | RSS | Login |
 	<form>
 		<input type = 'hidden' name = 't'       value = 'SEARCH'>
 		<input type = 'text'   name = 'query'   value = ''>

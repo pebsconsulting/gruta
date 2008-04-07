@@ -24,9 +24,10 @@ h6 { font-size: 80%; }
 	background-image: url(/img/logo.jpg);
 	background-repeat: no-repeat;
 	text-align: right;
+	color: white;
 }
 
-.top .slogan { color: white; }
+.top .slogan { float: left; }
 
 .topnav { background: #eeeecd; }
 .topnav ul { list-style-type: none; margin: 0; padding: 0; }
