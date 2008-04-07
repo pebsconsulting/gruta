@@ -10,9 +10,9 @@
 
 	{-box_title|Suscripciones a {-sitename}}
 
-	<p>
-	Condiciones de suscripci&oacute;n aqu&iacute;.
-	</p>
+	{-story_body|info|subscribe}
+
+	{-if|{-is_admin}|<p>Texto consultado {-story_hits|info|subscribe} veces.</p>}
 
 	{-box_end}
 
