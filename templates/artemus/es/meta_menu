@@ -1,6 +1,6 @@
 <ul>
-	<li><a href = '{-l|STORY|topic=info;id=about}'>About</a></li>
-	<li><a href = '{-l|STORY|topic=info;id=legal}'>Legal</a></li>
+	<li><a href = '{-l|STORY|topic=info;id=about}'>{-story_title|info|about}</a></li>
+	<li><a href = '{-l|STORY|topic=info;id=legal}'>{-story_title|info|legal}</a></li>
 	<li><a href = '{-l|RSS}'>RSS</a></li>
 	<li><a href = '{-l|LOGIN}'>Login</a></li>
 	<li>
