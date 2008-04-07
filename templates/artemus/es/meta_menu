@@ -1,0 +1,13 @@
+<ul>
+	<li><a href = '{-l|STORY|topic=info;id=about}'>About</a></li>
+	<li><a href = '{-l|STORY|topic=info;id=legal}'>Legal</a></li>
+	<li><a href = '{-l|RSS}'>RSS</a></li>
+	<li><a href = '{-l|LOGIN}'>Login</a></li>
+	<li>
+	<form>
+		<input type = 'hidden' name = 't'       value = 'SEARCH'>
+		<input type = 'text'   name = 'query'   value = ''>
+		<input type = 'submit' class = 'button' value = 'Buscar'>
+	</form>
+	</li>
+</ul>

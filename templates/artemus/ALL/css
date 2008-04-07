@@ -23,11 +23,11 @@ h6 { font-size: 80%; }
 	background-color: #d89433;
 	background-image: url(/img/logo.jpg);
 	background-repeat: no-repeat;
-	text-align: right;
+	text-align: left;
 	color: white;
 }
 
-.top .slogan { float: left; }
+/*.top .slogan { float: left; }*/
 
 .topnav { background: #eeeecd; }
 .topnav ul { list-style-type: none; margin: 0; padding: 0; }
@@ -38,6 +38,14 @@ h6 { font-size: 80%; }
 .topnav2 ul { list-style-type: none; margin: 0; padding: 0; }
 .topnav2 ul li { display: inline; padding-left: 1em; font-size: 90%; }
 .topnav2 .boxtit { display: none; }
+
+.meta_menu { float: right; }
+.meta_menu a:link { color: white; }
+.meta_menu a:visited { color: white; }
+.meta_menu ul { list-style-type: none; margin: 0; padding: 0; }
+.meta_menu ul li { display: inline; padding-left: 1em; font-size: 90%; }
+.meta_menu ul li form { display: inline; }
+.meta_menu ul li input { font-size: 90% }
 
 .footer { clear: both; text-align: center; }
 
