@@ -62,7 +62,7 @@ h6 { font-size: 80%; }
 .edit_link { font-size: 90% }
 .date { font-size: 90% }
 .story_abstract { float: left; width: 100%; }
-.story_footer { float: left; width: 100%; background: #eeeecd; margin-bottom: 1em; }
+.story_footer { float: left; width: 100%; background: #eeeecd; margin-bottom: 2em; }
 .topic_list { margin-left: 2em; }
 .topic_navigator { clear: both; }
 .topic_navigator .prev { float: left; }
