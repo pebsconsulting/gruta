@@ -10,6 +10,7 @@
 		}
 
 		<li><a href = '{-l|TAGS}'>Etiquetas</a></li>
+		<li><a href = '{-l|TOP_TEN}'>Los m&aacute;s le&iacute;dos</a></li>
 	</ul>
 
 	{-box_end}
