@@ -56,7 +56,7 @@ h6 { font-size: 80%; }
 .clearer { clear: both; }
 
 .tags { float: right; font-size: 90%; }
-.self_links { text-align: center; font-size: 90%; }
+.self_links { text-align: center; font-size: 90%; clear: both; }
 .hits { font-size: 90% }
 .full_story_link { font-size: 90% }
 .edit_link { font-size: 90% }
