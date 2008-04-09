@@ -23,11 +23,11 @@ h6 { font-size: 80%; }
 	background-color: #d89433;
 	background-image: url(/img/logo.jpg);
 	background-repeat: no-repeat;
-	text-align: right;
+	text-align: left;
 	color: white;
 }
 
-.top .slogan { padding-top: 54px; padding-left: 4em; }
+.top .slogan { padding-top: 30px; padding-left: 4em; margin-bottom: 10px; clear: both; }
 
 .topnav { background: #eeeecd; }
 .topnav ul { list-style-type: none; margin: 0; padding: 0; }
