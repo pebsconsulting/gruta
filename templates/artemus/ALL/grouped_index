@@ -1,0 +1,3 @@
+{-foreach|{-cfg_index_topics}|
+	\{-story_list\|\$0\|\$1\}
+}
