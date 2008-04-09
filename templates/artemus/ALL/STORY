@@ -5,8 +5,6 @@
 
 <div class = 'column1'>
 
-	{-main_menu}
-
 	{-box_title|{-topic_name|{-var|topic}}}
 
 	<ul>
