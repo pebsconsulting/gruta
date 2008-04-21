@@ -145,10 +145,7 @@ sub password {
 	my $self	= shift;
 	my $passwd	= shift;
 
-	my $salt = sprintf('%02d', rand(100));
-	my $pw = crypt($passwd, $salt);
-
-	$self->set('password', $pw);
+	$self->set('password', Gruta::Data::crypt($passwd));
 
 	return $self;
 }
