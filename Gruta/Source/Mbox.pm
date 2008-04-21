@@ -119,8 +119,12 @@ sub _build_index {
 
 			# in header
 			if (/^Message-ID:\s*(.+)$/i) {
-				$r->{id} = $1;
-				$r->{id} =~ s/[^\d\w]/_/g;
+				use Digest::MD5;
+
+				my $md5 = Digest::MD5->new();
+				$md5->add($1);
+
+				$r->{id} = $md5->hexdigest();
 			}
 			elsif (/^Subject:\s*(.+)$/i) {
 				$r->{title} = $1;
