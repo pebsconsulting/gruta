@@ -7,8 +7,6 @@ Release Critical Bugs
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
  * 1004: Support broken lines in message headers in Source::Mbox.
- * 1011: Templates should live in /usr/share/gruta/templates and,
-   when changed, be saved in the var/templates directory.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
 
@@ -65,5 +63,8 @@ Closed
    (Tue, 12 Feb 2008 13:07:02 +0100).
  * 1027: Fill the RDF template (Tue, 18 Mar 2008 11:17:02 +0100).
  * 1028: Fill the RSS template (Tue, 18 Mar 2008 11:17:02 +0100).
+ * 1011: Templates should live in /usr/share/gruta/templates and,
+   when changed, be saved in the var/templates directory
+   (Mon, 21 Apr 2008 14:02:46 +0200).
 
 Email bugs to angel@triptico.com
