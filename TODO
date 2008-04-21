@@ -13,7 +13,6 @@ Release Critical Bugs
  * 1030: Infer default values for topic_id, topic_name and index_file
    in Gruta::Source::Mbox (as done in bin/gruta).
  * 1031: Do Gruta::Source::Mbox search_stories().
- * 1032: Do Gruta::Source::Mbox stories_top_ten().
  * 1033: Do Gruta::Source::Mbox stories_by_tag().
  * 1034: Create a Gruta::Data::crypt() function.
  * 1035: Change Gruta::Data::today() to allow a date to be set.
@@ -74,5 +73,7 @@ Closed
  * 1011: Templates should live in /usr/share/gruta/templates and,
    when changed, be saved in the var/templates directory
    (Mon, 21 Apr 2008 14:02:46 +0200).
+ * 1032: Do Gruta::Source::Mbox stories_top_ten()
+   (Mon, 21 Apr 2008 15:54:47 +0200).
 
 Email bugs to angel@triptico.com

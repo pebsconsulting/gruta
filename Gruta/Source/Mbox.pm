@@ -336,6 +336,8 @@ sub stories_top_ten {
 	my $self	= shift;
 	my $num		= shift;
 
+	# as no hit counts are maintained, return empty
+
 	return ();
 }
 
