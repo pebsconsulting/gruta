@@ -328,8 +328,39 @@ sub search_stories {
 	my $self	= shift;
 	my $topic_id	= shift;
 	my $query	= shift;
+	my $future	= shift;
 
-	return ();
+	# not this topic? return
+	if ($self->{topic_id} ne $topic_id) {
+		return ();
+	}
+
+	my @ret = ();
+	my @q = split(/\s+/,$query);
+
+	foreach my $e (@{$self->{stories_l}}) {
+
+		my $story = $self->story($topic_id, $e->{id});
+		my $content = $story->get('content');
+		my $found = 0;
+
+		# try complete query first
+		if ($content =~ /\b$query\b/i) {
+			$found = scalar(@q);
+		}
+		else {
+			# try separate words
+			foreach my $q (@q) {
+				if(length($q) > 1 and $content =~ /\b$q\b/i) {
+					$found++;
+				}
+			}
+		}
+
+		push(@ret, $e->{id}) if $found == scalar(@q);
+	}
+
+	return @ret;
 }
 
 sub stories_top_ten {
