@@ -344,9 +344,57 @@ sub stories_top_ten {
 sub stories_by_tag {
 	my $self	= shift;
 	my $topics	= shift;
-	my $tags	= shift;
+	my $tag		= shift;
+	my $future	= shift;
 
-	return ();
+	my $topic_id;
+
+	if (!$topics) {
+		$topic_id = $self->{topic_id};
+	}
+	else {
+		$topic_id = $topics->[0];
+	}
+
+	# not this topic? return
+	if ($self->{topic_id} ne $topic_id) {
+		return ();
+	}
+
+	my @tags = map { lc($_) } split(/\s*,\s*/, $tag);
+	my @ret = ();
+
+	foreach my $e (@{$self->{stories_l}}) {
+		my @ts = split(/\s*,\s*/, $e->{tags});
+
+		# skip stories with less tags than the wanted ones
+		if (scalar(@ts) < scalar(@tags)) {
+			next;
+		}
+
+		# count matches
+		my $c = 0;
+
+		foreach my $t (@ts) {
+			if (grep(/^$t$/, @tags)) {
+				$c++;
+			}
+		}
+
+		if ($c >= scalar(@tags)) {
+
+			# if no future stories are wanted, discard them
+			if (!$future) {
+				if ($e->{date} > Gruta::Data::today()) {
+					next;
+				}
+			}
+
+			push(@ret, [ $topic_id, $e->{id} ]);
+		}
+	}
+
+	return @ret;
 }
 
 
