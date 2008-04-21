@@ -118,23 +118,23 @@ sub _build_index {
 			}
 
 			# in header
-			if (/^Message-ID: (.+)$/i) {
+			if (/^Message-ID:\s*(.+)$/i) {
 				$r->{id} = $1;
 				$r->{id} =~ s/[^\d\w]/_/g;
 			}
-			elsif (/^Subject: (.+)$/i) {
+			elsif (/^Subject:\s*(.+)$/i) {
 				$r->{title} = $1;
 			}
-			elsif (/^Date: (.+)$/i) {
+			elsif (/^Date:\s*(.+)$/i) {
 				$r->{date} = $self->_rfc822_to_gruta($1);
 			}
-			elsif (/^X-Format: (.+)$/i) {
+			elsif (/^X-Format:\s*(.+)$/i) {
 				$r->{format} = $1;
 			}
-			elsif (/^Content-Type: .*text\/html/i and not $r->{format}) {
+			elsif (/^Content-Type:\s*.*text\/html/i and not $r->{format}) {
 				$r->{format} = 'filtered_html';
 			}
-			elsif (/^X-Tags: (.+)$/i || /^Keywords: (.+)$/i) {
+			elsif (/^X-Tags:\s*(.+)$/i || /^Keywords:\s*(.+)$/i) {
 				$r->{tags} = $1;
 			}
 			elsif (/^$/) {
