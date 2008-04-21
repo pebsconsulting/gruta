@@ -198,4 +198,16 @@ sub today {
 }
 
 
+sub crypt {
+	my $key		= shift;
+	my $salt	= shift;
+
+	# no salt? pick one at random
+	if (!$salt) {
+		$salt = sprintf('%02d', rand(100));
+	}
+
+	return crypt($key, $salt);
+}
+
 1;
