@@ -184,7 +184,7 @@ sub login {
 
 		my $p = $u->get('password');
 
-		if (crypt($passwd, $p) eq $p) {
+		if (Gruta::Data::crypt($passwd, $p) eq $p) {
 			# create new sid
 			$sid = time() . $$;
 
