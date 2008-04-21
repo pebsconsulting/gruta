@@ -219,6 +219,19 @@ my $X = {
 				print join(' ', @{$s}), "\n";
 			}
 		}
+	],
+	'search'	=> [
+		'search {src} {topic_id} {query}',
+		'Searches stories by content',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
+			my $query	= arg();
+
+			foreach my $s ($g->search_stories($topic_id, $query)) {
+				print $s, "\n";
+			}
+		}
 	]
 };
 
