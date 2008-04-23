@@ -18,7 +18,9 @@
 	<description>{-slogan}</description>
 </image>
 
-{-foreach|{-stories_by_date|{-cfg_index_topics}|{-var|num|{-cfg_index_num}}}|\{-_story_for_rss\|\$1\|\$0\}}
+{-foreach|{-stories_by_date|{-var|topics|{-cfg_index_topics}}|
+	{-var|num|{-cfg_index_num}}}|\{-_story_for_rss\|\$1\|\$0\}
+}
 
 </channel>
 
