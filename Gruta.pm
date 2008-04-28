@@ -30,15 +30,27 @@ sub _call {
 
 	my @r = ();
 
-	foreach my $s ($self->sources()) {
-		if (my $m = $s->can($method)) {
-			my @pr = $m->($s, @_);
+	if (!exists($self->{calls}->{$method})) {
 
-			if (@pr && $pr[0]) {
-				@r = (@r, @pr);
+		# cache all calls in the sources
+		my @c = ();
 
-				last if $short;
+		foreach my $s ($self->sources()) {
+			if (my $m = $s->can($method)) {
+				push(@c, sub { return $m->($s, @_) });
 			}
+		}
+
+		$self->{calls}->{$method} = [ @c ];
+	}
+
+	foreach my $m (@{ $self->{calls}->{$method}}) {
+		my @pr = $m->(@_);
+
+		if (@pr && $pr[0]) {
+			@r = (@r, @pr);
+
+			last if $short;
 		}
 	}
 
@@ -347,8 +359,10 @@ sub new {
 	my $g = bless( { @_ } , $class);
 
 	$g->{id} ||= 'Gruta';
-	$g->{story_cache} = {};
-	$g->{renderers_h} = {};
+
+	$g->{story_cache}	= {};
+	$g->{renderers_h}	= {};
+	$g->{calls}		= {};
 
 	if (ref($g->{sources}) ne 'ARRAY') {
 		$g->{sources} = [ $g->{sources} ];
