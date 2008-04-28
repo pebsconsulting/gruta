@@ -232,6 +232,18 @@ my $X = {
 				print $s, "\n";
 			}
 		}
+	],
+	'top_ten'	=> [
+		'top_ten {src} [{num}]',
+		'Shows the top N stories',
+		sub {
+			my $g		= init();
+			my $num		= arg_o() || 10;
+
+			foreach my $s ($g->stories_top_ten($num)) {
+				print join(' ', @{$s}), "\n";
+			}
+		}
 	]
 };
 
