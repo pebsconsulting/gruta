@@ -386,21 +386,6 @@ sub new {
 		$g->cgi->data($g);
 	}
 
-	my @u;
-
-	if (not @u = $g->users()) {
-		my $u = Gruta::Data::User->new(
-			id		=> 'admin',
-			is_admin	=> 1,
-			can_upload	=> 1,
-			username	=> 'Admin',
-			email		=> 'webmaster@localhost'
-		);
-
-		$u->password('admin');
-		$g->insert_user($u);
-	}
-
 	return $g;
 }
 

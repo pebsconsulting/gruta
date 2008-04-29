@@ -105,6 +105,25 @@ sub run {
 
 	my $st = 'INDEX';
 
+	# not identified nor users found?
+	if (!$data->auth() && ! $data->users()) {
+
+		# create the admin user
+		my $u = Gruta::Data::User->new(
+			id		=> 'admin',
+			is_admin	=> 1,
+			can_upload	=> 1,
+			username	=> 'Admin',
+			email		=> 'webmaster@localhost'
+		);
+
+		$u->password('admin');
+
+		$data->insert_user($u);
+
+		$data->auth($u);
+	}
+
 	if ($vars->{t}) {
 		$st = uc($vars->{t});
 	}
