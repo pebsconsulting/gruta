@@ -205,7 +205,8 @@ sub login {
 
 			$u->source->insert_session( $session );
 
-			$u->set('sid', $session->get('id'));
+			$sid = $session->get('id');
+			$u->set('sid', $sid);
 			$self->auth($u);
 		}
 	}
