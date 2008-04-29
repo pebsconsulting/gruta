@@ -117,9 +117,18 @@ sub run {
 			email		=> 'webmaster@localhost'
 		);
 
-		$u->password('admin');
+		# set a random password (to be promptly changed)
+		$u->password(rand());
 
+		# insert the user
 		$data->insert_user($u);
+
+		# create a new session
+		my $session = Gruta::Data::Session->new(user_id => 'admin');
+		$u->source->insert_session($session);
+
+		my $sid = $session->get('id');
+		$self->cookie("sid=$sid");
 
 		$data->auth($u);
 	}
