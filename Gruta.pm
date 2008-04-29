@@ -198,17 +198,11 @@ sub login {
 
 		if (Gruta::Data::crypt($passwd, $p) eq $p) {
 			# create new sid
-			$sid = time() . $$;
-
-			my $session = Gruta::Data::Session->new(
-				id	=> $sid,
-				time	=> time(),
-				user_id	=> $user_id
-			);
+			my $session = Gruta::Data::Session->new(user_id	=> $user_id);
 
 			$u->source->insert_session( $session );
 
-			$u->set('sid', $sid);
+			$u->set('sid', $session->get('id'));
 			$self->auth($u);
 		}
 	}

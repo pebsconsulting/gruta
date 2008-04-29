@@ -157,6 +157,15 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id time user_id ip); }
 
+sub new {
+	my $class = shift;
+
+	my $sid = time() . $$;
+
+	return $class->SUPER::new( id => $sid, time => time(), @_);
+}
+
+
 package Gruta::Data;
 
 sub format_date {
