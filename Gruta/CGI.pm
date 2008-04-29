@@ -105,6 +105,12 @@ sub run {
 
 	my $st = 'INDEX';
 
+	if ($vars->{t}) {
+		$st = uc($vars->{t});
+	}
+
+	$st = 'INDEX' unless $st =~ /^[-\w0-9_]+$/;
+
 	# not identified nor users found?
 	if (!$data->auth() && ! $data->users()) {
 
@@ -131,13 +137,9 @@ sub run {
 		$self->cookie("sid=$sid");
 
 		$data->auth($u);
-	}
 
-	if ($vars->{t}) {
-		$st = uc($vars->{t});
+		$st = 'ADMIN';
 	}
-
-	$st = 'INDEX' unless $st =~ /^[-\w0-9_]+$/;
 
 	my $body = undef;
 
