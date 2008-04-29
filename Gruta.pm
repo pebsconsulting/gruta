@@ -169,8 +169,11 @@ sub auth_from_sid {
 
 		if (my $session = $self->_call('session', 1, $sid)) {
 			$u = $session->source->user( $session->get('user_id') );
-			$u->set('sid', $sid);
-			$self->auth($u);
+
+			if ($u) {
+				$u->set('sid', $sid);
+				$self->auth($u);
+			}
 		}
 	}
 
