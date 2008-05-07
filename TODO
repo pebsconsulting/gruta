@@ -12,6 +12,8 @@ Release Critical Bugs
  * 1030: Infer default values for topic_id, topic_name and index_file
    in Gruta::Source::Mbox (as done in bin/gruta).
  * 1035: Change Gruta::Data::today() to allow a date to be set.
+ * 1036: Test default user creation and sid management introduced
+   in issue #1029 under production.
 
 Open Bugs
 ---------
