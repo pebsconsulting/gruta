@@ -21,7 +21,7 @@ h6 { font-size: 80%; }
 	padding-top: 1em;
 	padding-right: 1em;
 	background-color: white;
-	background-image: url(/img/logo.jpg);
+	background-image: url(img/logo.jpg);
 	background-repeat: no-repeat;
 	text-align: left;
 	color: white;
