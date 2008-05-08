@@ -7,8 +7,8 @@
 			<li><a href = '{-l|ADMIN}'>Administración</a></li>|
 			<li><a href = "{-l|EDIT_USER|userid={-userid}}">Preferencias</a></li>
 		}
-		<li><a href = '{-l|LOGOUT}'>Logout</a> {-userid}</li>|
-		<li><a href = '{-l|LOGIN}'>Login</a></li>
+		<li><a href = '{-l|LOGOUT}'>Desconectar</a> {-userid}</li>|
+		<li><a href = '{-l|LOGIN}'>Conectar</a></li>
 	}
 	<li>
 	<form>
