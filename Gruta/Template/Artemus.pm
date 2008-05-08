@@ -436,6 +436,7 @@ sub _artemus {
 
 			my $content = shift;
 			$content = $self->{_artemus}->unarmor($content);
+			$content =~ s/\r//g;
 
 			$story->set('content',	$content);
 
