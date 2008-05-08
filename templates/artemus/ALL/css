@@ -20,7 +20,7 @@ h6 { font-size: 80%; }
 	height: 80px;
 	padding-top: 1em;
 	padding-right: 1em;
-	background-color: #d89433;
+	background-color: white;
 	background-image: url(/img/logo.jpg);
 	background-repeat: no-repeat;
 	text-align: left;
@@ -40,8 +40,8 @@ h6 { font-size: 80%; }
 .topnav2 .boxtit { display: none; }
 
 .meta_menu { float: right; }
-.meta_menu a:link { color: white; }
-.meta_menu a:visited { color: white; }
+.meta_menu a:link { color: black; }
+.meta_menu a:visited { color: black; }
 .meta_menu ul { list-style-type: none; margin: 0; padding: 0; }
 .meta_menu ul li { display: inline; padding-left: 1em; font-size: 90%; }
 .meta_menu ul li form { display: inline; }
