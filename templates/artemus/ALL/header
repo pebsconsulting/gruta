@@ -5,7 +5,6 @@
 <head>
 	<link rel = "icon" href = "img/favicon.ico" type = "image/ico">
 	<link rel = "shortcut icon" href = "img/favicon.ico">
-	<link rel = "alternate" type = "text/xml" title = "RDF" href = "http://{-host}/?t=RDF">
 	<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
 	<title>{-slogan}</title>
 	<style type = 'text/css'>{-css}</style>
