@@ -12,8 +12,6 @@ Release Critical Bugs
  * 1030: Infer default values for topic_id, topic_name and index_file
    in Gruta::Source::Mbox (as done in bin/gruta).
  * 1035: Change Gruta::Data::today() to allow a date to be set.
- * 1036: Test default user creation and sid management introduced
-   in issue #1029 under production.
 
 Open Bugs
 ---------
@@ -81,5 +79,7 @@ Closed
    (Mon, 21 Apr 2008 16:46:54 +0200).
  * 1029: Move admin user creation from Gruta.pm to Gruta::CGI.pm
    (Tue, 29 Apr 2008 14:28:19 +0200).
+ * 1036: Test default user creation and sid management introduced
+   in issue #1029 under production (Thu, 08 May 2008 07:18:58 +0200).
 
 Email bugs to angel@triptico.com
