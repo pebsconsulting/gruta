@@ -3,8 +3,8 @@
 <html>
 
 <head>
-	<link rel = "icon" href = "img/favicon.ico" type = "image/ico">
-	<link rel = "shortcut icon" href = "img/favicon.ico">
+	<link rel = "icon" href = "http://triptico.com/data/gruta_favicon.ico" type = "image/ico">
+	<link rel = "shortcut icon" href = "http://triptico.com/data/gruta_favicon.ico">
 	<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
 	<title>{-slogan}</title>
 	<style type = 'text/css'>{-css}</style>
