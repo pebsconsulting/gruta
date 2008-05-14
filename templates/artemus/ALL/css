@@ -72,3 +72,14 @@ h6 { font-size: 80%; }
 .left { float: left; margin: 0.5em; padding: 1em; }
 
 hr { size: 1; }
+
+blockquote {
+    margin: 0 20px;
+    padding: 0 20px;
+    border-left: 4px solid #CCC;
+    border-right: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    background-color: #efefef;
+    font-size: 0.9em;
+}
