@@ -665,6 +665,10 @@ sub _artemus {
 			);
 		};
 
+		$f{about} = sub {
+			return 'Gruta ' . $data->version();
+		};
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
