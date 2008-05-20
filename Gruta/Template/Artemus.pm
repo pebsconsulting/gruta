@@ -205,7 +205,7 @@ sub _artemus {
 			$content = $self->{_artemus}->unarmor($content);
 			$data->template->save_template($template, $content);
 
-			return $msg || "Template saved.";
+			return $msg || "OK";
 		};
 
 		$f{loop_topics} = sub {
