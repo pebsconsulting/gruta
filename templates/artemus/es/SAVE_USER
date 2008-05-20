@@ -3,12 +3,9 @@
 
 <div class = 'main'>
 
-	{-box_title|Datos del Usuario}
+	<h1>Datos del Usuario</h1>
 
 	{-save_user|{-var|new}|{-var|userid}|{-var|username}|{-var|email}|{-var|isadmin}|{-var|canupload}|{-var|pass1}|{-var|pass2}|{-var|year}|{-var|month}|{-var|day}}
-
-	<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
-	{-box_end}
 
 </div>
 

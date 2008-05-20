@@ -3,11 +3,9 @@
 
 <div class = 'main'>
 
-	{-box_title|Guardar secci&oacute;n}
-	{-save_topic|{-var|topic}|{-var|name}|{-var|editors}|{-var|internal}|{-var|max}}
+	<h1>Guardar secci&oacute;n</h1>
 
-	<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
-	{-box_end}
+	{-save_topic|{-var|topic}|{-var|name}|{-var|editors}|{-var|internal}|{-var|max}}
 
 </div>
 

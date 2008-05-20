@@ -3,12 +3,9 @@
 
 <div class = 'main'>
 
-	{-box_title|Guardar plantilla}
+	<h1>Guardar plantilla</h1>
+
 	{-save_template|{-var|id}|{-var|content}}
-
-	<p><a href='{-l|ADMIN}'>Administraci&oacute;n</a>
-
-	{-box_end}
 
 </div>
 
