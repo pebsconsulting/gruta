@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-{-box_title|Datos del Art&iacute;culo}
+<h1>Datos del Art&iacute;culo</h1>
 
 <form method = 'post'>
 
@@ -57,8 +57,6 @@
 	<input type = 'hidden' name = 'id'	value = '{-var|id}'>
 	<input type = 'submit' class = 'button'	value = 'BORRAR'>
 </form>
-
-{-box_end}
 
 </div>
 

@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-	{-box_title|Datos de la secci&oacute;n}
+	<h1>Datos de la secci&oacute;n</h1>
 
 	<form>
 
@@ -35,8 +35,6 @@
 		<input type = 'hidden' name = 't' value = 'SAVE_TOPIC'>
 
 	</form>
-
-	{-box_end}
 
 </div>
 

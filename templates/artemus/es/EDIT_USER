@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-	{-box_title|Datos del Usuario}
+	<h1>Datos del Usuario</h1>
 
 	<form method = 'post'>
 
@@ -49,8 +49,6 @@
 		<input type = 'submit' class = 'button' value = 'OK'>
 		<input type = 'hidden' name = 't' value = 'SAVE_USER'>
 	</form>
-
-	{-box_end}
 
 </div>
 
