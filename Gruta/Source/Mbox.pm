@@ -92,9 +92,6 @@ sub _assert {
 	my $self	= shift;
 
 	$self->{file}		or croak "Mandatory file";
-	$self->{topic_id}	or croak "Mandatory topic_id";
-	$self->{topic_name}	or croak "Mandatory topic_name";
-	$self->{index_file}	or croak "Mandatory index_file";
 
 	return $self;
 }
@@ -448,6 +445,19 @@ sub new {
 	my $s = bless( { @_ }, $class);
 
 	$s->_assert();
+
+	if (!$s->{topic_id}) {
+		my ($topic_id) = ($s->{file} =~ /^(\w+)\.?.*$/);
+		$s->{topic_id} = $topic_id;
+	}
+
+	if (!$s->{topic_name}) {
+		$s->{topic_name} = $s->{topic_id};
+	}
+
+	if (!$s->{index_file}) {
+		$s->{index_file} = '/tmp/' . $s->{topic_id} . '.idx';
+	}
 
 	my $n = 0;
 	my %m = map { $_ => ++$n }

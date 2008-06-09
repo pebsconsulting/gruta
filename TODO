@@ -6,8 +6,6 @@ Release Critical Bugs
 
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
- * 1030: Infer default values for topic_id, topic_name and index_file
-   in Gruta::Source::Mbox (as done in bin/gruta).
  * 1037: Document the installation process.
 
 Open Bugs
@@ -82,5 +80,8 @@ Closed
    (Tue, 29 Apr 2008 14:28:19 +0200).
  * 1036: Test default user creation and sid management introduced
    in issue #1029 under production (Thu, 08 May 2008 07:18:58 +0200).
+ * 1030: Infer default values for topic_id, topic_name and index_file
+   in Gruta::Source::Mbox (as done in bin/gruta)
+   (Mon, 09 Jun 2008 13:17:18 +0200).
 
 Email bugs to angel@triptico.com
