@@ -4,18 +4,18 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1001: Audit all possible directory traversal vulnerabilities
-   in Source::FS.
- * 1004: Support broken lines in message headers in Source::Mbox.
  * 1023: stories_by_date() 'offset' argument fails if the search
    is done on more than one topic.
  * 1030: Infer default values for topic_id, topic_name and index_file
    in Gruta::Source::Mbox (as done in bin/gruta).
- * 1035: Change Gruta::Data::today() to allow a date to be set.
+ * 1037: Document the installation process.
 
 Open Bugs
 ---------
 
+ * 1001: Audit all possible directory traversal vulnerabilities
+   in Source::FS.
+ * 1004: Support broken lines in message headers in Source::Mbox.
  * 1015: Delete Artemus function loop_topics.
  * 1016: Delete Artemus function loop_users.
  * 1017: Delete Artemus function loop_renderers.
@@ -29,6 +29,7 @@ Pending Enhancements
 
  * 1006: Stories should always be rendered on save and retrieved
    from a cache.
+ * 1035: Change Gruta::Data::today() to allow a date to be set.
 
 Closed
 ------
