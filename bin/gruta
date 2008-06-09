@@ -244,6 +244,26 @@ my $X = {
 				print join(' ', @{$s}), "\n";
 			}
 		}
+	],
+	'users_by_xdate'	=> [
+		'users_by_xdate {src} [{max_date}]',
+		'Lists users by expiration date',
+		sub {
+			my $g		= init();
+			my $max_date	= arg_o() || '99999999999999';
+
+			foreach my $id ($g->users()) {
+				my $u = $g->user($id);
+
+				my $xdate = $u->get('xdate');
+
+				if ($xdate &&
+					$xdate gt Gruta::Data::today() &&
+					$xdate lt $max_date) {
+					print $id, ' ', $u->{email}, ' ', $xdate, "\n";
+				}
+			}
+		}
 	]
 };
 
