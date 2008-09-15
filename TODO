@@ -4,9 +4,8 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1023: stories_by_date() 'offset' argument fails if the search
-   is done on more than one topic.
  * 1037: Document the installation process.
+ * 1038: Translate the spanish templates to english.
 
 Open Bugs
 ---------
@@ -21,6 +20,8 @@ Open Bugs
  * 1019: Delete Artemus function loop_upload_dirs.
  * 1022: Delete Artemus function story_loop_by_date.
  * 1026: Delete Artemus function loop_story_tags.
+ * 1023: stories_by_date() 'offset' argument fails if the search
+   is done on more than one topic.
 
 Pending Enhancements
 --------------------
