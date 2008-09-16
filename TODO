@@ -6,6 +6,8 @@ Release Critical Bugs
 
  * 1037: Document the installation process.
  * 1038: Translate the spanish templates to english.
+ * 1039: The 'story_hits' template should returns something
+   different from 0.
 
 Open Bugs
 ---------
