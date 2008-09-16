@@ -10,6 +10,7 @@ use POSIX qw (locale_h);
 use Gruta;
 use Gruta::CGI;
 use Gruta::Source::DBI;
+#use Gruta::Source::FS;
 use Gruta::Renderer::Grutatxt;
 use Gruta::Renderer::HTML;
 use Gruta::Template::Artemus;
@@ -18,7 +19,7 @@ my $base = '/var/www/gruta';
 
 my $g = Gruta->new(
 	sources		=> [
-		Gruta::Source::DBI->new( string => "dbi:SQLite:$base/gruta.db" ),
+		Gruta::Source::DBI->new( string => "dbi:SQLite:$base/var/gruta.db" ),
 #		Gruta::Source::FS->new( path => "${base}/var" ),
 	],
 	renderers	=> [
