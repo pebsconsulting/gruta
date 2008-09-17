@@ -1,3 +1,7 @@
 {-foreach|{-stories_by_date|{-cfg_index_topics}|{-var|num|{-cfg_index_num}}|{-var|offset|0}}|
 	\{-_story_abstract\|\$1\|\$0\}
 }
+
+<div class = 'topic_navigator'>
+{-index_navigator|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
+</div>

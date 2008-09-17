@@ -1,0 +1,3 @@
+<span class = 'prev'>{-if|$1|<a href='{-l|INDEX|offset={-sub|$1|$0}}'>&lt;&lt;</a>|&lt;&lt;}</span>
+&nbsp;
+<span class = 'next'>{-if|{-stories_by_date|{-cfg_index_topics}|$0|{-add|$1|$0}}|<a href='{-l|INDEX|offset={-add|$1|$0}}'>&gt;&gt;</a>}</span>
