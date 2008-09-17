@@ -436,6 +436,48 @@ sub _update_top_ten {
 }
 
 
+sub _stories_by_date {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my %args	= @_;
+
+	my @r = ();
+
+	my $i = $self->_topic_index($topic_id) or return @r;
+	open I, $i or return @r;
+	flock I, 1;
+
+	my $o = 0;
+
+	while (<I>) {
+		chomp;
+
+		my ($date, $id) = (/^(\d*):(.*)$/);
+
+		# skip future stories
+		next if not $args{future} and $date gt Gruta::Data::today();
+
+		# skip if date is above the threshold
+		next if $args{'to'} and $date gt $args{'to'};
+
+		# exit if date is below the threshold
+		last if $args{'from'} and $date lt $args{'from'};
+
+		# skip offset stories
+		next if $args{'offset'} and ++$o <= $args{'offset'};
+
+		push(@r, [ $id, $topic_id, $date ]);
+
+		# exit if we have all we need
+		last if $args{'num'} and $args{'num'} == scalar(@r);
+	}
+
+	close I;
+
+	return @r;
+}
+
+
 sub stories_by_date {
 	my $self	= shift;
 	my $topics	= shift;
@@ -453,40 +495,16 @@ sub stories_by_date {
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
 
+	# only one topic? execute it and return
+	if (scalar(@topics) == 1) {
+		return $self->_stories_by_date($topics[0], %args);
+	}
+
 	my @R = ();
 
 	foreach my $topic_id (@topics) {
-		my $i = $self->_topic_index($topic_id) or next;
-		open I, $i or next;
-		flock I, 1;
 
-		my @r = ();
-		my $o = 0;
-
-		while(<I>) {
-			chomp;
-
-			my ($date, $id) = (/^(\d*):(.*)$/);
-
-			# skip future stories
-			next if not $args{future} and $date gt Gruta::Data::today();
-
-			# skip if date is above the threshold
-			next if $args{'to'} and $date gt $args{'to'};
-
-			# exit if date is below the threshold
-			last if $args{'from'} and $date lt $args{'from'};
-
-			# skip offset stories
-			next if $args{'offset'} and ++$o <= $args{'offset'};
-
-			push(@r, [ $id, $topic_id, $date ]);
-
-			# exit if we have all we need
-			last if $args{'num'} and $args{'num'} == scalar(@r);
-		}
-
-		close I;
+		my @r = $self->_stories_by_date($topic_id, %args);
 
 		@R = ( @r, @R );
 	}
