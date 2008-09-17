@@ -2,6 +2,6 @@
 	\{-_story_abstract\|\$1\|\$0\}
 }
 
-<div class = 'topic_navigator'>
+<div class = 'navigator'>
 {-index_navigator|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
 </div>
