@@ -68,6 +68,8 @@ h6 { font-size: 80%; }
 .navigator .prev { float: left; }
 .navigator .next { float: right; }
 
+.index_date { border-bottom: solid 2px; }
+
 .right { float: right; margin: 0.5em; padding: 1em; }
 .left { float: left; margin: 0.5em; padding: 1em; }
 
