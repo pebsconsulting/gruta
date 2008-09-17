@@ -4,8 +4,6 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1023: stories_by_date() 'offset' argument fails if the search
-   is done on more than one topic.
  * 1037: Document the installation process.
  * 1038: Translate the spanish templates to english.
  * 1039: The 'story_hits' template should returns something
@@ -24,6 +22,8 @@ Open Bugs
  * 1019: Delete Artemus function loop_upload_dirs.
  * 1022: Delete Artemus function story_loop_by_date.
  * 1026: Delete Artemus function loop_story_tags.
+ * 1041: Gruta::stories_by_date() will fail when using an offset and
+   more than one source (related to #1023).
 
 Pending Enhancements
 --------------------
@@ -88,5 +88,7 @@ Closed
    (Mon, 09 Jun 2008 13:17:18 +0200).
  * 1040: The 'intermixed_index' template crashes in DBI
    (Tue, 16 Sep 2008 14:17:45 +0200).
+ * 1023: stories_by_date() 'offset' argument fails in FS if the search
+   is done on more than one topic (Wed, 17 Sep 2008 07:53:12 +0200).
 
 Email bugs to angel@triptico.com

@@ -500,13 +500,27 @@ sub stories_by_date {
 		return $self->_stories_by_date($topics[0], %args);
 	}
 
+	# more than one topic; 'num' and 'offset' need to be
+	# calculated from the full set
 	my @R = ();
 
 	foreach my $topic_id (@topics) {
 
-		my @r = $self->_stories_by_date($topic_id, %args);
+		my @r = $self->_stories_by_date($topic_id,
+			%args, num => 0, offset => 0);
 
-		@R = ( @r, @R );
+		push(@R, @r);
+	}
+
+	# sort by date
+	@R = sort { $b->[2] cmp $a->[2] } @R;
+
+	# split now
+	if ($args{num}) {
+		@R = @R[$args{offset} .. ($args{offset} + $args{num} - 1)];
+	}
+	else {
+		@R = @R[$args{offset} .. (scalar(@R) - 1)];
 	}
 
 	return @R;
