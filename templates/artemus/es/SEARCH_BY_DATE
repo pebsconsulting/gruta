@@ -9,7 +9,7 @@
 	<h1>B&uacute;squedas por fecha ({-date|%d/%m/%y|{-var|from}} - {-date|%d/%m/%y|{-var|to}})</h1>
 
 	<ul>
-		{-foreach|{-stories_by_date||100|0|{-var|from|{-date|%y%m%d000000}}|{-var|to|{-date}}|{-is_admin}}|
+		{-foreach|{-stories_by_date||0|0|{-var|from|{-date|%y%m%d000000}}|{-var|to|{-date}}|{-is_admin}}|
 		\{-_story_link_as_item_with_edit\|\$1\|\$0\}
 		}
 	</ul>
