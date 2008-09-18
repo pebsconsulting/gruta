@@ -1,0 +1,72 @@
+Gruta INSTALL
+=============
+
+1. Install the Artemus and Grutatxt modules, available from:
+
+	http://triptico.com/software/artemus.html
+	http://triptico.com/software/grutatxt.html
+
+If you want to use the DBI source driver, you'll need DBI and a
+corresponding DBD, of course. SQLite is fine and probably what
+you want.
+
+2. Install this package:
+
+	$ perl Makefile.PL
+	$ make
+	$ su -c "make install"
+
+3. Create the directories under your Apache tree. For example, if you
+plan to host the _grutasample_ site and you have Apache files in /var/www,
+then run
+
+	# mkdir /var/www/grutasample /var/www/grutasample/img
+	# chown -R www-data:www-data /var/www/grutasample
+
+Change `www-data' to whatever user your Apache runs as.
+
+4. Create a directory where your application data will be stored. The
+Apache user needs to write there, so make him the owner. For organization
+purposes, it can be under the .../grutasample directory; just ensure
+it's not accesible via web by means of an Apache authorization directive
+(see below).
+
+5. Copy the `g.cgi' file from the `examples' subdirectory in the
+distribution source.
+
+6. Modify it to suit your needs. You'll have to change the $base variable,
+the source driver (choose between DBI or FS) and the `base_url'. If your
+data directory is not under $base, change the reference in the Source
+object creation accordingly. You'll probably also have to change the
+language of your application templates (look for available languages in
+/usr/share/gruta/templates/artemus) and the setlocale() call.
+
+7. Touch your Apache configuration. First, make the `g.cgi' program be the
+document index, by adding the following to your configuration file:
+
+	DirectoryIndex g.cgi
+
+If your data directory is under the Apache tree, forbid raw access to
+it by adding
+
+	<Location /var>
+        	order allow,deny
+	        deny from all
+	</Location>
+
+This will probably be under a virtual host configuration. Use your Apache
+knowledge, this is not an Apache manual.
+
+8. Point your browser to the URL. As it's the first time, an `admin' user
+with a random password has been created and the program flow redirected
+to the administration page. Select the `admin' user from the 'Users' section
+and set the password.
+
+9. Create some topics. New topics will appear in the top menu. Clicking on
+them will allow you to create new stories. If you create a topic with the
+topic id 'info', the stories with ids 'about' and 'legal' will be magically
+added to the top header. For the rest of your stories, create another topic.
+One with id 'main' will be OK.
+
+---
+Angel Ortega <angel@triptico.com>

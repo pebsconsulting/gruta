@@ -4,7 +4,6 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1037: Document the installation process.
  * 1038: Translate the spanish templates to english.
 
 Open Bugs
@@ -94,5 +93,7 @@ Closed
    initialized as an empty string or NULL instead of 0 (even
    though it's defined as DEFAULT 0). This bug is probably
    only for SQLite (Thu, 18 Sep 2008 12:22:43 +0200).
+ * 1037: Document the installation process
+   (Thu, 18 Sep 2008 12:32:59 +0200).
 
 Email bugs to angel@triptico.com
