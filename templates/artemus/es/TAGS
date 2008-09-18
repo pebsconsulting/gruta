@@ -6,15 +6,13 @@
 
 <div class = 'main'>
 
-	{-box_title|Etiquetas}
+	<h1>Etiquetas</h1>
 
 	<ul>
 		{-foreach|{-tags}|
 		<li><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0 (\$1)</a></li>
 		}
 	</ul>
-
-	{-box_end}
 
 </div>
 

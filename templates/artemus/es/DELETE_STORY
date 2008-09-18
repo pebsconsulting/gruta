@@ -3,14 +3,12 @@
 
 <div class = 'main'>
 
-	{-box_title|Borrar art&iacute;culo}
+	<h1>Borrar art&iacute;culo</h1>
 
 	<p><a href='{-l|INDEX}'>Principal</a> - <a href='{-l|ADMIN}'>Administraci&oacute;n</a>
 
 	<p>
 	{-delete_story|{-var|topic}|{-var|id}}
-
-	{-box_end}
 
 </div>
 

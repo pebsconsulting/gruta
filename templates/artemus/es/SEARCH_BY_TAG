@@ -6,7 +6,7 @@
 
 <div class = 'main'>
 
-	{-box_title|B&uacute;squedas por etiqueta}
+	<h1>B&uacute;squedas por etiqueta</h1>
 
 	<p><b>{-var|tag}</b>:<br>
 
@@ -17,8 +17,6 @@
 	</ul>
 
 	{-search_hits}
-
-	{-box_end}
 
 </div>
 

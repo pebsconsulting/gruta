@@ -6,10 +6,8 @@
 
 <div class = 'main'>
 
-	{-box_title|Error}
 	<h1>404 No Encontrado</h1>
 	<p>La p&aacute;gina que ha seleccionado no existe.
-	{-box_end}
 
 </div>
 

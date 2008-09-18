@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-{-box_title|Plantillas (Templates)}
+<h1>Plantillas (Templates)</h1>
 
 <form method = 'post'>
 	<select name = 'id'>
@@ -15,9 +15,7 @@
 	<input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
 </form>
 
-{-box_end}
-
-{-box_title|Uploads}
+<h1>Uploads</h1>
 
 <form method = 'post' enctype = 'multipart/form-data'>
 	Directorio:<br>
@@ -32,9 +30,7 @@
 	<input type = 'hidden' name = 't'       value = 'UPLOAD'>
 </form>
 
-{-box_end}
-
-{-box_title|Secciones}
+<h1>Secciones</h1>
 
 <form method = 'post'>
 
@@ -47,9 +43,7 @@
 	<input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
 </form>
 
-{-box_end}
-
-{-box_title|Usuarios}
+<h1>Usuarios</h1>
 
 <form method = 'post'>
 
@@ -58,11 +52,9 @@
 		{-foreach|{-users}|<option value = '\$0'>\$0</option>|}
 	</select>
 
-	<input type = 'submit' class = 'button' value = 'Editar / nuevo usuario'>
+	<input type = 'submit' class = 'button' value = 'Editar usuario'>
 	<input type = 'hidden' name = 't'       value = 'EDIT_USER'>
 </form>
-
-{-box_end}
 
 {-about}
 

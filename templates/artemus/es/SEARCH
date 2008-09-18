@@ -6,7 +6,7 @@
 
 <div class = 'main'>
 
-	{-box_title|B&uacute;squedas}
+	<h1>B&uacute;squedas</h1>
 
 	<p>Resultados de la b&uacute;squeda <b>{-var|query}</b>:<br>
 
@@ -15,8 +15,6 @@
 	}
 
 	{-search_hits}
-
-	{-box_end}
 
 </div>
 

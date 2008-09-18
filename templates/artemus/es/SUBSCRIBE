@@ -6,13 +6,11 @@
 
 <div class = 'main'>
 
-	{-box_title|Suscripciones a {-sitename}}
+	<h1>Suscripciones a {-sitename}</h1>
 
 	{-story_body|info|subscribe}
 
 	{-if|{-is_admin}|<p>Texto consultado {-story_hits|info|subscribe} veces.</p>}
-
-	{-box_end}
 
 </div>
 
