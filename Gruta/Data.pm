@@ -85,6 +85,20 @@ use base 'Gruta::Data::BASE';
 
 use Carp;
 
+sub new {
+	my $class = shift;
+
+	my $obj = $class->SUPER::new(@_);
+
+	# ensure 'hits' is numeric
+	if (!$obj->get('hits')) {
+		$obj->set('hits', 0);
+	}
+
+	return $obj;
+}
+
+
 sub fields { return qw(id topic_id title date date2 userid format hits ctime content); }
 sub vfields { return qw(abstract body); }
 
