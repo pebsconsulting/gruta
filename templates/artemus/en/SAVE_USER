@@ -1,0 +1,12 @@
+{-assert_logged_in}
+{-header}
+
+<div class = 'main'>
+
+	<h1>Save user</h1>
+
+	{-save_user|{-var|new}|{-var|userid}|{-var|username}|{-var|email}|{-var|isadmin}|{-var|canupload}|{-var|pass1}|{-var|pass2}|{-var|year}|{-var|month}|{-var|day}}
+
+</div>
+
+{-footer}

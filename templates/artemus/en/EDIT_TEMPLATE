@@ -1,0 +1,26 @@
+{-assert_admin}
+{-header}
+
+<div class = 'main'>
+
+	<h1>Template data</h1>
+
+	<form method = 'post'>
+
+		{-ifelse|{-eq|{-var|id}|[]}|
+		<input type = 'text' name = 'id' value = ''>
+		|
+		<b>{-var|id}</b><input type = 'hidden' name = 'id' value = '{-var|id}'>
+		}
+
+		<p>Content:<br>
+
+		<textarea name = 'content' cols = '80' rows = '30'>{-template|{-var|id}}</textarea>
+
+		<input type = 'submit' class = 'button' value = 'OK'>
+		<input type = 'hidden' name = 't' value = 'SAVE_TEMPLATE'>
+	</form>
+
+</div>
+
+{-footer}

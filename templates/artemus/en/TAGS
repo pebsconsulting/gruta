@@ -1,0 +1,19 @@
+{-header}
+
+<div class = 'column1'>
+
+</div>
+
+<div class = 'main'>
+
+	<h1>Tags</h1>
+
+	<ul>
+		{-foreach|{-tags}|
+		<li><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0 (\$1)</a></li>
+		}
+	</ul>
+
+</div>
+
+{-footer}

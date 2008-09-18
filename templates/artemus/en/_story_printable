@@ -1,0 +1,23 @@
+=item B<_story_printable>
+
+ _story_printable topic story_id
+
+Shows a complete story, in 'printer-friendly' format.
+=cut
+
+<div class = 'story_printable'>
+
+	{-story_body|$0|$1}
+
+	<p>
+	<div class = 'tags'>Tags: {-foreach|{-story_tags|$0|$1}|\{-_search_tag\|\$0\|$1\}|, }</div>
+	</p>
+
+	<hr>
+
+	<div class = 'self_links'>
+		Permanent link to this page:
+		<a href='http://{-host}/?t=STORY;topic=$0;id=$1'>http://{-host}/?t=STORY;topic=$0;id=$1</a>
+	</div>
+
+</div>

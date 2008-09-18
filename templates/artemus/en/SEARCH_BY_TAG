@@ -1,0 +1,23 @@
+{-header}
+
+<div class = 'column1'>
+
+</div>
+
+<div class = 'main'>
+
+	<h1>Search by tag</h1>
+
+	<p><b>{-var|tag}</b>:<br>
+
+	<ul>
+		{-foreach|{-stories_by_tag|{-var|topic}|{-var|tag}|{-is_admin}}|
+		\{-_story_link_as_item_with_edit\|\$0\|\$1\}
+		}
+	</ul>
+
+	{-search_hits}
+
+</div>
+
+{-footer}

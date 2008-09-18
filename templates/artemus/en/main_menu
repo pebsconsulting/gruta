@@ -1,0 +1,18 @@
+<div class = 'main_menu'>
+
+	{-box_title|{-sitename}}
+
+	<ul>
+		<li><a href = '{-l|INDEX}'>Index</a></li>
+
+		{-foreach|{-cfg_main_menu_topics}|
+		<li><a href = '\{-l\|TOPIC\|topic=\$0\}'>\{-topic_name\|\$0\}</a></li>
+		}
+
+		<li><a href = '{-l|TAGS}'>Tags</a></li>
+		<li><a href = '{-l|TOP_TEN}'>Top ten stories</a></li>
+	</ul>
+
+	{-box_end}
+
+</div>

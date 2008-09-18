@@ -1,0 +1,14 @@
+{-header}
+
+<div class = 'column1'>
+
+</div>
+
+<div class = 'main'>
+
+	<h1>404 Not Found</h1>
+	<p>The requested page does not exist.</p>
+
+</div>
+
+{-footer}

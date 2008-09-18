@@ -1,0 +1,21 @@
+{-box_title|Conectar}
+
+{-ifelse|{-is_logged_in}|
+	You are logged in as <b>{-username}</b>.
+
+	<ul>
+	{-if|{-is_admin}|<li><a href = '{-l|ADMIN}'>Admin</a></li>}
+	<li><a href = "{-l|LOGOUT}">Logout</a></li>
+	<li><a href = "{-l|EDIT_USER|userid={-userid}}">Preferences</a></li>
+	</ul>
+|
+	<form method = 'post'>
+		<input type = 'hidden' name = 't' value = 'LOGIN'>
+		User:<br>
+		<input type = 'text' name = 'userid' size = '10'><br>
+		Password:<br>
+		<input type = 'password' name = 'pass' size = '10'><br>
+		<input type = 'submit' class = 'button' value = "Login">
+	</form>
+}
+{-box_end}

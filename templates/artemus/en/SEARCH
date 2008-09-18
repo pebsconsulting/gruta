@@ -1,0 +1,21 @@
+{-header}
+
+<div class = 'column1'>
+
+</div>
+
+<div class = 'main'>
+
+	<h1>Search</h1>
+
+	<p>Search results for <b>{-var|query}</b>:<br>
+
+	{-foreach|{-var|topic|{-topics}}|
+		\{-search_stories\|\$0\|\{-var\|query\}\|\{-is_admin\}\}
+	}
+
+	{-search_hits}
+
+</div>
+
+{-footer}

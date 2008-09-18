@@ -4,7 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1038: Translate the spanish templates to english.
+None!
 
 Open Bugs
 ---------
@@ -95,5 +95,7 @@ Closed
    only for SQLite (Thu, 18 Sep 2008 12:22:43 +0200).
  * 1037: Document the installation process
    (Thu, 18 Sep 2008 12:32:59 +0200).
+ * 1038: Translate the spanish templates to english
+   (Thu, 18 Sep 2008 13:04:40 +0200).
 
 Email bugs to angel@triptico.com

@@ -1,0 +1,10 @@
+<div class = 'story_complete'>
+	{-story_body|$0|$1|{-var|hl}}
+</div>
+
+{-_story_footer|$0|$1}
+
+<div class = 'self_links'>
+	<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Print version</a> -
+	<a href = 'http://{-host}/?t=STORY;topic=$0;id=$1'>Permanent link to this page</a>
+</div>

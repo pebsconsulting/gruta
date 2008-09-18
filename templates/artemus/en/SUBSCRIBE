@@ -1,0 +1,17 @@
+{-header}
+
+<div class = 'column1'>
+
+</div>
+
+<div class = 'main'>
+
+	<h1>Subscriptions a {-sitename}</h1>
+
+	{-story_body|info|subscribe}
+
+	{-if|{-is_admin}|<p>Text read {-story_hits|info|subscribe} times.</p>}
+
+</div>
+
+{-footer}

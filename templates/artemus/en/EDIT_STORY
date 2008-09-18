@@ -1,0 +1,63 @@
+{-assert_topic_editor|{-var|topic}}
+{-header}
+
+<div class = 'main'>
+
+<h1>Story data</h1>
+
+<form method = 'post'>
+
+	<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
+	<input type = 'hidden' name = 'topic' value = '{-var|topic}'>
+
+	<p>Publication date <small>(empty, today)</small><br>
+
+	<input type = 'text' size = '2' name = 'day'
+		value = '{-story_date|%d|{-var|topic}|{-var|id}}'> /
+	<input type = 'text' size = '2' name = 'month'
+		value = '{-story_date|%m|{-var|topic}|{-var|id}}'> /
+	<input type = 'text' size = '4' name = 'year'
+		value = '{-story_date|%y|{-var|topic}|{-var|id}}'>
+
+	<p>Liberation date for non-subscribers: <small>(empty, same as above)</small><br>
+
+	<input type = 'text' size = '2' name = 'day2'
+		value = '{-story_date2|%d|{-var|topic}|{-var|id}}'> /
+	<input type = 'text' size = '2' name = 'month2'
+		value = '{-story_date2|%m|{-var|topic}|{-var|id}}'> /
+	<input type = 'text' size = '4' name = 'year2'
+		value = '{-story_date2|%y|{-var|topic}|{-var|id}}'>
+
+	<p>Format: (possible values: {-foreach|{-renderers}|<b>\$0</b>|, })<br>
+	<input type = 'text' name = 'format'
+		value = '{-story_format|{-var|topic}|{-var|id}}'>
+
+	{-ifelse|{-eq|{-var|id}|[]}|
+	<p>Story id:
+	<small>(Optional; if you don't know what it means, leave it blank)</small><br>
+	<input type = 'text' size = '32' name = 'id' value = ''>
+	|
+	<input type = 'hidden' name = 'id' value = '{-var|id}'>
+	}
+
+	<p>Tags: <small>(comma-separated)</small><br>
+	<input type = 'text' size = '60' name = 'tags'
+		value = '{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }'>
+
+	<p>Content:<br>
+
+	<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>{-story_content|{-var|topic}|{-var|id}}</textarea>
+
+	<input type = 'submit' class = 'button' value = 'OK'>
+</form>
+
+<form method = 'post'>
+	<input type = 'hidden' name = 't'	value = 'DELETE_STORY'>
+	<input type = 'hidden' name = 'topic'	value = '{-var|topic}'>
+	<input type = 'hidden' name = 'id'	value = '{-var|id}'>
+	<input type = 'submit' class = 'button'	value = 'DELETE'>
+</form>
+
+</div>
+
+{-footer}

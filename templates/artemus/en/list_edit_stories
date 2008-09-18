@@ -1,0 +1,12 @@
+<h3>{-topic_name|$0}</h3>
+
+<ul>
+
+{-if|$1|<li><a href='{-l|EDIT_STORY|topic=$0|id=[]|hl=}'>[New]</a></li>}
+
+{-foreach|{-stories_by_date|$0|$2|$3|||1}|\{-_story_link_edit_and_preview\|$0\|\$0\}}
+
+</ul>
+
+{-if|{-topic_has_archive|$0}|
+This topic has <a href='{-l|TOPIC|topic=$0-arch}'>archived stories</a>.}

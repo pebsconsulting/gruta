@@ -1,0 +1,21 @@
+{-header}
+
+<div class = 'column1'>
+
+</div>
+
+<div class = 'main'>
+
+	<h1>Tag cloud</h1>
+
+	<p>
+
+	{-foreach|{-tags}|
+	<font size = '\$1'><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0</a></font> 
+	}
+
+	</p>
+
+</div>
+
+{-footer}

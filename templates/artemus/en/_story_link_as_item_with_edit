@@ -1,0 +1,8 @@
+<li>
+	{-if|{-is_future_story|$0|$1}|<em>|}
+		<a href='{-l|STORY|topic=$0|id=$1}'>{-story_title|$0|$1}</a>
+	{-if|{-is_future_story|$0|$1}|</em>|}
+	{-if|{-is_topic_editor|$0}|
+		- <small><a href = '{-l|EDIT_STORY|topic=$0|id=$1}'>[Edit]</a></small>
+	}
+</li>

@@ -1,0 +1,15 @@
+{-assert_topic_editor|{-var|topic}}
+{-header}
+
+<div class = 'main'>
+
+	<h1>Delete story</h1>
+
+	<p><a href='{-l|INDEX}'>Index</a> - <a href='{-l|ADMIN}'>Admin</a>
+
+	<p>
+	{-delete_story|{-var|topic}|{-var|id}}
+
+</div>
+
+{-footer}

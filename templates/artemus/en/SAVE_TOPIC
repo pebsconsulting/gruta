@@ -1,0 +1,12 @@
+{-assert_admin}
+{-header}
+
+<div class = 'main'>
+
+	<h1>Save topic</h1>
+
+	{-save_topic|{-var|topic}|{-var|name}|{-var|editors}|{-var|internal}|{-var|max}}
+
+</div>
+
+{-footer}
