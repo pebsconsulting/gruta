@@ -6,8 +6,10 @@ Release Critical Bugs
 
  * 1037: Document the installation process.
  * 1038: Translate the spanish templates to english.
- * 1039: The 'story_hits' template should returns something
-   different from 0.
+ * 1042: IN DBI, the 'hits' column in 'stories' seems to be
+   initialized as an empty string or NULL instead of 0 (even
+   though it's defined as DEFAULT 0). This bug is probably
+   only for SQLite.
 
 Open Bugs
 ---------
@@ -90,5 +92,7 @@ Closed
    (Tue, 16 Sep 2008 14:17:45 +0200).
  * 1023: stories_by_date() 'offset' argument fails in FS if the search
    is done on more than one topic (Wed, 17 Sep 2008 07:53:12 +0200).
+ * 1039: The 'story_hits' template should returns something
+   different from 0 (Closed by #1042; Thu, 18 Sep 2008 12:16:25 +0200).
 
 Email bugs to angel@triptico.com
