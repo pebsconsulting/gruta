@@ -39,20 +39,12 @@ sub _artemus {
 			return '?t=' . $t . ';' . join(';', @_);
 		};
 
-		$f{'add'} = sub { $_[0] + $_[1]; };
-		$f{'sub'} = sub { $_[0] - $_[1]; };
-		$f{'gt'} = sub { $_[0] > $_[1]; };
-		$f{'lt'} = sub { $_[0] < $_[1]; };
-		$f{'eq'} = sub { $_[0] eq $_[1] ? 1 : 0; };
-
 		$f{date} = sub {
 			my $fmt	= shift;
 			my $d	= shift || Gruta::Data::today();
 
 			return Gruta::Data::format_date($d, $fmt);
 		};
-
-		$f{random} = sub { $_[rand(scalar(@_))]; };
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$f{'topic_' . $p} = sub {
