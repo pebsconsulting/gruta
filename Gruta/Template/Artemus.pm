@@ -606,9 +606,9 @@ sub _artemus {
 			my $ret		= '';
 
 			if ($id ne '[]') {
-				my $story = $data->story($topic_id, $id);
-
-				$ret = join(':', $story->tags());
+				if (my $story = $data->story($topic_id, $id)) {
+					$ret = join(':', $story->tags());
+				}
 			}
 
 			return $ret;
