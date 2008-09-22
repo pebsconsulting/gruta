@@ -7,7 +7,7 @@
 
 	<form method = 'post'>
 
-		{-ifelse|{-eq|{-var|userid}|[]}|
+		{-if|{-eq|{-var|userid}|[]}|
 		<p>User Id:<br>
 
 		<input type = 'text' name = 'userid' value = ''>

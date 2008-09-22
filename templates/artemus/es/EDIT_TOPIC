@@ -7,7 +7,7 @@
 
 	<form>
 
-		{-ifelse|{-eq|{-var|topic}|[]}|
+		{-if|{-eq|{-var|topic}|[]}|
 		<p>Id de la secci&oacute;n <small>(s&oacute;lo min&uacute;sculas y n&uacute;meros)</small><br>
 
 		<input type = 'text' name = 'topic' value = ''>

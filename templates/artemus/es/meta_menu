@@ -2,9 +2,9 @@
 	<li><a href = '{-l|STORY|topic=info;id=about}'>{-story_title|info|about}</a></li>
 	<li><a href = '{-l|STORY|topic=info;id=legal}'>{-story_title|info|legal}</a></li>
 	<li><a href = '{-l|RSS}'>RSS</a></li>
-	{-ifelse|{-is_logged_in}|
-		{-ifelse|{-is_admin}|
-			<li><a href = '{-l|ADMIN}'>Administración</a></li>|
+	{-if|{-is_logged_in}|
+		{-if|{-is_admin}|
+			<li><a href = '{-l|ADMIN}'>Administraci&oacute;n</a></li>|
 			<li><a href = "{-l|EDIT_USER|userid={-userid}}">Preferencias</a></li>
 		}
 		<li><a href = '{-l|LOGOUT}'>Desconectar</a> {-userid}</li>|

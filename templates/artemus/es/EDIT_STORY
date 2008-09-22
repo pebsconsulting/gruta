@@ -32,7 +32,7 @@
 	<input type = 'text' name = 'format'
 		value = '{-story_format|{-var|topic}|{-var|id}}'>
 
-	{-ifelse|{-eq|{-var|id}|[]}|
+	{-if|{-eq|{-var|id}|[]}|
 	<p>Id de la historia:
 	<small>(Opcional; si no sabe lo que significa, d&eacute;jelo en blanco)</small><br>
 	<input type = 'text' size = '32' name = 'id' value = ''>

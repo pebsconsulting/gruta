@@ -1,6 +1,6 @@
 {-box_title|Conectar}
 
-{-ifelse|{-is_logged_in}|
+{-if|{-is_logged_in}|
 	Est&aacute;s conectado como <b>{-username}</b>.
 
 	<ul>

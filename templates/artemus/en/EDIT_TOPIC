@@ -7,7 +7,7 @@
 
 	<form>
 
-		{-ifelse|{-eq|{-var|topic}|[]}|
+		{-if|{-eq|{-var|topic}|[]}|
 		<p>Topic id <small>(only undercase letters and/or numbers)</small><br>
 
 		<input type = 'text' name = 'topic' value = ''>
