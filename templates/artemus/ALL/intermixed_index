@@ -1,7 +1,7 @@
 {-set|PDATE|-}
 {-foreach|{-stories_by_date|{-cfg_index_topics}|{-var|num|{-cfg_index_num}}|{-var|offset|0}}|
 	\{-set\|DATE\|\{-date\|\{-cfg_index_date_format\}\|\$2\}\}
-	\{-ifeqelse\|\{-PDATE\}\|\{-DATE\}\|\|<h1 class = 'index_date'>\{-DATE\}</h1>\} \{-set\|PDATE\|\{-DATE\}\}
+	\{-ifeq\|\{-PDATE\}\|\{-DATE\}\|\|<h1 class = 'index_date'>\{-DATE\}</h1>\} \{-set\|PDATE\|\{-DATE\}\}
 	\{-_story_abstract\|\$1\|\$0\}
 }
 
