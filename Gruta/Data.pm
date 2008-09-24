@@ -7,9 +7,10 @@ package Gruta::Data::BASE;
 
 use Carp;
 
-sub fields { return (); }
-sub vfields { return (); }
-sub afields { return ($_[0]->fields(), $_[0]->vfields()); }
+sub fields		{ return (); }
+sub vfields		{ return (); }
+sub afields		{ return ($_[0]->fields(), $_[0]->vfields()); }
+sub filter_field	{ return $_[1]; }
 
 sub source {
 	my $self	= shift;
