@@ -10,7 +10,7 @@ use Carp;
 sub fields		{ return (); }
 sub vfields		{ return (); }
 sub afields		{ return ($_[0]->fields(), $_[0]->vfields()); }
-sub filter_field	{ return $_[1]; }
+sub filter_field	{ return $_[2]; }
 
 sub source {
 	my $self	= shift;
@@ -62,7 +62,7 @@ sub set {
 
 	croak 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
-	$self->{$field} = $self->filter_field($value);
+	$self->{$field} = $self->filter_field($field, $value);
 
 	return $self->{$field};
 }
