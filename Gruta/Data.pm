@@ -58,10 +58,11 @@ sub get {
 sub set {
 	my $self	= shift;
 	my $field	= shift;
+	my $value	= shift;
 
 	croak 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
-	$self->{$field} = shift;
+	$self->{$field} = $self->filter_field($value);
 
 	return $self->{$field};
 }
