@@ -501,7 +501,7 @@ sub create {
 	my $self	= shift;
 
 	eval {
-		my $sth = $self->_prepare('SELECT 1 FROM users');
+		$self->{dbh}->do('SELECT count(*) FROM users');
 	};
 
 	if (! $@) {
