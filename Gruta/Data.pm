@@ -74,6 +74,19 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id name editors max_stories internal); }
 
+sub filter_field {
+	my $self	= shift;
+	my $field	= shift;
+	my $value	= shift;
+
+	# ensure empty numeric values are 0
+	if ($field =~ /^(max_stories|internal)$/ && !$value) {
+		$value = 0;
+	}
+
+	return $value;
+}
+
 sub is_editor {
 	my $self	= shift;
 	my $user	= shift; # Gruta::Data::User
@@ -154,6 +167,19 @@ use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id username email password can_upload is_admin xdate); }
 sub vfields { return qw(sid); }
+
+sub filter_field {
+	my $self	= shift;
+	my $field	= shift;
+	my $value	= shift;
+
+	# ensure empty numeric values are 0
+	if ($field =~ /^(can_upload|is_admin)$/ && !$value) {
+		$value = 0;
+	}
+
+	return $value;
+}
 
 sub xdate { return Gruta::Data::format_date($_[0]->get('xdate'), $_[1]); }
 
