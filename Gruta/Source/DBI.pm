@@ -532,7 +532,11 @@ sub new {
 	my $s = bless( { @_ }, $class);
 
 	$s->{dbh} = DBI->connect($s->{string},
-		$s->{user}, $s->{passwd}, { RaiseError => 1 });
+		$s->{user}, $s->{passwd}, {
+			RaiseError => 1,
+			PrintError => 0
+		 }
+	);
 
 	$s->create();
 
