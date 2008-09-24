@@ -38,7 +38,8 @@ sub new {
 	my $self = bless({ }, $class);
 
 	foreach my $k ($self->afields()) {
-		$self->{$k} = $args{$k};
+		$self->{$k} = undef;
+		$self->set($k, $args{$k});
 	}
 
 	return $self;
