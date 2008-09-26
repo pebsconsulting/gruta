@@ -175,16 +175,16 @@ sub run {
 	}
 
 	# does the client accept compression?
-	if (length($body) > 10000 && $ENV{HTTP_ACCEPT_ENCODING} =~ /gzip/) {
-		# compress!!
-		use IO::Compress::Gzip qw(gzip);
-
-		my $cbody = '';
-		if (gzip(\$body, \$cbody)) {
-			$self->http_headers('Content-encoding' => 'gzip');
-			$body = $cbody;
-		}
-	}
+#	if (length($body) > 10000 && $ENV{HTTP_ACCEPT_ENCODING} =~ /gzip/) {
+#		# compress!!
+#		use IO::Compress::Gzip qw(gzip);
+#
+#		my $cbody = '';
+#		if (gzip(\$body, \$cbody)) {
+#			$self->http_headers('Content-encoding' => 'gzip');
+#			$body = $cbody;
+#		}
+#	}
 
 	my $h = $self->http_headers();
 	foreach my $k (keys(%{ $h })) {
