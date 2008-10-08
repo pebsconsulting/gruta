@@ -1,1 +1,8 @@
+=item cfg_favicon_url
+
+ cfg_favicon_url
+
+Must contain the URL to an MS Windows icon shown as the favourite
+icon of the site.
+=cut
 http://triptico.com/data/gruta_favicon.ico
