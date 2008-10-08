@@ -6,8 +6,8 @@
 	<link rel = "icon" href = "{-cfg_favicon_url}" type = "image/ico">
 	<link rel = "shortcut icon" href = "{-cfg_favicon_url}">
 	<link rel = "alternate" type = "text/xml" title = "RSS" href = "http://{-host}/?t=RSS">
+	<link rel = "stylesheet" type = "text/css" href = "?t=CSS">
 	<title>{-slogan}</title>
-	<style type = 'text/css'>{-css}</style>
 </head>
 
 <body>
