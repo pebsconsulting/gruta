@@ -225,6 +225,15 @@ sub format_date {
 		$format =~ s/%H/$H/g;
 		$format =~ s/%M/$M/g;
 		$format =~ s/%S/$S/g;
+
+		if ($format =~ /%w/) {
+			use POSIX;
+
+			my $t = POSIX::mktime(0, 0, 0, $d, $m - 1, $y - 1900);
+			my $w = (localtime($t))[6];
+
+			$format =~ s/%w/$w/g;
+		}
 	}
 	else {
 		$format = $date;
