@@ -4,7 +4,9 @@
 		<span class = 'hits'>Read {-story_hits|$0|$1} times - </span>
 	}
 
-	<span class = 'full_story_link'><a href='{-l|STORY|topic=$0|id=$1}'>Complete...</a></span>
+	{-ifneq|{-var|t}|STORY|
+		<span class = 'full_story_link'><a href='{-l|STORY|topic=$0|id=$1}'>Complete...</a></span>
+	}
 
 	{-if|{-is_topic_editor|$0}|
 		<span class = 'edit_link'> - <a href='{-l|EDIT_STORY|topic=$0|id=$1}'>[Edit]</a></span>
