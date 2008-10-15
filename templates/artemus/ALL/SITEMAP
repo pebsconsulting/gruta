@@ -1,0 +1,7 @@
+{-content_type|text/xml}<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{-foreach|{-stories_by_date||0|0}|
+	<url><loc>http://{-host}/?t=STORY;topic=\$1;id=\$0</loc></url>}
+{-foreach|{-topics}|
+	<url><loc>http://{-host}/?t=TOPIC;topic=\$0</loc></url>}
+</urlset>
