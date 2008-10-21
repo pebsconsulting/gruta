@@ -131,7 +131,7 @@ sub save {
 sub touch {
 	my $self = shift;
 
-	if (! $self->{dummy_touch}) {
+	if (! $self->driver->{dummy_touch}) {
 		my $hits = $self->get('hits') + 1;
 
 		$self->set('hits', $hits);
