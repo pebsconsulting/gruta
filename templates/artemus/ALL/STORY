@@ -19,8 +19,6 @@
 
 <div class = 'main'>
 
-	{-box_title|{-topic_name|{-var|topic}}}
-
 	{-set|_date_from|{-story_date|%y%m%d000000|{-var|topic}|{-var|id}}}
 	{-set|_date_to|{-story_date|%y%m%d235959|{-var|topic}|{-var|id}}}
 
