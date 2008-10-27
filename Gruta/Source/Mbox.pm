@@ -395,7 +395,7 @@ sub stories_by_tag {
 		my $c = 0;
 
 		foreach my $t (@ts) {
-			if (grep(/^$t$/, @tags)) {
+			if (grep(/^\Q$t\E$/, @tags)) {
 				$c++;
 			}
 		}
