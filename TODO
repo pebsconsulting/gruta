@@ -22,6 +22,7 @@ Open Bugs
  * 1041: Gruta::stories_by_date() will fail when using an offset and
    more than one source (related to #1023).
  * 1043: Delete template _select_option.
+ * 1044: Fix Mbox's search_by_tag.
 
 Pending Enhancements
 --------------------
