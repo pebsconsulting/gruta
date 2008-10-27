@@ -12,6 +12,9 @@
 		<span class = 'edit_link'> - <a href='{-l|EDIT_STORY|topic=$0|id=$1}'>[Edit]</a></span>
 	}
 
-	<span class = 'tags'>{-foreach|{-story_tags|$0|$1}|\{-_search_tag\|\$0\|\$1\}|, }</span>
-
+	<span class = 'tags'>
+	<a href = '{-l|TOPIC|topic=$0}'>{-topic_name|$0}</a>
+	{-if|{-story_tags|$0|$1}|\|}
+	{-foreach|{-story_tags|$0|$1}|\{-_search_tag\|\$0\|\$1\}|, }
+	</span>
 </div>
