@@ -1,7 +1,5 @@
 <div class = 'topic'>
 
-	<h1 class = 'topic_header'>{-topic_name|$0}</h1>
-
 	<div class = 'topic_list'>
 
 		{-if|{-is_topic_editor|$0}|

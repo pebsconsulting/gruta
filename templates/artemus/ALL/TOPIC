@@ -7,6 +7,8 @@
 
 <div class = 'main'>
 
+	<h1 class = 'topic_header'>{-topic_name|{-var|topic}}</h1>
+
 	{-story_list|{-var|topic}|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
 
 	<div class = 'navigator'>

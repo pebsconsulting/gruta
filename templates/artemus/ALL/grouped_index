@@ -1,3 +1,4 @@
 {-foreach|{-cfg_index_topics}|
+	<h1 class = 'topic_header'>\{-topic_name\|\$0\}</h1>
 	\{-story_list\|\$0\|\$1\}
 }
