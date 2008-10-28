@@ -7,7 +7,7 @@
 	{-upload|{-var|updir}|file}
 
 	<p><a href='{-l|ADMIN}'>Back to admin</a>
-	{-box_end}
+
 </div>
 
 {-footer}
