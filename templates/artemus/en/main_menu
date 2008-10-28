@@ -1,6 +1,6 @@
 <div class = 'main_menu'>
 
-	{-box_title|{-sitename}}
+	<h1>{-sitename}</h1>
 
 	<ul>
 		<li><a href = '{-l|INDEX}'>Index</a></li>
@@ -12,7 +12,5 @@
 		<li><a href = '{-l|TAGS}'>Tags</a></li>
 		<li><a href = '{-l|TOP_TEN}'>Top ten stories</a></li>
 	</ul>
-
-	{-box_end}
 
 </div>
