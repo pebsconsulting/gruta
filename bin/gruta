@@ -311,10 +311,6 @@ my $X = {
 			my $feed = XML::Feed->parse(\*STDIN) or die XML::Feed->errstr;
 
 			foreach my $entry ($feed->entries()) {
-				my $md5 = Digest::MD5->new();
-				$md5->add($entry->id());
-				my $id = $md5->hexdigest();
-
 				my $title = $entry->title();
 
 				my $content = "<h1>$title</h1>" . $entry->content->body();
@@ -330,6 +326,11 @@ my $X = {
 				else {
 					$date = Gruta::Data::today();
 				}
+
+				my $md5 = Digest::MD5->new();
+				$md5->add($date);
+				$md5->add($entry->id());
+				my $id = $md5->hexdigest();
 
 				my $story;
 
