@@ -297,6 +297,62 @@ my $X = {
 				}
 			}
 		}
+	],
+	'import_rss'		=> [
+		'import_rss {src} {topic_id}',
+		'Import an RSS from STDIN into a topic',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
+
+			use Digest::MD5;
+			require XML::Feed;
+
+			my $feed = XML::Feed->parse(\*STDIN) or die XML::Feed->errstr;
+
+			foreach my $entry ($feed->entries()) {
+				my $md5 = Digest::MD5->new();
+				$md5->add($entry->id());
+				my $id = $md5->hexdigest();
+
+				my $title = $entry->title();
+
+				my $content = "<h1>$title</h1>" . $entry->content->body();
+
+				my $d = $entry->issued() || $entry->modified();
+				my $date;
+
+				if ($d) {
+					$date = sprintf("%04d%02d%02d%02d%02d%02d",
+					$d->year(), $d->month(), $d->day(),
+					$d->hour(), $d->minute(), $d->second());
+				}
+				else {
+					$date = Gruta::Data::today();
+				}
+
+				my $story;
+
+				if (not $story = $g->story($topic_id, $id)) {
+					$story = Gruta::Data::Story->new (
+						topic_id	=> $topic_id,
+						id		=> $id
+					);
+				}
+
+				$story->set('date', $date);
+				$story->set('format', 'html');
+				$story->set('content', $content);
+				$story->set('ctime', time());
+
+				if ($story->source()) {
+					$story = $story->save();
+				}
+				else {
+					$story = $g->insert_story($story);
+				}
+			}
+		}
 	]
 };
 
