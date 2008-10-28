@@ -319,7 +319,7 @@ my $X = {
 
 				my $content = "<h1>$title</h1>" . $entry->content->body();
 
-				my $d = $entry->issued() || $entry->modified();
+				my $d = $entry->modified() || $entry->issued();
 				my $date;
 
 				if ($d) {
