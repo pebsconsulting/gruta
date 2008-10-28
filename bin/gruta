@@ -329,7 +329,7 @@ my $X = {
 
 				my $md5 = Digest::MD5->new();
 				$md5->add($date);
-				$md5->add($entry->id());
+				$md5->add($content);
 				my $id = $md5->hexdigest();
 
 				my $story;
