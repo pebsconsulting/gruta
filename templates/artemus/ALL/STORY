@@ -5,15 +5,13 @@
 
 <div class = 'column1'>
 
-	{-box_title|{-topic_name|{-var|topic}}}
+	<h1>{-topic_name|{-var|topic}}</h1>
 
 	<ul>
 	{-foreach|{-stories_by_date|{-var|topic}|8}|
 	<li><a href = '\{-l\|STORY\|topic={-var|topic}\|id=\$0\}'>\{-story_title\|{-var|topic}\|\$0\}</a></li>
 	}
 	</ul>
-
-	{-box_end}
 
 </div>
 
@@ -27,8 +25,6 @@
 	</div>
 
 	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
-
-	{-box_end}
 
 </div>
 
