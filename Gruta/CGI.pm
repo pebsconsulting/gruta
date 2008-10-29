@@ -27,8 +27,14 @@ sub cookie {
 	return $ENV{HTTP_COOKIE};
 }
 
-sub redirect { $_[0]->http_headers( 'Location', $_[1] ); }
 sub status { $_[0]->http_headers( 'Status', $_[1] ); }
+
+sub redirect {
+	my $self	= shift;
+	my $dir		= shift;
+
+	$self->http_headers( 'Location', $self->data->base_url() . $dir );
+}
 
 sub data {
 	my $self	= shift;
