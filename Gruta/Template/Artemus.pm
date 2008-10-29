@@ -36,7 +36,7 @@ sub _artemus {
 		$f{l} = sub {
 			my $t = shift;
 
-			return '?t=' . $t . ';' . join(';', @_);
+			return $data->base_url() . '?t=' . $t . ';' . join(';', @_);
 		};
 
 		$f{date} = sub {
