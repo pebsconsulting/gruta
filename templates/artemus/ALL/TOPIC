@@ -8,7 +8,7 @@
 <div class = 'main'>
 
 	{-if|{-story_title|{-var|topic}|index}|
-		{-story_body|{-var|topic}|index}
+		\{-story_body\|{-var|topic}\|index\}
 	|
 		<h1 class = 'topic_header'>{-topic_name|{-var|topic}}</h1>
 	}
