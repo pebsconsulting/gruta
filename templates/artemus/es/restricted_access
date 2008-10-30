@@ -2,9 +2,9 @@
 est&aacute; actualmente disponible s&oacute;lo para suscriptores.</p>
 
 <p>Si usted ya es un suscriptor de {-sitename}, por favor 
-<a href = '?t=LOGIN'>identif&iacute;quese</a> para poder leerlo.</p>
+<a href = '{-l|LOGIN}'>identif&iacute;quese</a> para poder leerlo.</p>
 
-<p>Si no lo es, por favor considere <a href = '?t=SUBSCRIBE'>suscribirse</a>.</p>
+<p>Si no lo es, por favor considere <a href = '{-l|SUBSCRIBE}'>suscribirse</a>.</p>
 
 <p>Alternativamente, este art&iacute;culo estar&aacute; disponible para todo el mundo el
 {-story_date2|%d/%m/%y|{-var|topic}|{-var|id}}.</p>
