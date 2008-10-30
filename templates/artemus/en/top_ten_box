@@ -1,4 +1,4 @@
-<h1>Top ten stories</h1>
+<h1>Top ten</h1>
 
 <ul>
 	{-foreach|{-stories_top_ten|10}|

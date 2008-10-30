@@ -5,7 +5,7 @@
 	}
 
 	{-ifneq|{-var|t}|STORY|
-		<span class = 'full_story_link'><a href='{-l|STORY|topic=$0|id=$1}'>Complete...</a></span>
+		<span class = 'full_story_link'><a href='{-l|STORY|topic=$0|id=$1}'>More...</a></span>
 	}
 
 	{-if|{-is_topic_editor|$0}|
