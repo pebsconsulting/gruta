@@ -1,7 +1,7 @@
 {-assert|{-topic_id|{-var|topic}}|404}
 {-header}
 
-{-set|html_title|{-sitename}: {-topic_name|{-var|topic}}}
+{-set|html_title|{-cfg_site_name}: {-topic_name|{-var|topic}}}
 
 <div class = 'column1'>
 
@@ -18,7 +18,7 @@
 <div class = 'main'>
 
 	{-if|{-story_title|{-var|topic}|index}|
-		\{-set\|html_title\|{-sitename}: \{-story_title\|{-var|topic}\|index\}\}
+		\{-set\|html_title\|{-cfg_site_name}: \{-story_title\|{-var|topic}\|index\}\}
 		\{-story_body\|{-var|topic}\|index\}
 	|
 		<h1 class = 'topic_header'>{-topic_name|{-var|topic}}</h1>

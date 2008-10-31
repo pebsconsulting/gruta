@@ -3,14 +3,14 @@
 
 <channel>
 
-<title>{-sitename}</title>
+<title>{-cfg_site_name}</title>
 <link>http://{-host}</link>
 <description>{-slogan}</description>
 <copyright>{-copyright}</copyright>
 <language>en-en</language>
 
 <image>
-	<title>{-sitename}</title>
+	<title>{-cfg_site_name}</title>
 	<url>http://{-host}/img/icon.png</url>
 	<link>http://{-host}</link>
 	<width>16</width>

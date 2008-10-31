@@ -1,7 +1,7 @@
 <p>El contenido que est&aacute; intentando ver (<b>{-story_title|{-var|topic}|{-var|id}}</b>)
 est&aacute; actualmente disponible s&oacute;lo para suscriptores.</p>
 
-<p>Si usted ya es un suscriptor de {-sitename}, por favor 
+<p>Si usted ya es un suscriptor de {-cfg_site_name}, por favor 
 <a href = '{-l|LOGIN}'>identif&iacute;quese</a> para poder leerlo.</p>
 
 <p>Si no lo es, por favor considere <a href = '{-l|SUBSCRIBE}'>suscribirse</a>.</p>

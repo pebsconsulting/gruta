@@ -6,7 +6,7 @@
 
 <div class = 'main'>
 
-	<h1>Subscriptions a {-sitename}</h1>
+	<h1>Subscriptions a {-cfg_site_name}</h1>
 
 	{-story_body|info|subscribe}
 

@@ -2,10 +2,10 @@
        "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 
-<head><title>{-sitename}</title></head>
+<head><title>{-cfg_site_name}</title></head>
 
 <body>
 
-<img src = 'img/logo.jpg' alt = "{-sitename}" border = '0'>
+<img src = 'img/logo.jpg' alt = "{-cfg_site_name}" border = '0'>
 
 <p>{-slogan}</p>

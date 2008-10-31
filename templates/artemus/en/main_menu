@@ -1,6 +1,6 @@
 <div class = 'main_menu'>
 
-	<h1>{-sitename}</h1>
+	<h1>{-cfg_site_name}</h1>
 
 	<ul>
 		<li><a href = '{-l|INDEX}'>Index</a></li>

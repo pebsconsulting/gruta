@@ -1,7 +1,7 @@
 <p>The content you are trying to see (<b>{-story_title|{-var|topic}|{-var|id}}</b>)
 it's actually only available to subscribers.</p>
 
-<p>If you are already a subscriber to {-sitename}, please
+<p>If you are already a subscriber to {-cfg_site_name}, please
 <a href = '{-l|LOGIN}'>log in</a> to read it.</p>
 
 <p>If you don't, please consider <a href = '{-l|SUBSCRIBE}'>subscribing</a>.</p>

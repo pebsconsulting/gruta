@@ -1,0 +1,7 @@
+=item cfg_site_name
+
+ cfg_site_name
+
+Write here the name of your site, usually the domain name.
+=cut
+Gruta
