@@ -5,6 +5,14 @@
 
 <div class = 'column1'>
 
+	{-column1}
+
+</div>
+
+<div class = 'column2'>
+
+	{-column2}
+
 </div>
 
 <div class = 'main'>

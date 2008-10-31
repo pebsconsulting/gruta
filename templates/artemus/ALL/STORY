@@ -18,6 +18,12 @@
 
 </div>
 
+<div class = 'column2'>
+
+	{-column2}
+
+</div>
+
 <div class = 'main'>
 
 	{-set|_date_from|{-story_date|%y%m%d000000|{-var|topic}|{-var|id}}}
