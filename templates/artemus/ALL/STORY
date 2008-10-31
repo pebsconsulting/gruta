@@ -3,6 +3,9 @@
 
 {-header}
 
+{-set|html_title|{-sitename}: {-story_title|{-var|topic}|{-var|id}}}
+{-set|html_keywords|{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }}
+
 <div class = 'column1'>
 
 	<h1>{-topic_name|{-var|topic}}</h1>

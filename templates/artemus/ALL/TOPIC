@@ -1,6 +1,8 @@
 {-assert|{-topic_id|{-var|topic}}|404}
 {-header}
 
+{-set|html_title|{-sitename}: {-topic_name|{-var|topic}}}
+
 <div class = 'column1'>
 
 </div>

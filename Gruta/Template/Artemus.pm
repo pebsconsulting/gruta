@@ -713,6 +713,28 @@ sub cgi_vars {
 }
 
 
-sub process { $_[0]->_artemus->process('{-' . $_[1] . '}'); }
+sub process {
+	my $self	= shift;
+	my $st		= shift;
+
+	my $ret = $self->_artemus->process('{-' . $st . '}');
+
+	# process special HTML variables
+	my $t;
+
+	if ($t = $self->{_artemus}->{vars}->{html_title}) {
+		$ret =~ s!</head>!<title>$t</title></head>!i;
+	}
+
+	if ($t = $self->{_artemus}->{vars}->{html_description}) {
+		$ret =~ s!</head>!<meta name="description" content="$t"></head>!i;
+	}
+
+	if ($t = $self->{_artemus}->{vars}->{html_keywords}) {
+		$ret =~ s!</head>!<meta name="keywords" content="$t"></head>!i;
+	}
+
+	return $ret;
+}
 
 1;

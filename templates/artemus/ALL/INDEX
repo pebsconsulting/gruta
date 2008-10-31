@@ -1,5 +1,7 @@
 {-header}
 
+{-set|html_title|{-slogan}}
+
 <div class = 'column1'>
 
 	{-column1}
