@@ -5,11 +5,20 @@
 
 <div class = 'column1'>
 
+	{-column1}
+
+</div>
+
+<div class = 'column2'>
+
+	{-column2}
+
 </div>
 
 <div class = 'main'>
 
 	{-if|{-story_title|{-var|topic}|index}|
+		\{-set\|html_title\|{-sitename}: \{-story_title\|{-var|topic}\|index\}\}
 		\{-story_body\|{-var|topic}\|index\}
 	|
 		<h1 class = 'topic_header'>{-topic_name|{-var|topic}}</h1>
