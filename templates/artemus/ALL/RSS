@@ -4,15 +4,15 @@
 <channel>
 
 <title>{-cfg_site_name}</title>
-<link>http://{-host}</link>
+<link>http://{-cfg_host_name}</link>
 <description>{-slogan}</description>
-<copyright>{-copyright}</copyright>
+<copyright>{-cfg_copyright}</copyright>
 <language>en-en</language>
 
 <image>
 	<title>{-cfg_site_name}</title>
-	<url>http://{-host}/img/icon.png</url>
-	<link>http://{-host}</link>
+	<url>http://{-cfg_host_name}/img/icon.png</url>
+	<link>http://{-cfg_host_name}</link>
 	<width>16</width>
 	<height>16</height>
 	<description>{-slogan}</description>

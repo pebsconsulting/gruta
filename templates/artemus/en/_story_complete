@@ -6,5 +6,5 @@
 
 <div class = 'self_links'>
 	<a href = '{-l|STORY_PRINTABLE|topic=$0|id=$1}'>Print version</a> -
-	<a href = 'http://{-host}/?t=STORY;topic=$0;id=$1'>Permanent link to this page</a>
+	<a href = 'http://{-cfg_host_name}/?t=STORY;topic=$0;id=$1'>Permanent link to this page</a>
 </div>

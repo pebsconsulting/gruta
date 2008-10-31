@@ -1,6 +1,6 @@
 
 </div> <!-- inner-container -->
 
-<div class = 'footer'>{-copyright}</div>
+<div class = 'footer'>{-cfg_copyright}</div>
 
 </div> <!-- outer-container -->
