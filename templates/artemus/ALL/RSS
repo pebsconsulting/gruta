@@ -5,7 +5,7 @@
 
 <title>{-cfg_site_name}</title>
 <link>http://{-cfg_host_name}</link>
-<description>{-slogan}</description>
+<description>{-cfg_slogan}</description>
 <copyright>{-cfg_copyright}</copyright>
 <language>en-en</language>
 
@@ -15,7 +15,7 @@
 	<link>http://{-cfg_host_name}</link>
 	<width>16</width>
 	<height>16</height>
-	<description>{-slogan}</description>
+	<description>{-cfg_slogan}</description>
 </image>
 
 {-foreach|{-stories_by_date|{-var|topics|{-cfg_index_topics}}|

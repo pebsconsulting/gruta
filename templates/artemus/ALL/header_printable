@@ -8,4 +8,4 @@
 
 <img src = 'img/logo.jpg' alt = "{-cfg_site_name}" border = '0'>
 
-<p>{-slogan}</p>
+<p>{-cfg_slogan}</p>

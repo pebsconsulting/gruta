@@ -1,6 +1,6 @@
 {-header}
 
-{-set|html_title|{-slogan}}
+{-set|html_title|{-cfg_slogan}}
 {-set|html_description|{-cfg_site_description}}
 
 <div class = 'column1'>
