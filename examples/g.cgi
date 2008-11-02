@@ -13,6 +13,7 @@ use Gruta::Source::DBI;
 #use Gruta::Source::FS;
 use Gruta::Renderer::Grutatxt;
 use Gruta::Renderer::HTML;
+use Gruta::Renderer::Text;
 use Gruta::Template::Artemus;
 
 my $base = '/var/www/gruta';
