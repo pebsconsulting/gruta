@@ -111,36 +111,19 @@ my $X = {
 		}
 	],
 	'new_story' =>	[
-		'new_story {src} {topic_id} {id} {date} {date2} {format} {tags}',
+		'new_story {src} {topic_id} [{id}]',
 		'Creates a new story from STDIN',
 		sub {
 			my $g		= init();
 			my $topic_id	= arg();
-			my $id		= arg();
-			my $date	= arg();
-			my $date2	= arg();
-			my $format	= arg();
-			my $tags	= arg();
+			my $id		= arg_o();
 
-			my $content = join('', <>);
+			my $fh = File::Temp->new();
+			print $fh join('', <>);
+			my $fn = $fh->filename();
+			$fh->close();
 
-			my $story = Gruta::Data::Story->new(
-				topic_id	=> $topic_id,
-				id		=> $id
-			);
-
-			$story->set('date', $date || Gruta::Data::today());
-			$story->set('date2', $date2);
-			$story->set('format', $format || 'grutatxt');
-			$story->set('ctime', time());
-			$story->set('userid', $ENV{USER});
-			$story->set('content', $content);
-
-			$story = $g->insert_story($story);
-
-			if ($tags) {
-				$story->tags(split(/\s*,\s*/, $tags));
-			}
+			save_story($g, $topic_id, $id, $fn, 1);
 		}
 	],
 	'filter_story' => [
@@ -485,18 +468,23 @@ sub save_story
 	my $topic_id	= shift;
 	my $id		= shift;
 	my $fn		= shift;
+	my $new		= shift;
+	my $tags;
 
 	open F, $fn or die "Can't open $fn";
 
 	my $story = undef;
 
-	if ($id) {
-		$story = $g->story($topic_id, $id);
+	if ($id && !$new) {
+		$story = $g->story($topic_id, $id)
+			or die "Cannot find story '${topic_id}/${id}'";
 	}
 	else {
 		$story = Gruta::Data::Story->new (
 			topic_id	=> $topic_id,
-			id		=> $id
+			id		=> $id,
+			date		=> Gruta::Data::today(),
+			format		=> 'grutatxt'
 		);
 	}
 
@@ -508,7 +496,7 @@ sub save_story
 		my ($key, $value) = (/^(\w+):\s*(.*)$/);
 
 		if ($key eq 'tags') {
-			$story->tags(split(/,\s*/, $value));
+			$tags = $value;
 		}
 		else {
 			$story->set($key, $value);
@@ -525,6 +513,10 @@ sub save_story
 	}
 	else {
 		$g->insert_story($story);
+	}
+
+	if ($tags) {
+		$story->tags(split(/,\s*/, $tags));
 	}
 }
 
