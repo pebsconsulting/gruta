@@ -429,7 +429,8 @@ sub get_story
 	my $id		= shift;
 	my @r		= ();
 
-	my $story = $g->story($topic_id, $id);
+	my $story = $g->story($topic_id, $id)
+			or die "Cannot find story '${topic_id}/${id}'";
 
 	foreach my $f ($story->fields()) {
 		if ($f ne 'content') {
