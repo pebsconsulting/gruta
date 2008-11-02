@@ -26,6 +26,7 @@ my $g = Gruta->new(
 		Gruta::Renderer::Grutatxt->new(),
 		Gruta::Renderer::HTML->new(),
 		Gruta::Renderer::HTML->new( valid_tags => undef ),
+		Gruta::Renderer::Text->new(),
 	],
 	template	=> Gruta::Template::Artemus->new( path =>
 		"${base}/var/templates" .
