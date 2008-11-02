@@ -126,6 +126,22 @@ my $X = {
 			save_story($g, $topic_id, $id, $fn, 1);
 		}
 	],
+	'update_story' =>	[
+		'update_story {src} {topic_id} {id}',
+		'Updates a story from STDIN',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
+			my $id		= arg();
+
+			my $fh = File::Temp->new();
+			print $fh join('', <>);
+			my $fn = $fh->filename();
+			$fh->close();
+
+			save_story($g, $topic_id, $id, $fn);
+		}
+	],
 	'filter_story' => [
 		'filter_story {src} {topic_id} {id} {command}',
 		'Filters story data through command (STDIN, STDOUT)',
