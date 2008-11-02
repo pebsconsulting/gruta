@@ -512,6 +512,11 @@ sub save_story
 
 		my ($key, $value) = (/^(\w+):\s*(.*)$/);
 
+		if (!$key) {
+			$_ .= "\n";
+			last;
+		}
+
 		if ($key eq 'tags') {
 			$tags = $value;
 		}
@@ -520,7 +525,7 @@ sub save_story
 		}
 	}
 
-	my $c = join('', <F>);
+	my $c = join('', $_, <F>);
 	close F;
 
 	$story->set('content', $c);
