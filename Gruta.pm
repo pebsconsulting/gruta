@@ -292,9 +292,9 @@ sub special_uris {
 	my $self	= shift;
 	my $string	= shift;
 
-	$string =~ s!topic://([\w\d_]+)!$self->_topic_special_uri($1)!ge;
-	$string =~ s!story://([\w\d_]+)/([\w\d_]+)!$self->_story_special_uri($1,$2)!ge;
-	$string =~ s!img://([\w\d_\.-]+)/?([\w\d_]*)!$self->_img_special_uri($1,$2)!ge;
+	$string =~ s!topic://([\w\d_-]+)!$self->_topic_special_uri($1)!ge;
+	$string =~ s!story://([\w\d_-]+)/([\w\d_-]+)!$self->_story_special_uri($1,$2)!ge;
+	$string =~ s!img://([\w\d_\.-]+)/?([\w\d_-]*)!$self->_img_special_uri($1,$2)!ge;
 
 	return $string;
 }
