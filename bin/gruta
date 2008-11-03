@@ -520,7 +520,7 @@ sub save_story
 		if ($key eq 'tags') {
 			$tags = $value;
 		}
-		else {
+		elsif ($value) {
 			$story->set($key, $value);
 		}
 	}
