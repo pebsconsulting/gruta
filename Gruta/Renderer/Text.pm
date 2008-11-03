@@ -21,8 +21,8 @@ sub story {
 	my $abstract = '';
 	my $content = $story->get('content');
 
-	($title) = (/^\s*([^\n]+)/s);
-	$abstract = "<h1>\n" . $title . "</h1>\n";
+	($title) = (split(/\r?\n/, $content))[0];
+	$abstract = "<h2>\n" . $title . "</h2>\n";
 
 	$story->set('title', $title);
 	$story->set('abstract', $abstract);
