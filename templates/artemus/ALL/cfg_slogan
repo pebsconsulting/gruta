@@ -1,6 +1,6 @@
-=item slogan
+=item cfg_slogan
 
- slogan
+ cfg_slogan
 
 Write here a one-line slogan for your site.
 =cut

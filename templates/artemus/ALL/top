@@ -2,6 +2,6 @@
 
 	<div class = 'meta_menu'>{-meta_menu}</div>
 
-	<div class = 'slogan'>{-slogan}</div>
+	<div class = 'slogan'>{-cfg_slogan}</div>
 
 </div>
