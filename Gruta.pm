@@ -317,6 +317,7 @@ sub special_uris {
 	$string =~ s!story://([\w\d_-]+)/([\w\d_-]+)!$self->_story_special_uri($1,$2)!ge;
 	$string =~ s!img://([\w\d_\.-]+)/?([\w\d_-]*)!$self->_img_special_uri($1,$2)!ge;
 	$string =~ s!body://([\w\d_-]+)/([\w\d_-]+)!$self->_content_special_uri($1,$2,'body')!ge;
+	$string =~ s!abstract://([\w\d_-]+)/([\w\d_-]+)!$self->_content_special_uri($1,$2,'abstract')!ge;
 
 	return $string;
 }
