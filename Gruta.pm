@@ -288,6 +288,26 @@ sub _img_special_uri {
 	return $r;
 }
 
+
+sub _body_special_uri {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $story_id	= shift;
+
+	my $ret = undef;
+
+	if (my $s = $self->story($topic_id, $story_id)) {
+		$ret = $s->get('body');
+	}
+	else {
+		$ret = "Bad story '$topic_id/$story_id'";
+	}
+
+	return $ret;
+}
+
+
+
 sub special_uris {
 	my $self	= shift;
 	my $string	= shift;
@@ -295,6 +315,7 @@ sub special_uris {
 	$string =~ s!topic://([\w\d_-]+)!$self->_topic_special_uri($1)!ge;
 	$string =~ s!story://([\w\d_-]+)/([\w\d_-]+)!$self->_story_special_uri($1,$2)!ge;
 	$string =~ s!img://([\w\d_\.-]+)/?([\w\d_-]*)!$self->_img_special_uri($1,$2)!ge;
+	$string =~ s!body://([\w\d_-]+)/([\w\d_-]+)!$self->_body_special_uri($1,$2)!ge;
 
 	return $string;
 }
