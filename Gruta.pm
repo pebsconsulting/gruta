@@ -297,7 +297,7 @@ sub _body_special_uri {
 	my $ret = undef;
 
 	if (my $s = $self->story($topic_id, $story_id)) {
-		$ret = $s->get('body');
+		$ret = $self->special_uris($s->get('body'));
 	}
 	else {
 		$ret = "Bad story '$topic_id/$story_id'";
