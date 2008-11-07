@@ -1,0 +1,35 @@
+Gruta release notes
+===================
+
+2.0.1
+-----
+
+ * On-the-fly Gzip compression (if browser accepts it).
+ * New special uris: `abstract', to paste a story's abstract, and `body',
+   to paste the full body of another one.
+ * A new renderer, Text, for plain text content.
+ * New Artemus variables to set HTML metadata: `html_title',
+   `html_description' and `html_keywords'.
+ * A new supertemplate called CSS, that returns the Cascading Style
+   Sheet instead of having it embedded in all output.
+ * A new supertemplate called SITEMAP (to be aliased to /sitemap.xml).
+ * Several new commands in the `gruta' command line tool: _new_story_ (to
+   create a new story from STDIN), _import_rss_ (to import an RSS file
+   into a topic), _update_story_ (to update a story from STDIN).
+ * Internal server errors set the HTTP status to 500.
+ * Some old function templates have been deleted and moved to Artemus.
+ * The '<<' is not shown if offset is 0 in navigator pages.
+ * Many templates have been simplified with new Artemus keywords.
+ * The DBI driver is less verbose on errors.
+ * Those templates more prone to be changed when configuring a new
+   site have been renamed to have a prefix of 'cfg_'.
+ * Added POD documentation to some templates.
+ * Date formatting functions now accept `%w' to print the week day
+   as a number.
+ * All source drivers accept the `dummy_touch' argument to avoid updating
+   the `hits' count of each story.
+ * Several fixes to the Mbox driver.
+ * Don't generate empty 'about' and 'legal' links in 'meta_menu' if
+   they don't exist.
+ * If a story called `index' is present in a topic, the 'TOPIC' template
+   shows its body instead of just the name of the topic.
