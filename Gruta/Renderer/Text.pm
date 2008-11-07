@@ -21,6 +21,10 @@ sub story {
 	my $abstract = '';
 	my $content = $story->get('content');
 
+	$content =~ s/&/&amp;/g;
+	$content =~ s/</&lt;/g;
+	$content =~ s/>/&gt;/g;
+
 	($title) = (split(/\r?\n/, $content))[0];
 	$abstract = "<h2>\n" . $title . "</h2>\n";
 
