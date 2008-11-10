@@ -6,7 +6,7 @@ Generates a story link in RSS format.
 =cut
 <item>
 	<title>{-story_title|$0|$1}</title>
-	<link>http://{-cfg_host_name}/{-l|STORY|topic=$0|id=$1}</link>
+	<link>http://{-cfg_host_name}/?t=STORY;topic=$0;id=$1</link>
 	<author>{-story_userid|$0|$1}</author>
 	<description>
 <![CDATA[
