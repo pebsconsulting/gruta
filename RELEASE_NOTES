@@ -27,8 +27,8 @@ Gruta Release Notes
  * Added POD documentation to some templates.
  * Date formatting functions now accept `%w' to print the week day
    as a number.
- * All source drivers accept the `dummy_touch' argument to avoid updating
-   the `hits' count of each story.
+ * New global argument `dummy_touch' to avoid updating the `hits' count
+   of each story.
  * Several fixes to the Mbox driver.
  * Don't generate empty 'about' and 'legal' links in 'meta_menu' if
    they don't exist.
