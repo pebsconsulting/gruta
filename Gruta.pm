@@ -379,7 +379,8 @@ sub new {
 
 	my $g = bless( { @_ } , $class);
 
-	$g->{id} ||= 'Gruta';
+	$g->{id}		||= 'Gruta';
+	$g->{args}		||= {};
 
 	$g->{story_cache}	= {};
 	$g->{renderers_h}	= {};
