@@ -133,7 +133,7 @@ sub save {
 sub touch {
 	my $self = shift;
 
-	if (! $self->source->{dummy_touch}) {
+	if (! $self->source->dummy_touch()) {
 		my $hits = $self->get('hits') + 1;
 
 		$self->set('hits', $hits);

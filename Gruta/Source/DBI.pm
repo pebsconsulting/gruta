@@ -125,7 +125,7 @@ sub pk { return qw(id topic_id); }
 sub touch {
 	my $self = shift;
 
-	if (! $self->source->{dummy_touch}) {
+	if (! $self->source->dummy_touch()) {
 		my $sth = $self->source->_prepare(
 			'UPDATE stories SET hits = hits + 1 WHERE topic_id = ? AND id = ?');
 		$self->source->_execute($sth, $self->get('topic_id'), $self->get('id'));
