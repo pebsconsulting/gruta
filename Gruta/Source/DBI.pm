@@ -1,5 +1,7 @@
 package Gruta::Source::DBI;
 
+use base 'Gruta::Source::BASE';
+
 use strict;
 use warnings;
 use Carp;
