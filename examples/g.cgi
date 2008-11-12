@@ -37,7 +37,9 @@ my $g = Gruta->new(
 	cgi		=> Gruta::CGI->new(
 		upload_dirs     => [ "${base}/img" ],
 	),
-	base_url	=> 'http://example.com/',
+	args		=> {
+		base_url	=> 'http://example.com/',
+	}
 );
 
 $g->run();

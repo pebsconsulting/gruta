@@ -231,7 +231,7 @@ sub logout {
 }
 
 
-sub base_url { $_[0]->{base_url} || '' };
+sub base_url { $_[0]->{args}->{base_url} || '' };
 
 sub _topic_special_uri {
 	my $self	= shift;
