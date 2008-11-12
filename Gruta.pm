@@ -387,6 +387,10 @@ sub new {
 
 	if (ref($g->{sources}) ne 'ARRAY') {
 		$g->{sources} = [ $g->{sources} ];
+
+		foreach my $s (@{$g->{sources}}) {
+			$s->data($g);
+		}
 	}
 
 	if ($g->{renderers}) {
