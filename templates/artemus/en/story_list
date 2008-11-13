@@ -3,12 +3,15 @@
 	<div class = 'topic_list'>
 
 		{-if|{-is_topic_editor|$0}|
+
+			<div class = 'future_stories_list'>
 			<ul>
 			<li><a href='{-l|EDIT_STORY|topic=$0|id=[]}'>[New]</a></li>
 			{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
 				\{-_story_link_edit_and_preview\|$0\|\$0\}
 			}
 			</ul>
+			</div>
 		}
 
 		{-foreach|{-stories_by_date|$0|$1|$2}|\{-_story_abstract\|$0\|\$0\}}
