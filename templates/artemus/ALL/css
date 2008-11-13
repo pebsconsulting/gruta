@@ -67,6 +67,7 @@ h6 { font-size: 80%; }
 .story_abstract { float: left; width: 100%; }
 .story_footer { float: left; width: 100%; background: #eeeecd; margin-bottom: 2em; }
 .topic_list { margin-left: 2em; }
+.topic_index { border-bottom: solid 1px; }
 .navigator { clear: both; }
 .navigator .prev { float: left; }
 .navigator .next { float: right; }
