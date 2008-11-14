@@ -12,7 +12,7 @@
 
 	<ul>
 	{-foreach|{-stories_by_date|{-var|topic}|8}|
-	<li><a href = '\{-l\|STORY\|topic={-var|topic}\|id=\$0\}'>\{-story_title\|{-var|topic}\|\$0\}</a></li>
+	<li><a href = '\{-url\|STORY\|topic\|{-var|topic}\|id\|\$0\}'>\{-story_title\|{-var|topic}\|\$0\}</a></li>
 	}
 	</ul>
 
@@ -30,7 +30,7 @@
 	{-set|_date_to|{-story_date|%y%m%d235959|{-var|topic}|{-var|id}}}
 
 	<div class = 'date'>
-	<a href = '{-l|SEARCH_BY_DATE|from={-_date_from}|to={-_date_to}}'>{-story_date|%d/%m/%y|{-var|topic}|{-var|id}}</a>
+	<a href = '{-url|SEARCH_BY_DATE|from|{-_date_from}|to|{-_date_to}}'>{-story_date|%d/%m/%y|{-var|topic}|{-var|id}}</a>
 	</div>
 
 	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
