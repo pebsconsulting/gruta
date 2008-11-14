@@ -233,6 +233,31 @@ sub logout {
 
 sub base_url { $_[0]->{args}->{base_url} || '' };
 
+sub url {
+	my $self	= shift;
+	my $st		= shift;
+	my %args	= @_;
+
+	my $ret = '';
+
+	if ($self->{args}->{static_urls} && $st =~ /^(INDEX|TOPIC|STORY)$/) {
+		if ($st eq 'TOPIC') {
+			$ret = $args{topic} . '/';
+		}
+		elsif ($st eq 'STORY') {
+			$ret = $args{topic} . '/' . $args{id} . '.html';
+		}
+	}
+	else {
+		$args{t} = $st;
+
+		$ret = '?' . join(';', map { "$_=$args{$_}" } sort keys(%args));
+	}
+
+	return $self->base_url() . $ret;
+}
+
+
 sub _topic_special_uri {
 	my $self	= shift;
 	my $topic_id	= shift;
@@ -386,12 +411,14 @@ sub new {
 	$g->{renderers_h}	= {};
 	$g->{calls}		= {};
 
-	if (ref($g->{sources}) ne 'ARRAY') {
-		$g->{sources} = [ $g->{sources} ];
-	}
+	if ($g->{sources}) {
+		if (ref($g->{sources}) ne 'ARRAY') {
+			$g->{sources} = [ $g->{sources} ];
+		}
 
-	foreach my $s (@{$g->{sources}}) {
-		$s->data($g);
+		foreach my $s (@{$g->{sources}}) {
+			$s->data($g);
+		}
 	}
 
 	if ($g->{renderers}) {
