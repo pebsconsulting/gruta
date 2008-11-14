@@ -45,6 +45,18 @@ sub _artemus {
 			return $data->url($t, @_);
 		};
 
+		$f{aurl} = sub {
+			my $t = shift;
+
+			my $ret = $data->url($t, @_);
+
+			if ($ret !~ /^http:/) {
+				$ret = "http://{-cfg_host_name}/$ret";
+			}
+
+			return $ret;
+		};
+
 		$f{date} = sub {
 			my $fmt	= shift;
 			my $d	= shift || Gruta::Data::today();
