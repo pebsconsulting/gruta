@@ -265,8 +265,9 @@ sub _topic_special_uri {
 	my $ret = undef;
 
 	if (my $t = $self->topic($topic_id)) {
-		$ret = sprintf('<a href="%s?t=TOPIC;topic=%s">%s</a>',
-			$self->base_url(), $topic_id, $t->get('name')
+		$ret = sprintf('<a href="%s">%s</a>',
+			$self->url('TOPIC', 'topic' => $topic_id),
+			$t->get('name')
 		);
 	}
 	else {
@@ -285,8 +286,12 @@ sub _story_special_uri {
 	my $ret = undef;
 
 	if (my $s = $self->story($topic_id, $story_id)) {
-		$ret = sprintf('<a href="%s?t=STORY;topic=%s;id=%s">%s</a>',
-			$self->base_url(), $topic_id, $story_id, $s->get('title')
+		$ret = sprintf('<a href="%s">%s</a>',
+			$self->url('STORY',
+				'topic' => $topic_id,
+				'id' => $story_id
+			),
+			$s->get('title')
 		);
 	}
 	else {
