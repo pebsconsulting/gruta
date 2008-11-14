@@ -1,1 +1,1 @@
-<li><a href='{-l|STORY|topic=$0|id=$1}'>{-story_title|$0|$1}</a></li>
+<li><a href='{-url|STORY|topic|$0|id|$1}'>{-story_title|$0|$1}</a></li>
