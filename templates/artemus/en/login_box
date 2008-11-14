@@ -4,9 +4,9 @@
 	You are logged in as <b>{-username}</b>.
 
 	<ul>
-	{-if|{-is_admin}|<li><a href = '{-l|ADMIN}'>Admin</a></li>}
-	<li><a href = "{-l|LOGOUT}">Logout</a></li>
-	<li><a href = "{-l|EDIT_USER|userid={-userid}}">Preferences</a></li>
+	{-if|{-is_admin}|<li><a href = '{-url|ADMIN}'>Admin</a></li>}
+	<li><a href = "{-url|LOGOUT}">Logout</a></li>
+	<li><a href = "{-url|EDIT_USER|userid|{-userid}}">Preferences</a></li>
 	</ul>
 |
 	<form method = 'post'>

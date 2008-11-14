@@ -2,11 +2,11 @@
 
 <ul>
 
-{-if|$1|<li><a href='{-l|EDIT_STORY|topic=$0|id=[]|hl=}'>[Nueva]</a></li>}
+{-if|$1|<li><a href='{-url|EDIT_STORY|topic|$0|id|[]}'>[Nueva]</a></li>}
 
 {-foreach|{-stories_by_date|$0|$2|$3|||1}|\{-_story_link_edit_and_preview\|$0\|\$0\}}
 
 </ul>
 
 {-if|{-topic_has_archive|$0}|
-Esta secci&oacute;n tiene <a href='{-l|TOPIC|topic=$0-arch}'>historias archivadas</a>.}
+Esta secci&oacute;n tiene <a href='{-url|TOPIC|topic|$0-arch}'>historias archivadas</a>.}

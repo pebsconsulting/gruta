@@ -5,7 +5,7 @@
 
 	<h1>Delete story</h1>
 
-	<p><a href='{-l|INDEX}'>Index</a> - <a href='{-l|ADMIN}'>Admin</a>
+	<p><a href='{-url|INDEX}'>Index</a> - <a href='{-url|ADMIN}'>Admin</a>
 
 	<p>
 	{-delete_story|{-var|topic}|{-var|id}}

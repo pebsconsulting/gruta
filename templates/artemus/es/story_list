@@ -4,7 +4,7 @@
 
 		{-if|{-is_topic_editor|$0}|
 			<ul>
-			<li><a href='{-l|EDIT_STORY|topic=$0|id=[]}'>[Nueva]</a></li>
+			<li><a href='{-url|EDIT_STORY|topic|$0|id|[]}'>[Nueva]</a></li>
 			{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
 				\{-_story_link_edit_and_preview\|$0\|\$0\}
 			}

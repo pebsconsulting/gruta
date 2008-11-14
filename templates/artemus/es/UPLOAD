@@ -6,7 +6,7 @@
 
 	{-upload|{-var|updir}|file}
 
-	<p><a href='{-l|ADMIN}'>Volver a Administraci&oacute;n</a>
+	<p><a href='{-url|ADMIN}'>Volver a Administraci&oacute;n</a>
 
 </div>
 

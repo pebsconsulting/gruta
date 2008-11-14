@@ -5,14 +5,14 @@
 	}
 
 	{-ifneq|{-var|t}|STORY|
-		<span class = 'full_story_link'><a href='{-l|STORY|topic=$0|id=$1}'>More...</a></span>
+		<span class = 'full_story_link'><a href='{-url|STORY|topic|$0|id|$1}'>More...</a></span>
 	}
 
 	{-if|{-is_topic_editor|$0}|
-		<span class = 'edit_link'> - <a href='{-l|EDIT_STORY|topic=$0|id=$1}'>[Edit]</a></span>
+		<span class = 'edit_link'> - <a href='{-url|EDIT_STORY|topic|$0|id|$1}'>[Edit]</a></span>
 	}
 
-	<span class = 'topic_link'>| <a href = '{-l|TOPIC|topic=$0}'>{-topic_name|$0}</a></span>
+	<span class = 'topic_link'>| <a href = '{-url|TOPIC|topic|$0}'>{-topic_name|$0}</a></span>
 
 	<span class = 'tags'>
 	{-foreach|{-story_tags|$0|$1}|\{-_search_tag\|\$0\|\$1\}|, }
