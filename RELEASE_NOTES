@@ -33,3 +33,13 @@ Gruta Release Notes
  * Don't generate empty 'about' and 'legal' links in 'meta_menu' if
    they don't exist.
  * Confirmation is requested when deleting a story.
+ * New global argument `static_urls', that forces some urls (mainly
+   links to topics and stories) to use a simplified, static-like look.
+   You *need* to have the following Apache's mod_rewrite keywords
+   for these urls to be re-converted to usable ones:
+
+ RewriteEngine On
+ RewriteRule /(img|download)/.* - [L]
+ RewriteRule /(.+)/(.+)\.html     /?t=STORY&topic=$1&id=$2 [PT]
+ RewriteRule /(.+)/index\.html    /?t=TOPIC&topic=$1       [PT]
+ RewriteRule /(.+)/               /?t=TOPIC&topic=$1       [PT]
