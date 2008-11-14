@@ -17,7 +17,7 @@ Shows a complete story, in 'printer-friendly' format.
 
 	<div class = 'self_links'>
 		Permanent link to this page:
-		<a href='http://{-cfg_host_name}/?t=STORY;topic=$0;id=$1'>http://{-cfg_host_name}/?t=STORY;topic=$0;id=$1</a>
+		<a href='{-aurl|STORY|topic|$0|id|$1}'>{-aurl|STORY|topic|$0|id|$1}</a>
 	</div>
 
 </div>
