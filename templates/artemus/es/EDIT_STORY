@@ -51,7 +51,7 @@
 	<input type = 'submit' class = 'button' value = 'OK'>
 </form>
 
-<form method = 'post'>
+<form method = 'post' onsubmit = 'return confirm("¿Está seguro de querer borrar esta historia?");'>
 	<input type = 'hidden' name = 't'	value = 'DELETE_STORY'>
 	<input type = 'hidden' name = 'topic'	value = '{-var|topic}'>
 	<input type = 'hidden' name = 'id'	value = '{-var|id}'>
