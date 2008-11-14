@@ -39,6 +39,12 @@ sub _artemus {
 			return $data->base_url() . '?t=' . $t . ';' . join(';', @_);
 		};
 
+		$f{url} = sub {
+			my $t = shift;
+
+			return $data->url($t, @_);
+		};
+
 		$f{date} = sub {
 			my $fmt	= shift;
 			my $d	= shift || Gruta::Data::today();
