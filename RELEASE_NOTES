@@ -32,3 +32,4 @@ Gruta Release Notes
  * Several fixes to the Mbox driver.
  * Don't generate empty 'about' and 'legal' links in 'meta_menu' if
    they don't exist.
+ * Confirmation is requested when deleting a story.
