@@ -6,6 +6,6 @@
 
 <body>
 
-<img src = 'img/logo.jpg' alt = "{-cfg_site_name}" border = '0'>
+<img src = '{-cfg_logo_url}' alt = "{-cfg_site_name}" border = '0'>
 
 <p>{-cfg_slogan}</p>
