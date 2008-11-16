@@ -4,8 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1045: Fix Gruta->url() to not return static urls if additional
-   arguments are given.
+None!
 
 Open Bugs
 ---------
@@ -100,5 +99,7 @@ Closed
  * 1038: Translate the spanish templates to english
    (Thu, 18 Sep 2008 13:04:40 +0200).
  * 1044: Fix Mbox's search_by_tag (Mon, 27 Oct 2008 16:19:16 +0100).
+ * 1045: Fix Gruta->url() to not return static urls if additional
+   arguments are given (Sun, 16 Nov 2008 09:49:48 +0100).
 
 Email bugs to angel@triptico.com

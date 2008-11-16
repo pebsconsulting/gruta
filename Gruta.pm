@@ -238,23 +238,27 @@ sub url {
 	my $st		= shift;
 	my %args	= @_;
 
-	my $ret = '';
+	my $ret = $self->base_url();
 
-	if ($self->{args}->{static_urls} && $st =~ /^(INDEX|TOPIC|STORY)$/) {
-		if ($st eq 'TOPIC') {
-			$ret = $args{topic} . '/';
+	if ($self->{args}->{static_urls}) {
+		my $kn = scalar(keys(%args));
+
+		if ($st eq 'INDEX' && $kn == 0) {
+			return $ret;
 		}
-		elsif ($st eq 'STORY') {
-			$ret = $args{topic} . '/' . $args{id} . '.html';
+		elsif ($st eq 'TOPIC' && $kn == 1) {
+			return $ret . $args{topic} . '/';
+		}
+		elsif ($st eq 'STORY' && $kn == 2) {
+			return $ret . $args{topic} . '/' . $args{id} . '.html';
 		}
 	}
-	else {
-		$args{t} = $st;
 
-		$ret = '?' . join(';', map { "$_=$args{$_}" } sort keys(%args));
-	}
+	$args{t} = $st;
 
-	return $self->base_url() . $ret;
+	$ret .= '?' . join(';', map { "$_=$args{$_}" } sort keys(%args));
+
+	return $ret;
 }
 
 
