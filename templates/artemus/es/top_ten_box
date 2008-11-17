@@ -1,7 +1,7 @@
 <h1>Los m&aacute;s le&iacute;dos</h1>
 
 <ul>
-	{-foreach|{-stories_top_ten|10}|
+	{-foreach|{-stories_top_ten|{-var|num|10}}|
 	\{-_story_link_as_item_with_hits\|\$1\|\$2\|\$0\}
 	}
 </ul>
