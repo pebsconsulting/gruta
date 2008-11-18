@@ -10,7 +10,7 @@
 		}
 
 		<li><a href = '{-url|TAGS}'>Tags</a></li>
-		<li><a href = '{-url|TOP_TEN}'>Top ten</a></li>
+		{-if|{-cfg_top_ten_num}|<li><a href = '{-url|TOP_TEN}'>Top stories</a></li>}
 	</ul>
 
 </div>

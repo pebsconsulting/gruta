@@ -1,0 +1,8 @@
+=item cfg_top_ten_num
+
+  cfg_top_ten_num
+
+The number of stories in the 'top' list.
+If set to 0, the link in the menu will not be shown.
+=cut
+10

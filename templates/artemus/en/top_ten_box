@@ -1,7 +1,7 @@
 <h1>Top ten</h1>
 
 <ul>
-	{-foreach|{-stories_top_ten|{-var|num|10}}|
+	{-foreach|{-stories_top_ten|{-var|num|{-cfg_top_ten_num}}}|
 	\{-_story_link_as_item_with_hits\|\$1\|\$2\|\$0\}
 	}
 </ul>
