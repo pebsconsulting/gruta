@@ -11,7 +11,7 @@
 		<li><a href = '{-url|LOGIN}'>Login</a></li>
 	}
 	<li>
-	<form>
+	<form action = '/'>
 		<input type = 'hidden' name = 't'       value = 'SEARCH'>
 		<input type = 'text'   name = 'query'   value = ''>
 		<input type = 'submit' class = 'button' value = 'Search'>
