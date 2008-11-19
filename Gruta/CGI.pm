@@ -31,9 +31,10 @@ sub status { $_[0]->http_headers( 'Status', $_[1] ); }
 
 sub redirect {
 	my $self	= shift;
-	my $dir		= shift;
 
-	$self->http_headers( 'Location', $self->data->base_url() . $dir );
+	$self->http_headers('Location', $self->data->url(@_));
+
+	return $self;
 }
 
 sub data {
@@ -153,7 +154,7 @@ sub run {
 
 	if ($@) {
 		$data->log($@);
-#		$self->redirect('?t=INDEX');
+#		$self->redirect('INDEX');
 
 		$self->status(500);
 		$body = "<h1>500 Internal Server Error</h1><p>$@</p>";
