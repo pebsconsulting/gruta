@@ -1,4 +1,4 @@
-{-content_type|text/xml}<?xml version="1.0" encoding="UTF-8"?>
+{-content_type|application/rss+xml}<?xml version="1.0" encoding="UTF-8"?>
 <rss version="0.91">
 
 <channel>
