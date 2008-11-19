@@ -40,6 +40,8 @@ Gruta Release Notes
 
  RewriteEngine On
  RewriteRule /(img|download)/.* - [L]
- RewriteRule /(.+)/(.+)\.html     /?t=STORY&topic=$1&id=$2 [PT]
- RewriteRule /(.+)/index\.html    /?t=TOPIC&topic=$1       [PT]
- RewriteRule /(.+)/               /?t=TOPIC&topic=$1       [PT]
+ RewriteRule /(.+)/index\.html /?t=TOPIC&topic=$1       [PT]
+ RewriteRule /(.+)/(.+)\.html  /?t=STORY&topic=$1&id=$2 [PT]
+ RewriteRule /(.+)/            /?t=TOPIC&topic=$1       [PT]
+ RewriteRule /rss.xml          /?t=RSS                  [PT]
+ RewriteRule /sitemap.xml      /?t=SITEMAP              [PT]
