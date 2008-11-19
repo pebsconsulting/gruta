@@ -5,7 +5,7 @@
 
 	<h1>User data</h1>
 
-	<form method = 'post'>
+	<form method = 'post' action = '{-url}'>
 
 		{-if|{-eq|{-var|userid}|[]}|
 		<p>User Id:<br>

@@ -9,7 +9,7 @@
 	<li><a href = "{-url|EDIT_USER|userid|{-userid}}">Preferences</a></li>
 	</ul>
 |
-	<form method = 'post'>
+	<form method = 'post' action = '{-url}'>
 		<input type = 'hidden' name = 't' value = 'LOGIN'>
 		User:<br>
 		<input type = 'text' name = 'userid' size = '10'><br>
