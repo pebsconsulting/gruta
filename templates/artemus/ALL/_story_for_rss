@@ -7,7 +7,7 @@ Generates a story link in RSS format.
 <item>
 	<title>{-story_title|$0|$1}</title>
 	<link>{-aurl|STORY|topic|$0|id|$1}</link>
-	<author>{-story_userid|$0|$1}</author>
+	<author>{-user_email|{-story_userid|$0|$1}} ({-user_username|{-story_userid|$0|$1}})</author>
 	<description>
 <![CDATA[
 {-story_abstract|$0|$1}
