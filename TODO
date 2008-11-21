@@ -23,6 +23,7 @@ Open Bugs
    more than one source (related to #1023).
  * 1043: Delete template _select_option.
  * 1046: Delete template l.
+ * 1047: Escape Artemus markup from story contents.
 
 Pending Enhancements
 --------------------
