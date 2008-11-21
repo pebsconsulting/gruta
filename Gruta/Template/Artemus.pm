@@ -129,7 +129,7 @@ sub _artemus {
 			}
 
 			if (!defined($ret)) {
-				$data->cgi->redirect('?t=404');
+				$data->cgi->redirect('404');
 				$ret = '';
 			}
 
@@ -313,7 +313,7 @@ sub _artemus {
 			}
 			elsif (my $sid = $data->login($user_id, $password)) {
 				$data->cgi->cookie("sid=$sid");
-				$data->cgi->redirect('?t=INDEX');
+				$data->cgi->redirect('INDEX');
 				$self->{abort} = 1;
 			}
 
@@ -322,7 +322,7 @@ sub _artemus {
 
 		$f{logout} = sub {
 			$data->logout();
-			$data->cgi->redirect('?t=INDEX');
+			$data->cgi->redirect('INDEX');
 			$self->{abort} = 1;
 		};
 
@@ -331,7 +331,7 @@ sub _artemus {
 			my $redir	= shift || 'ADMIN';
 
 			if (! $cond) {
-				$data->cgi->redirect('?t=' . $redir);
+				$data->cgi->redirect($redir);
 				$self->{abort} = 1;
 			}
 
@@ -390,10 +390,9 @@ sub _artemus {
 
 			if ($story && $story->get('topic_id') =~ /-arch$/) {
 				$data->cgi->redirect(
-					sprintf('?t=%s;topic=%s;id=%s',
 					$template,
-					$story->get('topic_id'),
-					$id)
+					'topic'	=> $story->get('topic_id'),
+					'id'	=> $id
 				);
 				$self->{abort} = 1;
 			}
@@ -518,7 +517,7 @@ sub _artemus {
 
 			if ($data->auth->get('username') ne $username &&
 				! $data->auth->get('is_admin')) {
-				$data->cgi->redirect('?t=LOGIN');
+				$data->cgi->redirect('LOGIN');
 				$self->{abort} = 1;
 				return '';
 			}

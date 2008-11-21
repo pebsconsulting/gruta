@@ -5,7 +5,7 @@
 
 	<h1>Datos de la secci&oacute;n</h1>
 
-	<form>
+	<form action = '{-url}'>
 
 		{-if|{-eq|{-var|topic}|[]}|
 		<p>Id de la secci&oacute;n <small>(s&oacute;lo min&uacute;sculas y n&uacute;meros)</small><br>

@@ -5,7 +5,7 @@
 
 	<h1>Topic data</h1>
 
-	<form>
+	<form action = '{-url}'>
 
 		{-if|{-eq|{-var|topic}|[]}|
 		<p>Topic id <small>(only undercase letters and/or numbers)</small><br>

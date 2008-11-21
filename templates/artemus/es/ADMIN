@@ -5,7 +5,7 @@
 
 <h1>Plantillas (Templates)</h1>
 
-<form method = 'post'>
+<form method = 'post' action = '{-url}'>
 	<select name = 'id'>
 		<option value = '[]'>[Nueva]</option>
 		{-foreach|{-templates}|<option value = '\$0'>\$0</option>|}
@@ -17,7 +17,7 @@
 
 <h1>Uploads</h1>
 
-<form method = 'post' enctype = 'multipart/form-data'>
+<form method = 'post' enctype = 'multipart/form-data' action = '{-url}'>
 	Directorio:<br>
 	<select name = 'updir'>
 		{-foreach|{-upload_dirs}|<option value = '\$0'>\$0</option>|}
@@ -32,7 +32,7 @@
 
 <h1>Secciones</h1>
 
-<form method = 'post'>
+<form method = 'post' action = '{-url}'>
 
 	<select name = 'topic'>
 		<option value = '[]'>[Nueva]</option>
@@ -45,7 +45,7 @@
 
 <h1>Usuarios</h1>
 
-<form method = 'post'>
+<form method = 'post' action = '{-url}'>
 
 	<select name = 'userid'>
 		<option value = '[]'>[Nuevo]</option>

@@ -235,7 +235,7 @@ sub base_url { $_[0]->{args}->{base_url} || '' };
 
 sub url {
 	my $self	= shift;
-	my $st		= shift;
+	my $st		= shift || '';
 	my %args	= @_;
 
 	my $ret = $self->base_url();
@@ -254,9 +254,11 @@ sub url {
 		}
 	}
 
-	$args{t} = $st;
+	if ($st) {
+		$args{t} = $st;
 
-	$ret .= '?' . join(';', map { "$_=$args{$_}" } sort keys(%args));
+		$ret .= '?' . join(';', map { "$_=$args{$_}" } sort keys(%args));
+	}
 
 	return $ret;
 }
