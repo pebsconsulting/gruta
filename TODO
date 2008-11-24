@@ -23,6 +23,7 @@ Open Bugs
    more than one source (related to #1023).
  * 1043: Delete template _select_option.
  * 1046: Delete template l.
+ * 1047: Escape Artemus markup from story contents.
 
 Pending Enhancements
 --------------------
@@ -30,6 +31,7 @@ Pending Enhancements
  * 1006: Stories should always be rendered on save and retrieved
    from a cache.
  * 1035: Change Gruta::Data::today() to allow a date to be set.
+ * 1048: Add user comments to stories.
 
 Closed
 ------
