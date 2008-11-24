@@ -1,5 +1,6 @@
 {-content_type|text/xml}<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>{-aurl}</loc></url>
 {-foreach|{-stories_by_date||0|0}|
 	<url><loc>\{-aurl\|STORY\|topic\|\$1\|id\|\$0\}</loc></url>}
 {-foreach|{-topics}|
