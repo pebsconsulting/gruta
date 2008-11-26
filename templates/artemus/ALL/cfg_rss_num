@@ -6,4 +6,4 @@ This value is the number of items per page that will be
 shown in the RSS feed. It can usually be overriden
 with the I<num> CGI variable.
 =cut
-12
+{-cfg_index_num}
