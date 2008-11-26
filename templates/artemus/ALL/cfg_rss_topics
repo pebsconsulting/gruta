@@ -1,0 +1,7 @@
+=item cfg_rss_topics
+
+ cfg_rss_topics
+
+The topics that will be shown in the RSS feed file. By default, all topics.
+=cut
+{-topics}

@@ -1,1 +1,7 @@
+=item cfg_index_topics
+
+ cfg_index_topics
+
+The topics that will be shown in the index. By default, all topics.
+=cut
 {-topics}

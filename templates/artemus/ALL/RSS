@@ -18,7 +18,7 @@
 	<description>{-cfg_slogan}</description>
 </image>
 
-{-foreach|{-stories_by_date|{-var|topics|{-cfg_index_topics}}|{-var|num|{-cfg_index_num}}}|
+{-foreach|{-stories_by_date|{-var|topic|{-cfg_rss_topics}}|{-var|num|{-cfg_rss_num}}}|
 <item>
 	<title>\{-story_title\|\$1\|\$0\}</title>
 	<link>\{-aurl\|STORY\|topic\|\$1\|id\|\$0\}</link>
