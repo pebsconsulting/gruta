@@ -240,6 +240,9 @@ sub url {
 
 	my $ret = $self->base_url();
 
+	# strip all undefined or empty arguments
+	%args = map { $_, $args{$_} } grep { $args{$_} } keys(%args);
+
 	if ($self->{args}->{static_urls}) {
 		my $kn = scalar(keys(%args));
 
