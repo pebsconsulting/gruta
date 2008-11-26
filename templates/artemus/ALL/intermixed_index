@@ -6,5 +6,5 @@
 }
 
 <div class = 'navigator'>
-{-index_navigator|{-var|num|{-cfg_index_num}}|{-var|offset|0}}
+{-navigator||{-var|num|{-cfg_index_num}}|{-var|offset|0}}
 </div>
