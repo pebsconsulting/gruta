@@ -12,6 +12,7 @@
 	<span class = 'topic_link'><a href = '{-url|TOPIC|topic|$0}'>{-topic_name|$0}</a></span>
 
 	<span class = 'tags'>
-	{-foreach|{-story_tags|$0|$1}|\{-_search_tag\|\$0\|\$1\}|, }
+	{-foreach|{-story_tags|$0|$1}|
+		<a href = '\{-url\|SEARCH_BY_TAG\|tag\|\$0\}'>\$0</a>|, }
 	</span>
 </div>

@@ -10,7 +10,10 @@ Shows a complete story, in 'printer-friendly' format.
 	{-story_body|$0|$1}
 
 	<p>
-	<div class = 'tags'>Etiquetas: {-foreach|{-story_tags|$0|$1}|\{-_search_tag\|\$0\|$1\}|, }</div>
+	<div class = 'tags'>Etiquetas: 
+	{-foreach|{-story_tags|$0|$1}|
+		<a href = '\{-url\|SEARCH_BY_TAG\|tag\|\$0\}'>\$0</a>|, }
+	</div>
 	</p>
 
 	<hr>
