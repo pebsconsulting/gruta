@@ -29,7 +29,7 @@
 	{-story_list|{-var|topic}|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
 
 	<div class = 'navigator'>
-	{-topic_navigator|{-var|topic}|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
+	{-navigator|{-var|topic}|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
 	</div>
 </div>
 
