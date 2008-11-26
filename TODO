@@ -21,7 +21,6 @@ Open Bugs
  * 1026: Delete Artemus function loop_story_tags.
  * 1041: Gruta::stories_by_date() will fail when using an offset and
    more than one source (related to #1023).
- * 1043: Delete template _select_option.
  * 1046: Delete template l.
  * 1047: Escape Artemus markup from story contents.
 
@@ -104,5 +103,7 @@ Closed
  * 1044: Fix Mbox's search_by_tag (Mon, 27 Oct 2008 16:19:16 +0100).
  * 1045: Fix Gruta->url() to not return static urls if additional
    arguments are given (Sun, 16 Nov 2008 09:49:48 +0100).
+ * 1043: Delete template _select_option
+   (Wed, 26 Nov 2008 17:12:16 +0100).
 
 Email bugs to angel@triptico.com
