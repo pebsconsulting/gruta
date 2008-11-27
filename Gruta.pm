@@ -7,7 +7,7 @@ use locale;
 
 use Gruta::Data;
 
-$Gruta::VERSION = '2.0.1-dev';
+$Gruta::VERSION = '2.1.0-dev';
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }

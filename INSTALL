@@ -3,8 +3,8 @@ Gruta INSTALL
 
 1. Install the Artemus and Grutatxt modules, available from:
 
-	http://triptico.com/software/artemus.html
-	http://triptico.com/software/grutatxt.html
+ 	http://triptico.com/software/artemus.html
+ 	http://triptico.com/software/grutatxt.html
 
 If you want to use the DBI source driver, you'll need DBI and a
 corresponding DBD, of course. SQLite is fine and probably what
@@ -12,16 +12,16 @@ you want.
 
 2. Install this package:
 
-	$ perl Makefile.PL
-	$ make
-	$ su -c "make install"
+ 	$ perl Makefile.PL
+ 	$ make
+ 	$ su -c "make install"
 
 3. Create the directories under your Apache tree. For example, if you
 plan to host the _grutasample_ site and you have Apache files in /var/www,
 then run
 
-	# mkdir /var/www/grutasample /var/www/grutasample/img
-	# chown -R www-data:www-data /var/www/grutasample
+ 	# mkdir /var/www/grutasample /var/www/grutasample/img
+ 	# chown -R www-data:www-data /var/www/grutasample
 
 Change `www-data' to whatever user your Apache runs as.
 
@@ -44,15 +44,15 @@ language of your application templates (look for available languages in
 7. Touch your Apache configuration. First, make the `g.cgi' program be the
 document index, by adding the following to your configuration file:
 
-	DirectoryIndex g.cgi
+ 	DirectoryIndex g.cgi
 
 If your data directory is under the Apache tree, forbid raw access to
 it by adding
 
-	<Location /var>
-        	order allow,deny
-	        deny from all
-	</Location>
+ 	<Location /var>
+         	order allow,deny
+ 	        deny from all
+ 	</Location>
 
 This will probably be under a virtual host configuration. Use your Apache
 knowledge, this is not an Apache manual.

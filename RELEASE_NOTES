@@ -1,7 +1,7 @@
 Gruta Release Notes
 ===================
 
-2.0.1
+2.1.0
 -----
 
  * On-the-fly Gzip compression (if browser accepts it).
@@ -40,8 +40,8 @@ Gruta Release Notes
 
  RewriteEngine On
  RewriteRule /(img|download)/.* - [L]
- RewriteRule /(.+)/index\.html /?t=TOPIC&topic=$1       [PT]
- RewriteRule /(.+)/(.+)\.html  /?t=STORY&topic=$1&id=$2 [PT]
- RewriteRule /(.+)/            /?t=TOPIC&topic=$1       [PT]
- RewriteRule /rss.xml          /?t=RSS                  [PT]
- RewriteRule /sitemap.xml      /?t=SITEMAP              [PT]
+ RewriteRule ^/(.+)/index\.html$ /?t=TOPIC&topic=$1       [PT]
+ RewriteRule ^/(.+)/(.+)\.html$  /?t=STORY&topic=$1&id=$2 [PT]
+ RewriteRule ^/(.+)/$            /?t=TOPIC&topic=$1       [PT]
+ RewriteRule ^/rss\.xml$         /?t=RSS                  [PT]
+ RewriteRule ^/sitemap\.xml$     /?t=SITEMAP              [PT]
