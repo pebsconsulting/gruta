@@ -14,7 +14,7 @@ Gruta Release Notes
    Sheet instead of having it embedded in all output.
  * A new supertemplate called SITEMAP (to be aliased to /sitemap.xml).
  * If a story called `index' is present in a topic, the 'TOPIC' template
-   shows its body instead of just the name of the topic.
+   shows its body instead of the list of stories in it.
  * Several new commands in the `gruta' command line tool; _new_story_ (to
    create a new story from STDIN), _import_rss_ (to import an RSS file
    into a topic), _update_story_ (to update a story from STDIN).

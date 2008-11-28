@@ -23,14 +23,14 @@
 		\{-story_body\|{-var|topic}\|index\}
 		</div>
 	|
-		<h1 class = 'topic_header'>{-topic_name|{-var|topic}}</h1>
+		<h1 class = 'topic_header'>\{-topic_name\|\{-var\|topic\}\}</h1>
+
+		\{-story_list\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
+
+		<div class = 'navigator'>
+		\{-navigator\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
+		</div>
 	}
-
-	{-story_list|{-var|topic}|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
-
-	<div class = 'navigator'>
-	{-navigator|{-var|topic}|{-var|num|{-cfg_topic_num}}|{-var|offset|0}}
-	</div>
 </div>
 
 {-footer}
