@@ -1,0 +1,25 @@
+=item block_topic_list_of_abstracts
+
+ block_topic_list_of_abstracts {topic} {count} {offset}
+
+Shows a block with a list of the abstracts of stories,
+with the topic name as title.
+=cut
+<h1>{-topic_name|$0}</h1>
+
+<div class = 'topic_list'>
+	{-if|{-is_topic_editor|$0}|
+
+		<div class = 'future_stories_list'>
+			<ul>
+			<li>{-_new_story_link|$0}</li>
+			{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
+				\{-_story_link_edit_and_preview\|$0\|\$0\}
+			}
+			</ul>
+		</div>
+	}
+
+	{-foreach|{-stories_by_date|$0|$1|$2}|\{-_story_abstract\|$0\|\$0\}}
+</div>
+
