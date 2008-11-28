@@ -1,0 +1,14 @@
+=item block_topic_list_of_links
+
+ block_topic_list_of_links {topic} {count}
+
+Shows a block with a list of links to stories,
+with the topic name as title.
+=cut
+<h1>{-topic_name|$0}</h1>
+
+<ul>
+	{-foreach|{-stories_by_date|$0|$1}|
+		<li>\{-link_to_story\|$0\|\$0\}</li>
+	}
+</ul>
