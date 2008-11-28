@@ -8,13 +8,7 @@
 
 <div class = 'column1'>
 
-	<h1>{-topic_name|{-var|topic}}</h1>
-
-	<ul>
-	{-foreach|{-stories_by_date|{-var|topic}|8}|
-	<li><a href = '\{-url\|STORY\|topic\|{-var|topic}\|id\|\$0\}'>\{-story_title\|{-var|topic}\|\$0\}</a></li>
-	}
-	</ul>
+	{-column1}
 
 </div>
 
