@@ -6,7 +6,7 @@
 
 	{-if|{-is_topic_editor|$0}|
 		<span class = 'hits'>Le&iacute;do {-story_hits|$0|$1} veces - </span>
-		<span class = 'edit_link'><a href='{-url|EDIT_STORY|topic|$0|id|$1}'>[Modificar]</a> - </span>
+		<span class = 'edit_link'>{-_edit_story_link|$0|$1} - </span>
 	}
 
 	<span class = 'topic_link'><a href = '{-url|TOPIC|topic|$0}'>{-topic_name|$0}</a></span>
