@@ -22,6 +22,13 @@
 		\{-set\|html_title\|{-cfg_site_name}: \{-story_title\|{-var|topic}\|index\}\}
 		\{-story_body\|{-var|topic}\|index\}
 		</div>
+
+		\{-if\|\{-is_topic_editor\|\{-var\|topic\}\}\|
+			<ul>
+			<li>\{-_edit_story_link\|\{-var\|topic\}\|index\}</li>
+			<li>\{-_new_story_link\|\{-var\|topic\}\}</li>
+			</ul>
+		\}
 	|
 		<h1 class = 'topic_header'>\{-topic_name\|\{-var\|topic\}\}</h1>
 
