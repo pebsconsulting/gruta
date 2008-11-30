@@ -7,19 +7,8 @@ with the topic name as title.
 =cut
 <h1>{-topic_name|$0}</h1>
 
+{-block_topic_list_of_future_links|$0}
+
 <div class = 'topic_list'>
-	{-if|{-is_topic_editor|$0}|
-
-		<div class = 'future_stories_list'>
-			<ul>
-			<li>{-link_to_new_story|$0}</li>
-			{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
-				<li>\{-story_date\|%y/%m/%d\|$0\|\$0\} - \{-link_to_story_with_edit\|$0\|\$0\}</li>
-			}
-			</ul>
-		</div>
-	}
-
 	{-foreach|{-stories_by_date|$0|$1|$2}|\{-_story_abstract\|$0\|\$0\}}
 </div>
-
