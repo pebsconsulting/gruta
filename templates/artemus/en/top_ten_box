@@ -2,7 +2,7 @@
 
 <ul>
 	{-foreach|{-stories_top_ten|{-var|num|{-cfg_top_ten_num}}}|
-	\{-_story_link_as_item_with_hits\|\$1\|\$2\|\$0\}
+		<li>\{-link_to_story\|\$1\|\$2\} (\$0)</li>
 	}
 </ul>
 
