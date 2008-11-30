@@ -24,10 +24,9 @@
 		</div>
 
 		\{-if\|\{-is_topic_editor\|\{-var\|topic\}\}\|
-			<ul>
-			<li>\{-link_to_edit_story\|\{-var\|topic\}\|index\}</li>
-			<li>\{-link_to_new_story\|\{-var\|topic\}\}</li>
-			</ul>
+			\{-link_to_edit_story\|\{-var\|topic\}\|index\}
+
+			\{-block_topic_list_of_future_links\|\{-var\|topic\}\}
 		\}
 	|
 		\{-block_topic_list_of_abstracts\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
