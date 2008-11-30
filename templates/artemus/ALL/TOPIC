@@ -26,7 +26,7 @@
 		\{-if\|\{-is_topic_editor\|\{-var\|topic\}\}\|
 			<ul>
 			<li>\{-_edit_story_link\|\{-var\|topic\}\|index\}</li>
-			<li>\{-_new_story_link\|\{-var\|topic\}\}</li>
+			<li>\{-link_to_new_story\|\{-var\|topic\}\}</li>
 			</ul>
 		\}
 	|

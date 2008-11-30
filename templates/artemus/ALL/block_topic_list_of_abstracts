@@ -12,7 +12,7 @@ with the topic name as title.
 
 		<div class = 'future_stories_list'>
 			<ul>
-			<li>{-_new_story_link|$0}</li>
+			<li>{-link_to_new_story|$0}</li>
 			{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
 				\{-_story_link_edit_and_preview\|$0\|\$0\}
 			}
