@@ -14,7 +14,7 @@ with the topic name as title.
 			<ul>
 			<li>{-link_to_new_story|$0}</li>
 			{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
-				\{-_story_link_edit_and_preview\|$0\|\$0\}
+				<li>\{-story_date\|%y/%m/%d\|$0\|\$0\} - \{-link_to_story_with_edit\|$0\|\$0\}</li>
 			}
 			</ul>
 		</div>
