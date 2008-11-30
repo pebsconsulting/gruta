@@ -350,7 +350,7 @@ sub _artemus {
 			my $topic_id	= shift;
 			my $query 	= shift;
 			my $future	= shift;
-			my $template	= shift || '_story_link_as_item_with_edit';
+			my $template	= shift || 'link_to_story_with_edit';
 			my $sep		= shift || '';
 
 			my $ret = '';
@@ -360,7 +360,7 @@ sub _artemus {
 				$ret = "<p><b>{-topic_name|$topic_id}</b><br>\n";
 
 				$ret .= '<ul>';
-				$ret .= join($sep, map { "{-$template|$topic_id|$_}" } @l);
+				$ret .= join($sep, map { "<li>{-$template|$topic_id|$_}</li>" } @l);
 				$ret .= '</ul>';
 
 				$self->{search_count} += scalar(@l);

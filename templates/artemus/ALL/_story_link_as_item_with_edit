@@ -1,8 +1,0 @@
-<li>
-	{-if|{-is_future_story|$0|$1}|<em>|}
-		<a href='{-url|STORY|topic|$0|id|$1}'>{-story_title|$0|$1}</a>
-	{-if|{-is_future_story|$0|$1}|</em>|}
-	{-if|{-is_topic_editor|$0}|
-		- <small>{-link_to_edit_story|$0|$1}</small>
-	}
-</li>

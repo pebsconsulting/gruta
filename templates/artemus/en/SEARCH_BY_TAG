@@ -12,7 +12,7 @@
 
 	<ul>
 		{-foreach|{-stories_by_tag|{-var|topic}|{-var|tag}|{-is_admin}}|
-		\{-_story_link_as_item_with_edit\|\$0\|\$1\}
+			<li>\{-link_to_story_with_edit\|\$0\|\$1\}</li>
 		}
 	</ul>
 

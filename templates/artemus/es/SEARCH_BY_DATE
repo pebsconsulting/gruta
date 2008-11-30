@@ -10,7 +10,7 @@
 
 	<ul>
 		{-foreach|{-stories_by_date||0|0|{-var|from|{-date|%y%m%d000000}}|{-var|to|{-date}}|{-is_admin}}|
-		\{-_story_link_as_item_with_edit\|\$1\|\$0\}
+			<li>\{-link_to_story_with_edit\|\$1\|\$0\}</li>
 		}
 	</ul>
 
