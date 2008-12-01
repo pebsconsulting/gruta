@@ -5,7 +5,7 @@
 
 <title>{-cfg_site_name}</title>
 <link>http://{-cfg_host_name}</link>
-<description>{-cfg_slogan}</description>
+<description>{-cfg_site_description}</description>
 <copyright>{-cfg_copyright}</copyright>
 <language>en-en</language>
 
