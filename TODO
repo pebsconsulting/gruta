@@ -31,6 +31,10 @@ Pending Enhancements
    from a cache.
  * 1035: Change Gruta::Data::today() to allow a date to be set.
  * 1048: Add user comments to stories.
+ * 1049: Add a description field to topics (to be set as the
+   HTML description).
+ * 1050: Add a description field to stories (to be set as the
+   HTML description).
 
 Closed
 ------
