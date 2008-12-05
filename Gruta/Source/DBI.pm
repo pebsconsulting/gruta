@@ -9,6 +9,8 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
+my $schema_version = 1;
+
 sub _prepare {
 	my $self	= shift;
 	my $sql		= shift;
@@ -509,7 +511,7 @@ sub create {
 	};
 
 	if (! $@) {
-		return $self;
+		return $self->update_schema();
 	}
 
 	my $sql = '';
@@ -524,6 +526,35 @@ sub create {
 		else {
 			$sql .= $_;
 		}
+	}
+
+	$self->{dbh}->do(
+		'INSERT INTO metadata (version) VALUES (' . $schema_version . ')'
+	);
+
+	return $self;
+}
+
+
+sub update_schema {
+	my $self = shift;
+
+	my $st = $self->{dbh}->prepare('SELECT version FROM metadata');
+	$st->execute();
+
+	my ($version) = $st->fetchrow_array();
+
+	while ($version < $schema_version) {
+		if ($version == 1) {
+			# from 1 to 2
+			1;
+		}
+
+		$version++;
+
+		$self->{dbh}->do(
+			'UPDATE metadata SET version = ' . $version
+		);
 	}
 
 	return $self;
@@ -549,6 +580,10 @@ sub new {
 
 1;
 __DATA__
+CREATE TABLE metadata (
+	version		INTEGER
+)
+;
 CREATE TABLE topics (
 	id		VARCHAR PRIMARY KEY,
 	name		VARCHAR,
