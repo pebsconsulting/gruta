@@ -18,6 +18,8 @@ Gruta Release Notes
  * Several new commands in the `gruta' command line tool; _new_story_ (to
    create a new story from STDIN), _import_rss_ (to import an RSS file
    into a topic), _update_story_ (to update a story from STDIN).
+ * Topics now have a new field, `description', that is used in the
+   HTML description meta tag in `TOPIC'.
  * Internal server errors set the HTTP status to 500.
  * Some old function templates have been deleted and moved to Artemus.
  * Many templates have been simplified with new Artemus keywords.
