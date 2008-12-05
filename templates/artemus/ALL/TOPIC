@@ -2,6 +2,7 @@
 {-header}
 
 {-set|html_title|{-cfg_site_name}: {-topic_name|{-var|topic}}}
+{-set|html_description|{-topic_description|{-var|topic}}}
 
 <div class = 'column1'>
 
