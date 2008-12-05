@@ -72,7 +72,7 @@ package Gruta::Data::Topic;
 
 use base 'Gruta::Data::BASE';
 
-sub fields { return qw(id name editors max_stories internal); }
+sub fields { return qw(id name editors max_stories internal description); }
 
 sub filter_field {
 	my $self	= shift;
