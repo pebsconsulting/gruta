@@ -20,12 +20,13 @@
 		<p>Nombre de la secci&oacute;n<br>
 		<input size = '40' type = 'text' name = 'name' value = '{-topic_name|{-var|topic}}'>
 
-		<p>Descripci&oacute;n<br>
+		<p>Descripci&oacute;n (15 palabras, m&aacute;s o menos)<br>
 		<input size = '80' type = 'text' name = 'description' value = '{-topic_description|{-var|topic}}'>
 
 		<p>Editores<br>
 		<input size = '40' type = 'text' name = 'editors' value = '{-topic_editors|{-var|topic}}'>
 
+		<br>
 		<input type = 'submit' class = 'button' value = 'OK'>
 		<input type = 'hidden' name = 't' value = 'SAVE_TOPIC'>
 

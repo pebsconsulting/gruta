@@ -20,12 +20,13 @@
 		<p>Topic name<br>
 		<input size = '40' type = 'text' name = 'name' value = '{-topic_name|{-var|topic}}'>
 
-		<p>Topic description<br>
+		<p>Description (about 15 words)<br>
 		<input size = '80' type = 'text' name = 'description' value = '{-topic_description|{-var|topic}}'>
 
 		<p>Editors<br>
 		<input size = '40' type = 'text' name = 'editors' value = '{-topic_editors|{-var|topic}}'>
 
+		<br>
 		<input type = 'submit' class = 'button' value = 'OK'>
 		<input type = 'hidden' name = 't' value = 'SAVE_TOPIC'>
 
