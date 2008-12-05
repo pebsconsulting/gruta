@@ -20,6 +20,9 @@
 		<p>Topic name<br>
 		<input size = '40' type = 'text' name = 'name' value = '{-topic_name|{-var|topic}}'>
 
+		<p>Topic description<br>
+		<input size = '80' type = 'text' name = 'description' value = '{-topic_description|{-var|topic}}'>
+
 		<p>Editors<br>
 		<input size = '40' type = 'text' name = 'editors' value = '{-topic_editors|{-var|topic}}'>
 

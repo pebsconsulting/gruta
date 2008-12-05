@@ -20,17 +20,12 @@
 		<p>Nombre de la secci&oacute;n<br>
 		<input size = '40' type = 'text' name = 'name' value = '{-topic_name|{-var|topic}}'>
 
+		<p>Descripci&oacute;n<br>
+		<input size = '80' type = 'text' name = 'description' value = '{-topic_description|{-var|topic}}'>
+
 		<p>Editores<br>
 		<input size = '40' type = 'text' name = 'editors' value = '{-topic_editors|{-var|topic}}'>
-<!--
-		<p>Interna?<br>
-		<input type = 'checkbox' name = 'internal' {-if|{-topic_internal|{-var|topic}}|checked}>
 
-		<p>N&uacute;mero M&aacute;ximo de Historias
-		<small>(Las viejas ir&aacute;n pasando al archivo;
-		vac&iacute;o significa no archivar nunca)</small><br>
-		<input size = '40' type = 'text' name = 'max' value = '{-topic_max_stories|{-var|topic}}'>
--->
 		<input type = 'submit' class = 'button' value = 'OK'>
 		<input type = 'hidden' name = 't' value = 'SAVE_TOPIC'>
 

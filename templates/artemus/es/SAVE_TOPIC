@@ -5,7 +5,7 @@
 
 	<h1>Guardar secci&oacute;n</h1>
 
-	{-save_topic|{-var|topic}|{-var|name}|{-var|editors}|{-var|internal}|{-var|max}}
+	{-save_topic|{-var|topic}|{-var|name}|{-var|editors}|{-var|internal}|{-var|max}|{-var|description}}
 
 </div>
 

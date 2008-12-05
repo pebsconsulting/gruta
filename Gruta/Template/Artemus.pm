@@ -418,6 +418,7 @@ sub _artemus {
 			$topic->set('editors',		shift);
 			$topic->set('internal', 	shift eq 'on' ? 1 : 0);
 			$topic->set('max_stories',	shift);
+			$topic->set('description',	shift);
 
 			# update or insert
 			if ($topic->source()) {
