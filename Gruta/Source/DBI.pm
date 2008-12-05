@@ -9,7 +9,7 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
-my $schema_version = 1;
+my $schema_version = 2;
 
 sub _prepare {
 	my $self	= shift;
@@ -547,7 +547,9 @@ sub update_schema {
 	while ($version < $schema_version) {
 		if ($version == 1) {
 			# from 1 to 2
-			1;
+			$self->{dbh}->do(
+				'ALTER TABLE topics ADD COLUMN description VARCHAR'
+			);
 		}
 
 		$version++;
@@ -589,7 +591,8 @@ CREATE TABLE topics (
 	name		VARCHAR,
 	editors		VARCHAR,
 	max_stories	INTEGER,
-	internal	INTEGER
+	internal	INTEGER,
+	description	VARCHAR
 )
 ;
 CREATE TABLE stories (
