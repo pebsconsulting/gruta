@@ -3,5 +3,6 @@
  cfg_site_description
 
 Write here a text-only brief description of this site, to
-be included in the HTML meta description tag.
+be included in the HTML meta description tag. Text only,
+no HTML tags.
 =cut

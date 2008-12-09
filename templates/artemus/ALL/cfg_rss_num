@@ -3,7 +3,7 @@
  cfg_rss_num
 
 This value is the number of items per page that will be
-shown in the RSS feed. It can usually be overriden
-with the I<num> CGI variable.
+shown in the RSS feed. It can be overriden with the
+I<num> CGI variable.
 =cut
 {-cfg_index_num}

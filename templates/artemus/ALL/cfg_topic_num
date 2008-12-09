@@ -1,1 +1,9 @@
+=item cfg_topic_num
+
+ cfg_topic_num
+
+This value is the number of items per page that will be
+shown in the TOPIC page. It can be overriden with the
+I<num> CGI variable.
+=cut
 10

@@ -2,6 +2,6 @@
 
  cfg_copyright
 
-Fill here your copyright line.
+Fill here your copyright line. It must in one line.
 =cut
 Copyright {-date|%y}, you
