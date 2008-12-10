@@ -28,6 +28,9 @@
 	<input type = 'text' size = '4' name = 'year2'
 		value = '{-story_date2|%y|{-var|topic}|{-var|id}}'>
 
+	<p>Descripci&oacute;n (15 palabras, m&aacute;s o menos)<br>
+	<input size = '80' type = 'text' name = 'description' value = '{-story_description|{-var|topic}|{-var|id}}'>
+
 	<p>Formato: (valores posibles: {-foreach|{-renderers}|<b>\$0</b>|, })<br>
 	<input type = 'text' name = 'format'
 		value = '{-story_format|{-var|topic}|{-var|id}}'>

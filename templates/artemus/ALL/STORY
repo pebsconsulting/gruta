@@ -4,6 +4,7 @@
 {-header}
 
 {-set|html_title|{-cfg_site_name}: {-story_title|{-var|topic}|{-var|id}}}
+{-set|html_description|{-story_description|{-var|topic}|{-var|id}}}
 {-set|html_keywords|{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }}
 
 <div class = 'column1'>

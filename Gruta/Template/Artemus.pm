@@ -481,6 +481,8 @@ sub _artemus {
 
 			$story->set('date2', $date);
 
+			$story->set('description', shift);
+
 			# if there is no userid, add one
 			if (!$story->get('userid')) {
 				$story->set('userid', $data->auth->get('id'));
