@@ -6,12 +6,15 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>Suscripciones a {-cfg_site_name}</h1>
 
 	{-story_body|info|subscribe}
 
 	{-if|{-is_admin}|<p>Texto consultado {-story_hits|info|subscribe} veces.</p>}
 
+	{-main_bottom}
 </div>
 
 {-footer}

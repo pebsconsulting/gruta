@@ -6,6 +6,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>Etiquetas</h1>
 
 	<ul>
@@ -13,6 +15,8 @@
 		<li><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0 (\$1)</a></li>
 		}
 	</ul>
+
+	{-main_bottom}
 
 </div>
 

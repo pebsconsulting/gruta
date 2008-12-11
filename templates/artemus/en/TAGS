@@ -6,6 +6,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>Tags</h1>
 
 	<ul>
@@ -14,6 +16,7 @@
 		}
 	</ul>
 
+	{-main_bottom}
 </div>
 
 {-footer}

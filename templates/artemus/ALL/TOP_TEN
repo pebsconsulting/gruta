@@ -6,7 +6,11 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	{-top_ten_box}
+
+	{-main_bottom}
 
 </div>
 

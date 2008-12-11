@@ -6,6 +6,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>Tag cloud</h1>
 
 	<p>
@@ -15,6 +17,8 @@
 	}
 
 	</p>
+
+	{-main_bottom}
 
 </div>
 

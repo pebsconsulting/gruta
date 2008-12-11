@@ -6,6 +6,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>Nube de etiquetas</h1>
 
 	<p>
@@ -16,6 +18,7 @@
 
 	</p>
 
+	{-main_bottom}
 </div>
 
 {-footer}

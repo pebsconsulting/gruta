@@ -10,6 +10,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	{-if|{-story_title|{-var|topic}|index}|
 		<div class = 'topic_index'>
 		\{-set\|html_title\|{-cfg_site_name}: \{-story_title\|{-var|topic}\|index\}\}
@@ -28,6 +30,9 @@
 		\{-navigator\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
 		</div>
 	}
+
+	{-main_bottom}
+
 </div>
 
 {-footer}

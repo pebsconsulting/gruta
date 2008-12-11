@@ -13,6 +13,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	{-set|_date_from|{-story_date|%y%m%d000000|{-var|topic}|{-var|id}}}
 	{-set|_date_to|{-story_date|%y%m%d235959|{-var|topic}|{-var|id}}}
 
@@ -21,6 +23,8 @@
 	</div>
 
 	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
+
+	{-main_bottom}
 
 </div>
 

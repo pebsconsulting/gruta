@@ -6,6 +6,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>Search by date ({-date|%d/%m/%y|{-var|from}} - {-date|%d/%m/%y|{-var|to}})</h1>
 
 	<ul>
@@ -15,6 +17,8 @@
 	</ul>
 
 	{-search_hits}
+
+	{-main_bottom}
 
 </div>
 

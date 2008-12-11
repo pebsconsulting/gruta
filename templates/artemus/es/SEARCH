@@ -6,6 +6,8 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	<h1>B&uacute;squedas</h1>
 
 	<p>Resultados de la b&uacute;squeda <b>{-var|query}</b>:<br>
@@ -15,6 +17,8 @@
 	}
 
 	{-search_hits}
+
+	{-main_bottom}
 
 </div>
 

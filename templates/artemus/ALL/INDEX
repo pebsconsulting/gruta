@@ -9,7 +9,11 @@
 
 <div class = 'main'>
 
+	{-main_top}
+
 	{-intermixed_index}
+
+	{-main_bottom}
 
 </div>
 
