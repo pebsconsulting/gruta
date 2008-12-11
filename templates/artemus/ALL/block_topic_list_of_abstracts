@@ -1,4 +1,4 @@
-=item block_topic_list_of_abstracts
+=head2 block_topic_list_of_abstracts
 
  block_topic_list_of_abstracts {topic} {count} {offset}
 

@@ -1,4 +1,4 @@
-=item link_to_story_with_edit
+=head2 link_to_story_with_edit
 
  link_to_story_with_edit {topic} {id}
 

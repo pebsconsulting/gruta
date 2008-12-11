@@ -1,4 +1,4 @@
-=item B<_story_printable>
+=head2 B<_story_printable>
 
  _story_printable topic story_id
 

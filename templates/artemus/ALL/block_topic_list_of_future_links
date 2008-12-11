@@ -1,4 +1,4 @@
-=item block_topic_list_of_future_links
+=head2 block_topic_list_of_future_links
 
  block_topic_list_of_future_links {topic}
 
