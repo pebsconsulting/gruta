@@ -3,17 +3,9 @@
 {-set|html_title|{-cfg_slogan}}
 {-set|html_description|{-cfg_site_description}}
 
-<div class = 'column1'>
+{-column1}
 
-	{-column1}
-
-</div>
-
-<div class = 'column2'>
-
-	{-column2}
-
-</div>
+{-column2}
 
 <div class = 'main'>
 

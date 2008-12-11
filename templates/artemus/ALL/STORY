@@ -7,17 +7,9 @@
 {-set|html_description|{-story_description|{-var|topic}|{-var|id}}}
 {-set|html_keywords|{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }}
 
-<div class = 'column1'>
+{-column1}
 
-	{-column1}
-
-</div>
-
-<div class = 'column2'>
-
-	{-column2}
-
-</div>
+{-column2}
 
 <div class = 'main'>
 

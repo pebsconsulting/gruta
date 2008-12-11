@@ -1,8 +1,8 @@
 {-header}
 
-<div class = 'column1'>
+{-column1}
 
-</div>
+{-column2}
 
 <div class = 'main'>
 
