@@ -1,0 +1,12 @@
+=head2 cfg_index
+
+ cfg_index
+
+The main content of the index page. Usually, this will
+be a call to C<intermixed_index>, that will show a blog-like
+index of story abstracts sorted and classified by date, or a
+call to C<grouped_index>, that will show the list of abstracts
+classified by topic, with as many abstract per topic as
+specified in C<cfg_index_topics>.
+=cut
+{-intermixed_index}
