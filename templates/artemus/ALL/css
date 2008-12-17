@@ -89,3 +89,6 @@ blockquote {
     background-color: #efefef;
     font-size: 0.9em;
 }
+
+/* hack for IE 6 */
+table { clear: none; float: left; }
