@@ -65,6 +65,9 @@ sub save_template {
 	# only can be saved on the first directory
 	my ($p) = (split(':', $self->{path}))[0];
 
+	# delete all \r in content
+	$content =~ s/\r//g;
+
 	open F, '>' . $p . '/' . $template_id
 		or croak "Can't write template '${p}/${template_id}'";
 
