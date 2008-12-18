@@ -647,7 +647,7 @@ sub _artemus {
 					future	=> $future
 			);
 
-			$self->{search_count} += scalar(@ret);
+#			$self->{search_count} += scalar(@ret);
 
 			return join(':', @ret);
 		};
