@@ -309,7 +309,7 @@ sub _artemus {
 			my $error_msg	= shift;
 
 			if ($user_id eq '' || $user_id eq 'cgi-userid') {
-				$error_msg = '{-login_box}';
+				$error_msg = '{-block_login}';
 			}
 			elsif (my $sid = $data->login($user_id, $password)) {
 				$data->cgi->cookie("sid=$sid");
