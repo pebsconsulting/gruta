@@ -8,13 +8,13 @@ use locale;
 use Gruta::Data;
 
 $Gruta::VERSION			= '2.1.0-dev';
-$Gruta::VERSION_CODENAME	= 'Calenzano';
+$Gruta::VERSION_CODENAME	= '"Calenzano"';
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
 sub cgi { return $_[0]->{cgi}; }
 
-sub version { return $Gruta::VERSION . ' "' . $Gruta::VERSION_CODENAME . '"'; }
+sub version { return $Gruta::VERSION . ' ' . $Gruta::VERSION_CODENAME; }
 
 sub log {
 	my $self	= shift;
