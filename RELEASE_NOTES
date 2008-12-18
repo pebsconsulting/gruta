@@ -1,8 +1,8 @@
 Gruta Release Notes
 ===================
 
-2.1.0
------
+2.1.0 "Calenzano"
+-----------------
 
  * On-the-fly Gzip compression (if browser accepts it).
  * New special uris; `abstract', to paste a story's abstract, and `body',
