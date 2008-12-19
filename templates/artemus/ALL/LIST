@@ -8,6 +8,16 @@
 
 	{-main_top}
 
+	{-if|{-is_admin}|
+	<em>
+	<ul>
+		{-foreach|{-stories_by_date|{-var|topic}|0|0|{-date}||1}|
+			<li>[\{-date\|%y/%m/%d\|\$2\}] \{-link_to_story_with_edit\|\$1\|\$0\}</li>
+		}
+	</ul>
+	</em>
+	}
+
 	<ul>
 		{-foreach|{-stories_by_date|{-var|topic}|0}|
 			<li>[\{-date\|%y/%m/%d\|\$2\}] \{-link_to_story_with_edit\|\$1\|\$0\}</li>
