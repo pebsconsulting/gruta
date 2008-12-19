@@ -1,0 +1,21 @@
+{-header}
+
+{-column1}
+
+{-column2}
+
+<div class = 'main'>
+
+	{-main_top}
+
+	<ul>
+		{-foreach|{-stories_by_date|{-var|topic}|0}|
+			<li>[\{-date\|%y/%m/%d\|\$2\}] \{-link_to_story_with_edit\|\$1\|\$0\}</li>
+		}
+	</ul>
+
+	{-main_bottom}
+
+</div>
+
+{-footer}
