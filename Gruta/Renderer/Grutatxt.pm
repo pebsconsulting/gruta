@@ -18,6 +18,7 @@ sub new {
 	$r->{grutatxt} = Grutatxt->new(
 		'header-offset'		=>	1,
 		'table-headers'		=>	1,
+		'dl-as-dl'		=>	1,
 		'title'			=>	\$r->{title},
 		'marks'			=>	$r->{marks},
 		'abstract'		=>	\$r->{abstract}
