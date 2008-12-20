@@ -31,6 +31,8 @@ Pending Enhancements
    from a cache.
  * 1035: Change Gruta::Data::today() to allow a date to be set.
  * 1048: Add user comments to stories.
+ * 1051: Add a glossary://topic/story pseudo-url, that creates an
+   `abbr' or `acronym'.
 
 Closed
 ------
