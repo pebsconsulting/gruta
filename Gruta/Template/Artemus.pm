@@ -33,12 +33,6 @@ sub _artemus {
 		my %f = ();
 		my %v = ();
 
-		$f{l} = sub {
-			my $t = shift;
-
-			return $data->base_url() . '?t=' . $t . ';' . join(';', @_);
-		};
-
 		$f{url} = sub {
 			my $t = shift;
 

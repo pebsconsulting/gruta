@@ -21,7 +21,6 @@ Open Bugs
  * 1026: Delete Artemus function loop_story_tags.
  * 1041: Gruta::stories_by_date() will fail when using an offset and
    more than one source (related to #1023).
- * 1046: Delete template l.
  * 1047: Escape Artemus markup from story contents.
 
 Pending Enhancements
@@ -111,5 +110,6 @@ Closed
    HTML description) (Fri, 05 Dec 2008 13:24:37 +0100).
  * 1050: Add a description field to stories (to be set as the
    HTML description) (Wed, 10 Dec 2008 07:25:18 +0100).
+ * 1046: Delete template l (Mon, 22 Dec 2008 13:12:38 +0100).
 
 Email bugs to angel@triptico.com
