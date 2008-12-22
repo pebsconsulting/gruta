@@ -5,7 +5,7 @@
 
 <h1>Story data</h1>
 
-<form method = 'post' action = '{-l}'>
+<form method = 'post' action = '{-url}'>
 
 	<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
 	<input type = 'hidden' name = 'topic' value = '{-var|topic}'>

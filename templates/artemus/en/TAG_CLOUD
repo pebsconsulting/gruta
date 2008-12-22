@@ -13,7 +13,7 @@
 	<p>
 
 	{-foreach|{-tags}|
-	<font size = '\$1'><a href = '\{-l\|SEARCH_BY_TAG\|tag=\$0\}'>\$0</a></font> 
+	<font size = '\$1'><a href = '\{-url\|SEARCH_BY_TAG\|tag\|\$0\}'>\$0</a></font> 
 	}
 
 	</p>
