@@ -612,7 +612,7 @@ CREATE TABLE stories (
 	hits		INTEGER DEFAULT 0,
 	ctime		INTEGER,
 	content		VARCHAR,
-	description	VARCHAR
+	description	VARCHAR,
 	PRIMARY KEY	(id, topic_id)
 )
 ;
