@@ -678,7 +678,7 @@ sub stories_by_tag {
 			if (!$future) {
 				my $story = $self->story($tr->[0], $tr->[1]);
 
-				if ($story->get('date') > Gruta::Data::today()) {
+				if ($story->get('date') gt Gruta::Data::today()) {
 					next;
 				}
 			}
