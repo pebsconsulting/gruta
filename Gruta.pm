@@ -64,6 +64,17 @@ sub topics { my $self = shift; return $self->_call('topics', 0); }
 sub user { my $self = shift; return $self->_call('user', 1, @_); }
 sub users { my $self = shift; return $self->_call('users', 0); }
 
+sub render {
+	my $self	= shift;
+	my $story	= shift; # Gruta::Data::Story
+
+	my $format = $story->get('format') || 'grutatxt';
+
+	if (my $rndr = $self->{renderers_h}->{$format}) {
+		$rndr->story($story);
+	}
+}
+
 sub story {
 	my $self	= shift;
 	my $topic_id	= shift;
@@ -84,10 +95,9 @@ sub story {
 		return undef;
 	}
 
-	my $format = $story->get('format') || 'grutatxt';
-
-	if (my $rndr = $self->{renderers_h}->{$format}) {
-		$rndr->story($story);
+	if (!$story->get('title') || !$story->get('abstract') || !$story->get('body')) {
+		$self->render($story);
+		$story->save();
 	}
 
 	return $self->{story_cache}->{$ck} = $story;

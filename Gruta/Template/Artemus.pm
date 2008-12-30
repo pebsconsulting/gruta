@@ -416,6 +416,9 @@ sub _artemus {
 			# drop all cached stories
 			$data->flush_story_cache();
 
+			# render the story
+			$data->render($story);
+
 			if ($story->source()) {
 				$story = $story->save();
 			}
