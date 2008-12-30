@@ -7,8 +7,8 @@ use locale;
 
 use Gruta::Data;
 
-$Gruta::VERSION			= '2.1.1';
-$Gruta::VERSION_CODENAME	= '"Calenzano"';
+$Gruta::VERSION			= '2.2.0-dev';
+$Gruta::VERSION_CODENAME	= '"Osmannoro"';
 
 sub sources { return @{$_[0]->{sources}}; }
 sub template { return $_[0]->{template}; }
