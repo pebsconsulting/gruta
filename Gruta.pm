@@ -254,6 +254,10 @@ sub url {
 	my $st		= shift || '';
 	my %args	= @_;
 
+	if (scalar(@_) % 2) {
+		$self->log('Bad url: ' . join(';', $st, @_));
+	}
+
 	my $ret = $self->base_url();
 
 	# strip all undefined or empty arguments
