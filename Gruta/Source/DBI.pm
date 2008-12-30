@@ -9,7 +9,7 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
-my $schema_version = 3;
+my $schema_version = 4;
 
 sub _prepare {
 	my $self	= shift;
@@ -123,6 +123,9 @@ use base 'Gruta::Data::DBI::BASE';
 
 sub table { return 'stories'; }
 sub pk { return qw(id topic_id); }
+
+sub fields { ($_[0]->SUPER::fields(), 'abstract', 'body'); }
+sub vfields { (); }
 
 sub touch {
 	my $self = shift;
@@ -557,6 +560,15 @@ sub update_schema {
 				'ALTER TABLE stories ADD COLUMN description VARCHAR'
 			);
 		}
+		elsif ($version == 3) {
+			# from 3 to 4
+			$self->{dbh}->do(
+				'ALTER TABLE stories ADD COLUMN abstract VARCHAR'
+			);
+			$self->{dbh}->do(
+				'ALTER TABLE stories ADD COLUMN body VARCHAR'
+			);
+		}
 
 		$version++;
 
@@ -613,6 +625,8 @@ CREATE TABLE stories (
 	ctime		INTEGER,
 	content		VARCHAR,
 	description	VARCHAR,
+	abstract	VARCHAR,
+	body		VARCHAR,
 	PRIMARY KEY	(id, topic_id)
 )
 ;
