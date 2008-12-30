@@ -92,7 +92,8 @@ sub is_editor {
 	my $user	= shift; # Gruta::Data::User
 
 	return $user && ($user->get('is_admin') || 
-		$self->get('editors') =~ m{\b$user->get('id')\b}) ? 1 : 0;
+		($self->get('editors') || '')
+			=~ m{\b$user->get('id')\b}) ? 1 : 0;
 }
 
 package Gruta::Data::Story;
