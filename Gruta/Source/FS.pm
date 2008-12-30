@@ -97,8 +97,8 @@ use Carp;
 
 sub base { return Gruta::Data::FS::Topic::base() . $_[0]->get('topic_id') . '/'; }
 
-sub fields { grep !/(content|topic_id)/, $_[0]->SUPER::fields(); }
-sub vfields { return ($_[0]->SUPER::vfields(), 'content', 'topic_id'); }
+sub fields { grep !/(content|topic_id|abstract|body)/, $_[0]->SUPER::fields(); }
+sub vfields { return ($_[0]->SUPER::vfields(), 'content', 'topic_id', 'abstract', 'body'); }
 
 sub _destroy_index {
 	my $self	= shift;

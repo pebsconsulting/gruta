@@ -124,9 +124,6 @@ use base 'Gruta::Data::DBI::BASE';
 sub table { return 'stories'; }
 sub pk { return qw(id topic_id); }
 
-sub fields { ($_[0]->SUPER::fields(), 'abstract', 'body'); }
-sub vfields { (); }
-
 sub touch {
 	my $self = shift;
 
