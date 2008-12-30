@@ -3,12 +3,12 @@
 	{-if|{-story_title|info|legal}|<li><a href = '{-url|STORY|topic|info|id|legal}'>{-story_title|info|legal}</a></li>}
 	<li><a href = '{-url|RSS}'>RSS</a></li>
 	{-if|{-is_logged_in}|
-		{-if|{-is_admin}|
-			<li><a href = '{-url|ADMIN}'>Administraci&oacute;n</a></li>|
-			<li><a href = "{-url|EDIT_USER|userid|{-userid}}">Preferencias</a></li>
-		}
-		<li><a href = '{-url|LOGOUT}'>Desconectar</a> {-userid}</li>|
-		<li><a href = '{-url|LOGIN}'>Conectar</a></li>
+		\{-if\|\{-is_admin\}\|
+			<li><a href = '\{-url\|ADMIN\}'>Administraci&oacute;n</a></li>\|
+			<li><a href = "\{-url\|EDIT_USER\|userid\|\{-userid\}\}">Preferencias</a></li>
+		\}
+		<li><a href = '\{-url\|LOGOUT\}'>Desconectar</a> {-userid}</li>|
+		<li><a href = '\{-url\|LOGIN\}'>Conectar</a></li>
 	}
 	<li>
 	<form action = '{-url}'>
