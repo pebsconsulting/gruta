@@ -325,10 +325,17 @@ sub story {
 	my $file = $story->_filename();
 	$file =~ s/\.META$//;
 
-	open F, $file or croak "Can't open $file content: $!";
+	my @d = ('', 'content', '.A', 'abstract', '.B', 'body');
 
-	$story->set('content', join('', <F>));
-	close F;
+	while (@d) {
+		my $ext		= shift(@d);
+		my $field	= shift(@d);
+
+		if (open F, $file . $ext) {
+			$story->set($field, join('', <F>));
+			close F;
+		}
+	}
 
 	return $story;
 }
