@@ -120,10 +120,17 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.META$//;
 
-	open F, '>' . $filename or croak "Can't write " . $filename . ': ' . $!;
+	my @d = ('', 'content', '.A', 'abstract', '.B', 'body');
 
-	print F $self->get('content') || '';
-	close F;
+	while (@d) {
+		my $ext		= shift(@d);
+		my $field	= shift(@d);
+
+		open F, '>' . $filename . $ext or
+			croak "Cannot write " . $filename . $ext . ': ' . $!;
+		print F $self->get($field) || '';
+		close F;
+	}
 
 	$self->_destroy_index();
 
