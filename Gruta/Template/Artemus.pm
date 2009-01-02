@@ -428,9 +428,7 @@ sub _artemus {
 				$story = $data->insert_story($story);
 			}
 
-			if ($tags ne 'cgi-tags') {
-				$story->tags(split(/\s*,\s*/, $tags));
-			}
+			$story->tags(split(/\s*,\s*/, $tags));
 
 			return $story ? $story->get('id') : 'Error 2';
 		};
