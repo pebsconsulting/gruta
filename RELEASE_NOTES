@@ -1,6 +1,11 @@
 Gruta Release Notes
 ===================
 
+2.2.0 "Osmannoro"
+-----------------
+
+ * Story rendering is cached, resulting in faster page rendering.
+
 2.1.0 "Calenzano"
 -----------------
 

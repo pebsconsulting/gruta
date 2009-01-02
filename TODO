@@ -19,8 +19,6 @@ Open Bugs
 Pending Enhancements
 --------------------
 
- * 1006: Stories should always be rendered on save and retrieved
-   from a cache.
  * 1035: Change Gruta::Data::today() to allow a date to be set.
  * 1048: Add user comments to stories.
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
@@ -118,5 +116,7 @@ Closed
    (Mon, 22 Dec 2008 13:16:44 +0100).
  * 1026: Delete Artemus function loop_story_tags
    (Mon, 22 Dec 2008 13:16:44 +0100).
+ * 1006: Stories should always be rendered on save and retrieved
+   from a cache (Fri, 02 Jan 2009 07:40:16 +0100).
 
 Email bugs to angel@triptico.com
