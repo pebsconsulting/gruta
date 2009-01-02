@@ -235,7 +235,7 @@ sub _artemus {
 			my $password	= shift;
 			my $error_msg	= shift;
 
-			if ($user_id eq '' || $user_id eq 'cgi-userid') {
+			if ($user_id eq '') {
 				$error_msg = '{-block_login}';
 			}
 			elsif (my $sid = $data->login($user_id, $password)) {
