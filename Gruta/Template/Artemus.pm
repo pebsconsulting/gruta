@@ -87,14 +87,15 @@ sub _artemus {
 					}
 				}
 
-				return $ret;
+				return $self->{_artemus}->armor($ret);
 			};
 		}
 
 		$f{story_abstract} = sub {
 			my $story = $data->story($_[0], $_[1]);
+			my $ret = $data->special_uris($story->get('abstract'));
 
-			return $data->special_uris($story->get('abstract'));
+			return $self->{_artemus}->armor($ret);
 		};
 
 		$f{story_body} = sub {
@@ -108,7 +109,8 @@ sub _artemus {
 
 					# if no user and story is not freed, bounce
 					if (!$data->auth() && $date2 && $date2 > Gruta::Data::today()) {
-						$ret = '{-restricted_access}';
+						# return directly to avoid armoring
+						return '{-restricted_access}';
 					}
 					else {
 						# touch the story if user is not
@@ -127,7 +129,7 @@ sub _artemus {
 				$ret = '';
 			}
 
-			return $ret;
+			return $self->{_artemus}->armor($ret);
 		};
 
 		$f{story_date} = sub {
@@ -144,7 +146,7 @@ sub _artemus {
 				}
 			}
 
-			return $ret;
+			return $self->{_artemus}->armor($ret);
 		};
 
 		$f{story_date2} = sub {
@@ -161,7 +163,7 @@ sub _artemus {
 				}
 			}
 
-			return $ret;
+			return $self->{_artemus}->armor($ret);
 		};
 
 		foreach my $p (Gruta::Data::User->new->afields()) {
@@ -173,7 +175,7 @@ sub _artemus {
 					$ret = $data->user($id)->get($p);
 				}
 
-				return $ret;
+				return $self->{_artemus}->armor($ret);
 			};
 		}
 

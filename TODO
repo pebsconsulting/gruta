@@ -14,7 +14,6 @@ Open Bugs
  * 1004: Support broken lines in message headers in Source::Mbox.
  * 1041: Gruta::stories_by_date() will fail when using an offset and
    more than one source (related to #1023).
- * 1047: Escape Artemus markup from story contents.
 
 Pending Enhancements
 --------------------
@@ -118,5 +117,9 @@ Closed
    (Mon, 22 Dec 2008 13:16:44 +0100).
  * 1006: Stories should always be rendered on save and retrieved
    from a cache (Fri, 02 Jan 2009 07:40:16 +0100).
+ * 1047: Escape Artemus markup from story contents
+   (Fri, 02 Jan 2009 07:54:06 +0100).
+ * 1052: Escape Artemus markup from user data
+   (Fri, 02 Jan 2009 07:54:06 +0100).
 
 Email bugs to angel@triptico.com
