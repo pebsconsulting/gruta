@@ -7,6 +7,8 @@
 
 <form method = 'post' action = '{-url}'>
 
+	<input type = 'submit' class = 'button' value = 'OK'>
+
 	<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
 	<input type = 'hidden' name = 'topic' value = '{-var|topic}'>
 
@@ -51,6 +53,7 @@
 
 	<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>{-story_content|{-var|topic}|{-var|id}}</textarea>
 
+	<br>
 	<input type = 'submit' class = 'button' value = 'OK'>
 </form>
 
