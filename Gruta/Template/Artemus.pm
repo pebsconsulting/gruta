@@ -620,16 +620,6 @@ sub _artemus {
 			'unresolved'	=>	$self->{unresolved},
 			'abort'		=>	\$self->{abort},
 		);
-
-		if ($self->{cgi_vars}) {
-			foreach my $k (keys(%{ $self->{cgi_vars} })) {
-				my $c = $self->{_artemus}->
-					armor($self->{cgi_vars}->{$k});
-				$c =~ s/\r//g;
-
-				$v{"cgi-${k}"} = $c;
-			}
-		}
 	}
 
 	return $self->{_artemus};
