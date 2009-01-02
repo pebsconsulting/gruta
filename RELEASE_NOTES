@@ -5,6 +5,8 @@ Gruta Release Notes
 -----------------
 
  * Story rendering is cached, resulting in faster page rendering.
+ * An existing story can be copied to another topic from the story
+   edition form.
 
 2.1.0 "Calenzano"
 -----------------

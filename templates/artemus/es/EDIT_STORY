@@ -10,7 +10,7 @@
 	<input type = 'submit' class = 'button' value = 'OK'>
 
 	<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
-	<input type = 'hidden' name = 'topic' value = '{-var|topic}'>
+	<input type = 'hidden' name = 'topic' value = '{-var|cp_topic|{-var|topic}}'>
 
 	<p>Fecha de publicaci&oacute;n: <small>(Vac&iacute;o, hoy)</small><br>
 
@@ -37,12 +37,12 @@
 	<input type = 'text' name = 'format'
 		value = '{-story_format|{-var|topic}|{-var|id}}'>
 
-	{-if|{-eq|{-var|id}|[]}|
+	{-if|{-eq|{-var|cp_id|{-var|id}}|[]}|
 	<p>Id de la historia:
 	<small>(Opcional; si no sabe lo que significa, d&eacute;jelo en blanco)</small><br>
 	<input type = 'text' size = '32' name = 'id' value = ''>
 	|
-	<input type = 'hidden' name = 'id' value = '{-var|id}'>
+	<input type = 'hidden' name = 'id' value = '{-var|cp_id|{-var|id}}'>
 	}
 
 	<p>Etiquetas: <small>(separadas por comas)</small><br>
@@ -62,6 +62,17 @@
 	<input type = 'hidden' name = 'topic'	value = '{-var|topic}'>
 	<input type = 'hidden' name = 'id'	value = '{-var|id}'>
 	<input type = 'submit' class = 'button'	value = 'BORRAR'>
+</form>
+
+<form method = 'get' action = '{-url}'>
+	<input type = 'hidden' name = 't'	value = 'EDIT_STORY'>
+	<input type = 'hidden' name = 'topic'	value = '{-var|topic}'>
+	<input type = 'hidden' name = 'id'	value = '{-var|id}'>
+	<input type = 'hidden' name = 'cp_id'	value = '[]'>
+	<input type = 'submit' class = 'button'	value = 'COPIAR'>
+	<select name = 'cp_topic'>
+		{-foreach|{-topics}|<option value = '\$0'>\{-topic_name\|\$0\}</option>|}
+	</select>
 </form>
 
 </div>
