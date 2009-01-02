@@ -53,7 +53,7 @@
 
 	<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>{-story_content|{-var|topic}|{-var|id}}</textarea>
 
-	<br>
+	<p>
 	<input type = 'submit' class = 'button' value = 'OK'>
 </form>
 
