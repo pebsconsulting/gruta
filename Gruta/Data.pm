@@ -211,7 +211,7 @@ sub new {
 package Gruta::Data;
 
 sub format_date {
-	my $date	= shift || '00000000000000';
+	my $date	= shift;
 	my $format	= shift;
 
 	if ($format) {
