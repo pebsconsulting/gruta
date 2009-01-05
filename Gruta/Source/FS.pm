@@ -371,7 +371,7 @@ sub stories {
 
 	if (opendir D, $path) {
 		while (my $id = readdir D) {
-			if ($id =~ s/\.M$//) {
+			if ($id =~ s/\.M$// || $id =~ s/\.META$//) {
 				push(@ret, $id);
 			}
 		}
