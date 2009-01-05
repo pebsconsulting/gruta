@@ -100,10 +100,10 @@ sub story {
 		return undef;
 	}
 
-#	if (!$story->get('title') || !$story->get('abstract') || !$story->get('body')) {
-#		$self->render($story);
-#		$story->save();
-#	}
+	if (!$story->get('title') || !$story->get('abstract') || !$story->get('body')) {
+		$self->render($story);
+		$story->save();
+	}
 
 	return $self->{story_cache}->{$ck} = $story;
 }

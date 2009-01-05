@@ -213,7 +213,9 @@ sub load {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->SUPER::load( $driver );
+	if (!$self->SUPER::load( $driver )) {
+		return undef;
+	}
 
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
