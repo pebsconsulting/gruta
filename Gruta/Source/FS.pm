@@ -11,7 +11,7 @@ package Gruta::Data::FS::BASE;
 
 use Carp;
 
-sub ext { return '.META'; }
+sub ext { return '.M'; }
 
 sub _filename {
 	my $self	= shift;
@@ -30,7 +30,11 @@ sub load {
 
 	$self->source( $driver );
 
-	if (not open F, $self->_filename()) {
+	# rename old .META files into .M
+	my $filename = $self->_filename();
+	rename($filename . 'ETA', $filename);
+
+	if (not open F, $filename) {
 		return undef;
 	}
 
@@ -118,7 +122,7 @@ sub save {
 	$self->SUPER::save( $driver );
 
 	my $filename = $self->_filename();
-	$filename =~ s/\.META$//;
+	$filename =~ s/\.M$//;
 
 	my @d = ('', 'content', '.A', 'abstract', '.B', 'body');
 
@@ -162,7 +166,7 @@ sub tags {
 	my @ret		= ();
 
 	my $filename = $self->_filename();
-	$filename =~ s/\.META$/.T/;
+	$filename =~ s/\.M$/.T/;
 
 	if (scalar(@_)) {
 		if (open F, '>' . $filename) {
@@ -192,7 +196,7 @@ sub delete {
 	$self->SUPER::delete($driver);
 
 	# also delete content and tags
-	$file =~ s/\.META$//;
+	$file =~ s/\.M$//;
 
 	unlink $file;
 	unlink $file . '.A';
@@ -212,7 +216,7 @@ sub load {
 	$self->SUPER::load( $driver );
 
 	my $filename = $self->_filename();
-	$filename =~ s/\.META$//;
+	$filename =~ s/\.M$//;
 
 	rename($filename . '.TAGS', $filename . '.T');
 
@@ -234,7 +238,7 @@ sub save {
 	$self->SUPER::save( $driver );
 
 	my $filename = $self->_filename();
-	$filename =~ s/\.META$//;
+	$filename =~ s/\.M$//;
 
 	mkdir $filename;
 
@@ -340,7 +344,7 @@ sub story {
 
 	# now load the content
 	my $file = $story->_filename();
-	$file =~ s/\.META$//;
+	$file =~ s/\.M$//;
 
 	my @d = ('', 'content', '.A', 'abstract', '.B', 'body');
 
@@ -367,7 +371,7 @@ sub stories {
 
 	if (opendir D, $path) {
 		while (my $id = readdir D) {
-			if ($id =~ s/\.META$//) {
+			if ($id =~ s/\.M$//) {
 				push(@ret, $id);
 			}
 		}
@@ -630,7 +634,7 @@ sub _collect_tags {
 		my $topic = $self->topic($topic_id);
 
 		my $files = $topic->_filename();
-		$files =~ s/\.META$/\/*.T/;
+		$files =~ s/\.M$/\/*.T/;
 
 		my @ls = glob($files);
 
