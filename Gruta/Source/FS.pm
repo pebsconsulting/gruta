@@ -195,6 +195,8 @@ sub delete {
 	$file =~ s/\.META$//;
 
 	unlink $file;
+	unlink $file . '.A';
+	unlink $file . '.B';
 	unlink $file . '.T';
 
 	$self->_destroy_index();
