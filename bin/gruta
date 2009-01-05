@@ -9,6 +9,9 @@ use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
 use Gruta::Source::Mbox;
+use Gruta::Renderer::Grutatxt;
+use Gruta::Renderer::HTML;
+use Gruta::Renderer::Text;
 
 my $X = {
 	'copy' =>	[
@@ -389,7 +392,15 @@ sub arg_o
 sub init
 {
 	my $src = new_source(arg());
-	my $g	= Gruta->new( sources => $src );
+	my $g	= Gruta->new(
+		sources => $src,
+		renderers	=> [
+			Gruta::Renderer::Grutatxt->new(),
+			Gruta::Renderer::HTML->new(),
+			Gruta::Renderer::HTML->new( valid_tags => undef ),
+			Gruta::Renderer::Text->new(),
+		]
+	);
 
 	return $g;
 }
@@ -529,6 +540,7 @@ sub save_story
 	close F;
 
 	$story->set('content', $c);
+	$g->render($story);
 
 	if ($story->source()) {
 		$story->save();
