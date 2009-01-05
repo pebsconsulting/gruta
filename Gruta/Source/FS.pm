@@ -162,7 +162,7 @@ sub tags {
 	my @ret		= ();
 
 	my $filename = $self->_filename();
-	$filename =~ s/\.META$/.TAGS/;
+	$filename =~ s/\.META$/.T/;
 
 	if (scalar(@_)) {
 		if (open F, '>' . $filename) {
@@ -191,13 +191,28 @@ sub delete {
 
 	$self->SUPER::delete($driver);
 
-	# also delete content and TAGS
+	# also delete content and tags
 	$file =~ s/\.META$//;
 
 	unlink $file;
-	unlink $file . '.TAGS';
+	unlink $file . '.T';
 
 	$self->_destroy_index();
+
+	return $self;
+}
+
+
+sub load {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$self->SUPER::load( $driver );
+
+	my $filename = $self->_filename();
+	$filename =~ s/\.META$//;
+
+	rename($filename . '.TAGS', $filename . '.T');
 
 	return $self;
 }
@@ -613,7 +628,7 @@ sub _collect_tags {
 		my $topic = $self->topic($topic_id);
 
 		my $files = $topic->_filename();
-		$files =~ s/\.META$/\/*.TAGS/;
+		$files =~ s/\.META$/\/*.T/;
 
 		my @ls = glob($files);
 
@@ -623,7 +638,7 @@ sub _collect_tags {
 				chomp $tags;
 				close F;
 
-				my ($id) = ($f =~ m{/([^/]+)\.TAGS});
+				my ($id) = ($f =~ m{/([^/]+)\.T});
 
 				push(@ret,
 					[ $topic_id, $id, [ split(/\s*,\s*/, $tags) ] ]
