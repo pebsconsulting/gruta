@@ -7,6 +7,7 @@
 	<link rel = "shortcut icon" href = "{-cfg_favicon_url}">
 	<link rel = "alternate" type = "text/xml" title = "RSS" href = "{-url|RSS}">
 	<link rel = "stylesheet" type = "text/css" href = "{-url|CSS}">
+	{-cfg_additional_headers}
 </head>
 
 <body>
