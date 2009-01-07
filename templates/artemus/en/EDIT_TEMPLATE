@@ -7,6 +7,9 @@
 
 	<form method = 'post' action = '{-url}'>
 
+		<input type = 'submit' class = 'button' value = 'OK'>
+		<p>
+
 		{-if|{-eq|{-var|id}|[]}|
 		<input type = 'text' name = 'id' value = ''>
 		|
@@ -17,6 +20,7 @@
 
 		<textarea name = 'content' cols = '80' rows = '30'>{-template|{-var|id}}</textarea>
 
+		<p>
 		<input type = 'submit' class = 'button' value = 'OK'>
 		<input type = 'hidden' name = 't' value = 'SAVE_TEMPLATE'>
 	</form>
