@@ -10,5 +10,5 @@ with the topic name as title.
 {-block_topic_list_of_future_links|$0}
 
 <div class = 'topic_list'>
-	{-foreach|{-stories_by_date|$0|$1|$2}|\{-_story_abstract\|$0\|\$0\}}
+	{-foreach|{-stories_by_date|$0|$1|$2}|\{-_story_abstract\|\$0\|\$1\}}
 </div>

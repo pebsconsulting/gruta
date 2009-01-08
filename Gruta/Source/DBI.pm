@@ -268,7 +268,7 @@ sub stories_by_date {
 	$args{offset} += 0;
 	$args{offset} = 0 if $args{offset} < 0;
 
-	my $sql = 'SELECT id, topic_id, date FROM stories ';
+	my $sql = 'SELECT topic_id, id, date FROM stories ';
 	my @args = ();
 	my @sql_w = ();
 

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>{-aurl}</loc></url>
 {-foreach|{-stories_by_date||0|0}|
-	<url><loc>\{-aurl\|STORY\|topic\|\$1\|id\|\$0\}</loc></url>}
+	<url><loc>\{-aurl\|STORY\|topic\|\$0\|id\|\$1\}</loc></url>}
 {-foreach|{-topics}|
 	<url><loc>\{-aurl\|TOPIC\|topic\|\$0\}</loc></url>}
 </urlset>

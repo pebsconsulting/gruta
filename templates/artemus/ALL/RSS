@@ -20,12 +20,12 @@
 
 {-foreach|{-stories_by_date|{-var|topic|{-cfg_rss_topics}}|{-var|num|{-cfg_rss_num}}}|
 <item>
-	<title>\{-story_title\|\$1\|\$0\}</title>
-	<link>\{-aurl\|STORY\|topic\|\$1\|id\|\$0\}</link>
-	<author>\{-user_email\|\{-or\|\{-story_userid\|\$1\|\$0\}\|admin\}\} (\{-user_username\|\{-or\|\{-story_userid\|\$1\|\$0\}\|admin\}\})</author>
+	<title>\{-story_title\|\$0\|\$1\}</title>
+	<link>\{-aurl\|STORY\|topic\|\$0\|id\|\$1\}</link>
+	<author>\{-user_email\|\{-or\|\{-story_userid\|\$0\|\$1\}\|admin\}\} (\{-user_username\|\{-or\|\{-story_userid\|\$0\|\$1\}\|admin\}\})</author>
 	<description>
 <![CDATA[
-\{-story_abstract\|\$1\|\$0\}
+\{-story_abstract\|\$0\|\$1\}
 ]]>
 	</description>
 </item>

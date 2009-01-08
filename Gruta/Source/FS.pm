@@ -507,7 +507,7 @@ sub _stories_by_date {
 		# skip offset stories
 		next if $args{'offset'} and ++$o <= $args{'offset'};
 
-		push(@r, [ $id, $topic_id, $date ]);
+		push(@r, [ $topic_id, $id, $date ]);
 
 		# exit if we have all we need
 		last if $args{'num'} and $args{'num'} == scalar(@r);
@@ -579,7 +579,7 @@ sub search_stories {
 
 	foreach my $id ($self->stories_by_date( [ $topic_id ], future => $future )) {
 
-		my $story = $self->story($topic_id, $id->[0]);
+		my $story = $self->story($topic_id, $id->[1]);
 		my $content = $story->get('content');
 		my $found = 0;
 
@@ -596,7 +596,7 @@ sub search_stories {
 			}
 		}
 
-		push(@r, $id->[0]) if $found == scalar(@q);
+		push(@r, $id->[1]) if $found == scalar(@q);
 	}
 
 	return @r;

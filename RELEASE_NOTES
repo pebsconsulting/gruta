@@ -7,6 +7,8 @@ Gruta Release Notes
  * Story rendering is cached, resulting in faster page rendering.
  * An existing story can be copied to another topic from the story
    edition form.
+ * The template `stories_by_date' has changed the order of their
+   output values; now they are topic_id, id and date.
 
 2.1.0 "Calenzano"
 -----------------

@@ -9,6 +9,6 @@ with the topic name as title.
 
 <ul>
 	{-foreach|{-stories_by_date|$0|$1}|
-		<li>\{-link_to_story\|$0\|\$0\}</li>
+		<li>\{-link_to_story\|\$0\|\$1\}</li>
 	}
 </ul>

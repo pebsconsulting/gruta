@@ -10,7 +10,7 @@ a date in the future.
 	<ul>
 	<li>{-link_to_new_story|$0}</li>
 	{-foreach|{-stories_by_date|$0|0|0|{-date}||1}|
-		<li>\{-story_date\|%y/%m/%d\|$0\|\$0\} - \{-link_to_story_with_edit\|$0\|\$0\}</li>
+		<li>\{-story_date\|%y/%m/%d\|\$0\|\$1\} - \{-link_to_story_with_edit\|\$0\|\$1\}</li>
 	}
 	</ul>
 }
