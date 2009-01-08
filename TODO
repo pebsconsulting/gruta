@@ -4,7 +4,8 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
-None!
+ * 1053: Reorder return values from stories_by_date() to be
+   topic_id, id and date.
 
 Open Bugs
 ---------
