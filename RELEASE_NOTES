@@ -9,6 +9,8 @@ Gruta Release Notes
    edition form.
  * The template `stories_by_date' has changed the order of their
    output values; now they are topic_id, id and date.
+ * The RSS template now accepts an optional CGI argument `tag', to
+   get feeds on stories by tag.
 
 2.1.0 "Calenzano"
 -----------------
