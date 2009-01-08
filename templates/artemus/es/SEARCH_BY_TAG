@@ -10,7 +10,7 @@
 
 	<h1>B&uacute;squedas por etiqueta</h1>
 
-	<p><b>{-var|tag}</b>:<br>
+	<p><b>{-var|tag}</b> (<a href = '{-url|RSS|tag|{-var|tag}}'>RSS</a>):<br>
 
 	<ul>
 		{-foreach|{-stories_by_tag|{-var|topic}|{-var|tag}|{-is_admin}}|
