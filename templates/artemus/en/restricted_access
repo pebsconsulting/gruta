@@ -1,3 +1,12 @@
+=head2 restricted_access
+
+ restricted_access
+
+Returns the text that will be shown when an article has
+a liberation date later than the current date and the
+user is not logged in.
+
+=cut
 <p>The content you are trying to see (<b>{-story_title|{-var|topic}|{-var|id}}</b>)
 it's actually only available to subscribers.</p>
 

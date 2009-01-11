@@ -1,3 +1,10 @@
+=head2 EDIT_STORY
+
+ EDIT_STORY
+
+Generates the form to edit stories.
+
+=cut
 {-assert_topic_editor|{-var|topic}}
 {-header}
 

@@ -1,3 +1,10 @@
+=head2 SEARCH_BY_DATE
+
+ SEARCH_BY_DATE
+
+Generates the search by date page.
+
+=cut
 {-header}
 
 {-column1}

@@ -2,7 +2,8 @@
 
  _story_abstract {topic_id} [id}
 
-Shows the C<story_abstract> followed by the C<_story_footer>.
+Convenience template that shows the C<story_abstract>
+followed by the C<_story_footer>.
 
 =cut
 <div class = 'story_abstract'>

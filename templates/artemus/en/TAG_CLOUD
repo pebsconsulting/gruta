@@ -1,3 +1,10 @@
+=head2 TAG_CLOUD
+
+ TAG_CLOUD
+
+Generates the cloud of tags page.
+
+=cut
 {-header}
 
 {-column1}

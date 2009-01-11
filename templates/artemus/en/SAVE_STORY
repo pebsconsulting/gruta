@@ -1,3 +1,10 @@
+=head2 SAVE_STORY
+
+ SAVE_STORY
+
+Saves a story.
+
+=cut
 {-assert_topic_editor|{-var|topic}}
 {-header}
 

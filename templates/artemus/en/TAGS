@@ -1,3 +1,10 @@
+=head2 TAGS
+
+ TAGS
+
+Generates the tag enumeration page.
+
+=cut
 {-header}
 
 {-column1}

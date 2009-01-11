@@ -1,3 +1,10 @@
+=head2 EDIT_TEMPLATE
+
+ EDIT_TEMPLATE
+
+Generates the form to edit templates.
+
+=cut
 {-assert_admin}
 {-header}
 

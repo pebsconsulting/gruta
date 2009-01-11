@@ -1,3 +1,15 @@
+=head2 meta_menu
+
+ meta_menu
+
+Generates an unsorted list containing a list to the C<about>
+story in the C<info> topic (if exists), another link to the
+C<legal> story in the C<info> topic (if exists), another
+link to the main C<RSS> page, a link to the C<ADMIN> page
+(if the logged user has admin capabilities), links to
+login or logout and the search form.
+
+=cut
 <ul>
 	{-if|{-story_title|info|about}|<li><a href = '{-url|STORY|topic|info|id|about}'>{-story_title|info|about}</a></li>}
 	{-if|{-story_title|info|legal}|<li><a href = '{-url|STORY|topic|info|id|legal}'>{-story_title|info|legal}</a></li>}

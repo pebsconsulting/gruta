@@ -1,3 +1,10 @@
+=head2 SUBSCRIBE
+
+ SUBSCRIBE
+
+Generates the subscription page.
+
+=cut
 {-header}
 
 {-column1}

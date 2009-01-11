@@ -1,3 +1,10 @@
+=head2 SAVE_USER
+
+ SAVE_USER
+
+Saves a user.
+
+=cut
 {-assert_logged_in}
 {-header}
 

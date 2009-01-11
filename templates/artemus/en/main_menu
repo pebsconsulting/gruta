@@ -1,3 +1,13 @@
+=head2 main_menu
+
+ main_menu
+
+Generates an unsorted list with a link to the main index,
+links to the C<TOPIC> pages as specified by C<cfg_main_menu_topics>,
+another link to the C<TAGS> page and another one to the
+C<TOP_TEN> page, if C<cfg_top_ten_num> is not zero.
+
+=cut
 <div class = 'main_menu'>
 
 	<h1>{-cfg_site_name}</h1>

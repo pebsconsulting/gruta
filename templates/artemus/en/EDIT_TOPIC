@@ -1,3 +1,10 @@
+=head2 EDIT_TOPIC
+
+ EDIT_TOPIC
+
+Generates the form to edit topics.
+
+=cut
 {-assert_admin}
 {-header}
 

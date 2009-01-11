@@ -1,3 +1,10 @@
+=head2 EDIT_USER
+
+ EDIT_USER
+
+Generates the form to edit users.
+
+=cut
 {-assert_logged_in}
 {-header}
 

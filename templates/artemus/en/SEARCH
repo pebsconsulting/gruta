@@ -1,3 +1,10 @@
+=head2 SEARCH
+
+ SEARCH
+
+Generates the search result page.
+
+=cut
 {-header}
 
 {-column1}

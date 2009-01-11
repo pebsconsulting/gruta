@@ -1,3 +1,10 @@
+=head2 SAVE_TEMPLATE
+
+ SAVE_TEMPLATE
+
+Saves a template.
+
+=cut
 {-assert_admin}
 {-header}
 

@@ -1,3 +1,11 @@
+=head2 _story_complete
+
+ _story_complete {topic_id} {id}
+
+Convenience template that shows the body of a story, a
+footer and links to the printable and permanent links.
+
+=cut
 <div class = 'story_complete'>
 	{-story_body|$0|$1|{-var|hl}}
 </div>

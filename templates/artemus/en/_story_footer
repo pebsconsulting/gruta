@@ -1,3 +1,13 @@
+=head2 _story_footer
+
+ _story_footer {topic_id} {id}
+
+Convenience template that shows a footer for a story:
+A link to the full story, the total hits and an edition
+link if the logged user has editor capabilities, a link
+to the full topic, and a list of clickable tags.
+
+=cut
 <div class = 'story_footer'>
 
 	{-ifneq|{-var|t}|STORY|

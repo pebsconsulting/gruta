@@ -1,3 +1,12 @@
+=head2 block_top_ten
+
+ block_top_ten
+
+Generates a list of top stories. The number of
+links to generate is set in C<cfg_top_ten_num> and
+can be overriden by the C<num> CGI variable.
+
+=cut
 <h1>Top stories</h1>
 
 <ul>

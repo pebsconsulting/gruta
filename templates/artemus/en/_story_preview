@@ -1,3 +1,11 @@
+=head2 _story_preview
+
+ _story_preview {topic_id} {id}
+
+Convenience template that shows a link to continue
+editing a story and a call to C<_story_complete>.
+
+=cut
 <a href = '{-url|EDIT_STORY|topic|$0|id|$1}'>Continue editing</a>
 <p>
 {-_story_complete|$0|$1}

@@ -2,10 +2,10 @@
 
  _story_printable {topic} {story_id}
 
-Shows a complete story, in _printer-friendly_ format.
+Convenience template that shows a complete story,
+in _printer-friendly_ format.
 
 =cut
-
 <div class = 'story_printable'>
 
 	{-story_body|$0|$1}

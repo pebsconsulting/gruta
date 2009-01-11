@@ -1,3 +1,11 @@
+=head2 block_login
+
+ block_login
+
+Generates the login form, if no user is logged in, or
+some links to logout and edit user preferences otherwise.
+
+=cut
 <h1>Login</h1>
 
 {-if|{-is_logged_in}|

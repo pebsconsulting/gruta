@@ -1,3 +1,10 @@
+=head2 ADMIN
+
+ ADMIN
+
+Generates the administration page.
+
+=cut
 {-assert_admin}
 {-header}
 

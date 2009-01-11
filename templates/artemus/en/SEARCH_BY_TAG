@@ -1,3 +1,10 @@
+=head2 SEARCH_BY_TAG
+
+ SEARCH_BY_TAG
+
+Generates the search by tag page.
+
+=cut
 {-header}
 
 {-column1}
