@@ -2,7 +2,7 @@
 
  cfg_additional_headers
 
-Add here more I<meta>, I<link> or similar HTML tags
-that will live inside the document I<head>.
+Add here more C<meta>, C<link> or similar HTML tags
+that will live inside the document C<head>.
 
 =cut
