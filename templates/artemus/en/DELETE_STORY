@@ -1,3 +1,10 @@
+=head2 DELETE_STORY
+
+ DELETE_STORY
+
+Deletes a story.
+
+=cut
 {-assert_topic_editor|{-var|topic}}
 {-header}
 

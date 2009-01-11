@@ -1,3 +1,10 @@
+=head2 LIST
+
+ LIST
+
+Generates the list of all pages in the site.
+
+=cut
 {-header}
 
 {-column1}

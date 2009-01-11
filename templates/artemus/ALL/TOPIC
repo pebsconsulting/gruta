@@ -1,3 +1,10 @@
+=head2 TOPIC
+
+ TOPIC
+
+Generates the topic page.
+
+=cut
 {-assert|{-topic_id|{-var|topic}}|404}
 {-header}
 

@@ -1,3 +1,10 @@
+=head column1
+
+ column1
+
+The content of the first column.
+
+=cut
 <div class = 'column1'>
 
 </div>

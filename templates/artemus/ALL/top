@@ -1,3 +1,10 @@
+=head top
+
+ top
+
+Includes the C<meta_menu> and the slogan.
+
+=cut
 <div class = 'top'>
 
 	<div class = 'meta_menu'>{-meta_menu}</div>

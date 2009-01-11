@@ -1,2 +1,9 @@
+=head2 footer_printable
+
+ footer_printable
+
+The footer in the C<STORY_PRINTABLE> page.
+
+=cut
 <br><br>
 <div class = 'footer'>{-cfg_copyright}</div>

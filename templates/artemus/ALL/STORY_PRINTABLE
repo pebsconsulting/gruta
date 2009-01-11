@@ -1,3 +1,10 @@
+=head2 STORY_PRINTABLE
+
+ STORY_PRINTABLE
+
+Generates the C<STORY_PRINTABLE> page.
+
+=cut
 {-redir_if_archived|STORY_PRINTABLE|{-var|topic}|{-var|id}}
 
 {-header_printable}

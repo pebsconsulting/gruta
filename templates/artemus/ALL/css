@@ -1,3 +1,11 @@
+=head2 css
+
+ css
+
+The Cascading Style Sheet to be included from
+the C<CSS> template.
+
+=cut
 body, table { font-family: verdana; background: white; color: black; margin: 0; padding: 0; font-size: 14px }
 .boxtit { background: #eeeecd; font-size: 120%; }
 .boxbod { }

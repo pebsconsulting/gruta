@@ -1,3 +1,10 @@
+=head2 404
+
+ 404
+
+Generates the 404 error page.
+
+=cut
 {-header}
 
 <div class = 'column1'>

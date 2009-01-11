@@ -1,4 +1,10 @@
+=head2 footer
 
+ footer
+
+The footer in all pages.
+
+=cut
 </div> <!-- inner-container -->
 
 <div class = 'footer'>{-cfg_copyright}</div>

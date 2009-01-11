@@ -1,3 +1,11 @@
+=head2 header
+
+ header
+
+The content of the HTML header and the top structure
+in all pages.
+
+=cut
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
        "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>

@@ -1,3 +1,10 @@
+=head2 INDEX
+
+ INDEX
+
+Generates the main page.
+
+=cut
 {-header}
 
 {-set|html_title|{-cfg_slogan}}

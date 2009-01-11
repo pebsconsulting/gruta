@@ -1,1 +1,9 @@
+=head2 is_future_story
+
+ is_future_story {topic_id} {id}
+
+Returns I<true> if the specified story has a
+publication date in the future.
+
+=cut
 {-gt|{-story_date|%y%m%d%H%M%S|$0|$1}|{-date|%y%m%d%H%M%S}}

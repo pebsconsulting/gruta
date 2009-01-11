@@ -1,3 +1,10 @@
+=head LOGIN
+
+ LOGIN
+
+Generates the login page.
+
+=cut
 {-header}
 
 {-column1}
