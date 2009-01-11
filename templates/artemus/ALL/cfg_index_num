@@ -5,5 +5,6 @@
 This value is the number of items per page that will be
 shown in the INDEX page. It can be overriden with the
 I<num> CGI variable.
+
 =cut
 6

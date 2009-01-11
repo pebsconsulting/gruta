@@ -4,5 +4,6 @@
 
 Creates a link to a story and, if the logged user is
 editor for this topic, also a link to edit it.
+
 =cut
 {-link_to_story|$0|$1}{-if|{-is_topic_editor|$0}| - {-link_to_edit_story|$0|$1}}

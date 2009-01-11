@@ -7,5 +7,6 @@ by in the I<intermixed_index> template. Every time the formatting
 of a story's date using this template is different from the
 previous one, an h1 header of the I<index_date> class with
 be emitted.
+
 =cut
 %y-%m-%d

@@ -6,5 +6,6 @@ The topics that will be shown in the index, as a colon-separated
 list of topic ids. If the I<grouped_index> template is used,
 each element can also be followed by a comma and the number of
 items for that topic.
+
 =cut
 {-topics}

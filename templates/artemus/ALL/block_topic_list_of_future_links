@@ -4,6 +4,7 @@
 
 Shows a block with a list of links to stories with
 a date in the future.
+
 =cut
 <div class = 'future_stories_list'>
 {-if|{-is_topic_editor|$0}|

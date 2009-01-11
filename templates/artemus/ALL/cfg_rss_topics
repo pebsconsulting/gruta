@@ -5,5 +5,6 @@
 The topics that will be shown in the RSS feed file,
 as a list of colon-separated topic ids. It can be
 overriden by the I<topic> CGI variable.
+
 =cut
 {-topics}

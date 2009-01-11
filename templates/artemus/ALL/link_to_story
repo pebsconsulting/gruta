@@ -3,5 +3,6 @@
  link_to_story {topic} {id}
 
 Creates a link to a story.
+
 =cut
 <a href = '{-url|STORY|topic|$0|id|$1}'>{-story_title|$0|$1}</a>
