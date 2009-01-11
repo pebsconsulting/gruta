@@ -594,7 +594,7 @@ sub _artemus {
 
 			$self->{search_count} += scalar(@ret);
 
-			return join(':', map { $_->[0] . ',' . $_->[1] } @ret);
+			return join(':', map { join(',', @{$_}) } @ret);
 		};
 
 		$f{stories_top_ten} = sub {
