@@ -1,2 +1,9 @@
+=head2 logout
+
+ logout
+
+Immediately logs out the currently logged user.
+
+=cut
 {-logout}
 {-INDEX}

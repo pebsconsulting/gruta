@@ -1,1 +1,12 @@
+=head2 is_admin
+
+ is_admin
+
+If there is no administrator logged in (no user or
+the user has no administrator priviledges), redirects
+the HTTP query to the C<LOGIN> template. As all _assert_
+templates, it does the redirection aborting further
+template execution.
+
+=cut
 {-assert|{-is_admin}|LOGIN}

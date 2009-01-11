@@ -1,6 +1,6 @@
 =head2 _story_printable
 
- _story_printable topic story_id
+ _story_printable {topic} {story_id}
 
 Shows a complete story, in _printer-friendly_ format.
 

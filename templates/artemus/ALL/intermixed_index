@@ -1,3 +1,13 @@
+=head2 intermixed_index
+
+ intermixed_index
+
+Generates a list of abstracts given by the
+C<cfg_index_topics> template. All stories will
+be intermixed and sorted by date instead of topic.
+See C<cfg_index_topics> for more information.
+
+=cut
 {-set|PDATE|-}
 {-foreach|{-stories_by_date|{-cfg_index_topics}|{-var|num|{-cfg_index_num}}|{-var|offset|0}}|
 	\{-set\|DATE\|\{-date\|\{-cfg_index_date_format\}\|\$2\}\}

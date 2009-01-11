@@ -1,3 +1,10 @@
+=head2 STORY
+
+ STORY
+
+Shows the full story page.
+
+=cut
 {-assert_visible_story|{-var|topic}|{-var|id}}
 {-redir_if_archived|STORY|{-var|topic}|{-var|id}}
 

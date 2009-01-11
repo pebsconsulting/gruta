@@ -1,3 +1,13 @@
+=head2 grouped_index
+
+ grouped_index
+
+Shows a list of abstract to the set of stories
+specified by C<cfg_index_topics>. The abstracts are
+shown grouped by topic. See C<cfg_index_topics> for
+more information.
+
+=cut
 {-foreach|{-cfg_index_topics}|
 	\{-block_topic_list_of_abstracts\|\$0\|\$1\}
 }

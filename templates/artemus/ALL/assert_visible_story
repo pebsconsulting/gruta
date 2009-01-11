@@ -1,1 +1,13 @@
+=head2 assert_visible_story
+
+ assert_visible_story {topic_id} {id}
+
+If the specified story is not visible (i.e. its
+publication day is in the future, and the logged
+in user is not the admin nor the topic editor)
+redirects the HTTP query to the C<404> template. As
+all _assert_ templates, it does the redirection
+aborting further template execution.
+
+=cut
 {-assert|{-is_visible_story|$0|$1}|404}

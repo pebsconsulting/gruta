@@ -1,3 +1,10 @@
+=head2 TOP_TEN
+
+ TOP_TEN
+
+Shows the _top stories_ page.
+
+=cut
 {-header}
 
 {-column1}
