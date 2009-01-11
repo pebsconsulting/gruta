@@ -697,16 +697,16 @@ sub stories_by_tag {
 
 		if ($c >= scalar(@tags)) {
 
+			my $story = $self->story($tr->[0], $tr->[1]);
+
 			# if no future stories are wanted, discard them
 			if (!$future) {
-				my $story = $self->story($tr->[0], $tr->[1]);
-
 				if ($story->get('date') gt Gruta::Data::today()) {
 					next;
 				}
 			}
 
-			push(@ret, [ $tr->[0], $tr->[1] ]);
+			push(@ret, [ $tr->[0], $tr->[1], $story->get('date') ]);
 		}
 	}
 
