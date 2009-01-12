@@ -19,7 +19,7 @@
 </image>
 
 {-if|{-var|tag}|
-	\{-set\|RESULT\|\{-sort\|\{-stories_by_tag\|\|\{-var\|tag\}\}\|2\|1\}\}
+	\{-set\|RESULT\|\{-reverse\|\{-sort\|\{-stories_by_tag\|\|\{-var\|tag\}\}\|2\}\}\}
 |
 	\{-set\|RESULT\|\{-stories_by_date\|\{-var\|topic\|\{-cfg_rss_topics\}\}\|\{-var\|num\|\{-cfg_rss_num\}\}\}\}
 }
