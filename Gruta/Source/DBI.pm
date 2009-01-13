@@ -404,6 +404,7 @@ sub stories_by_tag {
 		}
 
 		$sql .= ' GROUP BY tags.topic_id, tags.id HAVING count(tags.id) = ' . scalar(@tags);
+		$sql .= ' ORDER BY stories.title';
 
 		my $sth = $self->_prepare($sql);
 		$self->_execute($sth, map { lc($_) } @args);
