@@ -424,7 +424,7 @@ sub tags {
 	my @r = ();
 
 	my $sth = $self->_prepare(
-		'SELECT tag, count(tag) FROM tags GROUP BY tag');
+		'SELECT tag, count(tag) FROM tags GROUP BY tag ORDER BY tag');
 	$self->_execute($sth);
 
 	while (my @a = $sth->fetchrow_array()) {
