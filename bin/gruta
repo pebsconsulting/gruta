@@ -348,6 +348,8 @@ my $X = {
 				$story->set('content', $content);
 				$story->set('ctime', time());
 
+				$g->render($story);
+
 				if ($story->source()) {
 					$story = $story->save();
 				}
