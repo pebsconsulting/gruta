@@ -386,18 +386,15 @@ sub stories_by_tag {
 	my @args = ( @tags );
 
 	if (@tags) {
-		my $sql;
+		my $sql = 'SELECT DISTINCT tags.topic_id, tags.id, stories.date' .
+			' FROM tags, stories WHERE ' .
+			'tags.topic_id = stories.topic_id AND tags.id = stories.id AND ';
 
-		if ($future) {
-			$sql = 'SELECT DISTINCT topic_id, id FROM tags WHERE ' .
-				join(' OR ', map { 'tag = ?' } @tags);
+		if (!$future) {
+			$sql .= "stories.date <= '" . Gruta::Data::today() . "' AND ";
 		}
-		else {
-			$sql = 'SELECT DISTINCT tags.topic_id, tags.id FROM tags, stories WHERE ' .
-				'tags.topic_id = stories.topic_id AND tags.id = stories.id AND ' .
-				"stories.date <= '" . Gruta::Data::today() . "' AND (" .
-				join(' OR ', map { 'tag = ?' } @tags) . ')';
-		}
+
+		$sql .= '(' . join(' OR ', map { 'tag = ?' } @tags) . ')';
 
 		if ($topics) {
 			$sql .= ' AND (' .
