@@ -64,7 +64,7 @@ sub _artemus {
 				my $ret = '';
 
 				if ($topic ne '[]') {
-					if (my $topic = $data->topic($topic)) {
+					if (my $topic = $data->source->topic($topic)) {
 						$ret = $topic->get($p) || '';
 					}
 				}
@@ -82,7 +82,7 @@ sub _artemus {
 				if ($id ne '[]') {
 					my $story;
 
-					if ($story = $data->story($topic_id, $id)) {
+					if ($story = $data->source->story($topic_id, $id)) {
 						$ret = $story->get($p);
 					}
 				}
@@ -92,7 +92,7 @@ sub _artemus {
 		}
 
 		$f{story_abstract} = sub {
-			my $story = $data->story($_[0], $_[1]);
+			my $story = $data->source->story($_[0], $_[1]);
 			my $ret = $data->special_uris($story->get('abstract'));
 
 			return $self->{_artemus}->armor($ret);
@@ -103,8 +103,8 @@ sub _artemus {
 			my $id		= shift;
 			my $ret		= undef;
 
-			if (my $topic = $data->topic($topic_id)) {
-				if (my $story = $data->story($topic_id, $id)) {
+			if (my $topic = $data->source->topic($topic_id)) {
+				if (my $story = $data->source->story($topic_id, $id)) {
 					my $date2 = $story->get('date2');
 
 					# if no user and story is not freed, bounce
@@ -141,7 +141,7 @@ sub _artemus {
 			if ($id ne '[]') {
 				my $story;
 
-				if ($story = $data->story($topic_id, $id)) {
+				if ($story = $data->source->story($topic_id, $id)) {
 					$ret = $story->date($format);
 				}
 			}
@@ -158,7 +158,7 @@ sub _artemus {
 			if ($id ne '[]') {
 				my $story;
 
-				if ($story = $data->story($topic_id, $id)) {
+				if ($story = $data->source->story($topic_id, $id)) {
 					$ret = $story->date2($format);
 				}
 			}
@@ -172,7 +172,7 @@ sub _artemus {
 				my $ret	= '';
 
 				if ($id ne '[]') {
-					$ret = $data->user($id)->get($p);
+					$ret = $data->source->user($id)->get($p);
 				}
 
 				return $self->{_artemus}->armor($ret);
@@ -185,7 +185,7 @@ sub _artemus {
 			my $ret		= '';
 
 			if ($id ne '[]') {
-				$ret = $data->user($id)->xdate($format);
+				$ret = $data->source->user($id)->xdate($format);
 			}
 
 			return $ret;
@@ -223,7 +223,7 @@ sub _artemus {
 		};
 
 		$f{is_topic_editor} = sub {
-			if (my $topic = $data->topic($_[0])) {
+			if (my $topic = $data->source->topic($_[0])) {
 				return $topic->is_editor($data->auth()) ? 1 : 0;
 			}
 
@@ -281,7 +281,7 @@ sub _artemus {
 			my $sep		= shift || '';
 
 			my $ret = '';
-			my @l = $data->search_stories($topic_id, $query, $future);
+			my @l = $data->source->search_stories($topic_id, $query, $future);
 
 			if (@l) {
 				$ret = "<p><b>{-topic_name|$topic_id}</b><br>\n";
@@ -297,7 +297,7 @@ sub _artemus {
 		};
 
 		$f{is_visible_story} = sub {
-			if (my $story = $data->story($_[0], $_[1])) {
+			if (my $story = $data->source->story($_[0], $_[1])) {
 				return $story->is_visible($data->auth()) ? 1 : 0;
 			}
 
@@ -313,7 +313,7 @@ sub _artemus {
 				return '';
 			}
 
-			my $story = $data->story($topic_id, $id);
+			my $story = $data->source->story($topic_id, $id);
 
 			if ($story && $story->get('topic_id') =~ /-arch$/) {
 				$data->cgi->redirect(
@@ -328,7 +328,7 @@ sub _artemus {
 		};
 
 		$f{topic_has_archive} = sub {
-			return $data->topic($_[0] . '-arch') ? 1 : 0;
+			return $data->source->topic($_[0] . '-arch') ? 1 : 0;
 		};
 
 		$f{save_topic} = sub {
@@ -336,7 +336,7 @@ sub _artemus {
 
 			my $topic = undef;
 
-			if (not $topic = $data->topic($topic_id)) {
+			if (not $topic = $data->source->topic($topic_id)) {
 				$topic = Gruta::Data::Topic->new (
 					id => $topic_id );
 			}
@@ -352,7 +352,7 @@ sub _artemus {
 				$topic = $topic->save();
 			}
 			else {
-				$topic = $data->insert_topic($topic);
+				$topic = $data->source->insert_topic($topic);
 			}
 
 			return $topic ? 'OK' : 'Error 2';
@@ -364,7 +364,7 @@ sub _artemus {
 
 			my $story = undef;
 
-			if (not $story = $data->story($topic_id, $id)) {
+			if (not $story = $data->source->story($topic_id, $id)) {
 				$story = Gruta::Data::Story->new (
 					topic_id	=> $topic_id,
 					id		=> $id
@@ -425,7 +425,7 @@ sub _artemus {
 				$story = $story->save();
 			}
 			else {
-				$story = $data->insert_story($story);
+				$story = $data->source->insert_story($story);
 			}
 
 			$story->tags(split(/\s*,\s*/, $tags));
@@ -455,7 +455,7 @@ sub _artemus {
 
 			my $user = undef;
 
-			if (not $user = $data->user($id)) {
+			if (not $user = $data->source->user($id)) {
 				$user = Gruta::Data::User->new (
 					id		=> $id,
 					is_admin	=> 0,
@@ -495,7 +495,7 @@ sub _artemus {
 				$user = $user->save();
 			}
 			else {
-				$user = $data->insert_user($user);
+				$user = $data->source->insert_user($user);
 			}
 
 			return $user ? 'OK' : 'Error 2';
@@ -511,7 +511,7 @@ sub _artemus {
 			my $topic_id	= shift || return 'Error 1';
 			my $id		= shift;
 
-			$data->story($topic_id, $id)->delete();
+			$data->source->story($topic_id, $id)->delete();
 
 			# drop all cached stories
 			$data->flush_story_cache();
@@ -526,13 +526,14 @@ sub _artemus {
 			return '';
 		};
 
-		$f{topics}	= sub { join(':', $data->topics()); };
+		$f{topics}	= sub { join(':', $data->source->topics()); };
 		$f{templates}	= sub { join(':', $data->template->templates()); };
-		$f{users}	= sub { join(':', $data->users()); };
+		$f{users}	= sub { join(':', $data->source->users()); };
 
 		$f{renderers}	= sub { join(':', sort(keys(%{$data->{renderers_h}}))); };
 		$f{upload_dirs}	= sub { join(':', $data->cgi->upload_dirs()); };
-		$f{tags}	= sub { join(':', map { $_->[0] . ',' . $_->[1] } $data->tags()); };
+		$f{tags}	= sub { join(':',
+			map { $_->[0] . ',' . $_->[1] } $data->source->tags()); };
 
 		$f{var}		= sub {
 			my $ret = $self->{cgi_vars}->{$_[0]} || $_[1] || '';
@@ -546,7 +547,7 @@ sub _artemus {
 			my $ret		= '';
 
 			if ($id ne '[]') {
-				if (my $story = $data->story($topic_id, $id)) {
+				if (my $story = $data->source->story($topic_id, $id)) {
 					$ret = join(':', $story->tags());
 				}
 			}
