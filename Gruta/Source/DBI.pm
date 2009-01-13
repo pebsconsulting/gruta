@@ -337,7 +337,7 @@ sub search_stories {
 	}
 
 	my $sql = 'SELECT id FROM stories WHERE topic_id = ? ' . $cond .
-		'ORDER BY date DESC';
+		'ORDER BY title';
 
 	my $sth = $self->_prepare($sql);
 
