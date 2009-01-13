@@ -33,7 +33,7 @@ my $X = {
 		sub {
 			my $g = init();
 
-			foreach my $t ($g->topics()) {
+			foreach my $t ($g->source->topics()) {
 				print $t, "\n";
 			}
 		}
@@ -76,7 +76,7 @@ my $X = {
 			my $g		= init();
 			my $topic_id	= arg();
 
-			foreach my $s ($g->stories($topic_id)) {
+			foreach my $s ($g->source->stories($topic_id)) {
 				print $s, "\n";
 			}
 		}
@@ -181,7 +181,7 @@ my $X = {
 		sub {
 			my $g	= init();
 
-			foreach my $t ($g->tags()) {
+			foreach my $t ($g->source->tags()) {
 				print join(' ', @{$t}), "\n";
 			}
 		}
@@ -202,7 +202,7 @@ my $X = {
 				$topics = [ split(':', $topics) ];
 			}
 
-			foreach my $s ($g->stories_by_date(
+			foreach my $s ($g->source->stories_by_date(
 					$topics,
 					num	=> $num,
 					offset	=> $offset,
@@ -223,13 +223,13 @@ my $X = {
 			my $n_stories	= 0;
 			my $n_hits	= 0;
 
-			foreach my $t ($g->topics()) {
+			foreach my $t ($g->source->topics()) {
 				$n_topics++;
 
-				foreach my $s ($g->stories($t)) {
+				foreach my $s ($g->source->stories($t)) {
 					$n_stories++;
 
-					my $story = $g->story($t, $s);
+					my $story = $g->source->story($t, $s);
 
 					$n_hits += $story->get('hits') || 0;
 				}
@@ -250,7 +250,7 @@ my $X = {
 				$topics = [ split(':', $topics) ];
 			}
 
-			foreach my $s ($g->stories_by_tag($topics, $tags)) {
+			foreach my $s ($g->source->stories_by_tag($topics, $tags)) {
 				print join(' ', @{$s}), "\n";
 			}
 		}
@@ -263,7 +263,7 @@ my $X = {
 			my $topic_id	= arg();
 			my $query	= arg();
 
-			foreach my $s ($g->search_stories($topic_id, $query)) {
+			foreach my $s ($g->source->search_stories($topic_id, $query)) {
 				print $s, "\n";
 			}
 		}
@@ -275,7 +275,7 @@ my $X = {
 			my $g		= init();
 			my $num		= arg_o() || 10;
 
-			foreach my $s ($g->stories_top_ten($num)) {
+			foreach my $s ($g->source->stories_top_ten($num)) {
 				print join(' ', @{$s}), "\n";
 			}
 		}
@@ -287,8 +287,8 @@ my $X = {
 			my $g		= init();
 			my $max_date	= arg_o() || '99999999999999';
 
-			foreach my $id ($g->users()) {
-				my $u = $g->user($id);
+			foreach my $id ($g->source->users()) {
+				my $u = $g->source->user($id);
 
 				my $xdate = $u->get('xdate');
 
@@ -336,7 +336,7 @@ my $X = {
 
 				my $story;
 
-				if (not $story = $g->story($topic_id, $id)) {
+				if (not $story = $g->source->story($topic_id, $id)) {
 					$story = Gruta::Data::Story->new (
 						topic_id	=> $topic_id,
 						id		=> $id
@@ -456,7 +456,7 @@ sub get_story
 	my $id		= shift;
 	my @r		= ();
 
-	my $story = $g->story($topic_id, $id)
+	my $story = $g->source->story($topic_id, $id)
 			or die "Cannot find story '${topic_id}/${id}'";
 
 	foreach my $f ($story->fields()) {
@@ -480,7 +480,7 @@ sub get_topic
 	my $topic_id	= shift;
 	my @r		= ();
 
-	my $topic = $g->topic($topic_id);
+	my $topic = $g->source->topic($topic_id);
 
 	foreach my $f ($topic->afields()) {
 		push(@r, $f . ': ' . ($topic->get($f) || ''));
@@ -504,7 +504,7 @@ sub save_story
 	my $story = undef;
 
 	if ($id && !$new) {
-		$story = $g->story($topic_id, $id)
+		$story = $g->source->story($topic_id, $id)
 			or die "Cannot find story '${topic_id}/${id}'";
 	}
 	else {
@@ -566,7 +566,7 @@ sub save_topic
 	my $topic = undef;
 
 	if ($topic_id) {
-		$topic = $g->topic($topic_id);
+		$topic = $g->source->topic($topic_id);
 	}
 	else {
 		$topic = Gruta::Data::Topic->new (
