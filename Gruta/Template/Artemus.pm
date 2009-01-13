@@ -563,7 +563,7 @@ sub _artemus {
 			my $future	= shift;
 
 			my @ret = map { join(',', @{$_}) }
-				$data->stories_by_date(
+				$data->source->stories_by_date(
 					$topic ?
 						[ map { (split(',', $_))[0] }
 							split(':', $topic)
@@ -585,7 +585,7 @@ sub _artemus {
 			my $tag		= shift;
 			my $future	= shift;
 
-			my @ret = $data->stories_by_tag(
+			my @ret = $data->source->stories_by_tag(
 				$topic ?
 					[ map { (split(',', $_))[0] }
 						split(':', $topic)
@@ -601,7 +601,7 @@ sub _artemus {
 			my $num		= shift;
 
 			return join(':', map { join(',', @{$_}) }
-				$data->stories_top_ten($num)
+				$data->source->stories_top_ten($num)
 			);
 		};
 
