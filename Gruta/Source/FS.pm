@@ -579,7 +579,7 @@ sub search_stories {
 
 	my @q = split(/\s+/,$query);
 
-	my @r = ();
+	my %r = ();
 
 	foreach my $id ($self->stories_by_date( [ $topic_id ], future => $future )) {
 
@@ -600,10 +600,12 @@ sub search_stories {
 			}
 		}
 
-		push(@r, $id->[1]) if $found == scalar(@q);
+		if ($found == scalar(@q)) {
+			$r{$id->[1]} = $story->get('title');
+		}
 	}
 
-	return @r;
+	return sort { $r{$a} cmp $r{$b} } keys %r;
 }
 
 sub stories_top_ten {
