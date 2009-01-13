@@ -731,7 +731,7 @@ sub tags {
 		push(@ret, [ $k, $h{$k} ]);
 	}
 
-	return @ret;
+	return sort { $a->[0] cmp $b->[0] } @ret;
 }
 
 
