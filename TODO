@@ -4,7 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1055: FS's stories_by_tag() should be sorted by title.
+None!
 
 Open Bugs
 ---------
@@ -125,5 +125,7 @@ Closed
    topic_id, id and date (Thu, 08 Jan 2009 08:54:07 +0100).
  * 1054: FS's search_stories() should be sorted by title
    (Tue, 13 Jan 2009 13:27:36 +0100).
+ * 1055: FS's stories_by_tag() should be sorted by title
+   (Tue, 13 Jan 2009 13:52:18 +0100).
 
 Email bugs to angel@triptico.com

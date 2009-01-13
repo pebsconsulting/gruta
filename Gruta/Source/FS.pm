@@ -673,7 +673,6 @@ sub stories_by_tag {
 
 	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
-	my @ret = ();
 	my @topics;
 
 	if (!$topics) {
@@ -682,6 +681,8 @@ sub stories_by_tag {
 	else {
 		@topics = @{ $topics };
 	}
+
+	my %r = ();
 
 	foreach my $tr ($self->_collect_tags(@topics)) {
 
@@ -712,11 +713,12 @@ sub stories_by_tag {
 				}
 			}
 
-			push(@ret, [ $tr->[0], $tr->[1], $story->get('date') ]);
+			$r{$story->get('title')} =
+				[ $tr->[0], $tr->[1], $story->get('date') ];
 		}
 	}
 
-	return @ret;
+	return map { $r{$_} } sort keys %r;
 }
 
 
