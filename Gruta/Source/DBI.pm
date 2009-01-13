@@ -9,7 +9,7 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
-my $schema_version = 4;
+my $schema_version = 5;
 
 sub _prepare {
 	my $self	= shift;
@@ -564,6 +564,12 @@ sub update_schema {
 				'ALTER TABLE stories ADD COLUMN body VARCHAR'
 			);
 		}
+		elsif ($version == 4) {
+			# from 4 to 5
+			$self->{dbh}->do(
+				'CREATE INDEX stories_by_title ON stories (title)'
+			);
+		}
 
 		$version++;
 
@@ -653,4 +659,6 @@ CREATE INDEX stories_by_date ON stories (date)
 CREATE INDEX stories_by_hits ON stories (hits)
 ;
 CREATE INDEX tags_by_tag ON tags (tag)
+;
+CREATE INDEX stories_by_title ON stories (title)
 ;
