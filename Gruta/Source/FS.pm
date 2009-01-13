@@ -369,6 +369,10 @@ sub stories {
 
 	my @ret = ();
 
+	if (!$self->topic($topic_id)) {
+		return @ret;
+	}
+
 	my $path = $self->{path} . Gruta::Data::FS::Topic::base() . $topic_id;
 
 	if (opendir D, $path) {
