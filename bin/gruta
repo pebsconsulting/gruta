@@ -352,7 +352,7 @@ my $X = {
 					$story = $story->save();
 				}
 				else {
-					$story = $g->insert_story($story);
+					$story = $g->source->insert_story($story);
 				}
 			}
 		}
@@ -546,7 +546,7 @@ sub save_story
 		$story->save();
 	}
 	else {
-		$g->insert_story($story);
+		$g->source->insert_story($story);
 	}
 
 	if ($tags) {
@@ -588,6 +588,6 @@ sub save_topic
 		$topic->save();
 	}
 	else {
-		$g->insert_topic($topic);
+		$g->source->insert_topic($topic);
 	}
 }
