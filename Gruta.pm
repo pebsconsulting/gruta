@@ -456,6 +456,10 @@ sub new {
 		}
 	}
 
+	if (!$g->{source}) {
+		$g->{source} = (@{$g->{sources}})[0];
+	}
+
 	if ($g->{renderers}) {
 		if (ref($g->{renderers}) ne 'ARRAY') {
 			$g->{renderers} = [ $g->{renderers} ];
