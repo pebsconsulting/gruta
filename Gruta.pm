@@ -169,7 +169,9 @@ sub insert_story { my $self = shift; return $self->_call('insert_story', 1, @_);
 sub auth {
 	my $self	= shift;
 
-	if (@_) { $self->{auth} = shift; }	# Gruta::Data::User
+	if (@_) {
+		$self->{auth} = shift;	# Gruta::Data::User
+	}
 
 	return $self->{auth};
 }
@@ -182,9 +184,9 @@ sub auth_from_sid {
 	my $u = undef;
 
 	if ($sid) {
-		$self->_call('purge_old_sessions', 0);
+		$self->source->purge_old_sessions();
 
-		if (my $session = $self->_call('session', 1, $sid)) {
+		if (my $session = $self->source->session($sid)) {
 			$u = $session->source->user( $session->get('user_id') );
 
 			if ($u) {
@@ -205,7 +207,7 @@ sub login {
 
 	my $sid = undef;
 
-	if (my $u = $self->user( $user_id )) {
+	if (my $u = $self->source->user( $user_id )) {
 
 		# account expired? go!
 		if (my $xdate = $u->get('xdate')) {
@@ -294,7 +296,7 @@ sub _topic_special_uri {
 
 	my $ret = undef;
 
-	if (my $t = $self->topic($topic_id)) {
+	if (my $t = $self->source->topic($topic_id)) {
 		$ret = sprintf('<a href="%s">%s</a>',
 			$self->url('TOPIC', 'topic' => $topic_id),
 			$t->get('name')
@@ -315,7 +317,7 @@ sub _story_special_uri {
 
 	my $ret = undef;
 
-	if (my $s = $self->story($topic_id, $story_id)) {
+	if (my $s = $self->source->story($topic_id, $story_id)) {
 		$ret = sprintf('<a href="%s">%s</a>',
 			$self->url('STORY',
 				'topic' => $topic_id,
@@ -357,7 +359,7 @@ sub _content_special_uri {
 
 	my $ret = undef;
 
-	if (my $s = $self->story($topic_id, $story_id)) {
+	if (my $s = $self->source->story($topic_id, $story_id)) {
 		$ret = $self->special_uris($s->get($field));
 	}
 	else {
@@ -387,13 +389,13 @@ sub transfer_to_source {
 	my $self	= shift;
 	my $dst		= shift;
 
-	foreach my $id ($self->users()) {
-		my $u = $self->user($id);
+	foreach my $id ($self->source->users()) {
+		my $u = $self->source->user($id);
 		$dst->insert_user($u);
 	}
 
-	foreach my $topic_id (sort $self->topics()) {
-		my $t = $self->topic($topic_id);
+	foreach my $topic_id (sort $self->source->topics()) {
+		my $t = $self->source->topic($topic_id);
 
 		my $nti = $topic_id;
 
@@ -406,10 +408,10 @@ sub transfer_to_source {
 			$dst->insert_topic($t);
 		}
 
-		foreach my $id ($self->stories($topic_id)) {
+		foreach my $id ($self->source->stories($topic_id)) {
 
 			# get story and its tags
-			my $s = $self->story($topic_id, $id);
+			my $s = $self->source->story($topic_id, $id);
 			my @tags = $s->tags();
 
 			# set new topic
