@@ -581,9 +581,14 @@ sub search_stories {
 
 	my %r = ();
 
-	foreach my $id ($self->stories_by_date( [ $topic_id ], future => $future )) {
+	foreach my $id ($self->stories($topic_id)) {
 
-		my $story = $self->story($topic_id, $id->[1]);
+		my $story = $self->story($topic_id, $id);
+
+		if (!$future and $story->get('date') gt Gruta::Data::today()) {
+			next;
+		}
+
 		my $content = $story->get('content');
 		my $found = 0;
 
@@ -601,7 +606,7 @@ sub search_stories {
 		}
 
 		if ($found == scalar(@q)) {
-			$r{$id->[1]} = $story->get('title');
+			$r{$id} = $story->get('title');
 		}
 	}
 
