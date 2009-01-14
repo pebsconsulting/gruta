@@ -20,4 +20,28 @@ sub dummy_touch {
 	return $self->data->{args}->{dummy_touch};
 }
 
+
+sub cache_story {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $id		= shift;
+	my $story	= shift;
+
+	if (!$self->{story_cache}) {
+		$self->{story_cache} = {};
+	}
+
+	my $ck = $topic_id . '/' . $id;
+
+	if ($story) {
+		$self->{story_cache}->{$ck} = $story;
+	}
+	else {
+		$story = $self->{story_cache}->{$ck};
+	}
+
+	return $story;
+}
+
+
 1;
