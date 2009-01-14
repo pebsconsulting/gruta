@@ -101,7 +101,7 @@ sub run {
 
 	$data->template->cgi_vars($vars);
 
-	if ($ENV{REMOTE_USER} and my $u = $data->user($ENV{REMOTE_USER})) {
+	if ($ENV{REMOTE_USER} and my $u = $data->source->user($ENV{REMOTE_USER})) {
 		$data->auth( $u );
 	}
 	elsif (my $cookie = $self->cookie()) {
@@ -119,7 +119,7 @@ sub run {
 	$st = 'INDEX' unless $st =~ /^[-\w0-9_]+$/;
 
 	# not identified nor users found?
-	if (!$data->auth() && ! $data->users()) {
+	if (!$data->auth() && ! $data->source->users()) {
 
 		# create the admin user
 		my $u = Gruta::Data::User->new(
@@ -134,7 +134,7 @@ sub run {
 		$u->password(rand());
 
 		# insert the user
-		$data->insert_user($u);
+		$data->source->insert_user($u);
 
 		# create a new session
 		my $session = Gruta::Data::Session->new(user_id => 'admin');
