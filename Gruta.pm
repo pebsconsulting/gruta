@@ -25,46 +25,6 @@ sub log {
 }
 
 
-sub _call {
-	my $self	= shift;
-	my $method	= shift;
-	my $short	= shift;
-
-	my @r = ();
-
-	if (!exists($self->{calls}->{$method})) {
-
-		# cache all calls in the sources
-		my @c = ();
-
-		foreach my $s ($self->sources()) {
-			if (my $m = $s->can($method)) {
-				push(@c, sub { return $m->($s, @_) });
-			}
-		}
-
-		$self->{calls}->{$method} = [ @c ];
-	}
-
-	foreach my $m (@{ $self->{calls}->{$method}}) {
-		my @pr = $m->(@_);
-
-		if (@pr && $pr[0]) {
-			@r = (@r, @pr);
-
-			last if $short;
-		}
-	}
-
-	return wantarray ? @r : $r[0];
-}
-
-sub topic { my $self = shift; return $self->_call('topic', 1, @_); }
-sub topics { my $self = shift; return $self->_call('topics', 0); }
-
-sub user { my $self = shift; return $self->_call('user', 1, @_); }
-sub users { my $self = shift; return $self->_call('users', 0); }
-
 sub render {
 	my $self	= shift;
 	my $story	= shift; # Gruta::Data::Story
@@ -80,90 +40,6 @@ sub render {
 		$rndr->story($story);
 	}
 }
-
-sub story {
-	my $self	= shift;
-	my $topic_id	= shift;
-	my $id		= shift;
-
-	if (! $topic_id || ! $id) {
-		return undef;
-	}
-
-	my $story = undef;
-	my $ck = $topic_id . '/' . $id;
-
-	if ($story = $self->{story_cache}->{$ck}) {
-		return $story;
-	}
-
-	if (not $story = $self->_call('story', 1, $topic_id, $id)) {
-		return undef;
-	}
-
-	if (!$story->get('abstract') || !$story->get('body')) {
-		$self->render($story);
-		$story->save();
-	}
-
-	return $self->{story_cache}->{$ck} = $story;
-}
-
-
-sub stories { my $self = shift; return $self->_call('stories', 0, @_); }
-
-sub stories_by_date {
-	my $self	= shift;
-	my $topics	= shift;
-	my %opts	= @_;
-
-	my @r = sort { $b->[2] cmp $a->[2] } $self->_call('stories_by_date', 0, $topics, %opts);
-
-	if ($opts{num} && scalar(@r) > $opts{num}) {
-		@r = @r[0 .. $opts{num} - 1];
-	}
-
-	return @r;
-}
-
-sub search_stories {
-	my $self	= shift;
-	my $topic_id	= shift;
-
-	my @l = $self->_call('search_stories', 1, $topic_id, @_);
-
-	return sort { $self->story($topic_id, $a)->get('title') cmp
-			$self->story($topic_id, $b)->get('title') } @l;
-}
-
-sub stories_top_ten {
-	my $self = shift;
-
-	my @l = $self->_call('stories_top_ten', 0, @_);
-
-	return sort { $b->[0] <=> $a->[0] } @l;
-}
-
-sub stories_by_tag {
-	my $self = shift;
-
-	my @l = $self->_call('stories_by_tag', 0, @_);
-
-	return sort { $self->story($a->[0], $a->[1])->get('title') cmp
-			$self->story($b->[0], $b->[1])->get('title') } @l;
-}
-
-sub tags {
-	my $self = shift;
-
-	my @l = $self->_call('tags', 0, @_);
-
-	return sort { $a->[0] cmp $b->[0] } @l;
-}
-
-sub insert_topic { my $self = shift; return $self->_call('insert_topic', 1, @_); }
-sub insert_user { my $self = shift; return $self->_call('insert_user', 1, @_); }
-sub insert_story { my $self = shift; return $self->_call('insert_story', 1, @_); }
 
 
 sub auth {
