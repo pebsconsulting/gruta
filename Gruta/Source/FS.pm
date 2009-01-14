@@ -568,7 +568,7 @@ sub stories_by_date {
 		@R = @R[$args{offset} .. (scalar(@R) - 1)];
 	}
 
-	return @R;
+	return grep { defined $_ } @R;
 }
 
 sub search_stories {
