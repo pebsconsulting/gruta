@@ -333,7 +333,14 @@ sub story {
 	my $topic_id	= shift;
 	my $id		= shift;
 
-	my $story = Gruta::Data::FS::Story->new( topic_id => $topic_id, id => $id );
+	my $story;
+
+	if ($story = $self->cache_story($topic_id, $id)) {
+		return $story;
+	}
+
+	$story = Gruta::Data::FS::Story->new( topic_id => $topic_id, id => $id );
+
 	if (not $story->load( $self )) {
 
 		$story = Gruta::Data::FS::Story->new( topic_id => $topic_id . '-arch',
@@ -359,6 +366,8 @@ sub story {
 			close F;
 		}
 	}
+
+	$self->cache_story($topic_id, $id, $story);
 
 	return $story;
 }
