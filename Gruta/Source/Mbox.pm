@@ -1,5 +1,7 @@
 package Gruta::Source::Mbox;
 
+# WARNING: This backend is DEPRECATED. Use it at your own risk.
+
 use base 'Gruta::Source::BASE';
 
 use strict;
