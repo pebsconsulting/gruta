@@ -395,7 +395,7 @@ sub init
 {
 	my $src = new_source(arg());
 	my $g	= Gruta->new(
-		sources => $src,
+		source => $src,
 		renderers	=> [
 			Gruta::Renderer::Grutatxt->new(),
 			Gruta::Renderer::HTML->new(),
