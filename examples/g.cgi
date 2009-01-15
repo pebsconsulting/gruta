@@ -19,10 +19,9 @@ use Gruta::Template::Artemus;
 my $base = '/var/www/gruta';
 
 my $g = Gruta->new(
-	sources		=> [
+	source		=>
 		Gruta::Source::DBI->new( string => "dbi:SQLite:$base/var/gruta.db" ),
 #		Gruta::Source::FS->new( path => "${base}/var" ),
-	],
 	renderers	=> [
 		Gruta::Renderer::Grutatxt->new(),
 		Gruta::Renderer::HTML->new(),
