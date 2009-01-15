@@ -324,12 +324,14 @@ sub new {
 	$g->{renderers_h}	= {};
 	$g->{calls}		= {};
 
-	if ($g->{sources} && ref($g->{sources}) ne 'ARRAY') {
-		$g->{sources} = [ $g->{sources} ];
-	}
+	if ($g->{sources}) {
+		if (ref($g->{sources}) ne 'ARRAY') {
+			$g->{sources} = [ $g->{sources} ];
+		}
 
-	if (!$g->{source}) {
-		$g->{source} = (@{$g->{sources}})[0];
+		if (!$g->{source}) {
+			$g->{source} = (@{$g->{sources}})[0];
+		}
 	}
 
 	if ($g->{source}) {
