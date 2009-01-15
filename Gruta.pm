@@ -313,7 +313,6 @@ sub new {
 	$g->{args}		||= {};
 
 	$g->{renderers_h}	= {};
-	$g->{calls}		= {};
 
 	if ($g->{sources}) {
 		if (ref($g->{sources}) ne 'ARRAY') {
