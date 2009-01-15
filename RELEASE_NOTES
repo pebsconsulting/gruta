@@ -22,6 +22,7 @@ Gruta Release Notes
    holding the rendered abstract and story body, respectively. The
    transition is made automatically on the first run, no manual
    operation is needed.
+ * The Mbox source is officially deprecated.
 
 2.1.1 "Calenzano"
 -----------------
