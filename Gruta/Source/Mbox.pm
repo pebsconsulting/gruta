@@ -411,7 +411,7 @@ sub stories_by_tag {
 				}
 			}
 
-			push(@ret, [ $topic_id, $e->{id} ]);
+			push(@ret, [ $topic_id, $e->{id}, $e->{date} ]);
 		}
 	}
 
