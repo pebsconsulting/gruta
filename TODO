@@ -12,8 +12,6 @@ Open Bugs
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
  * 1004: Support broken lines in message headers in Source::Mbox.
- * 1041: Gruta::stories_by_date() will fail when using an offset and
-   more than one source (related to #1023).
 
 Pending Enhancements
 --------------------
@@ -127,5 +125,8 @@ Closed
    (Tue, 13 Jan 2009 13:27:36 +0100).
  * 1055: FS's stories_by_tag() should be sorted by title
    (Tue, 13 Jan 2009 13:52:18 +0100).
+ * 1041: Gruta::stories_by_date() will fail when using an offset and
+   more than one source (related to #1023) (Only one source
+   supported; Thu, 15 Jan 2009 13:11:15 +0100).
 
 Email bugs to angel@triptico.com
