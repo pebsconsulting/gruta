@@ -11,7 +11,6 @@ $Gruta::VERSION			= '2.2.0-dev';
 $Gruta::VERSION_CODENAME	= '"Osmannoro"';
 
 sub source	{ $_[0]->{source}; }
-sub sources	{ @{$_[0]->{sources}}; }
 sub template	{ $_[0]->{template}; }
 sub cgi		{ $_[0]->{cgi}; }
 
