@@ -4,16 +4,32 @@ Gruta Release Notes
 2.2.0 "Osmannoro"
 -----------------
 
- * Story rendering is cached, resulting in faster page rendering.
+ * Story rendering is cached, resulting in faster page loading.
  * An existing story can be copied to another topic from the story
    edition form.
  * The template `stories_by_date' has changed the order of their
    output values; now they are topic_id, id and date.
  * The RSS template now accepts an optional CGI argument `tag', to
    get feeds on stories by tag.
+ * Multiple sources are no longer supported; it never really worked
+   well, made the code cumbersome and had no real advantage after
+   all. The cgi caller needs not to be changed, as the `sources'
+   argument is still supported (only the first one is used, though),
+   but the scalar `source' is preferred now.
+ * The file format in the FS source has changed; the `.META' extension
+   has been changed to `.M', and `.TAGS' to `.T'. Also, new files
+   appear in the `stories' directory with the `.A' and `.B' extensions,
+   holding the rendered abstract and story body, respectively. The
+   transition is made automatically on the first run, no manual
+   operation is needed.
 
-2.1.0 "Calenzano"
+2.1.1 "Calenzano"
 -----------------
+
+ * Fixed a last time bug in the DBI schema generation.
+
+2.1.0
+-----
 
  * On-the-fly Gzip compression (if browser accepts it).
  * New special uris; `abstract', to paste a story's abstract, and `body',
