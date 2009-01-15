@@ -415,9 +415,6 @@ sub _artemus {
 				$story->set('userid', $data->auth->get('id'));
 			}
 
-			# drop all cached stories
-			$data->flush_story_cache();
-
 			# render the story
 			$data->render($story);
 
@@ -512,9 +509,6 @@ sub _artemus {
 			my $id		= shift;
 
 			$data->source->story($topic_id, $id)->delete();
-
-			# drop all cached stories
-			$data->flush_story_cache();
 
 			return 'OK';
 		};

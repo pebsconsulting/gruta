@@ -304,13 +304,6 @@ sub transfer_to_source {
 }
 
 
-sub flush_story_cache {
-	my $self	= shift;
-
-	$self->{story_cache} = {};
-}
-
-
 sub new {
 	my $class	= shift;
 
@@ -319,7 +312,6 @@ sub new {
 	$g->{id}		||= 'Gruta';
 	$g->{args}		||= {};
 
-	$g->{story_cache}	= {};
 	$g->{renderers_h}	= {};
 	$g->{calls}		= {};
 
