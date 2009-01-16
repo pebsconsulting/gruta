@@ -214,6 +214,10 @@ sub format_date {
 	my $date	= shift;
 	my $format	= shift;
 
+	if (!$date) {
+		return '';
+	}
+
 	if ($format) {
 		my ($y, $m, $d, $H, $M, $S) = ($date =~
 			/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
