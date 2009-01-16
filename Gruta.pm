@@ -31,11 +31,6 @@ sub render {
 	my $format = $story->get('format') || 'grutatxt';
 
 	if (my $rndr = $self->{renderers_h}->{$format}) {
-		$self->log('Rendering ' .
-			$story->get('topic_id') .
-			'/' .
-			$story->get('id'));
-
 		$rndr->story($story);
 	}
 }
