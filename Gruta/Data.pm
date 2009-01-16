@@ -27,7 +27,7 @@ sub _assert {
 	my $self	= shift;
 
 	my $id = $self->get('id') || '';
-	$id =~ /^[\d\w_-]+$/ or croak "Bad id [$id] [" . ref($self) . '] ';
+	$id =~ /^[\d\w_-]+$/ or confess "Bad id '$id' [" . ref($self) . '] ';
 
 	return $self;
 }
