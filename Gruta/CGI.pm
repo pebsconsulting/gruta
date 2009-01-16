@@ -157,7 +157,7 @@ sub run {
 #		$self->redirect('INDEX');
 
 		$self->status(500);
-		$body = "<h1>500 Internal Server Error</h1><p>$@</p>";
+		$body = "<h1>500 Internal Server Error</h1><pre>$@</pre>";
 	}
 
 	$self->http_headers('X-Powered-By' => 'Gruta ' . $self->data->version());
