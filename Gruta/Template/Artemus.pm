@@ -364,11 +364,14 @@ sub _artemus {
 
 			my $story = undef;
 
-			if (not $story = $data->source->story($topic_id, $id)) {
+			if ($id eq '[]' || !$id) {
 				$story = Gruta::Data::Story->new (
 					topic_id	=> $topic_id,
 					id		=> $id
 				);
+			}
+			else {
+				$story = $data->source->story($topic_id, $id);
 			}
 
 			my $content = shift;
