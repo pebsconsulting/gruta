@@ -247,13 +247,21 @@ sub format_date {
 }
 
 
+$Gruta::Data::_today = undef;
+
 sub today {
 	my $format	= shift;
 
-	my ($S,$M,$H,$d,$m,$y) = (localtime)[0..5];
+	my $date = $Gruta::Data::_today;
 
-	my $date = sprintf('%04d%02d%02d%02d%02d%02d',
-		1900 + $y, $m + 1, $d, $H, $M, $S);
+	if (!$date) {
+		my ($S, $M, $H, $d, $m, $y) = (localtime)[0..5];
+
+		$date = sprintf('%04d%02d%02d%02d%02d%02d',
+			1900 + $y, $m + 1, $d, $H, $M, $S);
+
+		$Gruta::Data::_today = $date;
+	}
 
 	return Gruta::Data::format_date($date, $format);
 }
