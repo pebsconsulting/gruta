@@ -40,9 +40,14 @@ Generates the form to edit stories.
 	<p>Description (about 15 words)<br>
 	<input size = '80' type = 'text' name = 'description' value = '{-story_description|{-var|topic}|{-var|id}}'>
 
-	<p>Format: (possible values: {-foreach|{-renderers}|<b>\$0</b>|, })<br>
-	<input type = 'text' name = 'format'
-		value = '{-story_format|{-var|topic}|{-var|id}}'>
+	<p>Format:<br>
+	<select name = 'format'>
+	{-foreach|{-renderers}|
+		<option \{-ifeq\|\$0
+			\|\{-story_format\|\{-var\|topic\}\|\{-var\|id\}\}
+			\|selected\} value='\$0'>\$0</option>
+	}
+	</select>
 
 	{-if|{-eq|{-var|cp_id|{-var|id}}|[]}|
 	<p>Story id:
