@@ -364,14 +364,17 @@ sub _artemus {
 
 			my $story = undef;
 
-			if ($id eq '[]' || !$id) {
+			# if there is an id, try to load the story
+			if ($id) {
+				# this may crash if id is not valid
+				$story = $data->source->story($topic_id, $id);
+			}
+
+			if (!$story) {
 				$story = Gruta::Data::Story->new (
 					topic_id	=> $topic_id,
 					id		=> $id
 				);
-			}
-			else {
-				$story = $data->source->story($topic_id, $id);
 			}
 
 			my $content = shift;
