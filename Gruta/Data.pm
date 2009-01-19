@@ -50,7 +50,7 @@ sub get {
 	my $self	= shift;
 	my $field	= shift;
 
-	croak 'get ' . ref($self) . " field '$field'?" unless exists $self->{$field};
+	confess 'get ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
 	return $self->{$field};
 }
@@ -60,7 +60,7 @@ sub set {
 	my $field	= shift;
 	my $value	= shift;
 
-	croak 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
+	confess 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
 	$self->{$field} = $self->filter_field($field, $value);
 
