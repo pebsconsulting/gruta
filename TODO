@@ -4,16 +4,17 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
-None!
+ * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
+ * 1057: Delete the vfields() and afields() methods, and use only
+   fields().
+ * 1058: Move the hardcoded top ten limit to an argument.
+ * 1059: Move the hardcoded CGI compression size to an argument.
 
 Open Bugs
 ---------
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
- * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
- * 1057: Delete the vfields() and afields() methods, and use only
-   fields().
 
 Pending Enhancements
 --------------------
