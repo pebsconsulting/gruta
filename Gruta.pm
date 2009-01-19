@@ -47,6 +47,17 @@ sub auth {
 }
 
 
+sub session {
+	my $self	= shift;
+
+	if (@_) {
+		$self->{session} = shift;	# Gruta::Data::Session
+	}
+
+	return $self->{session};
+}
+
+
 sub auth_from_sid {
 	my $self	= shift;
 	my $sid		= shift;
@@ -60,8 +71,8 @@ sub auth_from_sid {
 			$u = $session->source->user( $session->get('user_id') );
 
 			if ($u) {
-				$u->set('sid', $sid);
 				$self->auth($u);
+				$self->session($session);
 			}
 		}
 	}
@@ -91,12 +102,15 @@ sub login {
 		if (Gruta::Data::crypt($passwd, $p) eq $p) {
 			# create new sid
 			my $session = Gruta::Data::Session->new(user_id	=> $user_id);
+			$self->source->insert_session($session);
 
-			$u->source->insert_session( $session );
-
-			$sid = $session->get('id');
-			$u->set('sid', $sid);
+			# store user and session
 			$self->auth($u);
+			$self->session($session);
+
+			# and return sid to signal a valid login
+			$sid = $session->get('id');
+
 		}
 	}
 
@@ -107,15 +121,13 @@ sub login {
 sub logout {
 	my $self	= shift;
 
-	if (my $auth = $self->auth()) {
-		if( my $sid = $auth->get('sid')) {
-			if (my $session = $auth->source->session( $sid )) {
-				$session->delete() if $session->can('delete');
-			}
-		}
+	if (my $session = $self->session()) {
+		$session->delete();
 	}
 
-	$self->auth( undef );
+	$self->auth(undef);
+	$self->session(undef);
+
 	return $self;
 }
 

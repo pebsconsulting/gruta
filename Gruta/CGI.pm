@@ -140,10 +140,10 @@ sub run {
 		my $session = Gruta::Data::Session->new(user_id => 'admin');
 		$u->source->insert_session($session);
 
-		my $sid = $session->get('id');
-		$self->cookie("sid=$sid");
+		$self->cookie('sid=' . $session->get('id'));
 
 		$data->auth($u);
+		$data->session($session);
 
 		$st = 'ADMIN';
 	}

@@ -166,7 +166,6 @@ package Gruta::Data::User;
 use base 'Gruta::Data::BASE';
 
 sub fields { return qw(id username email password can_upload is_admin xdate); }
-sub vfields { return qw(sid); }
 
 sub filter_field {
 	my $self	= shift;
