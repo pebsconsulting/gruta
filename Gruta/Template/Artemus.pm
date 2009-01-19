@@ -108,7 +108,7 @@ sub _artemus {
 					my $date2 = $story->get('date2');
 
 					# if no user and story is not freed, bounce
-					if (!$data->auth() && $date2 && $date2 > Gruta::Data::today()) {
+					if (!$data->auth() && $date2 && $date2 gt Gruta::Data::today()) {
 						# return directly to avoid armoring
 						return '{-restricted_access}';
 					}
