@@ -11,6 +11,9 @@ Open Bugs
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
+ * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
+ * 1057: Delete the vfields() and afields() methods, and use only
+   fields().
 
 Pending Enhancements
 --------------------
