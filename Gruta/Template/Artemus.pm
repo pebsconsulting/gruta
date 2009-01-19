@@ -437,7 +437,6 @@ sub _artemus {
 		};
 
 		$f{save_user} = sub {
-			shift;	# new (ignored)
 			my $id		= shift || return 'Error 1';
 			my $username	= shift;
 			my $email	= shift;

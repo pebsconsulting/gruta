@@ -5,7 +5,7 @@
 
 	<h1>Datos del Usuario</h1>
 
-	{-save_user|{-var|new}|{-var|userid}|{-var|username}|{-var|email}|{-var|isadmin}|{-var|canupload}|{-var|pass1}|{-var|pass2}|{-var|year}|{-var|month}|{-var|day}}
+	{-save_user|{-var|userid}|{-var|username}|{-var|email}|{-var|isadmin}|{-var|canupload}|{-var|pass1}|{-var|pass2}|{-var|year}|{-var|month}|{-var|day}}
 
 </div>
 
