@@ -456,7 +456,7 @@ sub _update_top_ten {
 				push(@l, "$hits:$topic_id:$id");
 			}
 
-			if ($t ne $topic_id or $i ne $id) {
+			if ($i ne $id or $t ne $topic_id) {
 				push(@l, $l);
 			}
 		}
