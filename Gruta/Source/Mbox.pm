@@ -245,7 +245,9 @@ sub topic {
 	return $topic;
 }
 
-sub topics { return ($_[0]->{topic_id}) ; }
+sub topics {
+	return ($_[0]->{topic_id}) ;
+}
 
 sub story {
 	my $self	= shift;

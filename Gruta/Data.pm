@@ -7,10 +7,21 @@ package Gruta::Data::BASE;
 
 use Carp;
 
-sub fields		{ return (); }
-sub vfields		{ return (); }
-sub afields		{ return ($_[0]->fields(), $_[0]->vfields()); }
-sub filter_field	{ return $_[2]; }
+sub fields {
+	return ();
+}
+
+sub vfields {
+	return ();
+}
+
+sub afields {
+	return ($_[0]->fields(), $_[0]->vfields());
+}
+
+sub filter_field {
+	return $_[2];
+}
 
 sub source {
 	my $self	= shift;
@@ -72,7 +83,9 @@ package Gruta::Data::Topic;
 
 use base 'Gruta::Data::BASE';
 
-sub fields { return qw(id name editors max_stories internal description); }
+sub fields {
+	return qw(id name editors max_stories internal description);
+}
 
 sub filter_field {
 	my $self	= shift;
@@ -102,7 +115,9 @@ use base 'Gruta::Data::BASE';
 
 use Carp;
 
-sub fields { return qw(id topic_id title date date2 userid format hits ctime content description abstract body); }
+sub fields {
+	return qw(id topic_id title date date2 userid format hits ctime content description abstract body);
+}
 
 sub filter_field {
 	my $self	= shift;
@@ -128,10 +143,17 @@ sub _assert {
 	return $self;
 }
 
-sub date { return Gruta::Data::format_date($_[0]->get('date'), $_[1]); }
-sub date2 { return Gruta::Data::format_date($_[0]->get('date2'), $_[1]); }
+sub date {
+	return Gruta::Data::format_date($_[0]->get('date'), $_[1]);
+}
 
-sub touch { return $_[0]; }
+sub date2 {
+	return Gruta::Data::format_date($_[0]->get('date2'), $_[1]);
+}
+
+sub touch {
+	return $_[0];
+}
 
 sub tags {
 	my $self	= shift;
@@ -165,7 +187,9 @@ package Gruta::Data::User;
 
 use base 'Gruta::Data::BASE';
 
-sub fields { return qw(id username email password can_upload is_admin xdate); }
+sub fields {
+	return qw(id username email password can_upload is_admin xdate);
+}
 
 sub filter_field {
 	my $self	= shift;
@@ -180,7 +204,9 @@ sub filter_field {
 	return $value;
 }
 
-sub xdate { return Gruta::Data::format_date($_[0]->get('xdate'), $_[1]); }
+sub xdate {
+	return Gruta::Data::format_date($_[0]->get('xdate'), $_[1]);
+}
 
 sub password {
 	my $self	= shift;
@@ -196,7 +222,9 @@ package Gruta::Data::Session;
 
 use base 'Gruta::Data::BASE';
 
-sub fields { return qw(id time user_id ip); }
+sub fields {
+	return qw(id time user_id ip);
+}
 
 sub new {
 	my $class = shift;

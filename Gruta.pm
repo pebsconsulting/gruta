@@ -10,11 +10,21 @@ use Gruta::Data;
 $Gruta::VERSION			= '2.2.0-dev';
 $Gruta::VERSION_CODENAME	= '"Osmannoro"';
 
-sub source	{ $_[0]->{source}; }
-sub template	{ $_[0]->{template}; }
-sub cgi		{ $_[0]->{cgi}; }
+sub source {
+	$_[0]->{source};
+}
 
-sub version	{ $Gruta::VERSION . ' ' . $Gruta::VERSION_CODENAME; }
+sub template {
+	$_[0]->{template};
+}
+
+sub cgi {
+	$_[0]->{cgi};
+}
+
+sub version {
+	$Gruta::VERSION . ' ' . $Gruta::VERSION_CODENAME;
+}
 
 sub log {
 	my $self	= shift;
@@ -132,7 +142,9 @@ sub logout {
 }
 
 
-sub base_url { $_[0]->{args}->{base_url} || '' };
+sub base_url {
+	$_[0]->{args}->{base_url} || ''
+};
 
 sub url {
 	my $self	= shift;

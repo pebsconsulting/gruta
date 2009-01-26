@@ -31,7 +31,9 @@ sub _execute {
 
 package Gruta::Data::DBI::BASE;
 
-sub pk { return qw(id); }
+sub pk {
+	return qw(id);
+}
 
 sub load {
 	my $self	= shift;
@@ -121,8 +123,13 @@ package Gruta::Data::DBI::Story;
 use base 'Gruta::Data::Story';
 use base 'Gruta::Data::DBI::BASE';
 
-sub table { return 'stories'; }
-sub pk { return qw(id topic_id); }
+sub table {
+	return 'stories';
+}
+
+sub pk {
+	return qw(id topic_id);
+}
 
 sub touch {
 	my $self = shift;
@@ -181,25 +188,33 @@ package Gruta::Data::DBI::Topic;
 use base 'Gruta::Data::Topic';
 use base 'Gruta::Data::DBI::BASE';
 
-sub table { return 'topics'; }
+sub table {
+	return 'topics';
+}
 
 package Gruta::Data::DBI::User;
 
 use base 'Gruta::Data::User';
 use base 'Gruta::Data::DBI::BASE';
 
-sub table { return 'users'; }
+sub table {
+	return 'users';
+}
 
 package Gruta::Data::DBI::Session;
 
 use base 'Gruta::Data::Session';
 use base 'Gruta::Data::DBI::BASE';
 
-sub table { return 'sids'; }
+sub table {
+	return 'sids';
+}
 
 package Gruta::Source::DBI;
 
-sub _assert { return $_[0]; }
+sub _assert {
+	return $_[0];
+}
 
 sub _all {
 	my $self	= shift;
@@ -227,11 +242,21 @@ sub _one {
 }
 
 
-sub topic { return _one( @_, 'Gruta::Data::DBI::Topic' ); }
-sub topics { return $_[0]->_all('topics'); }
+sub topic {
+	return _one( @_, 'Gruta::Data::DBI::Topic' );
+}
 
-sub user { return _one( @_, 'Gruta::Data::DBI::User' ); }
-sub users { return $_[0]->_all('users'); }
+sub topics {
+	return $_[0]->_all('topics');
+}
+
+sub user {
+	return _one( @_, 'Gruta::Data::DBI::User' );
+}
+
+sub users {
+	return $_[0]->_all('users');
+}
 
 sub story {
 	my $self	= shift;
@@ -434,7 +459,9 @@ sub tags {
 	return @r;
 }
 
-sub session { return _one( @_, 'Gruta::Data::DBI::Session' ); }
+sub session {
+	return _one( @_, 'Gruta::Data::DBI::Session' );
+}
 
 sub purge_old_sessions {
 	my $self	= shift;
@@ -470,8 +497,13 @@ sub _insert {
 	return $obj;
 }
 
-sub insert_topic { $_[0]->_insert($_[1], 'topics', 'Gruta::Data::DBI::Topic'); }
-sub insert_user { $_[0]->_insert($_[1], 'users', 'Gruta::Data::DBI::User'); }
+sub insert_topic {
+	$_[0]->_insert($_[1], 'topics', 'Gruta::Data::DBI::Topic');
+}
+
+sub insert_user {
+	$_[0]->_insert($_[1], 'users', 'Gruta::Data::DBI::User');
+}
 
 
 sub insert_story {
@@ -499,7 +531,9 @@ sub insert_story {
 	return $story;
 }
 
-sub insert_session { $_[0]->_insert($_[1], 'sids', 'Gruta::Data::DBI::Session'); }
+sub insert_session {
+	$_[0]->_insert($_[1], 'sids', 'Gruta::Data::DBI::Session');
+}
 
 sub create {
 	my $self	= shift;

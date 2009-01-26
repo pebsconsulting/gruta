@@ -11,7 +11,9 @@ package Gruta::Data::FS::BASE;
 
 use Carp;
 
-sub ext { return '.M'; }
+sub ext {
+	return '.M';
+}
 
 sub _filename {
 	my $self	= shift;
@@ -99,10 +101,17 @@ use base 'Gruta::Data::FS::BASE';
 
 use Carp;
 
-sub base { return Gruta::Data::FS::Topic::base() . $_[0]->get('topic_id') . '/'; }
+sub base {
+	return Gruta::Data::FS::Topic::base() . $_[0]->get('topic_id') . '/';
+}
 
-sub fields { grep !/(content|topic_id|abstract|body)/, $_[0]->SUPER::fields(); }
-sub vfields { return ($_[0]->SUPER::vfields(), 'content', 'topic_id', 'abstract', 'body'); }
+sub fields {
+	grep !/(content|topic_id|abstract|body)/, $_[0]->SUPER::fields();
+}
+
+sub vfields {
+	return ($_[0]->SUPER::vfields(), 'content', 'topic_id', 'abstract', 'body');
+}
 
 sub _destroy_index {
 	my $self	= shift;
@@ -231,7 +240,9 @@ package Gruta::Data::FS::Topic;
 use base 'Gruta::Data::Topic';
 use base 'Gruta::Data::FS::BASE';
 
-sub base { return '/topics/'; }
+sub base {
+	return '/topics/';
+}
 
 sub save {
 	my $self	= shift;
@@ -252,16 +263,26 @@ package Gruta::Data::FS::User;
 use base 'Gruta::Data::User';
 use base 'Gruta::Data::FS::BASE';
 
-sub ext { return ''; }
-sub base { return '/users/'; }
+sub ext {
+	return '';
+}
+
+sub base {
+	return '/users/';
+}
 
 package Gruta::Data::FS::Session;
 
 use base 'Gruta::Data::Session';
 use base 'Gruta::Data::FS::BASE';
 
-sub ext { return ''; }
-sub base { return '/sids/'; }
+sub ext {
+	return '';
+}
+
+sub base {
+	return '/sids/';
+}
 
 package Gruta::Source::FS;
 
@@ -284,7 +305,9 @@ sub _one {
 	$o->load( $self );
 }
 
-sub topic { return _one( @_, 'Gruta::Data::FS::Topic' ); }
+sub topic {
+	return _one( @_, 'Gruta::Data::FS::Topic' );
+}
 
 sub topics {
 	my $self	= shift;
@@ -307,7 +330,9 @@ sub topics {
 	return @ret;
 }
 
-sub user { return _one( @_, 'Gruta::Data::FS::User' ); }
+sub user {
+	return _one( @_, 'Gruta::Data::FS::User' );
+}
 
 sub users {
 	my $self	= shift;
@@ -757,7 +782,9 @@ sub tags {
 }
 
 
-sub session { return _one( @_, 'Gruta::Data::FS::Session' ); }
+sub session {
+	return _one( @_, 'Gruta::Data::FS::Session' );
+}
 
 sub purge_old_sessions {
 	my $self	 = shift;
@@ -793,8 +820,13 @@ sub _insert {
 	return $obj;
 }
 
-sub insert_topic { $_[0]->_insert($_[1], 'Gruta::Data::FS::Topic'); }
-sub insert_user { $_[0]->_insert($_[1], 'Gruta::Data::FS::User'); }
+sub insert_topic {
+	$_[0]->_insert($_[1], 'Gruta::Data::FS::Topic');
+}
+
+sub insert_user {
+	$_[0]->_insert($_[1], 'Gruta::Data::FS::User');
+}
 
 sub insert_story {
 	my $self	= shift;
@@ -816,7 +848,9 @@ sub insert_story {
 	return $story;
 }
 
-sub insert_session { $_[0]->_insert($_[1], 'Gruta::Data::FS::Session'); }
+sub insert_session {
+	$_[0]->_insert($_[1], 'Gruta::Data::FS::Session');
+}
 
 
 sub create {

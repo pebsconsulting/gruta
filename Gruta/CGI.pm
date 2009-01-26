@@ -3,8 +3,13 @@ package Gruta::CGI;
 use CGI;
 use Carp;
 
-sub vars { return $_[0]->{cgi}->Vars(); }
-sub upload_dirs { return @{ $_[0]->{upload_dirs} }; }
+sub vars {
+	return $_[0]->{cgi}->Vars();
+}
+
+sub upload_dirs {
+	return @{ $_[0]->{upload_dirs} };
+}
 
 sub http_headers {
 	my $self	= shift;
@@ -27,7 +32,9 @@ sub cookie {
 	return $ENV{HTTP_COOKIE};
 }
 
-sub status { $_[0]->http_headers( 'Status', $_[1] ); }
+sub status {
+	$_[0]->http_headers( 'Status', $_[1] );
+}
 
 sub redirect {
 	my $self	= shift;
