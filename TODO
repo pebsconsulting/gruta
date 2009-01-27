@@ -9,6 +9,8 @@ Release Critical Bugs
    fields().
  * 1058: Move the hardcoded top ten limit to an argument.
  * 1059: Move the hardcoded CGI compression size to an argument.
+ * 1060: Fix RSS to avoid generating an author tag if there is
+   no author.
 
 Open Bugs
 ---------
