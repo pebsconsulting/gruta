@@ -18,6 +18,10 @@ sub new {
 	$a->{_artemus} = undef;
 	$a->{path} = $args{path};
 
+	if (!ref($a->{path})) {
+		$a->{path} = [ split(':', $a->{path}) ];
+	}
+
 	$a->create();
 
 	return $a;
