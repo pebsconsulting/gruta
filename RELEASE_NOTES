@@ -22,6 +22,9 @@ Gruta Release Notes
    holding the rendered abstract and story body, respectively. The
    transition is made automatically on the first run, no manual
    operation is needed.
+ * New argument `hard_top_ten_limit' to Gruta::Source::FS, to set
+   the maximum number of stories to be tested when generating the top
+   read stories index (previously hardcoded to 100).
  * The Mbox source is officially deprecated.
  * Artemus 4.1.2 is required.
 

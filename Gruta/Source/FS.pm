@@ -489,7 +489,7 @@ sub _update_top_ten {
 		close F;
 	}
 
-	if ($u == 0 && scalar(@l) < 100) {
+	if ($u == 0 && scalar(@l) < $self->{hard_top_ten_limit}) {
 		$u = 1;
 		push(@l, "$hits:$topic_id:$id");
 	}
@@ -502,7 +502,7 @@ sub _update_top_ten {
 			foreach my $l (@l) {
 				print F $l, "\n";
 
-				if (++$n == 100) {
+				if (++$n == $self->{hard_top_ten_limit}) {
 					last;
 				}
 			}
@@ -876,6 +876,8 @@ sub new {
 	my $class = shift;
 
 	my $s = bless( { @_ }, $class);
+
+	$s->{hard_top_ten_limit} ||= 100;
 
 	$s->_assert();
 
