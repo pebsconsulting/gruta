@@ -4,8 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1060: Fix RSS to avoid generating an author tag if there is
-   no author.
+None!
 
 Open Bugs
 ---------
@@ -15,6 +14,8 @@ Open Bugs
  * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
  * 1057: Delete the vfields() and afields() methods, and use only
    fields().
+ * 1060: Fix RSS to avoid generating an author tag if there is
+   no author.
 
 Pending Enhancements
 --------------------
