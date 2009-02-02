@@ -25,6 +25,9 @@ Gruta Release Notes
  * New argument `hard_top_ten_limit' to Gruta::Source::FS, to set
    the maximum number of stories to be tested when generating the top
    read stories index (previously hardcoded to 100).
+ * New argument `min_size_for_gzip' to Gruta::CGI, to set the minimum
+   size for the output body to be Gzip compressed (previously hardcoded
+   to 10000).
  * The Mbox source is officially deprecated.
  * Artemus 4.1.2 is required.
 

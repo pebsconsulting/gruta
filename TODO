@@ -4,7 +4,6 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1059: Move the hardcoded CGI compression size to an argument.
  * 1060: Fix RSS to avoid generating an author tag if there is
    no author.
 
@@ -136,5 +135,7 @@ Closed
    (Mbox is now deprecated; Thu, 15 Jan 2009 13:27:13 +0100).
  * 1058: Move the hardcoded top ten limit to an argument
    (Mon, 02 Feb 2009 13:52:05 +0100).
+ * 1059: Move the hardcoded CGI compression size to an argument
+   (Mon, 02 Feb 2009 13:57:07 +0100).
 
 Email bugs to angel@triptico.com

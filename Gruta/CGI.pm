@@ -84,7 +84,8 @@ sub new {
 
 	my $obj = bless( { @_ }, $class );
 
-	$obj->{charset} ||= 'UTF-8';
+	$obj->{charset}			||= 'UTF-8';
+	$obj->{min_size_for_gzip}	||= 10000;
 
 	$obj->{http_headers} = {
 		'Content-Type'		=> 'text/html; charset=' . $obj->{charset},
@@ -189,7 +190,8 @@ sub run {
 	}
 
 	# does the client accept compression?
-	if (length($body) > 10000 && $ENV{HTTP_ACCEPT_ENCODING} =~ /gzip/) {
+	if (length($body) > $self->{min_size_for_gzip} &&
+		$ENV{HTTP_ACCEPT_ENCODING} =~ /gzip/) {
 		# compress!!
 		use Compress::Zlib;
 
