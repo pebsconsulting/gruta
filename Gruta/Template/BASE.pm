@@ -80,7 +80,7 @@ sub create {
 	my $self	= shift;
 
 	# create first directory
-	my ($p1) = (split(':', $self->{path}))[0];
+	my $p1 = $self->{path}->[0];
 
 	if (! -d $p1) {
 		mkdir $p1, 0755 or die "Cannot mkdir $p1";
