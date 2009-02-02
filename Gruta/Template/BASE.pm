@@ -7,7 +7,7 @@ sub templates {
 
 	my %r = ( );
 
-	foreach my $p (split(':', $self->{path})) {
+	foreach my $p (@{$self->{path}}) {
 		if (opendir D, $p) {
 			while (my $l = readdir D) {
 				next if -d $p . '/' . $l;
@@ -42,7 +42,7 @@ sub template {
 
 	my $content = undef;
 
-	foreach my $p (split(':', $self->{path})) {
+	foreach my $p (@{$self->{path}}) {
 		if (open F, $p . '/'. $template_id) {
 			$content = join('', <F>);
 			close F;
@@ -63,7 +63,7 @@ sub save_template {
 	$self->_assert($template_id);
 
 	# only can be saved on the first directory
-	my ($p) = (split(':', $self->{path}))[0];
+	my $p = $self->{path}->[0];
 
 	# delete all \r in content
 	$content =~ s/\r//g;
