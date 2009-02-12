@@ -28,6 +28,8 @@ Gruta Release Notes
  * New argument `min_size_for_gzip' to Gruta::CGI, to set the minimum
    size for the output body to be Gzip compressed (previously hardcoded
    to 10000).
+ * If a story pointed by a story:// pseudo-url has a publication date
+   in the future, only the title is shown (i.e., it's not clickable).
  * The Mbox source is officially deprecated.
  * Artemus 4.1.2 is required.
 
