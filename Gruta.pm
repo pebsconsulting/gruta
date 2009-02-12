@@ -212,13 +212,19 @@ sub _story_special_uri {
 	my $ret = undef;
 
 	if (my $s = $self->source->story($topic_id, $story_id)) {
-		$ret = sprintf('<a href="%s">%s</a>',
-			$self->url('STORY',
-				'topic' => $topic_id,
-				'id' => $story_id
-			),
-			$s->get('title')
-		);
+
+		if ($s->is_visible($self->auth())) {
+			$ret = sprintf('<a href = "%s">%s</a>',
+				$self->url('STORY',
+					'topic' => $topic_id,
+					'id' => $story_id
+				),
+				$s->get('title')
+			);
+		}
+		else {
+			$ret = $s->get('title');
+		}
 	}
 	else {
 		$ret = "Bad story '$topic_id/$story_id'";
