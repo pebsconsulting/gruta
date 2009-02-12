@@ -24,6 +24,8 @@ Pending Enhancements
  * 1048: Add user comments to stories.
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
    `abbr' or `acronym'.
+ * 1061: In a story:// pseudo-url, don't generate a link if the
+   story is a future one.
 
 Closed
 ------
