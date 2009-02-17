@@ -166,6 +166,9 @@ sub run {
 
 		$self->status(500);
 		$body = "<h1>500 Internal Server Error</h1><pre>$@</pre>";
+
+		# main processing failed
+		$self->{error} = 1;
 	}
 
 	$self->http_headers('X-Powered-By' => 'Gruta ' . $self->data->version());
