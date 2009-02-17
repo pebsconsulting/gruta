@@ -174,6 +174,28 @@ sub run {
 	$self->http_headers('X-Powered-By' => 'Gruta ' . $self->data->version());
 
 	if (!$data->auth()) {
+		# if there were no error and an HTML output dir is set,
+		# write body into an HTML file
+		if (!$self->{error} && $self->{html_output_dir}) {
+			my $t		= $vars->{t};
+			my $topic	= $vars->{topic};
+			my $id		= $vars->{id};
+			my $dir		= $self->{html_output_dir} . '/' . $topic;
+
+			if ($t =~ /^(TOPIC|STORY)$/) {
+				if ($t eq 'TOPIC') {
+					mkdir $dir;
+					$id = 'index';
+				}
+
+				if (open O, '>' . $dir . '/' . $id . '.html') {
+					print O $body;
+					close O;
+				}
+			}
+		}
+
+		# test for ETag caching
 		use Digest::MD5;
 		use Encode qw(encode_utf8);
 
