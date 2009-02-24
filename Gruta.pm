@@ -170,6 +170,9 @@ sub url {
 		elsif ($st eq 'RSS' && $kn == 0) {
 			return $ret . 'rss.xml';
 		}
+		elsif ($st eq 'SITEMAP' && $kn == 0) {
+			return $ret . 'sitemap.xml';
+		}
 		elsif ($st eq 'TOPIC' && $kn == 1) {
 			return $ret . $args{topic} . '/';
 		}
