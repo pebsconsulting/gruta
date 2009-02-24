@@ -164,19 +164,20 @@ sub url {
 	if ($self->{args}->{static_urls}) {
 		my $kn = scalar(keys(%args));
 
-		if ($st eq 'INDEX' && $kn == 0) {
-			return $ret;
+		if ($kn == 0) {
+			my %p = (
+				'INDEX'		=> '',
+				'RSS'		=> 'rss.xml',
+				'SITEMAP'	=> 'sitemap.xml',
+				'CSS'		=> 'style.css'
+			);
+
+			if (exists($p{$st})) {
+				return $ret . $p{$st};
+			}
 		}
-		elsif ($st eq 'RSS' && $kn == 0) {
-			return $ret . 'rss.xml';
-		}
-		elsif ($st eq 'SITEMAP' && $kn == 0) {
-			return $ret . 'sitemap.xml';
-		}
-		elsif ($st eq 'CSS' && $kn == 0) {
-			return $ret . 'style.css';
-		}
-		elsif ($st eq 'TOPIC' && $kn == 1) {
+
+		if ($st eq 'TOPIC' && $kn == 1) {
 			return $ret . $args{topic} . '/';
 		}
 		elsif ($st eq 'STORY' && $kn == 2) {
