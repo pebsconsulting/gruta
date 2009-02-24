@@ -173,6 +173,9 @@ sub url {
 		elsif ($st eq 'SITEMAP' && $kn == 0) {
 			return $ret . 'sitemap.xml';
 		}
+		elsif ($st eq 'CSS' && $kn == 0) {
+			return $ret . 'style.css';
+		}
 		elsif ($st eq 'TOPIC' && $kn == 1) {
 			return $ret . $args{topic} . '/';
 		}
