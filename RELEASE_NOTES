@@ -4,6 +4,9 @@ Gruta Release Notes
 2.2.0 "Osmannoro"
 -----------------
 
+Please note that version 4.1.2 of the Artemus template toolkit
+is required for this release to work properly.
+
  * Story rendering is cached, resulting in faster page loading.
  * An existing story can be copied to another topic from the story
    edition form.
@@ -31,7 +34,11 @@ Gruta Release Notes
  * If a story pointed by a story:// pseudo-url has a publication date
    in the future, only the title is shown (i.e., it's not clickable).
  * The Mbox source is officially deprecated.
- * Artemus 4.1.2 is required.
+ * Static URLs are also generated for the `CSS', `RSS' and `SITEMAP'
+   pages. The following `mod_rewrite' rule must be added to the ones
+   suggested in the previous version:
+
+ RewriteRule ^/style\.css$     /?t=CSS              [PT]
 
 2.1.1 "Calenzano"
 -----------------
