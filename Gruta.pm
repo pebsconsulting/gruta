@@ -146,6 +146,7 @@ sub base_url {
 	$_[0]->{args}->{base_url} || ''
 };
 
+
 sub url {
 	my $self	= shift;
 	my $st		= shift || '';
@@ -165,6 +166,9 @@ sub url {
 
 		if ($st eq 'INDEX' && $kn == 0) {
 			return $ret;
+		}
+		elsif ($st eq 'RSS' && $kn == 0) {
+			return $ret . 'rss.xml';
 		}
 		elsif ($st eq 'TOPIC' && $kn == 1) {
 			return $ret . $args{topic} . '/';
