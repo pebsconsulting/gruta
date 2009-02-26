@@ -171,7 +171,8 @@ sub run {
 		$self->{error} = 1;
 	}
 
-	$self->http_headers('X-Powered-By' => 'Gruta ' . $self->data->version());
+	$self->http_headers('X-BaseURL'		=> $self->data->base_url());
+	$self->http_headers('X-Powered-By'	=> 'Gruta ' . $self->data->version());
 
 	if (!$data->auth()) {
 		use Digest::MD5;
