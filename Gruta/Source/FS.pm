@@ -531,7 +531,7 @@ sub _stories_by_date {
 	while (<I>) {
 		chomp;
 
-		my ($date, $id) = (/^(\d*):(.*)$/);
+		my ($date, $id) = split(/:/);
 
 		# skip future stories
 		next if not $args{future} and $date gt Gruta::Data::today();
