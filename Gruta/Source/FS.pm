@@ -303,15 +303,33 @@ sub load {
 
 	$self->source($driver);
 
-	if (not open(I, $self->_filename())) {
+	if (not open(F, $self->_filename())) {
 		return undef;
 	}
 
-	$self->set('content', join('', <I>));
-	close I;
+	$self->set('content', join('', <F>));
+	close F;
 
 	return $self;
 }
+
+
+sub save {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$self->source($driver) if $driver;
+
+	if (not open(F, '>' . $self->_filename())) {
+		return undef;
+	}
+
+	print F $self->get('content');
+	close F;
+
+	return $self;
+}
+
 
 package Gruta::Source::FS;
 
@@ -879,6 +897,10 @@ sub insert_topic {
 
 sub insert_user {
 	$_[0]->_insert($_[1], 'Gruta::Data::FS::User');
+}
+
+sub insert_template {
+	$_[0]->_insert($_[1], 'Gruta::Data::FS::Template');
 }
 
 sub insert_story {
