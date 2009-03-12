@@ -17,6 +17,15 @@ sub new {
 
 	$a->{_artemus} = undef;
 	$a->{path} = $args{path};
+	$a->{lang} = $args{lang} || 'en';
+
+	if (!$a->{path}) {
+		# no path? set the default one
+		$a->{path} = [
+			'/usr/share/gruta/templates/artemus/ALL',
+			'/usr/share/gruta/templates/artemus/' . $a->{lang}
+		];
+	}
 
 	if (!ref($a->{path})) {
 		$a->{path} = [ split(':', $a->{path}) ];
