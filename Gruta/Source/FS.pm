@@ -284,6 +284,35 @@ sub base {
 	return '/sids/';
 }
 
+package Gruta::Data::FS::Template;
+
+use base 'Gruta::Data::Template';
+use base 'Gruta::Data::FS::BASE';
+
+sub base {
+	return '/templates/';
+}
+
+sub ext {
+	return '';
+}
+
+sub load {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$self->source($driver);
+
+	if (not open(I, $self->_filename())) {
+		return undef;
+	}
+
+	$self->set('content', join('', <I>));
+	close I;
+
+	return $self;
+}
+
 package Gruta::Source::FS;
 
 use Carp;
@@ -352,6 +381,30 @@ sub users {
 
 	return @ret;
 }
+
+sub template {
+	return _one(@_, 'Gruta::Data::FS::Template');
+}
+
+sub templates {
+	my $self	= shift;
+
+	my @ret = ();
+
+	my $path = $self->{path} . Gruta::Data::FS::Template::base();
+
+	if (opendir D, $path) {
+		while (my $id = readdir D) {
+			next if -d $path . $id;
+			push @ret, $id;
+		}
+
+		closedir D;
+	}
+
+	return @ret;
+}
+
 
 sub story {
 	my $self	= shift;
