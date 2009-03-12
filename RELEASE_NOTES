@@ -4,6 +4,10 @@ Gruta Release Notes
 2.2.1 "Montecatini"
 -------------------
 
+ * Templates are now stored inside source backends instead of
+   having a special directory of plain files. So, it's no
+   longer necessary to prepend the writable directory to
+   the template path in Gruta::Template::Artemus creation.
  * The TT template toolkit has been officially deprecated.
 
 2.2.0 "Osmannoro"
