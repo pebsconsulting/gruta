@@ -623,6 +623,15 @@ sub _artemus {
 			'vars'		=>	\%v,
 			'unresolved'	=>	$self->{unresolved},
 			'abort'		=>	\$self->{abort},
+			'loader_func'	=>	sub {
+				my $ret = undef;
+
+				if (my $t = $data->source->template($_[0])) {
+					$ret = $t->get('content');
+				}
+
+				return $ret;
+			}
 		);
 	}
 
