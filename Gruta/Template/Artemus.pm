@@ -22,8 +22,6 @@ sub new {
 		$a->{path} = [ split(':', $a->{path}) ];
 	}
 
-	$a->create();
-
 	return $a;
 }
 

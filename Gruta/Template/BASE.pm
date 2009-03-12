@@ -54,39 +54,4 @@ sub template {
 	return $content;
 }
 
-
-sub save_template {
-	my $self	= shift;
-	my $template_id	= shift;
-	my $content	= shift;
-
-	$self->_assert($template_id);
-
-	# only can be saved on the first directory
-	my $p = $self->{path}->[0];
-
-	# delete all \r in content
-	$content =~ s/\r//g;
-
-	open F, '>' . $p . '/' . $template_id
-		or croak "Can't write template '${p}/${template_id}'";
-
-	print F $content;
-	close F;
-}
-
-
-sub create {
-	my $self	= shift;
-
-	# create first directory
-	my $p1 = $self->{path}->[0];
-
-	if (! -d $p1) {
-		mkdir $p1, 0755 or die "Cannot mkdir $p1";
-	}
-
-	return $self;
-}
-
 1;
