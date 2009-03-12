@@ -210,6 +210,15 @@ sub table {
 	return 'sids';
 }
 
+package Gruta::Data::DBI::Template;
+
+use base 'Gruta::Data::Template';
+use base 'Gruta::Data::DBI::BASE';
+
+sub table {
+	return 'templates';
+}
+
 package Gruta::Source::DBI;
 
 sub _assert {
@@ -256,6 +265,14 @@ sub user {
 
 sub users {
 	return $_[0]->_all('users');
+}
+
+sub template {
+	return _one( @_, 'Gruta::Data::DBI::Template' );
+}
+
+sub templates {
+	return $_[0]->_all('templates');
 }
 
 sub story {
@@ -503,6 +520,10 @@ sub insert_topic {
 
 sub insert_user {
 	$_[0]->_insert($_[1], 'users', 'Gruta::Data::DBI::User');
+}
+
+sub insert_template {
+	$_[0]->_insert($_[1], 'templates', 'Gruta::Data::DBI::Template');
 }
 
 
