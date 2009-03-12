@@ -934,7 +934,8 @@ sub create {
 	my @l = map { $self->{path} . $_ } (
 		Gruta::Data::FS::Topic::base(),
 		Gruta::Data::FS::User::base(),
-		Gruta::Data::FS::Session::base()
+		Gruta::Data::FS::Session::base(),
+		Gruta::Data::FS::Template::base()
 	);
 
 	foreach my $d (@l) {
