@@ -552,8 +552,11 @@ sub _artemus {
 		};
 
 		$f{topics}	= sub { join(':', $data->source->topics()); };
-		$f{templates}	= sub { join(':', $data->template->templates()); };
 		$f{users}	= sub { join(':', $data->source->users()); };
+
+		$f{templates}	= sub { join(':',
+			$data->template->templates($data->source->templates()));
+		};
 
 		$f{renderers}	= sub { join(':', sort(keys(%{$data->{renderers_h}}))); };
 		$f{upload_dirs}	= sub { join(':', $data->cgi->upload_dirs()); };

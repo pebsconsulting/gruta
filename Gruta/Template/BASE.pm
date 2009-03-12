@@ -5,7 +5,12 @@ use Carp;
 sub templates {
 	my $self	 = shift;
 
-	my %r = ( );
+	my %r = ();
+
+	# add optional template names from the arguments
+	foreach my $p (@_) {
+		$r{$p}++;
+	}
 
 	foreach my $p (@{$self->{path}}) {
 		if (opendir D, $p) {
