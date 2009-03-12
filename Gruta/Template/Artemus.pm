@@ -196,12 +196,20 @@ sub _artemus {
 		};
 
 		$f{template} = sub {
-			my $t = shift;
+			my $id = shift;
 			my $ret = '';
 
-			if ($t ne '[]') {
-				$t = $data->template->template($t);
-				$ret = $self->{_artemus}->armor($t);
+			if ($id ne '[]') {
+				# try to find it in the source first
+				if (my $t = $data->source->template($id)) {
+					$ret = $t->get('content');
+				}
+				else {
+					# not in source; search the stock ones
+					$ret = $data->template->template($id) || '';
+				}
+
+				$ret = $self->{_artemus}->armor($ret);
 			}
 
 			return $ret;
