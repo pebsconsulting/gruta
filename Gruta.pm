@@ -336,6 +336,11 @@ sub transfer_to_source {
 		}
 	}
 
+	foreach my $id ($self->source->templates()) {
+		my $t = $self->source->template($id);
+		$dst->insert_template($t);
+	}
+
 	return $self;
 }
 
