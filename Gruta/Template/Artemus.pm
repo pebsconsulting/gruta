@@ -208,12 +208,28 @@ sub _artemus {
 		};
 
 		$f{save_template} = sub {
-			my $template	= shift;
+			my $id		= shift;
 			my $content	= shift;
 			my $msg		= shift;
 
 			$content = $self->{_artemus}->unarmor($content);
-			$data->template->save_template($template, $content);
+
+			my $template = $data->source->template($id);
+
+			if (!$template) {
+				$template = Gruta::Data::Template->new(
+					id => $id
+				);
+			}
+
+			$template->set('content', $content);
+
+			if ($template->source()) {
+				$template = $template->save();
+			}
+			else {
+				$template = $data->source->insert_template($template);
+			}
 
 			return $msg || "OK";
 		};
