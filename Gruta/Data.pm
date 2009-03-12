@@ -235,6 +235,15 @@ sub new {
 }
 
 
+package Gruta::Data::Template;
+
+use base 'Gruta::Data::BASE';
+
+sub fields {
+	return qw(id content);
+}
+
+
 package Gruta::Data;
 
 sub format_date {
