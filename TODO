@@ -24,6 +24,11 @@ Pending Enhancements
  * 1048: Add user comments to stories.
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
    `abbr' or `acronym'.
+ * 1062: Add `from' and `to' date arguments to `LIST'.
+ * 1063: In `_story_footer', disable showing the hits if they are
+   disabled (`cfg_top_ten_num' set to 0).
+ * 1064: In `TOP_TEN', redirect to `INDEX' if hits are disabled
+   (`cfg_top_ten_num' set to 0).
 
 Closed
 ------
