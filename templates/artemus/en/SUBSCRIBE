@@ -19,7 +19,7 @@ Generates the subscription page.
 
 	{-story_body|info|subscribe}
 
-	{-if|{-is_admin}|<p>Text read {-story_hits|info|subscribe} times.</p>}
+	{-if|{-and|{-is_admin}|{-cfg_top_ten_num}}|<p>Text read {-story_hits|info|subscribe} times.</p>}
 
 	{-main_bottom}
 

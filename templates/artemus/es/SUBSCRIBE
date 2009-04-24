@@ -12,7 +12,7 @@
 
 	{-story_body|info|subscribe}
 
-	{-if|{-is_admin}|<p>Texto consultado {-story_hits|info|subscribe} veces.</p>}
+	{-if|{-and|{-is_admin}|{-cfg_top_ten_num}}|<p>Texto consultado {-story_hits|info|subscribe} veces.</p>}
 
 	{-main_bottom}
 </div>

@@ -15,7 +15,7 @@ to the full topic, and a list of clickable tags.
 	}
 
 	{-if|{-is_topic_editor|$0}|
-		<span class = 'hits'>Read {-story_hits|$0|$1} times - </span>
+		{-if|{-cfg_top_ten_num}|<span class = 'hits'>Read {-story_hits|$0|$1} times - </span>}
 		<span class = 'edit_link'>{-link_to_edit_story|$0|$1} - </span>
 	}
 
