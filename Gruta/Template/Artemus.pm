@@ -228,6 +228,7 @@ sub _artemus {
 			my $msg		= shift;
 
 			$content = $self->{_artemus}->unarmor($content);
+			$content =~ s/\r//g;
 
 			my $template = $data->source->template($id);
 
