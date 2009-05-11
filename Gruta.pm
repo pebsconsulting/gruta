@@ -179,11 +179,28 @@ sub url {
 			}
 		}
 
-		if ($st eq 'TOPIC' && $kn == 1) {
-			return $ret . $args{topic} . '/';
+		if ($kn == 1) {
+			if ($st eq 'INDEX' && $args{offset}) {
+				return $ret . $args{offset} . '.html';
+			}
+			if ($st eq 'TOPIC' && $args{topic}) {
+				return $ret . $args{topic} . '/';
+			}
+			if ($st eq 'SEARCH_BY_TAG' && $args{tag}) {
+				return $ret . 'tag/' . $args{tag} . '.html';
+			}
 		}
-		elsif ($st eq 'STORY' && $kn == 2) {
-			return $ret . $args{topic} . '/' . $args{id} . '.html';
+
+		if ($kn == 2) {
+			if ($st eq 'STORY' && $args{topic} && $args{id}) {
+				return $ret . $args{topic} . '/' . $args{id} . '.html';
+			}
+			if ($st eq 'TOPIC' && $args{topic} && $args{offset}) {
+				return $ret . $args{topic} . '/' . $args{offset} . '.html';
+			}
+			if ($st eq 'SEARCH_BY_DATE' && $args{from} && $args{to}) {
+				return $ret . $args{from} . '-' . $args{to} . '.html';
+			}
 		}
 	}
 

@@ -9,6 +9,22 @@ Gruta Release Notes
    longer necessary to prepend the writable directory to
    the template path in Gruta::Template::Artemus creation.
  * The TT template toolkit has been officially deprecated.
+ * The full set of `mod_rewrite' keywords to be used if `static_urls' 
+   is set has been expanded.
+
+ RewriteRule ^/([0-9]+)\.html$		/?t=INDEX&offset=$1		[PT,L]
+ RewriteRule ^/([0-9]+)-([0-9]+)\.html$	/?t=SEARCH_BY_DATE&from=$1&to=$2 [PT,L]
+ RewriteRule ^/tag/(.+)\.html$		/?t=SEARCH_BY_TAG&tag=$1	[PT,L]
+ RewriteRule ^/tag/$			/?t=TAGS			[PT,L]
+ RewriteRule ^/top/$			/?t=TOP_TEN			[PT,L]
+ RewriteRule ^/(.+)/$			/?t=TOPIC&topic=$1		[PT,L]
+ RewriteRule ^/(.+)/index\.html$		/?t=TOPIC&topic=$1		[PT,L]
+ RewriteRule ^/(.+)/([0-9]+)\.html$	/?t=TOPIC&topic=$1&offset=$2	[PT,L]
+ RewriteRule ^/(.+)/(.+)\.html$		/?t=STORY&topic=$1&id=$2	[PT,L]
+ RewriteRule ^/rss\.xml$			/?t=RSS				[PT,L]
+ RewriteRule ^/sitemap\.xml$		/?t=SITEMAP			[PT,L]
+ RewriteRule ^/style\.css$		/?t=CSS				[PT,L]
+
 
 2.2.0 "Osmannoro"
 -----------------
