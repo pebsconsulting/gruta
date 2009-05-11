@@ -169,7 +169,9 @@ sub url {
 				'INDEX'		=> '',
 				'RSS'		=> 'rss.xml',
 				'SITEMAP'	=> 'sitemap.xml',
-				'CSS'		=> 'style.css'
+				'CSS'		=> 'style.css',
+				'TAGS'		=> 'tag/',
+				'TOP_TEN'	=> 'top/'
 			);
 
 			if (exists($p{$st})) {
