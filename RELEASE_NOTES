@@ -9,6 +9,10 @@ Gruta Release Notes
    longer necessary to prepend the writable directory to
    the template path in Gruta::Template::Artemus creation.
  * The TT template toolkit has been officially deprecated.
+ * New global CGI variable `set_date', to force a date to
+   be assumed as today, to be used to take a look at how would
+   a page be shown in the given date. Only usable by a logged-in
+   admin user.
  * The full set of `mod_rewrite' keywords to be used if `static_urls' 
    is set has been expanded.
 
