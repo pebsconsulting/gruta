@@ -17,6 +17,7 @@ in all pages.
 	<link rel = 'stylesheet' type = 'text/css' href = '{-url|CSS}'>
 	<meta name = 'generator' content = '{-about} (http://triptico.com/software/gruta.html)'>
 	{-cfg_additional_headers}
+	{-set_date|{-var|set_date}}
 </head>
 
 <body>
