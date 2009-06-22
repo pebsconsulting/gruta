@@ -12,9 +12,6 @@ Open Bugs
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
- * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
- * 1057: Delete the vfields() and afields() methods, and use only
-   fields().
  * 1060: Fix RSS to avoid generating an author tag if there is
    no author.
 
@@ -25,6 +22,13 @@ Pending Enhancements
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
    `abbr' or `acronym'.
  * 1062: Add `from' and `to' date arguments to `LIST'.
+ * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
+ * 1057: Delete the vfields() and afields() methods, and use only
+   fields().
+ * 1066: Add uploads (img/ dir and such) as another component of
+   the source, so that uploaded things are inside it. For the FS
+   nothing would change regarding filesystem layout, but on the DBI
+   binaries will be stored as blobs.
 
 Closed
 ------
