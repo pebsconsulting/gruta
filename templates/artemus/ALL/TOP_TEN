@@ -5,6 +5,7 @@
 Shows the _top stories_ page.
 
 =cut
+{-assert|{-cfg_top_ten_num}|INDEX}
 {-header}
 
 {-column1}
