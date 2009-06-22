@@ -1,0 +1,195 @@
+#!/usr/bin/perl
+
+# Creates a Gruta site, asking for values interactively
+# Angel Ortega <angel@triptico.com>
+
+print <<EOF;
+This scripts guides you in the creation of a Gruta web site.
+You better execute it as the Apache user, probable www-data.
+EOF
+
+my $g_cgi = '';
+my $r;
+
+print "\nDo you want to build a ptkdb-debuggable site?\n";
+print "(You probable don't) [y/N] ";
+
+$r = <>; chomp($r);
+
+if ($r eq 'y') {
+	$g_cgi .= "#!/usr/bin/perl -d:ptkdb\n";
+	$g_cgi .= "sub BEGIN { \$ENV{'DISPLAY'} = ':0.0'; }\n\n";
+}
+else {
+	$g_cgi .= "#!/usr/bin/perl\n\n";
+}
+
+print "\nEnter your locale. If you don't want one, leave it empty.\n";
+print "It would probable be a string like es_ES.UTF-8\n";
+print "Locale: ";
+
+$r = <>; chomp($r);
+
+$g_cgi .= "use locale;\n";
+$g_cgi .= "use POSIX qw (locale_h);\n";
+
+if ($r) {
+	$g_cgi .= "setlocale(LC_ALL, '" . $r . "');\n";
+}
+
+$g_cgi .= "\n";
+
+print "\nWhich source backend do you prefer, FS or DBI?\n";
+print "FS are plain files, DBI is an SQL database.\n";
+print "(If DBI, you need the DBD drivers and probably a server)\n";
+
+do {
+	print "Source (enter FS or DBI): ";
+	$r = <>; chomp($r);
+} while ($r ne 'FS' && $r ne 'DBI');
+
+$source = $r;
+
+$g_cgi .= join(";\n", (
+	'use Gruta',
+	'use Gruta::CGI',
+	'use Gruta::Source::' . $source,
+	'use Gruta::Renderer::Grutatxt',
+	'use Gruta::Renderer::HTML',
+	'use Gruta::Renderer::Text',
+	'use Gruta::Template::Artemus'
+	)
+);
+
+if ($source eq 'DBI') {
+	print "\nEnter your DBI string. If you use SQLite, it will probably\n";
+	print "be something like dbi:SQLite:\$base/var/gruta.db\n";
+
+	do {
+		print "DBI String: ";
+		$r = <>; chomp($r);
+	} while ($r eq '');
+
+	$dbi_string = $r;
+}
+
+$g_cgi .= "\n\n";
+
+print "\nEnter the name of your site. It would probably your host name,\n";
+print "but not necessarily. Do NOT include http://.\n";
+print "Site name: ";
+
+$r = <>; chomp($r);
+
+$sitename = $r;
+
+$s = $sitename || 'yoursite';
+
+print "\nEnter the base directory. It should best be inside\n";
+print "the Apache www tree, so /var/www/${s} is probably correct.\n";
+
+do {
+	print "Basename: ";
+	$r = <>; chomp($r);
+} while ($r eq '');
+
+$basename = $r;
+
+$g_cgi .= "\$base = '" . $basename . "';\n\n";
+
+print "\nEnter your base url (probably http://$sitename). Can be empty.\n";
+print "Base url: ";
+
+$r = <>; chomp($r);
+
+$baseurl = $r;
+
+print "\nDo you want static URLs? If you say yes, you must add the\n";
+print "Apache's mod_rewrite directives in the documentation.\n";
+print "Use static URLs? [y/N]: ";
+
+$r = <>; chomp($r);
+
+$static_urls = $r eq 'y' ? 1 : 0;
+
+print "\nUpload directories. Enter a list of blank-separated subdirectories.\n";
+print "If you don't include 'img', it will be included for you.\n";
+print "Upload directories: ";
+
+$r = <>; chomp($r);
+
+if (!($r =~ /img/)) {
+	$r .= ' img ';
+}
+
+@uploads = split(/\s/, $r);
+
+$g_cgi .= "my \$g = Gruta-new(\n";
+$g_cgi .= "\tid\t\t=> '" . $sitename . "',\n";
+
+if ($source eq 'FS') {
+	$g_cgi .= "\tsource\t\t=> Gruta::Source::FS->new(path => \"\${base}/var\"),\n";
+}
+else {
+	$g_cgi .= "\tsource\t\t=> Gruta::Source::DBI->new(string => \"$dbi_string\"),\n";
+}
+
+$g_cgi .= "\trenderers\t=> [\n";
+$g_cgi .= "\t\tGruta::Renderer::Grutatxt->new(),\n",
+$g_cgi .= "\t\tGruta::Renderer::HTML->new(),\n",
+$g_cgi .= "\t\tGruta::Renderer::HTML->new( valid_tags => undef ),\n",
+$g_cgi .= "\t\tGruta::Renderer::Text->new(),\n";
+$g_cgi .= "\t],\n";
+$g_cgi .= "\ttemplate\t=> Gruta::Template::Artemus->new(\n";
+$g_cgi .= "\t\t\tpath => [\n";
+$g_cgi .= "\t\t\t\t'/usr/share/gruta/templates/artemus/ALL',\n";
+$g_cgi .= "\t\t\t\t'/usr/share/gruta/templates/artemus/en'\n";
+$g_cgi .= "\t\t\t]\n";
+$g_cgi .= "\t),\n";
+$g_cgi .= "\tcgi\t\t=> Gruta::CGI->new(\n";
+$g_cgi .= "\t\t\tupload_dirs	=> [\n";
+
+foreach my $d (@uploads) {
+	$g_cgi .= "\t\t\t\t\"\${base}/$d\",\n" if $d;
+}
+
+$g_cgi .= "\t\t\t],\n";
+$g_cgi .= "\targs\t\t=> {\n";
+
+if ($baseurl) {
+	$g_cgi .= "\t\t\tbase_url\t=>\t'" . $baseurl . "',\n";
+}
+
+$g_cgi .= "\t\t\tstatic_urls\t=>\t$static_urls,\n";
+
+$g_cgi .= "\t}\n";
+$g_cgi .= ");\n\n";
+$g_cgi .= "\$g->run();\n";
+
+# start of build
+
+print "\nCreating...\n";
+mkdir $basename or die "Cannot create $basename: $!";
+mkdir "$basename/var" or die "Cannot create $basename/var: $!";
+
+open O, ">$basename/g.cgi" or die "Cannot create $basename/g.cgi: $!";
+print O $g_cgi;
+close O;
+
+print <<EOF;
+
+Operation successful.
+
+You'll need at least the following Apache directives affecting
+the newly created $basename:
+
+ 	DirectoryIndex g.cgi
+
+ 	<Location /var>
+         	order allow,deny
+ 	        deny from all
+ 	</Location>
+
+EOF
+
+1;

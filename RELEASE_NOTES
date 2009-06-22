@@ -13,6 +13,8 @@ Gruta Release Notes
    be assumed as today, to be used to take a look at how would
    a page be shown in the given date. Only usable by a logged-in
    admin user.
+ * A new script `gruta_mksite', to help in the creation of a
+   new site.
  * The full set of `mod_rewrite' keywords to be used if `static_urls' 
    is set has been expanded.
 
