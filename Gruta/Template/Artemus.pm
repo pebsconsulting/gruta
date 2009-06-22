@@ -644,6 +644,17 @@ sub _artemus {
 			);
 		};
 
+		$f{set_date} = sub {
+			my $date = shift;
+
+			if ($date && $data->auth() &&
+				$data->auth->get('is_admin')) {
+				$Gruta::Data::_today = $date;
+			}
+
+			return '';
+		};
+
 		$f{about} = sub {
 			return 'Gruta ' . $data->version();
 		};
