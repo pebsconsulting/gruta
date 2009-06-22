@@ -21,7 +21,6 @@ Open Bugs
 Pending Enhancements
 --------------------
 
- * 1035: Change Gruta::Data::today() to allow a date to be set.
  * 1048: Add user comments to stories.
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
    `abbr' or `acronym'.
@@ -146,5 +145,7 @@ Closed
    (Mon, 02 Feb 2009 13:57:07 +0100).
  * 1061: In a story:// pseudo-url, don't generate a link if the
    story is a future one (Thu, 12 Feb 2009 10:03:30 +0100).
+ * 1035: Change Gruta::Data::today() to allow a date to be set
+   (Mon, 22 Jun 2009 10:29:40 +0200).
 
 Email bugs to angel@triptico.com
