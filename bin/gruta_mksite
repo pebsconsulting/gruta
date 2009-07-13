@@ -73,7 +73,7 @@ if ($source eq 'DBI') {
 	$dbi_string = $r;
 }
 
-$g_cgi .= "\n\n";
+$g_cgi .= ";\n\n";
 
 print "\nEnter the name of your site. It would probably your host name,\n";
 print "but not necessarily. Do NOT include http://.\n";
