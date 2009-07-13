@@ -5,7 +5,7 @@
 
 print <<EOF;
 This scripts guides you in the creation of a Gruta web site.
-You better execute it as the Apache user, probable www-data.
+You better execute it as the Apache user, probably www-data.
 EOF
 
 my $g_cgi = '';
@@ -25,7 +25,7 @@ else {
 }
 
 print "\nEnter your locale. If you don't want one, leave it empty.\n";
-print "It would probable be a string like es_ES.UTF-8\n";
+print "It would probably be a string like es_ES.UTF-8\n";
 print "Locale: ";
 
 $r = <>; chomp($r);
