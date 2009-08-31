@@ -300,6 +300,26 @@ my $X = {
 			}
 		}
 	],
+	'set_story_date' =>	[
+		'set_story_date {src} {topic_id} {id} {date}',
+		'Sets the date of a story (-, now)',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
+			my $id		= arg();
+			my $date	= arg();
+
+			my $story = $g->source->story($topic_id, $id)
+			or die "Cannot find story '${topic_id}/${id}'";
+
+			if ($date eq '-') {
+				$date = Gruta::Data::today();
+			}
+
+			$story->set('date', $date);
+			$story->save();
+		}
+	],
 	'import_rss'		=> [
 		'import_rss {src} {topic_id}',
 		'Import an RSS from STDIN into a topic',
