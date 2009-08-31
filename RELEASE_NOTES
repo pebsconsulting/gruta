@@ -15,6 +15,7 @@ Gruta Release Notes
    admin user.
  * A new script `gruta_mksite', to help in the creation of a
    new site.
+ * A new command, `set_story_date', has been added to bin/gruta.
  * The full set of `mod_rewrite' keywords to be used if `static_urls' 
    is set has been expanded.
 
