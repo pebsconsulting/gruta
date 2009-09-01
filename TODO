@@ -4,8 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1065: Every time the supertemplate is changed, it should also
-   be set in the CGI vars hash.
+None!
 
 Open Bugs
 ---------
@@ -14,6 +13,8 @@ Open Bugs
    in Source::FS.
  * 1060: Fix RSS to avoid generating an author tag if there is
    no author.
+ * 1065: Every time the supertemplate is changed, it should also
+   be set in the CGI vars hash.
 
 Pending Enhancements
 --------------------
