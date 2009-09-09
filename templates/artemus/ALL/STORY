@@ -26,7 +26,7 @@ Shows the full story page.
 	{-set|_date_to|{-story_date|%y%m%d235959|{-var|topic}|{-var|id}}}
 
 	<div class = 'date'>
-	<a href = '{-url|SEARCH_BY_DATE|from|{-_date_from}|to|{-_date_to}}'>{-story_date|%d/%m/%y|{-var|topic}|{-var|id}}</a>
+	<a href = '{-url|SEARCH_BY_DATE|from|{-_date_from}|to|{-_date_to}}'>{-story_date|{-cfg_story_date_format}|{-var|topic}|{-var|id}}</a>
 	</div>
 
 	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
