@@ -8,12 +8,9 @@ be intermixed and sorted by date instead of topic.
 See C<cfg_index_topics> for more information.
 
 =cut
-{-set|PDATE|-}
 {-foreach|{-stories_by_date|{-cfg_index_topics}|{-var|num|{-cfg_index_num}}|{-var|offset|0}}|
-	\{-set\|DATE\|\{-date\|\{-cfg_index_date_format\}\|\$2\}\}
-	\{-ifeq\|\{-PDATE\}\|\{-DATE\}\|\|<h1 class = 'index_date'>\{-DATE\}</h1>\} \{-set\|PDATE\|\{-DATE\}\}
 	\{-_story_abstract\|\$0\|\$1\}
-}
+||<h1 class = 'index_date'>\{-date\|\{-cfg_index_date_format\}\|\$2\}</h1>}
 
 <div class = 'navigator'>
 {-navigator||{-var|num|{-cfg_index_num}}|{-var|offset|0}}
