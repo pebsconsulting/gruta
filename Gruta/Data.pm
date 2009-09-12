@@ -255,25 +255,16 @@ sub format_date {
 	}
 
 	if ($format) {
+		use POSIX;
+
 		my ($y, $m, $d, $H, $M, $S) = ($date =~
 			/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
 
-		$format =~ s/%Y/$y/g;
-		$format =~ s/%y/$y/g;
-		$format =~ s/%m/$m/g;
-		$format =~ s/%d/$d/g;
-		$format =~ s/%H/$H/g;
-		$format =~ s/%M/$M/g;
-		$format =~ s/%S/$S/g;
+		# convert %y to %Y for compatibility
+		$format =~ s/%y/%Y/g;
 
-		if ($format =~ /%w/) {
-			use POSIX;
-
-			my $t = POSIX::mktime(0, 0, 0, $d, $m - 1, $y - 1900);
-			my $w = (localtime($t))[6];
-
-			$format =~ s/%w/$w/g;
-		}
+		$format = POSIX::strftime($format, $S, $M, $H,
+					$d, $m - 1, $y - 1900);
 	}
 	else {
 		$format = $date;
