@@ -16,4 +16,4 @@ it's actually only available to subscribers.</p>
 <p>If you don't, please consider <a href = '{-url|SUBSCRIBE}'>subscribing</a>.</p>
 
 <p>Alternatively, this story will be available to everyone on
-{-story_date2|%d/%m/%y|{-var|topic}|{-var|id}}.</p>
+{-story_date2|{-cfg_date_format}|{-var|topic}|{-var|id}}.</p>

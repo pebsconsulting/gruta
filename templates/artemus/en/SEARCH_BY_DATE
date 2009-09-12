@@ -15,7 +15,7 @@ Generates the search by date page.
 
 	{-main_top}
 
-	<h1>Search by date ({-date|%d/%m/%y|{-var|from}} - {-date|%d/%m/%y|{-var|to}})</h1>
+	<h1>Search by date ({-date|{-cfg_date_format}|{-var|from}} - {-date|{-cfg_date_format}|{-var|to}})</h1>
 
 	<ul>
 		{-foreach|{-stories_by_date||0|0|{-var|from|{-date|%y%m%d000000}}|{-var|to|{-date}}|{-is_admin}}|
