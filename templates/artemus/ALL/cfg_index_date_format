@@ -9,4 +9,4 @@ previous one, an C<h1> header of the C<index_date> class with
 be emitted.
 
 =cut
-%y-%m-%d
+{-cfg_date_format}
