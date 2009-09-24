@@ -1,0 +1,11 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+       "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+
+<head><title><{cfg_site_name}></title></head>
+
+<body>
+
+<img src = '<{cfg_logo_url}>' alt = "<{cfg_site_name}>" border = '0'>
+
+<p><{cfg_slogan}></p>

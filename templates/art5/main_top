@@ -1,0 +1,11 @@
+=head2 main_top
+
+ main_top
+
+This template will be included before the main
+content in all pages. It can be used to include
+a banner or similar.
+
+=cut
+<div class = 'main_top'>
+</div>

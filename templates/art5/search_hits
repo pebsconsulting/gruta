@@ -1,0 +1,9 @@
+=head2 search_hits
+
+ search_hits
+
+Returns the value of the C<search_count> template
+with a caption.
+
+=cut
+<p>Total: {-search_count}</p>

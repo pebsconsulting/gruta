@@ -1,0 +1,91 @@
+<{assert_admin}>
+<{header}>
+
+<div class = 'main'>
+
+<h1><{@"Templates"}></h1>
+
+<form method = 'post' action = '<{url}>'>
+	<select name = 'id'>
+		<option value = '[]'><{@"[New]"}></option>
+		{foreach templates {
+			"<option value = '"
+			$0
+			"'>"
+			$0
+			"</option>"
+			}
+		}
+	</select>
+
+	<input type = 'submit' class = 'button' value = '<{@"Edit template"}>'>
+	<input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
+</form>
+
+<h1><{@"Uploads"}></h1>
+
+<form method = 'post' enctype = 'multipart/form-data' action = '<{url}>'>
+	<{@"Directory:"}><br>
+
+	<select name = 'updir'>
+		{foreach upload_dirs {
+			"<option value = '"
+			$0
+			"'>"
+			$0
+			"</option>"
+			}
+		}
+	</select>
+
+	<br>
+
+	File:<br>
+	<input type = 'file'   name = 'file'><br>
+	<input type = 'submit' class = 'button' value = '<{@"Send"}>'>
+	<input type = 'hidden' name = 't'       value = 'UPLOAD'>
+</form>
+
+<h1><{@"Topics"}></h1>
+
+<form method = 'post' action = '<{url}>'>
+
+	<select name = 'topic'>
+		<option value = '[]'><{@"[New]"}></option>
+		{foreach topics {
+			"<option value = '"
+			$0
+			"'>"
+			{topic_name $0}
+			"</option>"
+			}
+		}
+	</select>
+
+	<input type = 'submit' class = 'button' value = '<{@"Edit topic"}>'>
+	<input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
+</form>
+
+<h1><{@"Users"}></h1>
+
+<form method = 'post' action = '<{url}>'>
+
+	<select name = 'userid'>
+		<option value = '[]'><{@"[New]"}></option>
+		{foreach users {
+			"<option value = '"
+			$0
+			"'>"
+			$0
+			"</option>"
+			}
+		}
+	</select>
+
+	<input type = 'submit' class = 'button' value = '<{@"Edit user"}>'>
+	<input type = 'hidden' name = 't'       value = 'EDIT_USER'>
+</form>
+
+</div>
+
+<{footer}>

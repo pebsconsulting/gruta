@@ -1,0 +1,72 @@
+<{assert_logged_in}>
+<{header}>
+
+<div class = 'main'>
+
+	<h1><{@"User data"}></h1>
+
+	<form method = 'post' action = '<{url}>'>
+
+		{if {eq %userid '[]'} {
+			'<p>' @"User Id:" '<br>'
+			"<input type = 'text' name = 'userid' value = ''>"
+			}
+			{
+			'<b>' %userid '</b>'
+			"<input type = 'hidden' name = 'userid' value = '"
+				%userid "'>"
+			}
+		}>
+
+		<p><{@"Full name:"}><br>
+
+		<input size = '60' type = 'text' name = 'username'
+			value = '<{user_username %userid}>'>
+
+		<p><@{"Email:"}><br>
+
+		<input size = '60' type = 'text' name = 'email'
+			value = '<{user_email %userid}>'>
+
+		<{if is_admin {
+			'<p>' @"Administrator?" '<br>'
+			"<input type = 'checkbox' name = 'isadmin' "
+				{if {user_is_admin %userid} 'checked'}
+			">"
+
+			'<p>' @"Can upload files?" '<br>'
+			"<input type = 'checkbox' name = 'canupload' "
+				{if {user_can_upload %userid} 'checked'}
+			">"
+
+			'<p>' @"Account expiration date: (empty, never)" '<br>'
+
+			"<input type = 'text' size = '2' name = 'day' value = '"
+				{user_xdate '%d' %userid}
+			"'>"
+			' / '
+			"<input type = 'text' size = '2' name = 'month' value = '"
+				{user_xdate '%m' %userid}
+			"'>"
+			' / '
+			"<input type = 'text' size = '2' name = 'year' value = '"
+				{user_xdate '%y' %userid}
+			"'>"
+			}
+		}>
+
+		<p><{@"Passwords: (only new users or to change it)"}><br>
+
+		<p><{@"Password:"}><br>
+		<input type = password name = pass1 value = ''>
+
+		<p><{@"Repeat password:"}><br>
+		<input type = password name = pass2 value = ''>
+
+		<input type = 'submit' class = 'button' value = 'OK'>
+		<input type = 'hidden' name = 't' value = 'SAVE_USER'>
+	</form>
+
+</div>
+
+<{footer}>

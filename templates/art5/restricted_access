@@ -1,0 +1,19 @@
+=head2 restricted_access
+
+ restricted_access
+
+Returns the text that will be shown when an article has
+a liberation date later than the current date and the
+user is not logged in.
+
+=cut
+<p>The content you are trying to see (<b>{-story_title|{-var|topic}|{-var|id}}</b>)
+it's actually only available to subscribers.</p>
+
+<p>If you are already a subscriber to {-cfg_site_name}, please
+<a href = '{-url|LOGIN}'>log in</a> to read it.</p>
+
+<p>If you don't, please consider <a href = '{-url|SUBSCRIBE}'>subscribing</a>.</p>
+
+<p>Alternatively, this story will be available to everyone on
+{-story_date2|{-cfg_date_format}|{-var|topic}|{-var|id}}.</p>

@@ -1,0 +1,42 @@
+<{assert_admin}>
+<{-header}>
+
+<div class = 'main'>
+
+	<h1><{@"Topic data"}></h1>
+
+	<form action = '<{url}>'>
+
+		<{if {eq %topic '[]'} {
+			"<p>Topic id (only undercase letters and/or numbers)<br>"
+			"<input type = 'text' name = 'topic' value = ''>"
+			}
+			{
+			'<b>' %topic '</b><br>'
+			"<input type = 'hidden' name = 'topic' value = '"
+			%topic
+			"'>"
+			}
+		}>
+
+		<p><{@"Topic name:"}><br>
+		<input size = '40' type = 'text' name = 'name'
+			value = '<{topic_name %topic}>'>
+
+		<p><{@"Description (about 15 words)"}><br>
+		<input size = '80' type = 'text' name = 'description'
+			value = '<{topic_description %topic}>'>
+
+		<p><{@"Editors:"}><br>
+		<input size = '40' type = 'text' name = 'editors'
+			value = '<{topic_editors %topic}>'>
+
+		<br>
+		<input type = 'submit' class = 'button' value = 'OK'>
+		<input type = 'hidden' name = 't' value = 'SAVE_TOPIC'>
+
+	</form>
+
+</div>
+
+<{footer}>

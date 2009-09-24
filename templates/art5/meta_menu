@@ -1,0 +1,32 @@
+=head2 meta_menu
+
+ meta_menu
+
+Generates an unsorted list containing a list to the C<about>
+story in the C<info> topic (if exists), another link to the
+C<legal> story in the C<info> topic (if exists), another
+link to the main C<RSS> page, a link to the C<ADMIN> page
+(if the logged user has admin capabilities), links to
+login or logout and the search form.
+
+=cut
+<ul>
+	{-if|{-story_title|info|about}|<li><a href = '{-url|STORY|topic|info|id|about}'>{-story_title|info|about}</a></li>}
+	{-if|{-story_title|info|legal}|<li><a href = '{-url|STORY|topic|info|id|legal}'>{-story_title|info|legal}</a></li>}
+	<li><a href = '{-url|RSS}'>RSS</a></li>
+	{-if|{-is_logged_in}|
+		\{-if\|\{-is_admin\}\|
+			<li><a href = '\{-url\|ADMIN\}'>Admin</a></li>\|
+			<li><a href = "\{-url\|EDIT_USER\|userid\|\{-userid\}\}">Preferences</a></li>
+		\}
+		<li><a href = '\{-url\|LOGOUT\}'>Logout</a> {-userid}</li>|
+		<li><a href = '\{-url\|LOGIN\}'>Login</a></li>
+	}
+	<li>
+	<form action = '{-url}'>
+		<input type = 'hidden' name = 't'       value = 'SEARCH'>
+		<input type = 'text'   name = 'query'   value = ''>
+		<input type = 'submit' class = 'button' value = 'Search'>
+	</form>
+	</li>
+</ul>

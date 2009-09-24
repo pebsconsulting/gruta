@@ -1,0 +1,10 @@
+=head2 topnav
+
+ topnav
+
+The horizontal menu just below the C<top> template.
+
+=cut
+<div class = 'topnav'>
+{-main_menu}
+</div>

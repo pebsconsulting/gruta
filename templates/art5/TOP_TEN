@@ -1,0 +1,25 @@
+=head2 TOP_TEN
+
+ TOP_TEN
+
+Shows the _top stories_ page.
+
+=cut
+{-assert|{-cfg_top_ten_num}|INDEX}
+{-header}
+
+{-column1}
+
+{-column2}
+
+<div class = 'main'>
+
+	{-main_top}
+
+	{-block_top_ten}
+
+	{-main_bottom}
+
+</div>
+
+{-footer}

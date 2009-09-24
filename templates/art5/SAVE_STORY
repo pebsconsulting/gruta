@@ -1,0 +1,19 @@
+=head2 SAVE_STORY
+
+ SAVE_STORY
+
+Saves a story.
+
+=cut
+{-assert_topic_editor|{-var|topic}}
+{-header}
+
+<div class = 'main'>
+
+	<h1>Save story</h1>
+
+	{-_story_preview|{-var|topic}|{-save_story|{-var|topic}|{-var|id}|{-var|content}|{-var|year}|{-var|month}|{-var|day}||||{-var|format}|{-var|tags}|{-var|year2}|{-var|month2}|{-var|day2}|{-var|description}}}
+
+</div>
+
+{-footer}

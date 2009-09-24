@@ -1,0 +1,1 @@
+<{foreach cfg_index_topics {block_topic_list_of_abstracts $0 $1}}>

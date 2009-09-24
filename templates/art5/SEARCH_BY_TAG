@@ -1,0 +1,34 @@
+=head2 SEARCH_BY_TAG
+
+ SEARCH_BY_TAG
+
+Generates the search by tag page.
+
+=cut
+{-header}
+
+{-column1}
+
+{-column2}
+
+<div class = 'main'>
+
+	{-main_top}
+
+	<h1>Search by tag</h1>
+
+	<p><b>{-var|tag}</b> (<a href = '{-url|RSS|tag|{-var|tag}}'>RSS</a>):<br>
+
+	<ul>
+		{-foreach|{-stories_by_tag|{-var|topic}|{-var|tag}|{-is_admin}}|
+			<li>\{-link_to_story_with_edit\|\$0\|\$1\}</li>
+		}
+	</ul>
+
+	{-search_hits}
+
+	{-main_bottom}
+
+</div>
+
+{-footer}

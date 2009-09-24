@@ -1,0 +1,20 @@
+=head2 UPLOAD
+
+ UPLOAD
+
+Uploads a file.
+
+=cut
+{-header}
+
+<div class = 'main'>
+
+	<h1>Uploads</h1>
+
+	{-upload|{-var|updir}|file}
+
+	<p><a href='{-url|ADMIN}'>Back to admin</a>
+
+</div>
+
+{-footer}

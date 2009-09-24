@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+       "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+
+<head>
+	<link rel = 'icon' href = '<{cfg_favicon_url}>' type = 'image/ico'>
+	<link rel = 'shortcut icon' href = '<{cfg_favicon_url}>'>
+	<link rel = 'alternate' type = 'text/xml' title = 'RSS' href = '<{url 'RSS'}>'>
+	<link rel = 'stylesheet' type = 'text/css' href = '<{url 'CSS'}>'>
+	<meta name = 'generator' content = '<{about}> (http://triptico.com/software/gruta.html)'>
+	<{cfg_additional_headers}>
+	<{set_date %set_date}>
+</head>
+
+<body>
+<div class = 'outer-container'>
+
+<{top}>
+
+>{topnav}>
+
+<{topnav2}>
+
+<div class = 'inner-container'>

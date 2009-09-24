@@ -1,0 +1,45 @@
+=head2 TOPIC
+
+ TOPIC
+
+Generates the topic page.
+
+=cut
+{-assert|{-topic_id|{-var|topic}}|404}
+{-header}
+
+{-set|html_title|{-cfg_site_name}: {-topic_name|{-var|topic}}}
+{-set|html_description|{-topic_description|{-var|topic}}}
+
+{-column1}
+
+{-column2}
+
+<div class = 'main'>
+
+	{-main_top}
+
+	{-if|{-story_title|{-var|topic}|index}|
+		<div class = 'topic_index'>
+		\{-set\|html_title\|{-cfg_site_name}: \{-story_title\|{-var|topic}\|index\}\}
+		\{-story_body\|{-var|topic}\|index\}
+		</div>
+
+		\{-if\|\{-is_topic_editor\|\{-var\|topic\}\}\|
+			\{-link_to_edit_story\|\{-var\|topic\}\|index\}
+
+			\{-block_topic_list_of_future_links\|\{-var\|topic\}\}
+		\}
+	|
+		\{-block_topic_list_of_abstracts\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
+
+		<div class = 'navigator'>
+		\{-navigator\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
+		</div>
+	}
+
+	{-main_bottom}
+
+</div>
+
+{-footer}

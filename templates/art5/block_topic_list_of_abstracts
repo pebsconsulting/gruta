@@ -1,0 +1,11 @@
+<{
+	'<h1>' {topic_name $0} '</h1>'
+
+	{block_topic_list_of_future_links $0}
+
+	"<div class = 'topic_list'>"
+	{foreach {stories_by_date $0 $1 $2}
+		{story_abstract $0 $1}
+	}
+	'</div>'
+}>

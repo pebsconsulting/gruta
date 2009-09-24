@@ -1,0 +1,1 @@
+<{{link_to_story $0 $1}{if {is_topic_editor $0} {' - ' {link_to_edit_story $0 $1}}}}>

@@ -1,0 +1,20 @@
+<{header}>
+
+<{= 'html_title' cfg_slogan}>
+<{= 'html_description' cfg_site_description}>
+
+<{column1}>
+
+<{column2}>
+
+<div class = 'main'>
+
+	<{main_top}>
+
+	<{cfg_index}>
+
+	<{main_bottom}>
+
+</div>
+
+<{footer}>

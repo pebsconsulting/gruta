@@ -1,0 +1,18 @@
+<{
+	{assert_topic_editor %topic}
+	header
+
+	"<div class = 'main'>"
+
+	'<h1>' @"Delete story" '</h1>'
+
+	"<p><a href = '" {url 'INDEX'} "'>" @"Index" '</a>'
+	' - '
+	"<a href = '" {url 'ADMIN'} "'>" @"Admin" '</a><p>'
+
+	{delete_story %topic %id}
+
+	'</div>'
+
+	footer
+}>
