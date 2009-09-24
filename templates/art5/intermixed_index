@@ -1,0 +1,24 @@
+<{
+	# loops all stories in cfg_index_topics,
+	# generating a header whenever the date
+	# changes according cfg_index_date_format
+	{foreach
+		{stories_by_date
+			cfg_index_topics
+			{or %num	cfg_index_num}
+			{or %offset	0}
+		}
+		{story_abstract $0 $1}
+		''
+		{
+			"<h1 class = 'date'>"
+			{date cfg_index_date_format $2}
+			"</h1>"
+		}
+	}
+
+	# generates navigation links for this set
+	"<div class = 'navigator'>"
+	{navigator '' {or %num cfg_index_num} {or %offset 0}}
+	"</div>"
+}>

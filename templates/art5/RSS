@@ -1,0 +1,51 @@
+<{
+	{content_type "application/rss+xml"}
+	'<?xml version="1.0" encoding="UTF-8"?>'
+	'<rss version="0.91">'
+
+	'<channel>'
+
+	'<title>' cfg_site_name '</title>'
+	'<link>http://' cfg_host_name '</link>'
+	'<description>' cfg_site_description '</description>'
+	'<copyright>' cfg_copyright '</copyright>'
+	'<language>en-en</language>'
+
+	'<image>'
+	'<title>' cfg_site_name '</title>'
+	'<url>http://' cfg_host_name '/img/icon.png</url>'
+	'<link>http://' cfg_host_name '</link>'
+	'<width>16</width>'
+	'<height>16</height>'
+	'<description>' cfg_slogan '</description>'
+	'</image>'
+
+	{foreach {
+		if %tag
+		{reverse {sort {stories_by_tag %tag} {$2}}}
+		{stories_by_date {or %topic cfg_rss_topics} {or %num cfg_rss_num}}
+		}
+
+		{
+			'<item>'
+			'<title>' {story_title $0 $1} '</title>'
+			'<link>' {aurl 'STORY' 'topic' $0 'id' $1} '</link>'
+			'<author>'
+				{= 'USERID' {or {story_userid $0 $1} 'admin'}}
+				{user_email USERID}
+				' ('
+				{user_username USERID}
+				')'
+			'</author>'
+			'<description>'
+			"<![CDATA[\n"
+			{story_abstract $0 $1}
+			"\n]]>"
+			'</description>'
+			'</item>'
+		}
+	}
+
+	'</channel>'
+	'</rss>'
+}>
