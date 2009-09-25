@@ -1,20 +1,11 @@
-=head LOGIN
+<{
+	header
+	column1
+	column2
 
- LOGIN
+	"<div class = 'main'>"
+	{login %userid %pass}
+	"</div>"
 
-Generates the login page.
-
-=cut
-{-header}
-
-{-column1}
-
-{-column2}
-
-<div class = 'main'>
-
-	{-login|{-var|userid}|{-var|pass}}
-
-</div>
-
-{-footer}
+	footer
+}>
