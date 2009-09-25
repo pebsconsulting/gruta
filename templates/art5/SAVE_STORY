@@ -1,19 +1,18 @@
-=head2 SAVE_STORY
-
- SAVE_STORY
-
-Saves a story.
-
-=cut
-{-assert_topic_editor|{-var|topic}}
-{-header}
+<{assert_topic_editor %topic}>
+<{header}>
 
 <div class = 'main'>
 
-	<h1>Save story</h1>
+	<h1><@{"Save story"}></h1>
 
-	{-_story_preview|{-var|topic}|{-save_story|{-var|topic}|{-var|id}|{-var|content}|{-var|year}|{-var|month}|{-var|day}||||{-var|format}|{-var|tags}|{-var|year2}|{-var|month2}|{-var|day2}|{-var|description}}}
+	<{_story_preview %topic
+		{save_story %topic %id %content
+			%year %month %day '' '' ''
+			%format %tags
+			%year2 %month2 %day2
+			%description}
+	}>
 
 </div>
 
-{-footer}
+<{footer}>

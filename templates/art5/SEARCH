@@ -1,32 +1,25 @@
-=head2 SEARCH
+<{header}>
 
- SEARCH
+<{column1}>
 
-Generates the search result page.
-
-=cut
-{-header}
-
-{-column1}
-
-{-column2}
+<{column2}>
 
 <div class = 'main'>
 
-	{-main_top}
+	<{main_top}>
 
-	<h1>Search</h1>
+	<h1><{@"Search"}></h1>
 
-	<p>Search results for <b>{-var|query}</b>:<br>
+	<p><{@"Search results for "}><b><{%query}></b>:<br>
 
-	{-foreach|{-var|topic|{-topics}}|
-		\{-search_stories\|\$0\|\{-var\|query\}\|\{-is_admin\}\}
-	}
+	<{foreach {or %topic topics}
+		{search_stories %0 %query is_admin}
+	}>
 
-	{-search_hits}
+	<{search_hits}>
 
-	{-main_bottom}
+	<{main_bottom}>
 
 </div>
 
-{-footer}
+<{footer}>

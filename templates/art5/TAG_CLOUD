@@ -1,32 +1,31 @@
-=head2 TAG_CLOUD
+<{header}>
 
- TAG_CLOUD
+<{column1}>
 
-Generates the cloud of tags page.
-
-=cut
-{-header}
-
-{-column1}
-
-{-column2}
+<{column2}>
 
 <div class = 'main'>
 
-	{-main_top}
+	<{main_top}>
 
-	<h1>Tag cloud</h1>
+	<h1><{@"Tag cloud"}></h1>
 
 	<p>
 
-	{-foreach|{-tags}|
-	<font size = '\$1'><a href = '\{-url\|SEARCH_BY_TAG\|tag\|\$0\}'>\$0</a></font> 
-	}
-
+	<{foreach tags {
+		"<font size = '"
+		$1
+		"'><a href = '"
+		{url 'SEARCH_BY_TAG' 'tag' $0}
+		"'>"
+		$0
+		'</a></font>'
+		}
+	}>
 	</p>
 
-	{-main_bottom}
+	<{main_bottom}>
 
 </div>
 
-{-footer}
+<{footer}>

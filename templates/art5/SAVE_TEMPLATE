@@ -1,19 +1,12 @@
-=head2 SAVE_TEMPLATE
-
- SAVE_TEMPLATE
-
-Saves a template.
-
-=cut
-{-assert_admin}
-{-header}
+<{assert_admin}>
+<{header}>
 
 <div class = 'main'>
 
-	<h1>Save template</h1>
+	<h1><@{"Save template"}></h1>
 
-	{-save_template|{-var|id}|{-var|content}}
+	<{save_template %id %content}>
 
 </div>
 
-{-footer}
+<{footer}>

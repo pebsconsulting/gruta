@@ -1,45 +1,47 @@
-=head2 TOPIC
+<{
+	{assert {topic_id %topic} '404'}
+	header
 
- TOPIC
+	{= 'html_title'		{cfg_site_name ': ' {topic_name %topic}}}
+	{= 'html_description'	{topic_description %topic}}
 
-Generates the topic page.
+	column1
 
-=cut
-{-assert|{-topic_id|{-var|topic}}|404}
-{-header}
-
-{-set|html_title|{-cfg_site_name}: {-topic_name|{-var|topic}}}
-{-set|html_description|{-topic_description|{-var|topic}}}
-
-{-column1}
-
-{-column2}
+	column2
+}>
 
 <div class = 'main'>
 
-	{-main_top}
+	<{main_top}>
 
-	{-if|{-story_title|{-var|topic}|index}|
-		<div class = 'topic_index'>
-		\{-set\|html_title\|{-cfg_site_name}: \{-story_title\|{-var|topic}\|index\}\}
-		\{-story_body\|{-var|topic}\|index\}
-		</div>
+	<{if {story_title %topic 'index'} {
+		"<div class = 'topic_index'>"
+		{= 'html_title'
+			{cfg_site_name ': ' {story_title %topic 'index'}}
+		}
 
-		\{-if\|\{-is_topic_editor\|\{-var\|topic\}\}\|
-			\{-link_to_edit_story\|\{-var\|topic\}\|index\}
+		{story_body %topic 'index'}
+		"</div>"
 
-			\{-block_topic_list_of_future_links\|\{-var\|topic\}\}
-		\}
-	|
-		\{-block_topic_list_of_abstracts\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
-
-		<div class = 'navigator'>
-		\{-navigator\|\{-var\|topic\}\|\{-var\|num\|\{-cfg_topic_num\}\}\|\{-var\|offset\|0\}\}
-		</div>
+		{if {is_topic_editor %topic} {
+			{link_to_edit_story %topic 'index'}
+			{block_topic_list_of_future_links %topic}
+			}
+		}
 	}
+	{
+		{block_topic_list_of_abstracts %topic
+			{or %num cfg_topic_num} {or %offset 0}
+		}
 
-	{-main_bottom}
+		"<div class = 'navigator'>"
+		{navigator %topic {or %num cfg_top_num} {or %offset 0}}
+		"</div>"
+	}
+	}>
+
+	<{main_bottom}>
 
 </div>
 
-{-footer}
+<{footer}>

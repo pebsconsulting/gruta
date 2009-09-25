@@ -1,28 +1,28 @@
-=head2 SUBSCRIBE
+<{header}>
 
- SUBSCRIBE
+<{column1}>
 
-Generates the subscription page.
-
-=cut
-{-header}
-
-{-column1}
-
-{-column2}
+<{column2}>
 
 <div class = 'main'>
 
-	{-main_top}
+	<{main_top}>
 
-	<h1>Subscriptions a {-cfg_site_name}</h1>
+	<h1><@{"Subscriptions to this site"}></h1>
 
-	{-story_body|info|subscribe}
+	<{story_body 'info' 'subscribe'}>
 
-	{-if|{-and|{-is_admin}|{-cfg_top_ten_num}}|<p>Text read {-story_hits|info|subscribe} times.</p>}
+	<{if {and is_admin cfg_top_ten_num} {
+		'<p>'
+		@"Hits:"
+		' '
+		{story_hits 'info' 'subscribe'}
+		'</p>'
+		}
+	}>
 
-	{-main_bottom}
+	<{main_bottom}>
 
 </div>
 
-{-footer}
+<{footer}>

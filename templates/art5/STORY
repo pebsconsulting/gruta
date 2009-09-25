@@ -1,38 +1,38 @@
-=head2 STORY
+<{
+	{assert_visible_story %topic %id}
+	{redir_if_archived 'STORY' %topic %id}
 
- STORY
+	header
 
-Shows the full story page.
+	{= 'html_title'
+			{cfg_site_name ': ' {story_title %topic %id}}}
+	{= 'html_description'
+			{story_description %topic %id}}
+	{= 'html_keywords'
+			{foreach {story_tags %topic %id} $0 ', '}}
 
-=cut
-{-assert_visible_story|{-var|topic}|{-var|id}}
-{-redir_if_archived|STORY|{-var|topic}|{-var|id}}
+	column1
 
-{-header}
-
-{-set|html_title|{-cfg_site_name}: {-story_title|{-var|topic}|{-var|id}}}
-{-set|html_description|{-story_description|{-var|topic}|{-var|id}}}
-{-set|html_keywords|{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }}
-
-{-column1}
-
-{-column2}
+	column2
+}>
 
 <div class = 'main'>
 
-	{-main_top}
-
-	{-set|_date_from|{-story_date|%y%m%d000000|{-var|topic}|{-var|id}}}
-	{-set|_date_to|{-story_date|%y%m%d235959|{-var|topic}|{-var|id}}}
+	<{main_top}>
 
 	<div class = 'date'>
-	<a href = '{-url|SEARCH_BY_DATE|from|{-_date_from}|to|{-_date_to}}'>{-story_date|{-cfg_story_date_format}|{-var|topic}|{-var|id}}</a>
+	<a href ='<{
+		url 'SEARCH_BY_DATE' 'from' 
+			{story_date '%y%m%d000000' %topic %id}
+		'to'
+			{story_date '%y%m%d235959' %topic %id}
+	}>'><{story_date cfg_story_date_format %topic %id}></a>
 	</div>
 
-	{-_story_complete|{-var|topic}|{-var|id}|{-var|hl}}
+	<{_story_complete %topic %id %hl}>
 
-	{-main_bottom}
+	<{main_bottom}>
 
 </div>
 
-{-footer}
+<{footer}>

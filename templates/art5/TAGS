@@ -1,29 +1,30 @@
-=head2 TAGS
+<{header}>
 
- TAGS
+<{column1}>
 
-Generates the tag enumeration page.
-
-=cut
-{-header}
-
-{-column1}
-
-{-column2}
+<{column2}>
 
 <div class = 'main'>
 
-	{-main_top}
+	<{main_top}>
 
-	<h1>Tags</h1>
+	<h1><{@"Tags"}></h1>
 
 	<ul>
-		{-foreach|{-tags}|
-		<li><a href = '\{-url\|SEARCH_BY_TAG\|tag\|\$0\}'>\$0 (\$1)</a></li>
-		}
+		<{foreach tags {
+			'<li>'
+			"<a href = '"
+			{url 'SEARCH_BY_TAG' 'tag' $0}
+			"'>"
+			$0
+			' ('
+			$1
+			')</a></li>'
+			}
+		}>
 	</ul>
 
-	{-main_bottom}
+	<{main_bottom}>
 </div>
 
-{-footer}
+<{footer}>

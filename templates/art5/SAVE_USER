@@ -1,19 +1,14 @@
-=head2 SAVE_USER
-
- SAVE_USER
-
-Saves a user.
-
-=cut
-{-assert_logged_in}
-{-header}
+<{assert_logged_in}>
+<{header}>
 
 <div class = 'main'>
 
-	<h1>Save user</h1>
+	<h1><{@"Save user"}></h1>
 
-	{-save_user|{-var|userid}|{-var|username}|{-var|email}|{-var|isadmin}|{-var|canupload}|{-var|pass1}|{-var|pass2}|{-var|year}|{-var|month}|{-var|day}}
+	<{save_user %userid %username %email %isadmin
+		%canupload %pass1 %pass2
+		%year %month %day}>
 
 </div>
 
-{-footer}
+<{footer}>

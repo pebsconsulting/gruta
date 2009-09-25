@@ -1,14 +1,9 @@
-=head2 STORY_PRINTABLE
+<{
+	{redir_if_archived 'STORY_PRINTABLE' %topic %id}
 
- STORY_PRINTABLE
+	header_printable
 
-Generates the C<STORY_PRINTABLE> page.
+	{_story_printable %topic %id %hl}
 
-=cut
-{-redir_if_archived|STORY_PRINTABLE|{-var|topic}|{-var|id}}
-
-{-header_printable}
-
-{-_story_printable|{-var|topic}|{-var|id}|{-var|hl}}
-
-{-footer_printable}
+	footer_printable
+}>

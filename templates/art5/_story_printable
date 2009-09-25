@@ -1,27 +1,30 @@
-=head2 _story_printable
-
- _story_printable {topic} {story_id}
-
-Convenience template that shows a complete story,
-in _printer-friendly_ format.
-
-=cut
 <div class = 'story_printable'>
 
-	{-story_body|$0|$1}
+	<{story_body $0 $1}>
 
 	<p>
-	<div class = 'tags'>Tags: 
-	{-foreach|{-story_tags|$0|$1}|
-		<a href = '\{-url\|SEARCH_BY_TAG\|tag\|\$0\}'>\$0</a>|, }
+	<div class = 'tags'><{@"Tags:"}> 
+		<{foreach {story_tags $0 $1} {
+			"<a href = '"
+			{url 'SEARCH_BY_TAG' 'tag' $0}
+			"'>"
+			$0
+			'</a>'
+			}
+			', '
+		}>
 	</div>
 	</p>
 
 	<hr>
 
 	<div class = 'self_links'>
-		Permanent link to this page:
-		<a href='{-aurl|STORY|topic|$0|id|$1}'>{-aurl|STORY|topic|$0|id|$1}</a>
+	<{@"Permanent link to this page:"}>
+	<a href = '<{
+		aurl 'STORY' 'topic' $0 'id' $1
+	}>'><{
+		aurl 'STORY' 'topic' $0 'id' $1
+	}></a>
 	</div>
 
 </div>
