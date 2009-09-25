@@ -10,7 +10,7 @@
 
 	<h1><{@"Search by tag"}></h1>
 
-	<p><b><{%tag}></b> (<a href = '<{url 'RSS' 'tag' %tag}>'>RSS</a>):<br>
+	<p><b><{%tag}></b> (<{link {url 'RSS' 'tag' %tag} 'RSS'}>):<br>
 
 	<ul>
 		<{foreach {stories_by_tag %topic %tag is_admin}
