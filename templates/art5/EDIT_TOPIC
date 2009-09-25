@@ -8,7 +8,9 @@
 	<form action = '<{url}>'>
 
 		<{if {eq %topic '[]'} {
-			"<p>Topic id (only undercase letters and/or numbers)<br>"
+			"<p>"
+			@"Topic id (only undercase letters and/or numbers)"
+			"<br>"
 			"<input type = 'text' name = 'topic' value = ''>"
 			}
 			{

@@ -13,11 +13,8 @@
 	<p><b><{%tag}></b> (<a href = '<{url 'RSS' 'tag' %tag}>'>RSS</a>):<br>
 
 	<ul>
-		<{foreach {stories_by_tag %topic %tag is_admin} {
-			'<li>'
-			{link_to_story_with_edit $0 $1}
-			'</li>'
-			}
+		<{foreach {stories_by_tag %topic %tag is_admin}
+			{li {link_to_story_with_edit $0 $1}}
 		}>
 	</ul>
 

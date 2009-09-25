@@ -1,54 +1,40 @@
-<ul>
-	<{if {story_title 'info' 'about'} {
-		"<li><a href = '"
-		{url 'STORY' 'topic' 'info' 'id' 'about'}
-		"'>"
-		{story_title 'info' 'about'}
-		'</a></li>'
-		}
-	}>
-	<{if {story_title 'info' 'legal'} {
-		"<li><a href = '"
-		{url 'STORY' 'topic' 'info' 'id' 'legal'}
-		"'>"
-		{story_title 'info' 'legal'}
-		'</a></li>'
-		}
-	}>
-	<li><a href = '<{url 'RSS'}>'>RSS</a></li>
-	<{if is_logged_in {
-		{if is_admin {
-			"<li><a href = '"
-			{url 'ADMIN'}
-			"'>"
-			@"Admin"
-			'</a></li>'
+<ul><{
+	{if {story_title 'info' 'about'}
+		{li
+			{link
+			{url 'STORY' 'topic' 'info' 'id' 'about'}
+			{story_title 'info' 'about'}
 			}
-			{
-			"<li><a href = '"
-			{url 'EDIT_USER' 'userid' %userid}
-			"'>"
-			@"Preferences"
-			'</a></li>'
+		}
+	}
+
+	{if {story_title 'info' 'legal'}
+		{li
+			{link
+			{url 'STORY' 'topic' 'info' 'id' 'legal'}
+			{story_title 'info' 'legal'}
+			}
+		}
+	}
+
+	{li {link {url 'RSS'} "RSS"}}
+
+	{if is_logged_in {
+		{if is_admin
+			{li {link {url 'ADMIN'} @"Admin"}}
+			{li {link
+				{url 'EDIT_USER' 'userid' userid}
+				@"Preferences"
+				}
 			}
 		}
 
-		"<li><a href = '"
-		{url 'LOGOUT'}
-		"'>"
-		@"Logout"
-		'</a> '
-		%userid
-		'</li>'
+		{li { {link {url 'LOGOUT'} @"Logout"} ' ' userid}}
 		}
-		{
-		"<li><a href = '"
-		{url 'LOGIN'}
-		"'>"
-		@"Login"
-		'</a></li>'
-		}
-	}>
+
+		{li {link {url 'LOGIN'} @"Login"}}
+	}
+}>
 
 	<li>
 	<form action = '<{url}>'>

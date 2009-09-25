@@ -12,11 +12,11 @@
 		'<em><ul>'
 
 		{foreach {stories_by_date %topic 0 0 date '' 1} {
-			'<li>'
-			{date cfg_date_format $2}
-			' '
-			{link_to_story_with_edit $0 $1}
-			'</li>'
+			{li {
+				{date cfg_date_format $2}
+				' '
+				{link_to_story_with_edit $0 $1}
+			}
 			}
 		}
 
@@ -26,11 +26,11 @@
 
 	<ul>
 	<{foreach {stories_by_date %topic} {
-		'<li>'
-		{date cfg_date_format $2}
-		' '
-		{link_to_story_with_edit $0 $1}
-		'</li>'
+		{li {
+			{date cfg_date_format $2}
+			' '
+			{link_to_story_with_edit $0 $1}
+		}
 		}
 	}>
 	</ul>

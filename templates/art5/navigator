@@ -2,9 +2,12 @@
 	# generate a previous link if offset is not 0
 	{if $2 {
 			"<span class = 'prev'>"
-			"<a href = '"
-			{url {or %t 'INDEX'} 'topic' $0 'offset' {sub $2 $1}}
-			"'>&lt;&lt;</a>"
+			{link
+				{url {or %t 'INDEX'}
+					'topic' $0 'offset' {sub $2 $1}
+				}
+				"&lt;&lt;"
+			}
 			"</span>"
 		}
 	}
@@ -13,9 +16,12 @@
 	{if {size {stories_by_date {or $0 cfg_index_topics}	$1 {add $2 $1}}}
 		{
 			"<span class = 'next'>"
-			"<a href = '"
-			{url {or %t 'INDEX'} 'topic' $0 'offset' {add $2 $1}}
-			"'>&gt;&gt;</a>"
+			{link
+				{url {or %t 'INDEX'}
+					'topic' $0 'offset' {add $2 $1}
+				}
+				"&gt;&gt"
+			}
 			"</span>"
 		}
 	}

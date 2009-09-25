@@ -9,20 +9,12 @@
 
 	'<p>'
 	@"If you are already a subscriber to this site, please login to read it."
-	" <a href = '"
-	{url 'LOGIN'}
-	"'>"
-	@{"Login"}
-	'</a>'
+	{link {url 'LOGIN'} @"Login"}
 	'</p>'
 
 	'<p>'
 	@"If you are not, please consider subscribing."
-	" <a href = '"
-	{url 'SUBSCRIBE'}
-	"'>"
-	@"Subscribe"
-	'</a>'
+	{link {url 'SUBSCRIBE'} @"Subscribe"}
 	'</p>'
 
 	'<p>'

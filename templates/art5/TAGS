@@ -11,15 +11,11 @@
 	<h1><{@"Tags"}></h1>
 
 	<ul>
-		<{foreach tags {
-			'<li>'
-			"<a href = '"
-			{url 'SEARCH_BY_TAG' 'tag' $0}
-			"'>"
-			$0
-			' ('
-			$1
-			')</a></li>'
+		<{foreach tags
+			{li {link
+					{url 'SEARCH_BY_TAG' 'tag' $0}
+					{$0 ' (' $1}
+				}
 			}
 		}>
 	</ul>

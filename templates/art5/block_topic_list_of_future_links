@@ -2,12 +2,11 @@
 	{if {is_topic_editor $0} {
 		"<div class = 'future_stories_list'>"
 		'<ul>'
-		{foreach {stories_by_date $0 0 0 {date} '' 1} {
-			'<li>'
-			{story_date cfg_date_format $0 $1}
-			' - '
-			{link_to_story_with_edit $0 $1}
-			'</li>'
+		{foreach {stories_by_date $0 0 0 {date} '' 1} {li {
+				{story_date cfg_date_format $0 $1}
+				' - '
+				{link_to_story_with_edit $0 $1}
+			}
 			}
 		}
 		'</ul>'

@@ -1,1 +1,1 @@
-<a href = '<{url 'EDIT_STORY' 'topic' $0 'id' '[]'}>'><{@"[New]"}></a>
+<{link {url 'EDIT_STORY' 'topic' $0 'id' '[]'} @"New"}>

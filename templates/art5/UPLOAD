@@ -6,7 +6,7 @@
 
 	<{upload %updir %file}>
 
-	<p><a href = '<{url 'ADMIN'}>'><{@"Back to admin"}></a>
+	<p><{link {url 'ADMIN'} @"Back to admin"}>
 
 </div>
 

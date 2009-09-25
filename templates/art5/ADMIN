@@ -8,14 +8,14 @@
 <form method = 'post' action = '<{url}>'>
 	<select name = 'id'>
 		<option value = '[]'><{@"[New]"}></option>
-		{foreach templates {
+		<{foreach templates {
 			"<option value = '"
 			$0
 			"'>"
 			$0
 			"</option>"
 			}
-		}
+		}>
 	</select>
 
 	<input type = 'submit' class = 'button' value = '<{@"Edit template"}>'>
@@ -28,14 +28,14 @@
 	<{@"Directory:"}><br>
 
 	<select name = 'updir'>
-		{foreach upload_dirs {
+		<{foreach upload_dirs {
 			"<option value = '"
 			$0
 			"'>"
 			$0
 			"</option>"
 			}
-		}
+		}>
 	</select>
 
 	<br>
@@ -52,14 +52,14 @@
 
 	<select name = 'topic'>
 		<option value = '[]'><{@"[New]"}></option>
-		{foreach topics {
+		<{foreach topics {
 			"<option value = '"
 			$0
 			"'>"
 			{topic_name $0}
 			"</option>"
 			}
-		}
+		}>
 	</select>
 
 	<input type = 'submit' class = 'button' value = '<{@"Edit topic"}>'>
@@ -72,14 +72,14 @@
 
 	<select name = 'userid'>
 		<option value = '[]'><{@"[New]"}></option>
-		{foreach users {
+		<{foreach users {
 			"<option value = '"
 			$0
 			"'>"
 			$0
 			"</option>"
 			}
-		}
+		}>
 	</select>
 
 	<input type = 'submit' class = 'button' value = '<{@"Edit user"}>'>

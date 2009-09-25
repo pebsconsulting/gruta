@@ -3,26 +3,16 @@
 	<h1><{cfg_site_name}></h1>
 
 	<ul>
-		<li><a href = '<{url 'INDEX'}>'><{@"Index"}></a></li>
+		{li {link {url 'INDEX'} @"Index"}}
 
-		<{foreach cfg_main_menu_topics {
-			"<li><a href = '"
-			{url 'TOPIC' topic $0}
-			"'>"
-			{topic_name $0}
-			'</a></li>'
-			}
+		<{foreach cfg_main_menu_topics
+			{li {link {url 'TOPIC' 'topic' $0} {topic_name $0}}}
 		}>
 
-		<li><a href = '<{-url 'TAGS'}>'><{@"Tags"}></a></li>
+		{li {link {url 'TAGS'} @"Tags"}}
 
-		<{if cfg_top_ten_num {
-			"<li><a href = '"
-			{url 'TOP_TEN'}
-			"'>"
-			@"Top stories"
-			'</a></li>'
-			}
+		<{if cfg_top_ten_num
+			{li {link {url 'TOP_TEN'} @"Top stories"}}
 		}>
 	</ul>
 

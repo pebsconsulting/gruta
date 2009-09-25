@@ -6,9 +6,11 @@
 
 	'<h1>' @"Delete story" '</h1>'
 
-	"<p><a href = '" {url 'INDEX'} "'>" @"Index" '</a>'
+	'<p>'
+	{link {url 'INDEX'} @"Index"}
 	' - '
-	"<a href = '" {url 'ADMIN'} "'>" @"Admin" '</a><p>'
+	{link {url 'ADMIN'} @"Admin"}
+	'<p>'
 
 	{delete_story %topic %id}
 

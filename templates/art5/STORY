@@ -21,12 +21,14 @@
 	<{main_top}>
 
 	<div class = 'date'>
-	<a href ='<{
-		url 'SEARCH_BY_DATE' 'from' 
-			{story_date '%y%m%d000000' %topic %id}
-		'to'
-			{story_date '%y%m%d235959' %topic %id}
-	}>'><{story_date cfg_story_date_format %topic %id}></a>
+		<{link
+			{url 'SEARCH_BY_DATE' 'from' 
+				{story_date '%y%m%d000000' %topic %id}
+			'to'
+				{story_date '%y%m%d235959' %topic %id}
+			}
+			{story_date cfg_story_date_format %topic %id}
+		}>
 	</div>
 
 	<{_story_complete %topic %id %hl}>

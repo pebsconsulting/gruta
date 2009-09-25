@@ -15,11 +15,9 @@
 	<{foreach tags {
 		"<font size = '"
 		$1
-		"'><a href = '"
-		{url 'SEARCH_BY_TAG' 'tag' $0}
 		"'>"
-		$0
-		'</a></font>'
+		{link {url 'SEARCH_BY_TAG' 'tag' $0} $0}
+		'</font>'
 		}
 	}>
 	</p>

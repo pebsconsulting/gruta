@@ -2,7 +2,7 @@
 	'<h1>' {topic_name $0} '</h1>'
 	'<ul>'
 	{foreach {stories_by_date $0 $1} {
-		'<li>' {link_to_story $0 $1} '</li>'
+		{li {link_to_story $0 $1}}
 		}
 	}
 	'</ul>'
