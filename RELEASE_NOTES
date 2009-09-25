@@ -1,6 +1,12 @@
 Gruta Release Notes
 ===================
 
+2.2.2 "Lucca"
+-------------
+
+ * Date formatting is done using strftime(), so its full
+   set of percent-prefixed commands is available.
+
 2.2.1 "Montecatini"
 -------------------
 
