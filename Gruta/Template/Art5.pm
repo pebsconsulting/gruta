@@ -52,7 +52,17 @@ sub _art5 {
 	if (not $self->{_art5}) {
 		my $data = $self->data();
 
-		my $a = Artemus5->new(path => $self->{path});
+		my $a = Artemus5->new(path => $self->{path},
+			'loader_func'	=>	sub {
+				my $ret = undef;
+
+				if (my $t = $data->source->template($_[0])) {
+					$ret = $t->get('content');
+				}
+
+				return $ret;
+			}
+		);
 
 		$a->{op}->{url} = sub {
 			return $data->url(map {$self->exec($_)} @_);
@@ -603,6 +613,44 @@ sub _art5 {
 			);
 
 			return [ @ret ];
+		};
+
+		$a->{op}->{stories_by_tag} = sub {
+			my $topic	= $self->exec(shift);
+			my $tag		= $self->exec(shift);
+			my $future	= $self->exec(shift);
+
+			my @ret = $data->source->stories_by_tag(
+				$topic ?
+					[ map { (split(',', $_))[0] }
+						split(':', $topic)
+					] : undef,
+				$tag, $future);
+
+			$self->{search_count} += scalar(@ret);
+
+			return [ @ret ];
+		};
+
+		$a->{op}->{stories_top_ten} = sub {
+			my $num		= $self->exec(shift);
+
+			return [ $data->source->stories_top_ten($num) ];
+		};
+
+		$a->{op}->{set_date} = sub {
+			my $date = $self->exec(shift);
+
+			if ($date && $data->auth() &&
+				$data->auth->get('is_admin')) {
+				$Gruta::Data::_today = $date;
+			}
+
+			return '';
+		};
+
+		$a->{op}->{about} = sub {
+			return 'Gruta ' . $data->version();
 		};
 
 		# finally store
