@@ -58,13 +58,8 @@
 	'<br>'
 	"<select name = 'format'>"
 	{foreach renderers {
-		'<option '
-		{if {eq $0 {story_format %topic %id}} 'selected'}
-		"value = '
-		$0
-		"'>"
-		$0
-		'</option>'
+		option $0 $0
+			{if {eq $0 {story_format %topic %id}} 'selected'}
 		}
 	}
 	'</select>'
