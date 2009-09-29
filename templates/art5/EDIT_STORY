@@ -118,14 +118,7 @@
 	"<input type = 'hidden' name = 'cp_id'	value = '[]'>"
 	"<input type = 'submit' class = 'button' value = '" @"COPY" "'>"
 	"<select name = 'cp_topic'>"
-		{foreach topics {
-			"<option value = '"
-			$0
-			"'>"
-			{topic_name $0}
-			'</option>
-			}
-		}
+		{foreach topics {option $0 {topic_name $0}}}
 	'</select>'
 	'</form>'
 
