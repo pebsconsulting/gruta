@@ -582,6 +582,29 @@ sub _art5 {
 			return $ret;
 		};
 
+		$a->{op}->{stories_by_date} = sub {
+			my $topic		= $self->exec(shift);
+			my $num			= $self->exec(shift);
+			my $offset		= $self->exec(shift);
+			my $from_date	= $self->exec(shift);
+			my $to_date		= $self->exec(shift);
+			my $future		= $self->exec(shift);
+
+			my @ret = $data->source->stories_by_date(
+					$topic ?
+						[ map { (split(',', $_))[0] }
+							split(':', $topic)
+						] : undef,
+					num		=> $num,
+					offset	=> $offset,
+					from	=> $from_date,
+					to		=> $to_date,
+					future	=> $future
+			);
+
+			return [ @ret ];
+		};
+
 		# finally store
 		$self->{_art5} = $a;
 	}
