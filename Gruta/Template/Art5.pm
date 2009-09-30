@@ -6,7 +6,7 @@ use Carp;
 
 use base 'Gruta::Template::BASE';
 
-use Artemus5;
+use Art5;
 use Gruta::Data;
 
 sub new {
@@ -40,7 +40,7 @@ sub _art5 {
 	if (not $self->{_art5}) {
 		my $data = $self->data();
 
-		my $a = Artemus5->new(path => $self->{path},
+		my $a = Art5->new(path => $self->{path},
 			'loader_func'	=>	sub {
 				my $ret = undef;
 
