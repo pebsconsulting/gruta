@@ -6,7 +6,7 @@ use Carp;
 
 use base 'Gruta::Template::BASE';
 
-use Art5;
+use Artemus5;
 use Gruta::Data;
 
 sub new {
@@ -34,18 +34,6 @@ sub new {
 }
 
 
-sub data {
-	my $self	= shift;
-	my $data	= shift;
-
-	if (defined($data)) {
-		$self->{data} = $data;
-	}
-
-	return $self->{data};
-}
-
-
 sub _art5 {
 	my $self	= shift;
 
@@ -65,15 +53,15 @@ sub _art5 {
 		);
 
 		$a->{op}->{url} = sub {
-			return $data->url(map {$self->exec($_)} @_);
+			return $data->url(map {$a->exec($_)} @_);
 		};
 
 		$a->{op}->{aurl} = sub {
-			my $ret = $data->url(map {$self->exec($_)} @_);
+			my $ret = $data->url(map {$a->exec($_)} @_);
 
 			if ($ret !~ /^http:/) {
 				$ret = 'http://' .
-					$self->exec([ 'cfg_host_name' ]) .
+					$a->exec([ 'cfg_host_name' ]) .
 					$ret;
 			}
 
@@ -81,15 +69,15 @@ sub _art5 {
 		};
 
 		$a->{op}->{date} = sub {
-			my $fmt	= $self->exec(shift);
-			my $d	= $self->exec(shift) || Gruta::Data::today();
+			my $fmt	= $a->exec(shift);
+			my $d	= $a->exec(shift) || Gruta::Data::today();
 
 			return Gruta::Data::format_date($d, $fmt);
 		};
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$a->{op}->{'topic_' . $p} = sub {
-				my $topic = $self->exec(shift);
+				my $topic = $a->exec(shift);
 				my $ret = '';
 
 				if ($topic ne '[]') {
@@ -104,8 +92,8 @@ sub _art5 {
 
 		foreach my $p (Gruta::Data::Story->new->afields()) {
 			$a->{op}->{'story_' . $p} = sub {
-				my $topic_id	= $self->exec(shift);
-				my $id		= $self->exec(shift);
+				my $topic_id	= $a->exec(shift);
+				my $id		= $a->exec(shift);
 				my $ret		= '';
 
 				if ($id ne '[]') {
@@ -121,16 +109,16 @@ sub _art5 {
 		}
 
 		$a->{op}->{story_abstract} = sub {
-			my $topic = $self->exec(shift);
-			my $id = $self->exec(shift);
+			my $topic = $a->exec(shift);
+			my $id = $a->exec(shift);
 
 			my $story = $data->source->story($topic, $id);
 			return $data->special_uris($story->get('abstract'));
 		};
 
 		$a->{op}->{story_body} = sub {
-			my $topic_id	= $self->exec(shift);
-			my $id			= $self->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
 			my $ret			= undef;
 
 			if (my $topic = $data->source->topic($topic_id)) {
@@ -139,7 +127,7 @@ sub _art5 {
 
 					# if no user and story is not freed, bounce
 					if (!$data->auth() && $date2 && $date2 gt Gruta::Data::today()) {
-						$ret = $self->exec([ 'restricted_access' ]);
+						$ret = $a->exec([ 'restricted_access' ]);
 					}
 					else {
 						# touch the story if user is not
@@ -162,9 +150,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{story_date} = sub {
-			my $format		= $self->exec(shift);
-			my $topic_id	= $self->exec(shift);
-			my $id			= $self->exec(shift);
+			my $format		= $a->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
 			my $ret			= '';
 
 			if ($id ne '[]') {
@@ -179,9 +167,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{story_date2} = sub {
-			my $format		= $self->exec(shift);
-			my $topic_id	= $self->exec(shift);
-			my $id			= $self->exec(shift);
+			my $format		= $a->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
 			my $ret			= '';
 
 			if ($id ne '[]') {
@@ -197,7 +185,7 @@ sub _art5 {
 
 		foreach my $p (Gruta::Data::User->new->afields()) {
 			$a->{op}->{'user_' . $p} = sub {
-				my $id	= $self->exec(shift);
+				my $id	= $a->exec(shift);
 				my $ret	= '';
 
 				if ($id ne '[]') {
@@ -209,8 +197,8 @@ sub _art5 {
 		}
 
 		$a->{op}->{user_xdate} = sub {
-			my $format	= $self->exec(shift);
-			my $id		= $self->exec(shift);
+			my $format	= $a->exec(shift);
+			my $id		= $a->exec(shift);
 			my $ret		= '';
 
 			if ($id ne '[]') {
@@ -221,7 +209,7 @@ sub _art5 {
 		};
 
 		$a->{op}->{template} = sub {
-			my $id = $self->exec(shift);
+			my $id = $a->exec(shift);
 			my $ret = '';
 
 			if ($id ne '[]') {
@@ -239,8 +227,8 @@ sub _art5 {
 		};
 
 		$a->{op}->{save_template} = sub {
-			my $id		= $self->exec(shift);
-			my $content	= $self->exec(shift);
+			my $id		= $a->exec(shift);
+			my $content	= $a->exec(shift);
 
 			$content =~ s/\r//g;
 
@@ -271,7 +259,7 @@ sub _art5 {
 		};
 
 		$a->{op}->{is_topic_editor} = sub {
-			my $topic_id = $self->exec(shift);
+			my $topic_id = $a->exec(shift);
 
 			if (my $topic = $data->source->topic($topic_id)) {
 				return $topic->is_editor($data->auth()) ? 1 : 0;
@@ -281,12 +269,12 @@ sub _art5 {
 		};
 
 		$a->{op}->{login} = sub {
-			my $user_id	= 	$self->exec(shift);
-			my $password =	$self->exec(shift);
+			my $user_id	= 	$a->exec(shift);
+			my $password =	$a->exec(shift);
 			my $error_msg =	'Login incorrect.';
 
 			if ($user_id eq '') {
-				$error_msg = $self->exec( [ 'block_login' ]);
+				$error_msg = $a->exec( [ 'block_login' ]);
 			}
 			elsif (my $sid = $data->login($user_id, $password)) {
 				$data->cgi->cookie("sid=$sid");
@@ -304,8 +292,8 @@ sub _art5 {
 		};
 
 		$a->{op}->{assert} = sub {
-			my $cond	= $self->exec(shift);
-			my $redir	= $self->exec(shift) || 'ADMIN';
+			my $cond	= $a->exec(shift);
+			my $redir	= $a->exec(shift) || 'ADMIN';
 
 			if (! $cond) {
 				$data->cgi->redirect($redir);
@@ -324,16 +312,16 @@ sub _art5 {
 		};
 
 		$a->{op}->{search_stories} = sub {
-			my $topic_id =	$self->exec(shift);
-			my $query =		$self->exec(shift);
-			my $future =	$self->exec(shift);
+			my $topic_id =	$a->exec(shift);
+			my $query =		$a->exec(shift);
+			my $future =	$a->exec(shift);
 
 			return 'Unimplemented';
 		};
 
 		$a->{op}->{is_visible_story} = sub {
-			my $topic =		$self->exec(shift);
-			my $id =		$self->exec(shift);
+			my $topic =		$a->exec(shift);
+			my $id =		$a->exec(shift);
 
 			if (my $story = $data->source->story($topic, $id)) {
 				return $story->is_visible($data->auth()) ? 1 : 0;
@@ -343,9 +331,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{redir_if_archived} = sub {
-			my $template = 	$self->exec(shift);
-			my $topic_id = 	$self->exec(shift);
-			my $id =		$self->exec(shift);
+			my $template = 	$a->exec(shift);
+			my $topic_id = 	$a->exec(shift);
+			my $id =		$a->exec(shift);
 
 			if ($topic_id =~ /-arch$/) {
 				return '';
@@ -366,13 +354,13 @@ sub _art5 {
 		};
 
 		$a->{op}->{topic_has_archive} = sub {
-			my $topic = $self->exec(shift);
+			my $topic = $a->exec(shift);
 
 			return $data->source->topic($topic . '-arch') ? 1 : 0;
 		};
 
 		$a->{op}->{save_topic} = sub {
-			my $topic_id = $self->exec(shift) || return 'Error 1';
+			my $topic_id = $a->exec(shift) || return 'Error 1';
 
 			my $topic = undef;
 
@@ -380,11 +368,11 @@ sub _art5 {
 				$topic = Gruta::Data::Topic->new(id => $topic_id );
 			}
 
-			$topic->set('name',			$self->exec(shift));
-			$topic->set('editors',		$self->exec(shift));
-			$topic->set('internal', 	$self->exec(shift) eq 'on' ? 1 : 0);
-			$topic->set('max_stories',	$self->exec(shift));
-			$topic->set('description',	$self->exec(shift));
+			$topic->set('name',			$a->exec(shift));
+			$topic->set('editors',		$a->exec(shift));
+			$topic->set('internal', 	$a->exec(shift) eq 'on' ? 1 : 0);
+			$topic->set('max_stories',	$a->exec(shift));
+			$topic->set('description',	$a->exec(shift));
 
 			# update or insert
 			if ($topic->source()) {
@@ -398,8 +386,8 @@ sub _art5 {
 		};
 
 		$a->{op}->{save_story} = sub {
-			my $topic_id =	$self->exec(shift) || return 'Error 1';
-			my $id =		$self->exec(shift);
+			my $topic_id =	$a->exec(shift) || return 'Error 1';
+			my $id =		$a->exec(shift);
 
 			my $story = undef;
 
@@ -416,15 +404,15 @@ sub _art5 {
 				);
 			}
 
-			my $content = $self->exec(shift);
+			my $content = $a->exec(shift);
 			$content =~ s/\r//g;
 
 			$story->set('content',	$content);
 
 			# pick date and drop time
-			my $y = $self->exec(shift);
-			my $m = $self->exec(shift);
-			my $d = $self->exec(shift);
+			my $y = $a->exec(shift);
+			my $m = $a->exec(shift);
+			my $d = $a->exec(shift);
 			shift; shift; shift;
 			my $date = Gruta::Data::today();
 
@@ -433,15 +421,15 @@ sub _art5 {
 			}
 
 			$story->set('date',		$date);
-			$story->set('format',	$self->exec(shift) || 'grutatxt');
+			$story->set('format',	$a->exec(shift) || 'grutatxt');
 
 			# get the tags
-			my $tags = $self->exec(shift);
+			my $tags = $a->exec(shift);
 
 			# get date2
-			$y = $self->exec(shift);
-			$m = $self->exec(shift);
-			$d = $self->exec(shift);
+			$y = $a->exec(shift);
+			$m = $a->exec(shift);
+			$d = $a->exec(shift);
 
 			if ($y && $m && $d) {
 				$date = sprintf("%04d%02d%02d000000", $y, $m, $d);
@@ -452,7 +440,7 @@ sub _art5 {
 
 			$story->set('date2', $date);
 
-			$story->set('description', $self->exec(shift));
+			$story->set('description', $a->exec(shift));
 
 			# if there is no userid, add one
 			if (!$story->get('userid')) {
@@ -475,16 +463,16 @@ sub _art5 {
 		};
 
 		$a->{op}->{save_user} = sub {
-			my $id			= $self->exec(shift) || return 'Error 1';
-			my $username	= $self->exec(shift);
-			my $email		= $self->exec(shift);
-			my $is_admin	= $self->exec(shift);
-			my $can_upload	= $self->exec(shift);
-			my $pass1		= $self->exec(shift);
-			my $pass2		= $self->exec(shift);
-			my $xy			= $self->exec(shift);
-			my $xm			= $self->exec(shift);
-			my $xd			= $self->exec(shift);
+			my $id			= $a->exec(shift) || return 'Error 1';
+			my $username	= $a->exec(shift);
+			my $email		= $a->exec(shift);
+			my $is_admin	= $a->exec(shift);
+			my $can_upload	= $a->exec(shift);
+			my $pass1		= $a->exec(shift);
+			my $pass2		= $a->exec(shift);
+			my $xy			= $a->exec(shift);
+			my $xm			= $a->exec(shift);
+			my $xd			= $a->exec(shift);
 
 			if ($data->auth->get('username') ne $username &&
 				! $data->auth->get('is_admin')) {
@@ -542,13 +530,13 @@ sub _art5 {
 		};
 
 		$a->{op}->{upload} = sub {
-			$data->cgi->upload($self->exec(shift), $self->exec(shift));
+			$data->cgi->upload($a->exec(shift), $a->exec(shift));
 			return 'OK';
 		};
 
 		$a->{op}->{delete_story} = sub {
-			my $topic_id	= $self->exec(shift) || return 'Error 1';
-			my $id			= $self->exec(shift);
+			my $topic_id	= $a->exec(shift) || return 'Error 1';
+			my $id			= $a->exec(shift);
 
 			$data->source->story($topic_id, $id)->delete();
 
@@ -559,7 +547,7 @@ sub _art5 {
 
 		$a->{op}->{content_type} = sub {
 			$data->cgi->http_headers('Content-Type' =>
-				$self->exec(shift));
+				$a->exec(shift));
 
 			return '';
 		};
@@ -579,8 +567,8 @@ sub _art5 {
 		};
 
 		$a->{op}->{story_tags} = sub {
-			my $topic_id	= $self->exec(shift);
-			my $id			= $self->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
 			my $ret			= '';
 
 			if ($id ne '[]') {
@@ -593,12 +581,12 @@ sub _art5 {
 		};
 
 		$a->{op}->{stories_by_date} = sub {
-			my $topic		= $self->exec(shift);
-			my $num			= $self->exec(shift);
-			my $offset		= $self->exec(shift);
-			my $from_date	= $self->exec(shift);
-			my $to_date		= $self->exec(shift);
-			my $future		= $self->exec(shift);
+			my $topic		= $a->exec(shift);
+			my $num			= $a->exec(shift);
+			my $offset		= $a->exec(shift);
+			my $from_date	= $a->exec(shift);
+			my $to_date		= $a->exec(shift);
+			my $future		= $a->exec(shift);
 
 			my @ret = $data->source->stories_by_date(
 					$topic ?
@@ -616,9 +604,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{stories_by_tag} = sub {
-			my $topic	= $self->exec(shift);
-			my $tag		= $self->exec(shift);
-			my $future	= $self->exec(shift);
+			my $topic	= $a->exec(shift);
+			my $tag		= $a->exec(shift);
+			my $future	= $a->exec(shift);
 
 			my @ret = $data->source->stories_by_tag(
 				$topic ?
@@ -633,13 +621,13 @@ sub _art5 {
 		};
 
 		$a->{op}->{stories_top_ten} = sub {
-			my $num		= $self->exec(shift);
+			my $num		= $a->exec(shift);
 
 			return [ $data->source->stories_top_ten($num) ];
 		};
 
 		$a->{op}->{set_date} = sub {
-			my $date = $self->exec(shift);
+			my $date = $a->exec(shift);
 
 			if ($date && $data->auth() &&
 				$data->auth->get('is_admin')) {
@@ -653,21 +641,38 @@ sub _art5 {
 			return 'Gruta ' . $data->version();
 		};
 
+		# copy the external hash
+		$a->{xh} = $self->{cgi_vars};
+
 		# finally store
 		$self->{_art5} = $a;
+
 	}
 
 	return $self->{_art5};
 }
 
+
+sub data {
+	my $self	= shift;
+	my $data	= shift;
+
+	if (defined($data)) {
+		$self->{data} = $data;
+	}
+
+	return $self->{data};
+}
+
+
 sub cgi_vars {
 	my $self	= shift;
 
 	if (@_) {
-		$self->{_art5}->{xh} = shift;
+		$self->{cgi_vars} = shift;
 	}
 
-	return $self->{_art5}->{xh};
+	return $self->{cgi_vars};
 }
 
 
