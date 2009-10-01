@@ -256,15 +256,19 @@ my $X = {
 		}
 	],
 	'search'	=> [
-		'search {src} {topic_id} {query}',
+		'search {src} {topic(s)} {query}',
 		'Searches stories by content',
 		sub {
 			my $g		= init();
-			my $topic_id	= arg();
+			my $topics	= arg();
 			my $query	= arg();
 
-			foreach my $s ($g->source->search_stories($topic_id, $query)) {
-				print $s, "\n";
+			if ($topics) {
+				$topics = [ split(':', $topics) ];
+			}
+
+			foreach my $s ($g->source->stories_by_text($topics, $query)) {
+				print join(' ', @{$s}), "\n";
 			}
 		}
 	],
