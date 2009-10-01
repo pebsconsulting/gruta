@@ -59,7 +59,7 @@
 
 	<p><{@"Tags: (comma-separated)"}><br>
 	<input type = 'text' size = '60' name = 'tags'
-		value = '<{foreach {story_tags %topic %id} ', '}>'>
+		value = '<{foreach {story_tags %topic %id} $0 ', '}>'>
 
 	<p><{@"Content:"}><br>
 
