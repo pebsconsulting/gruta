@@ -316,7 +316,7 @@ sub _art5 {
 			my $query		= $a->exec(shift);
 			my $future		= $a->exec(shift);
 
-			return 'Unimplemented';
+			return 'Unsupported; please use stories_by_text.';
 		};
 
 		$a->{op}->{is_visible_story} = sub {
@@ -613,6 +613,23 @@ sub _art5 {
 						split(':', $topic)
 					] : undef,
 				$tag, $future);
+
+			$self->{search_count} += scalar(@ret);
+
+			return [ @ret ];
+		};
+
+		$a->{op}->{stories_by_text} = sub {
+			my $topic	= $a->exec(shift);
+			my $query	= $a->exec(shift);
+			my $future	= $a->exec(shift);
+
+			my @ret = $data->source->stories_by_text(
+				$topic ?
+					[ map { (split(',', $_))[0] }
+						split(':', $topic)
+					] : undef,
+				$query, $future);
 
 			$self->{search_count} += scalar(@ret);
 
