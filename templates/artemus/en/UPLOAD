@@ -5,6 +5,7 @@
 Uploads a file.
 
 =cut
+{-assert_admin}
 {-header}
 
 <div class = 'main'>
