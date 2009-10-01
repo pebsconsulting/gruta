@@ -12,9 +12,13 @@
 
 	<p><{@"Search results for "}><b><{%query}></b>:<br>
 
-	<{foreach {or %topic topics}
-		{search_stories %0 %query is_admin}
+	<ul>
+	<{foreach {stories_by_text %topic %query is_admin}
+		{li {link {url 'STORY' 'topic' $0 'id' $1} {story_title $0 $1}}}
+		''
+		{'</ul><p><b>' {topic_name $0} '</b><br><ul>'}
 	}>
+	</ul>
 
 	<{search_hits}>
 
