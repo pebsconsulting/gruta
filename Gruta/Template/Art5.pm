@@ -77,8 +77,8 @@ sub _art5 {
 
 		foreach my $p (Gruta::Data::Topic->new->afields()) {
 			$a->{op}->{'topic_' . $p} = sub {
-				my $topic = $a->exec(shift);
-				my $ret = '';
+				my $topic	= $a->exec(shift);
+				my $ret		= '';
 
 				if ($topic ne '[]') {
 					if (my $topic =	$data->source->topic($topic)) {
@@ -93,8 +93,8 @@ sub _art5 {
 		foreach my $p (Gruta::Data::Story->new->afields()) {
 			$a->{op}->{'story_' . $p} = sub {
 				my $topic_id	= $a->exec(shift);
-				my $id		= $a->exec(shift);
-				my $ret		= '';
+				my $id			= $a->exec(shift);
+				my $ret			= '';
 
 				if ($id ne '[]') {
 					my $story;
@@ -109,8 +109,8 @@ sub _art5 {
 		}
 
 		$a->{op}->{story_abstract} = sub {
-			my $topic = $a->exec(shift);
-			my $id = $a->exec(shift);
+			my $topic	= $a->exec(shift);
+			my $id		= $a->exec(shift);
 
 			my $story = $data->source->story($topic, $id);
 			return $data->special_uris($story->get('abstract'));
@@ -209,8 +209,8 @@ sub _art5 {
 		};
 
 		$a->{op}->{template} = sub {
-			my $id = $a->exec(shift);
-			my $ret = '';
+			my $id	= $a->exec(shift);
+			my $ret	= '';
 
 			if ($id ne '[]') {
 				# try to find it in the source first
@@ -269,9 +269,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{login} = sub {
-			my $user_id	= 	$a->exec(shift);
-			my $password =	$a->exec(shift);
-			my $error_msg =	'Login incorrect.';
+			my $user_id		= $a->exec(shift);
+			my $password	= $a->exec(shift);
+			my $error_msg	= 'Login incorrect.';
 
 			if ($user_id eq '') {
 				$error_msg = $a->exec( [ 'block_login' ]);
@@ -312,16 +312,16 @@ sub _art5 {
 		};
 
 		$a->{op}->{search_stories} = sub {
-			my $topic_id =	$a->exec(shift);
-			my $query =		$a->exec(shift);
-			my $future =	$a->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $query		= $a->exec(shift);
+			my $future		= $a->exec(shift);
 
 			return 'Unimplemented';
 		};
 
 		$a->{op}->{is_visible_story} = sub {
-			my $topic =		$a->exec(shift);
-			my $id =		$a->exec(shift);
+			my $topic	= $a->exec(shift);
+			my $id		= $a->exec(shift);
 
 			if (my $story = $data->source->story($topic, $id)) {
 				return $story->is_visible($data->auth()) ? 1 : 0;
@@ -331,9 +331,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{redir_if_archived} = sub {
-			my $template = 	$a->exec(shift);
-			my $topic_id = 	$a->exec(shift);
-			my $id =		$a->exec(shift);
+			my $template	= $a->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
 
 			if ($topic_id =~ /-arch$/) {
 				return '';
@@ -386,10 +386,9 @@ sub _art5 {
 		};
 
 		$a->{op}->{save_story} = sub {
-			my $topic_id =	$a->exec(shift) || return 'Error 1';
-			my $id =		$a->exec(shift);
-
-			my $story = undef;
+			my $topic_id	= $a->exec(shift) || return 'Error 1';
+			my $id			= $a->exec(shift);
+			my $story		= undef;
 
 			# if there is an id, try to load the story
 			if ($id) {
