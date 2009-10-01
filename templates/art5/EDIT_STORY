@@ -1,123 +1,94 @@
-<{
-	{assert_topic_editor %topic}
-	header
+<{assert_topic_editor %topic}>
+<{header}>
 
-	"<div class = 'main'>"
+<div class = 'main'>
 
-	'<h1>' @"Story data" '</h1>'
+<h1><{@"Story data"}></h1>
 
-	"<form method = 'post' action = '" url "'>"
+<form method = 'post' action = '<{url}>'>
 
-	"<input type = 'submit' class = 'button' value = 'OK'>"
+	<input type = 'submit' class = 'button' value = 'OK'>
 
-	"<input type = 'hidden' name = 't' value = 'SAVE_STORY'>"
-	"<input type = 'hidden' name = 'topic' value = '"
-		{or %cp_topic %topic} "'>"
+	<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
+	<input type = 'hidden' name = 'topic' value = '<{or %cp_topic %topic}>'>
 
-	'<p>'
-	@"Publication date (empty, today)"
-	'<br>'
+	<p><{@"Publication date (empty, today)"}><br>
 
-	"<input type = 'text' size = '2' name = 'day' value = '"
-		{story_date '%d' %topic %id}
-	"'>"
-	' / '
-	"<input type = 'text' size = '2' name = 'month' value = '"
-		{story_date '%m' %topic %id}
-	"'>"
-	' / '
-	"<input type = 'text' size = '4' name = 'year' value = '"
-		{story_date '%y' %topic %id}
-	"'>"
+	<input type = 'text' size = '2' name = 'day'
+		value = '<{story_date '%d' %topic %id}>'> /
+	<input type = 'text' size = '2' name = 'month'
+		value = '<{story_date '%m' %topic %id}>'> /
+	<input type = 'text' size = '4' name = 'year'
+		value = '<{story_date '%y' %topic %id}>'>
 
-	'<p>'
-	@"Liberation date for non-subscribers: (empty, same as above)"
-	'<br>'
+	<p><{@"Liberation date for non-subscribers: (empty, same as above)"}><br>
 
-	"<input type = 'text' size = '2' name = 'day2' value = '"
-		{story_date2 '%d' %topic %id}
-	"'>"
-	' / '
-	"<input type = 'text' size = '2' name = 'month2' value = '"
-		{story_date2 '%m' %topic %id}
-	"'>"
-	' / '
-	"<input type = 'text' size = '4' name = 'year2' value = '"
-		{story_date2 '%y' %topic %id}
-	"'>"
+	<input type = 'text' size = '2' name = 'day2'
+		value = '<{story_date2 '%d' %topic %id}>'> /
+	<input type = 'text' size = '2' name = 'month2'
+		value = '<{story_date2 '%m' %topic %id}>'> /
+	<input type = 'text' size = '4' name = 'year2'
+		value = '<{story_date2 '%y' %topic %id}>'>
 
-	'<p>'
-	@"Description (about 15 words)"
-	'<br>'
-	"<input size = '80' type = 'text' name = 'description' value = '"
-		{story_description %topic %id}
-	"'>"
+	<p><{@"Description (about 15 words)"}><br>
+	<input size = '80' type = 'text' name = 'description'
+		value = '<{story_description %topic %id}>'>
 
-	'<p>'
-	@"Format:"
-	'<br>'
-	"<select name = 'format'>"
-	{foreach renderers {
+	<p><{@"Format:"}><br>
+	<select name = 'format'>
+	<{foreach renderers {
 		option $0 $0
 			{if {eq $0 {story_format %topic %id}} 'selected'}
 		}
-	}
-	'</select>'
+	}>
+	</select>
 
-	{if {eq {or %cp_id %id} '[]'} {
-		'<p>'
-		@"Story id: (Optional; if you don't know what it means, leave it blank)"
-		'<br>'
-		"<input type = 'text' size = '32' name = 'id' value = ''>"
+	<{if {eq {or %cp_id %id} '[]'}
+		{
+			'<p>'
+			@"Story id: (Optional; if you don't know what it means, leave it blank)"
+			'<br>'
+			"<input type = 'text' size = '32' name = 'id' value = ''>"
 		}
 		{
-		"<input type = 'hidden' name = 'id' value = '"
-		{or %cp_id %id}
-		"'>"
+			"<input type = 'hidden' name = 'id' value = '"
+			{or %cp_id %id}
+			"'>"
 		}
-	}
+	}>
 
-	'<p>'
-	@"Tags: (comma-separated)"
-	'<br>'
-	"<input type = 'text' size = '60' name = 'tags' value = '"
-		{foreach {story_tags %topic %id} $0 ', '}
-	"'>"
+	<p><{@"Tags: (comma-separated)"}><br>
+	<input type = 'text' size = '60' name = 'tags'
+		value = '<{foreach {story_tags %topic %id} ', '}>'>
 
-	'<p>'
-	@"Content:"
-	'<br>'
+	<p><{@"Content:"}><br>
 
-	"<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>"
-		{story_content %topic %id}
-	'</textarea>'
+	<textarea name = 'content' cols = '80' rows = '30'
+		wrap = 'virtual'><{story_content %topic %id}></textarea>
 
-	'<p>'
-	"<input type = 'submit' class = 'button' value = 'OK'>"
-	'</form>'
+	<p>
+	<input type = 'submit' class = 'button' value = 'OK'>
+</form>
 
-	"<form method = 'post' onsubmit = 'return confirm(\""
-	@"Are you sure you want to delete this story?"
-	"\");' action = '" url "'>"
+<form method = 'post' onsubmit =
+		'return confirm("<{@"Are you sure you want to delete this story?"}>");' action = '<{url}>'>
+	<input type = 'hidden' name = 't'		value = 'DELETE_STORY'>
+	<input type = 'hidden' name = 'topic'	value = '<{%topic}>'>
+	<input type = 'hidden' name = 'id'		value = '<{%id}>'>
+	<input type = 'submit' class = 'button'	value = '<{@"DELETE"}>'>
+</form>
 
-	"<input type = 'hidden' name = 't'	value = 'DELETE_STORY'>"
-	"<input type = 'hidden' name = 'topic'	value = '" %topic "'>"
-	"<input type = 'hidden' name = 'id'	value = '" %id "'>"
-	"<input type = 'submit' class = 'button' value = '" @"DELETE" "'>"
-	'</form>'
+<form method = 'get' action = '<{url}>'>
+	<input type = 'hidden' name = 't'		value = 'EDIT_STORY'>
+	<input type = 'hidden' name = 'topic'	value = '<{%topic}>'>
+	<input type = 'hidden' name = 'id'		value = '<{%id}>'>
+	<input type = 'hidden' name = 'cp_id'	value = '[]'>
+	<input type = 'submit' class = 'button'	value = '<{@"COPY"}>'>
+	<select name = 'cp_topic'>
+		<{foreach topics {option $0 {topic_name $0}}}>
+	</select>
+</form>
 
-	"<form method = 'get' action = '" url "'>"
-	"<input type = 'hidden' name = 't'	value = 'EDIT_STORY'>"
-	"<input type = 'hidden' name = 'topic'	value = '" %topic "'>"
-	"<input type = 'hidden' name = 'id'	value = '" %id "'>"
-	"<input type = 'hidden' name = 'cp_id'	value = '[]'>"
-	"<input type = 'submit' class = 'button' value = '" @"COPY" "'>"
-	"<select name = 'cp_topic'>"
-		{foreach topics {option $0 {topic_name $0}}}
-	'</select>'
-	'</form>'
+</div>
 
-	'</div>'
-
-	footer
-}>
+<{footer}>
