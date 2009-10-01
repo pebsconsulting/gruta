@@ -14,7 +14,7 @@
 		<{foreach tags
 			{li {link
 					{url 'SEARCH_BY_TAG' 'tag' $0}
-					{$0 ' (' $1}
+					{$0 ' (' $1 ')'}
 				}
 			}
 		}>

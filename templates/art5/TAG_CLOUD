@@ -19,6 +19,7 @@
 		{link {url 'SEARCH_BY_TAG' 'tag' $0} $0}
 		'</font>'
 		}
+		' '
 	}>
 	</p>
 

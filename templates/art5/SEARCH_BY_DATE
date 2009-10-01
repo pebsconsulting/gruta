@@ -13,12 +13,9 @@
 
 	<ul>
 		<{foreach {stories_by_date '' 0 0
-			{or %from {date '%y%m%d000000}}
-			{or %to date} is_admin} {
-			'<li>'
-			{link_to_story_with_edit $0 $1}
-			'</li>'
-			}
+			{or %from {date '%y%m%d000000'}}
+			{or %to date} is_admin}
+			{li {link_to_story_with_edit $0 $1}}
 		}>
 	</ul>
 
