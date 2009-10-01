@@ -718,6 +718,31 @@ sub search_stories {
 	return sort { $r{$a} cmp $r{$b} } keys %r;
 }
 
+sub stories_by_text {
+	my $self	= shift;
+	my $topics	= shift;
+	my $query	= shift;
+	my $future	= shift;
+
+	my @ret;
+	my @topics;
+
+	if (!$topics) {
+		@topics = $self->topics();
+	}
+	else {
+		@topics = @{ $topics };
+	}
+
+	foreach my $t (@topics) {
+		foreach my $id ($self->search_stories($t, $query, $future)) {
+			push(@ret, [ $t, $id ]);
+		}
+	}
+
+	return @ret;
+}
+
 sub stories_top_ten {
 	my $self	= shift;
 	my $num		= shift;

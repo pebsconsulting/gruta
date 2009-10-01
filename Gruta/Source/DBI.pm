@@ -395,6 +395,44 @@ sub search_stories {
 }
 
 
+sub stories_by_text {
+	my $self	= shift;
+	my $topics	= shift;
+	my $query	= shift;
+	my $future	= shift;
+
+	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
+	my $cond = 'AND content LIKE ? ' x scalar(@q);
+
+	unless ($future) {
+		$cond .= 'AND date <= ? ';
+		push(@q, Gruta::Data::today());
+	}
+
+	if ($topics) {
+		$cond .= 'AND (' .
+			join(' OR ', map { 'topic_id = ?' } @{$topics}) .
+			')';
+		push(@q, @{$topics});
+	}
+
+	my $sql = 'SELECT topic_id, id FROM stories WHERE ' . $cond .
+		'ORDER BY topic_id, title';
+
+	my $sth = $self->_prepare($sql);
+
+	$self->_execute($sth, @q);
+
+	my @r = ();
+
+	while(my $r = $sth->fetchrow_arrayref()) {
+		push(@r, [ $r->[0] , $r->[1] ]);
+	}
+
+	return @r;
+}
+
+
 sub stories_top_ten {
 	my $self	= shift;
 	my $num		= shift;
