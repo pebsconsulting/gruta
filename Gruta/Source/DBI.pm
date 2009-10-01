@@ -402,22 +402,27 @@ sub stories_by_text {
 	my $future	= shift;
 
 	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
-	my $cond = 'AND content LIKE ? ' x scalar(@q);
+	my @cond;
+
+	push(@cond, 'content LIKE ?' x scalar(@q));
 
 	unless ($future) {
-		$cond .= 'AND date <= ? ';
+		push(@cond, 'date <= ?');
 		push(@q, Gruta::Data::today());
 	}
 
 	if ($topics) {
-		$cond .= 'AND (' .
+		push(@cond, '(' .
 			join(' OR ', map { 'topic_id = ?' } @{$topics}) .
-			')';
+			')');
 		push(@q, @{$topics});
 	}
 
-	my $sql = 'SELECT topic_id, id FROM stories WHERE ' . $cond .
+	my $sql = 'SELECT topic_id, id FROM stories WHERE ' .
+		join(' AND ', @cond) .
 		'ORDER BY topic_id, title';
+
+	print STDERR $sql, "\n";
 
 	my $sth = $self->_prepare($sql);
 
