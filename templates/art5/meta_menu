@@ -2,8 +2,8 @@
 	{if {story_title 'info' 'about'}
 		{li
 			{link
-			{url 'STORY' 'topic' 'info' 'id' 'about'}
-			{story_title 'info' 'about'}
+				{url 'STORY' 'topic' 'info' 'id' 'about'}
+				{story_title 'info' 'about'}
 			}
 		}
 	}
@@ -11,8 +11,8 @@
 	{if {story_title 'info' 'legal'}
 		{li
 			{link
-			{url 'STORY' 'topic' 'info' 'id' 'legal'}
-			{story_title 'info' 'legal'}
+				{url 'STORY' 'topic' 'info' 'id' 'legal'}
+				{story_title 'info' 'legal'}
 			}
 		}
 	}
@@ -23,8 +23,8 @@
 		{if is_admin
 			{li {link {url 'ADMIN'} @"Admin"}}
 			{li {link
-				{url 'EDIT_USER' 'userid' userid}
-				@"Preferences"
+					{url 'EDIT_USER' 'userid' userid}
+					@"Preferences"
 				}
 			}
 		}

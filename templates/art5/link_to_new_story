@@ -1,1 +1,1 @@
-<{link {url 'EDIT_STORY' 'topic' $0 'id' '[]'} @"New"}>
+<{link {url 'EDIT_STORY' 'topic' $0 'id' '[]'} @"[New]"}>

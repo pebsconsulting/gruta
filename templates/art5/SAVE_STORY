@@ -6,11 +6,13 @@
 	<h1><@{"Save story"}></h1>
 
 	<{_story_preview %topic
-		{save_story %topic %id %content
+		{save_story
+			%topic %id %content
 			%year %month %day '' '' ''
 			%format %tags
 			%year2 %month2 %day2
-			%description}
+			%description
+		}
 	}>
 
 </div>
