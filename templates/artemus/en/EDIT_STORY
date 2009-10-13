@@ -61,6 +61,9 @@ Generates the form to edit stories.
 	<input type = 'text' size = '60' name = 'tags'
 		value = '{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }'>
 
+	<p>Generate table of contents (<b>grutatxt</b> only)<br>
+	<input type = 'checkbox' name = 'toc' {-if|{-story_toc|{-var|topic}|{-var|id}}|checked}>
+
 	<p>Content:<br>
 
 	<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>{-story_content|{-var|topic}|{-var|id}}</textarea>

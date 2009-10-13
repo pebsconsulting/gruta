@@ -452,6 +452,8 @@ sub _artemus {
 
 			$story->set('description', shift);
 
+			$story->set('toc', shift eq 'on' ? 1 : 0);
+
 			# if there is no userid, add one
 			if (!$story->get('userid')) {
 				$story->set('userid', $data->auth->get('id'));

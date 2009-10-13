@@ -54,6 +54,9 @@
 	<input type = 'text' size = '60' name = 'tags'
 		value = '{-foreach|{-story_tags|{-var|topic}|{-var|id}}||, }'>
 
+	<p>Generar tabla de contenidos (s&oacute; <b>grutatxt</b>)<br>
+	<input type = 'checkbox' name = 'toc' {-if|{-story_toc|{-var|topic}|{-var|id}}}|checked}>
+
 	<p>Contenido:<br>
 
 	<textarea name = 'content' cols = '80' rows = '30' wrap = 'virtual'>{-story_content|{-var|topic}|{-var|id}}</textarea>
