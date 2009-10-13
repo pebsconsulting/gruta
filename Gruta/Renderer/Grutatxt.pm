@@ -38,6 +38,11 @@ sub story {
 	my $self	= shift;
 	my $story	= shift; # ::Data::Story
 
+	# wanted TOC?
+	if ($story->get('toc')) {
+		$self->{grutatxt}->{toc} = 1;
+	}
+
 	my @o = $self->_process( $story->get('content') );
 
 	my $to;

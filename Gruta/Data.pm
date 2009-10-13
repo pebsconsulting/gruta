@@ -116,7 +116,7 @@ use base 'Gruta::Data::BASE';
 use Carp;
 
 sub fields {
-	return qw(id topic_id title date date2 userid format hits ctime content description abstract body);
+	return qw(id topic_id title date date2 userid format hits ctime toc content description abstract body);
 }
 
 sub filter_field {
