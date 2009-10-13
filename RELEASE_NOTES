@@ -6,6 +6,8 @@ Gruta Release Notes
 
  * Date formatting is done using strftime(), so its full
    set of percent-prefixed commands is available.
+ * A new field in stories allow a Table of Contents to be
+   created for each story.
 
 2.2.1 "Montecatini"
 -------------------
