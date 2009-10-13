@@ -172,7 +172,14 @@ sub tags {
 sub new_id {
 	my $self	= shift;
 
-	return sprintf ('%08x', int(rand(0xffffffff)));
+	my $id;
+
+	do {
+		$id = sprintf('%08x', int(rand(0xffffffff)));
+	}
+	while ($id =~ /^\d+$/);
+
+	return $id;
 }
 
 sub is_visible {
