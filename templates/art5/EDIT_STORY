@@ -61,6 +61,10 @@
 	<input type = 'text' size = '60' name = 'tags'
 		value = '<{foreach {story_tags %topic %id} $0 ', '}>'>
 
+	<p><{@"Generate table of contents? (grutatxt only)"}<br>
+	<input type = 'checkbox' name = 'toc'
+		<{if {story_toc %topic %id} "checked"}>>
+
 	<p><{@"Content:"}><br>
 
 	<textarea name = 'content' cols = '80' rows = '30'
