@@ -11,7 +11,7 @@
 			%year %month %day '' '' ''
 			%format %tags
 			%year2 %month2 %day2
-			%description
+			%description %toc
 		}
 	}>
 
