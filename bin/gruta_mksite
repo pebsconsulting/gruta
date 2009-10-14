@@ -57,7 +57,7 @@ $g_cgi .= join(";\n", (
 	'use Gruta::Renderer::Grutatxt',
 	'use Gruta::Renderer::HTML',
 	'use Gruta::Renderer::Text',
-	'use Gruta::Template::Artemus'
+	'use Gruta::Template::Art5'
 	)
 );
 
@@ -75,7 +75,7 @@ if ($source eq 'DBI') {
 
 $g_cgi .= ";\n\n";
 
-print "\nEnter the name of your site. It would probably your host name,\n";
+print "\nEnter the name of your site. It would probably be your host name,\n";
 print "but not necessarily. Do NOT include http://.\n";
 print "Site name: ";
 
@@ -140,10 +140,9 @@ $g_cgi .= "\t\tGruta::Renderer::HTML->new(),\n",
 $g_cgi .= "\t\tGruta::Renderer::HTML->new( valid_tags => undef ),\n",
 $g_cgi .= "\t\tGruta::Renderer::Text->new(),\n";
 $g_cgi .= "\t],\n";
-$g_cgi .= "\ttemplate\t=> Gruta::Template::Artemus->new(\n";
+$g_cgi .= "\ttemplate\t=> Gruta::Template::Art5->new(\n";
 $g_cgi .= "\t\t\tpath => [\n";
-$g_cgi .= "\t\t\t\t'/usr/share/gruta/templates/artemus/ALL',\n";
-$g_cgi .= "\t\t\t\t'/usr/share/gruta/templates/artemus/en'\n";
+$g_cgi .= "\t\t\t\t'/usr/share/gruta/templates/art5'\n";
 $g_cgi .= "\t\t\t]\n";
 $g_cgi .= "\t),\n";
 $g_cgi .= "\tcgi\t\t=> Gruta::CGI->new(\n";
