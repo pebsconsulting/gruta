@@ -9,7 +9,7 @@
 			{li {link {url 'TOPIC' 'topic' $0} {topic_name $0}}}
 		}>
 
-		{li {link {url 'TAGS'} @"Tags"}}
+		<{li {link {url 'TAGS'} @"Tags"}}>
 
 		<{if cfg_top_ten_num
 			{li {link {url 'TOP_TEN'} @"Top stories"}}
