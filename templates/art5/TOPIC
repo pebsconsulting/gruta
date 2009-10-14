@@ -35,7 +35,7 @@
 		}
 
 		"<div class = 'navigator'>"
-		{navigator %topic {or %num cfg_top_num} {or %offset 0}}
+		{navigator %topic {or %num cfg_topic_num} {or %offset 0}}
 		"</div>"
 	}
 	}>

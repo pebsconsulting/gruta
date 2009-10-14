@@ -2,6 +2,7 @@
 	{if {is_topic_editor $0} {
 		"<div class = 'future_stories_list'>"
 		'<ul>'
+		{link_to_new_story $0}
 		{foreach {stories_by_date $0 0 0 {date} '' 1} {li {
 				{story_date cfg_date_format $0 $1}
 				' - '

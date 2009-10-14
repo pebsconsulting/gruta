@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-	<h1><@{"Save topic"}></h1>
+	<h1><{@"Save topic"}></h1>
 
 	<{save_topic %topic %name %editors %internal
 		%max %description}>

@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-	<h1><{@"Template data"}</h1>
+	<h1><{@"Template data"}></h1>
 
 	<form method = 'post' action = '<{url}>'>
 

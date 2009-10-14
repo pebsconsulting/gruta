@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-	<h1><@{"Save template"}></h1>
+	<h1><{@"Save template"}></h1>
 
 	<{save_template %id %content}>
 

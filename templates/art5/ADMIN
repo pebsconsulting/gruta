@@ -7,7 +7,7 @@
 
 <form method = 'post' action = '<{url}>'>
 	<select name = 'id'>
-		<{option '[]' @"New"}>
+		<{option '[]' @"[New]"}>
 		<{foreach templates {option $0}}>
 	</select>
 
@@ -37,7 +37,7 @@
 <form method = 'post' action = '<{url}>'>
 
 	<select name = 'topic'>
-		<{option '[]' @"New"}>
+		<{option '[]' @"[New]"}>
 		<{foreach topics {option $0 {topic_name $0}}}>
 	</select>
 
@@ -50,7 +50,7 @@
 <form method = 'post' action = '<{url}>'>
 
 	<select name = 'userid'>
-		<{option '[]' @"New"}>
+		<{option '[]' @"[New]"}>
 		<{foreach users {option $0}}>
 	</select>
 

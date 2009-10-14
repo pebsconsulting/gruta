@@ -7,7 +7,7 @@
 
 	<form method = 'post' action = '<{url}>'>
 
-		{if {eq %userid '[]'} {
+		<{if {eq %userid '[]'} {
 			'<p>' @"User Id:" '<br>'
 			"<input type = 'text' name = 'userid' value = ''>"
 			}
@@ -23,7 +23,7 @@
 		<input size = '60' type = 'text' name = 'username'
 			value = '<{user_username %userid}>'>
 
-		<p><@{"Email:"}><br>
+		<p><{@"Email:"}><br>
 
 		<input size = '60' type = 'text' name = 'email'
 			value = '<{user_email %userid}>'>
