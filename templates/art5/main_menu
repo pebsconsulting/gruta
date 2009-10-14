@@ -3,7 +3,7 @@
 	<h1><{cfg_site_name}></h1>
 
 	<ul>
-		{li {link {url 'INDEX'} @"Index"}}
+		<{li {link {url 'INDEX'} @"Index"}}>
 
 		<{foreach cfg_main_menu_topics
 			{li {link {url 'TOPIC' 'topic' $0} {topic_name $0}}}
