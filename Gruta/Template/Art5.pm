@@ -570,7 +570,7 @@ sub _art5 {
 		$a->{op}->{story_tags} = sub {
 			my $topic_id	= $a->exec(shift);
 			my $id			= $a->exec(shift);
-			my $ret			= '';
+			my $ret			= [];
 
 			if ($id ne '[]') {
 				if (my $story = $data->source->story($topic_id, $id)) {
