@@ -1,11 +1,9 @@
-<{
-	header
-	column1
-	column2
+<{header}>
+<{column1}>
+<{column2}>
 
-	"<div class = 'main'>"
-	{login %userid %pass}
-	"</div>"
+<div class = 'main'>
+<{login %userid %pass}>
+</div>
 
-	footer
-}>
+<{footer}>
