@@ -3,7 +3,7 @@
 
 <div class = 'main'>
 
-	<h1><@{"Save story"}></h1>
+	<h1><{@"Save story"}></h1>
 
 	<{_story_preview %topic
 		{save_story

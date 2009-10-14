@@ -9,21 +9,21 @@
 
 	<{if {is_topic_editor $0} {
 		{if cfg_top_ten_num {
-			"<span class = 'hits'>"
+			"<span class = 'hits'>("
 			@"Hits:"
 			' '
 			{story_hits $0 $1}
-			' - </span>'
+			') </span>'
 			}
 		}
-		"<span class = 'edit_link'>"
+		" - <span class = 'edit_link'>"
 		{link_to_edit_story $0 $1}
 		" - </span>"
 		}
 	}>
 
 	<span class = 'topic_link'>
-	{link {url 'TOPIC' 'topic' $0} {topic_name $0}}
+	<{link {url 'TOPIC' 'topic' $0} {topic_name $0}}>
 	</span>
 
 	<span class = 'tags'>

@@ -5,7 +5,7 @@
 
 	"<div class = 'topic_list'>"
 	{foreach {stories_by_date $0 $1 $2}
-		{story_abstract $0 $1}
+		{_story_abstract $0 $1}
 	}
 	'</div>'
 }>
