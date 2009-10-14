@@ -704,14 +704,17 @@ sub process {
 	my $t;
 
 	if ($t = $self->{_art5}->{op}->{html_title}) {
+		$t = $self->_art5->exec($t);
 		$ret =~ s!</head>!<title>$t</title></head>!i;
 	}
 
 	if ($t = $self->{_art5}->{op}->{html_description}) {
+		$t = $self->_art5->exec($t);
 		$ret =~ s!</head>!<meta name="description" content="$t"></head>!i;
 	}
 
 	if ($t = $self->{_art5}->{op}->{html_keywords}) {
+		$t = $self->_art5->exec($t);
 		$ret =~ s!</head>!<meta name="keywords" content="$t"></head>!i;
 	}
 
