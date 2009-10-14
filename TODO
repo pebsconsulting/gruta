@@ -4,9 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1067: Story names formed by numbers only collide with the
-   `mod_rewrite' rule that treats filenames with numbers as
-    an offset to a topic index.
+None!
 
 Open Bugs
 ---------
@@ -154,7 +152,10 @@ Closed
    disabled (`cfg_top_ten_num' set to 0)
    (Mon, 22 Jun 2009 16:14:02 +0200).
  * 1064: In `TOP_TEN', redirect to `INDEX' if hits are disabled
-   (`cfg_top_ten_num' set to 0)
-   (Mon, 22 Jun 2009 16:24:47 +0200).
+   (`cfg_top_ten_num' set to 0) (Mon, 22 Jun 2009 16:24:47 +0200).
+ * 1067: Story names formed by numbers only collide with the
+   `mod_rewrite' rule that treats filenames with numbers as
+    an offset to a topic index (no longer allow automatic
+    ids with all numbers; Wed, 14 Oct 2009 12:08:26 +0200).
 
 Email bugs to angel@triptico.com
