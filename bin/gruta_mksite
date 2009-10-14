@@ -124,7 +124,7 @@ if (!($r =~ /img/)) {
 
 @uploads = split(/\s/, $r);
 
-$g_cgi .= "my \$g = Gruta-new(\n";
+$g_cgi .= "my \$g = Gruta->new(\n";
 $g_cgi .= "\tid\t\t=> '" . $sitename . "',\n";
 
 if ($source eq 'FS') {
@@ -153,6 +153,7 @@ foreach my $d (@uploads) {
 }
 
 $g_cgi .= "\t\t\t],\n";
+$g_cgi .= "\t),\n";
 $g_cgi .= "\targs\t\t=> {\n";
 
 if ($baseurl) {
@@ -168,12 +169,14 @@ $g_cgi .= "\$g->run();\n";
 # start of build
 
 print "\nCreating...\n";
-mkdir $basename or die "Cannot create $basename: $!";
+mkdir $basename or warn "Cannot create $basename: $!";
 mkdir "$basename/var" or die "Cannot create $basename/var: $!";
 
 open O, ">$basename/g.cgi" or die "Cannot create $basename/g.cgi: $!";
 print O $g_cgi;
 close O;
+
+chmod 0755, "$basename/g.cgi";
 
 print <<EOF;
 
