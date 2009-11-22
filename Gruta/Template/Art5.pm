@@ -553,6 +553,8 @@ sub _art5 {
 			return '';
 		};
 
+		$a->{op}->{status}		= sub { $data->cgi->status($a->exec(shift)); return ''; };
+
 		$a->{op}->{topics}		= sub { [ $data->source->topics() ]; };
 		$a->{op}->{users}		= sub { [ $data->source->users() ]; };
 		$a->{op}->{templates}	= sub {
