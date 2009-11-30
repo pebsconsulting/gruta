@@ -5,6 +5,7 @@
 Generates the C<STORY_PRINTABLE> page.
 
 =cut
+{-assert_visible_story|{-var|topic}|{-var|id}}
 {-redir_if_archived|STORY_PRINTABLE|{-var|topic}|{-var|id}}
 
 {-header_printable}

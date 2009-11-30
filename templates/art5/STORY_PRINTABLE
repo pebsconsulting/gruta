@@ -1,4 +1,5 @@
 <{
+	{assert_visible_story %topic %id}
 	{redir_if_archived 'STORY_PRINTABLE' %topic %id}
 
 	header_printable
