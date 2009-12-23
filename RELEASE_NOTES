@@ -4,10 +4,15 @@ Gruta Release Notes
 2.2.2 "Lucca"
 -------------
 
+ * Support for the new 5.x version of Artemus has been added.
+   Once Artemus 5 has been stabilised and correctly documented,
+   it will become Gruta's templating standard.
  * Date formatting is done using strftime(), so its full
    set of percent-prefixed commands is available.
  * A new field in stories allow a Table of Contents to be
    created for each story.
+ * A new template `status' has been added to set the HTTP
+   status.
 
 2.2.1 "Montecatini"
 -------------------

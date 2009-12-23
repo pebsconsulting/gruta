@@ -5,7 +5,7 @@
 Generates the 404 error page.
 
 =cut
-{-header}
+{-status 404}{-header}
 
 <div class = 'column1'>
 

@@ -661,6 +661,8 @@ sub _artemus {
 			return 'Gruta ' . $data->version();
 		};
 
+		$f{status} = sub { $data->cgi->status($_[0]); return ''; };
+
 		$self->{abort}		= 0;
 		$self->{unresolved}	= [];
 		$self->{search_count}	= 0;
