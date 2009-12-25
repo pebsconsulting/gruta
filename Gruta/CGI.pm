@@ -113,7 +113,7 @@ sub run {
 		$data->auth( $u );
 	}
 	elsif (my $cookie = $self->cookie()) {
-		if (my ($sid) = ($cookie =~ /^sid\s*=\s*(\d+)$/)) {
+		if (my ($sid) = ($cookie =~ /sid\s*=\s*(\d+)/)) {
 			$data->auth_from_sid( $sid );
 		}
 	}
