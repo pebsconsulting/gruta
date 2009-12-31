@@ -37,10 +37,6 @@
 }>
 
 	<li>
-	<form action = '<{url}>'>
-		<input type = 'hidden' name = 't'       value = 'SEARCH'>
-		<input type = 'text'   name = 'query'   value = ''>
-		<input type = 'submit' class = 'button' value = '<{@"Search"}>'>
-	</form>
+	<{search_form}>
 	</li>
 </ul>
