@@ -15,6 +15,7 @@ Gruta Release Notes
    status.
  * A security bug that allowed to bypass a story's publication
    date by using the STORY_PRINTABLE template has been fixed.
+ * Improved cookie parsing.
 
 2.2.1 "Montecatini"
 -------------------
