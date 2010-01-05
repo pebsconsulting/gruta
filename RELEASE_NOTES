@@ -13,6 +13,8 @@ Gruta Release Notes
    created for each story.
  * A new template `status' has been added to set the HTTP
    status.
+ * A security bug that allowed to bypass a story's publication
+   date by using the STORY_PRINTABLE template has been fixed.
 
 2.2.1 "Montecatini"
 -------------------
