@@ -13,6 +13,9 @@ install::
 		mkdir -p /usr/share/gruta/$$l ; \
 		install -m 644 $$l/* /usr/share/gruta/$$l ; \
 	done
+	rm -rf /usr/share/gruta/templates/art5
+	mkdir -p /usr/share/gruta/templates/art5
+	install -m 644 templates/art5/* /usr/share/gruta/templates/art5
 EOF
 }
 
