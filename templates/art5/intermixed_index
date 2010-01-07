@@ -11,7 +11,7 @@
 		{_story_abstract $0 $1}
 		''
 		{
-			"<h1 class = 'date'>"
+			"<h1 class = 'index_date'>"
 			{date cfg_index_date_format $2}
 			"</h1>"
 		}
