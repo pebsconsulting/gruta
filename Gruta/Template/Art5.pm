@@ -17,6 +17,7 @@ sub new {
 
 	$a->{_art5} = undef;
 	$a->{path} = $args{path};
+	$a->{cache} = $args{cache};
 	$a->{lang} = $args{lang} || 'en';
 
 	if (!$a->{path}) {
@@ -41,6 +42,7 @@ sub _art5 {
 		my $data = $self->data();
 
 		my $a = Art5->new(path => $self->{path},
+			'cache'			=> $self->{cache},
 			'loader_func'	=>	sub {
 				my $ret = undef;
 
