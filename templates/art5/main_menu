@@ -5,7 +5,8 @@
 	<ul>
 		<{li {link {url 'INDEX'} @"Index"}}>
 
-		<{foreach {or cfg_main_menu_topics topics}
+		<{foreach
+			{if cfg_main_menu_topics {split ':' cfg_main_menu_topics} topics}
 			{li {link {url 'TOPIC' 'topic' $0} {topic_name $0}}}
 		}>
 
