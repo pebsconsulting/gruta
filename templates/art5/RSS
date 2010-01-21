@@ -38,9 +38,9 @@
 				')'
 			'</author>'
 			'<description>'
-			"<![CDATA[\n"
+			"\n<![CDATA[\n"
 			{story_abstract $0 $1}
-			"\n]]>"
+			"\n]]>\n"
 			'</description>'
 			'</item>'
 		}
