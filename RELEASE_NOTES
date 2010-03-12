@@ -16,6 +16,8 @@ Gruta Release Notes
  * A security bug that allowed to bypass a story's publication
    date by using the STORY_PRINTABLE template has been fixed.
  * Improved cookie parsing.
+ * The `gruta_mksite' helper scripts has been renamed to
+   `gruta-mksite' and it's also installed in /usr/local/bin.
 
 2.2.1 "Montecatini"
 -------------------
