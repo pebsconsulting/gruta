@@ -434,20 +434,28 @@ sub init
 
 sub usage
 {
+	print "gruta - A command line tool for Gruta web sites\n";
+	print "===============================================\n\n";
+
+	print "(C) Angel Ortega angel\@triptico.com\n\n";
+
+	my @keys = sort keys %{$X};
+
 	if ($cmd) {
-		my $c = $X->{$cmd};
-
-		print "Usage: gruta ", $c->[0], "\n\n\t", $c->[1], "\n";
+		@keys = ( $cmd );
 	}
-	else {
-		print "Usage: gruta {cmd} [args...]\n\n";
 
-		foreach my $k (sort keys %{$X}) {
-			my $c = $X->{$k};
+	foreach my $k (@keys) {
+		my $c = $X->{$k};
 
-			print ' ', sprintf('%-50s %s',
-				$c->[0], $c->[1]), "\n";
-		}
+		my $s = $k;
+		print $s, "\n";
+		$s =~ s/./-/g;
+		print $s, "\n\n";
+
+		print "    ", $c->[0], "\n\n";
+
+		print $c->[1], "\n\n";
 	}
 
 	exit 1;
