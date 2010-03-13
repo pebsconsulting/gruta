@@ -439,6 +439,9 @@ sub usage
 
 	print "(C) Angel Ortega angel\@triptico.com\n\n";
 
+	print "Usage:\n\n";
+	print "    gruta {command} [{arguments} ...]\n\n";
+
 	my @keys = sort keys %{$X};
 
 	if ($cmd) {
