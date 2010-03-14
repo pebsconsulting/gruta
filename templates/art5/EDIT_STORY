@@ -12,7 +12,7 @@
 	<input type = 'hidden' name = 't' value = 'SAVE_STORY'>
 	<input type = 'hidden' name = 'topic' value = '<{or %cp_topic %topic}>'>
 
-	<p><{@"Publication date (empty, today)"}><br>
+	<p><{@"Publication date: (empty, today)"}><br>
 
 	<input type = 'text' size = '2' name = 'day'
 		value = '<{story_date '%d' %topic %id}>'> /
@@ -30,7 +30,7 @@
 	<input type = 'text' size = '4' name = 'year2'
 		value = '<{story_date2 '%y' %topic %id}>'>
 
-	<p><{@"Description (about 15 words)"}><br>
+	<p><{@"Description: (about 15 words)"}><br>
 	<input size = '80' type = 'text' name = 'description'
 		value = '<{story_description %topic %id}>'>
 

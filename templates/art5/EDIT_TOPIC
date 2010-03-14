@@ -9,7 +9,7 @@
 
 		<{if {eq %topic '[]'} {
 			"<p>"
-			@"Topic id (only undercase letters and/or numbers)"
+			@"Topic id: (only undercase letters and/or numbers)"
 			"<br>"
 			"<input type = 'text' name = 'topic' value = ''>"
 			}
@@ -25,7 +25,7 @@
 		<input size = '40' type = 'text' name = 'name'
 			value = '<{topic_name %topic}>'>
 
-		<p><{@"Description (about 15 words)"}><br>
+		<p><{@"Description: (about 15 words)"}><br>
 		<input size = '80' type = 'text' name = 'description'
 			value = '<{topic_description %topic}>'>
 

@@ -38,8 +38,8 @@
 "Delete story" 
 "Borrar historia"
 
-"Description (about 15 words)" 
-"Descripción (sobre 15 palabras)"
+"Description: (about 15 words)" 
+"Descripción: (sobre 15 palabras)"
 
 "Directory:" 
 "Directorio:"
@@ -84,7 +84,7 @@
 "Principal"
 
 "Liberation date for non-subscribers: (empty, same as above)" 
-"Fecha de liberación para no suscriptores (vacío, la misma de arriba)"
+"Fecha de liberación para no suscriptores: (vacío, la misma de arriba)"
 
 "Login" 
 "Conectar"
@@ -96,10 +96,10 @@
 "Más..."
 
 "Password:" 
-""
+"Palabra clave:"
 
 "Passwords: (only new users or to change it)" 
-"Passwords: (sólo nuevos usuarios o para cambiarla)"
+"Palabras clave: (sólo nuevos usuarios o para cambiarla)"
 
 "Permanent link to this page" 
 "Enlace permanente a esta página"
@@ -110,11 +110,11 @@
 "Print version" 
 "Versión para imprimir"
 
-"Publication date (empty, today)" 
-"Fecha de publicación (vacío, hoy)"
+"Publication date: (empty, today)" 
+"Fecha de publicación: (vacío, hoy)"
 
 "Repeat password:" 
-"Repetir password:"
+"Repetir palabra clave:"
 
 "Save story" 
 "Guardar historia"
@@ -179,8 +179,8 @@
 "Topic data" 
 "Datos de la sección"
 
-"Topic id (only undercase letters and/or numbers)" 
-"Identificador de la sección (sólo letras minúsculas y/o números)"
+"Topic id: (only undercase letters and/or numbers)" 
+"Identificador de sección (sólo minúsculas y/o números)"
 
 "Topic name:" 
 "Nombre de la sección:"
