@@ -102,10 +102,7 @@
 "Passwords: (sólo nuevos usuarios o para cambiarla)"
 
 "Permanent link to this page" 
-""
-
-"Permanent link to this page:" 
-""
+"Enlace permanente a esta página"
 
 "Preferences" 
 "Preferencias"
@@ -159,66 +156,63 @@
 "Nube de etiquetas"
 
 "Tags" 
-""
-
-"Tags:" 
-""
+"Etiquetas"
 
 "Tags: (comma-separated)" 
-""
+"Etiquetas: (separados por comas)"
 
 "Template data" 
-""
+"Datos de la plantilla"
 
 "Templates" 
-""
+"Plantillas"
 
 "The content you are trying to see" 
-""
+"El contenido que está intentando ver"
 
 "The requested page does not exist." 
-""
+"La página solicitada no existe."
 
 "Top stories" 
-""
+"Las más leídas"
 
 "Topic data" 
-""
+"Datos de la sección"
 
 "Topic id (only undercase letters and/or numbers)" 
-""
+"Identificador de la sección (sólo letras minúsculas y/o números)"
 
 "Topic name:" 
-""
+"Nombre de la sección:"
 
 "Topics" 
-""
+"Secciones"
 
 "Total:" 
-""
+"Total:"
 
 "Uploads" 
-""
+"Subidas"
 
 "User Id:" 
-""
+"Identificador de usuario:"
 
 "User data" 
-""
+"Datos del usuario"
 
 "User:" 
-""
+"Usuario:"
 
 "Users" 
-""
+"Usuarios"
 
 "You are logged in as " 
-""
+"Está conectado como "
 
 "[New]" 
-""
+"[Nuevo]"
 
 "it's actually only available to subscribers." 
-""
+"sólo está disponible para suscriptores."
 
 }>

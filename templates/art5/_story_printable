@@ -3,7 +3,7 @@
 	<{story_body $0 $1}>
 
 	<p>
-	<div class = 'tags'><{@"Tags:"}> 
+	<div class = 'tags'><{@"Tags"}>: 
 		<{foreach {story_tags $0 $1}
 			{link {url 'SEARCH_BY_TAG' 'tag' $0} $0}
 			', '
@@ -14,7 +14,7 @@
 	<hr>
 
 	<div class = 'self_links'>
-	<{@"Permanent link to this page:"}>
+	<{@"Permanent link to this page"}>:
 	<{link {aurl 'STORY' 'topic' $0 'id' $1}}>
 	</div>
 
