@@ -15,10 +15,10 @@ sub new {
 
 	my $a = bless( {}, $class );
 
-	$a->{_art5} = undef;
-	$a->{path} = $args{path};
-	$a->{cache} = $args{cache};
-	$a->{lang} = $args{lang} || 'en';
+	$a->{_art5}	= undef;
+	$a->{path}	= $args{path};
+	$a->{cache}	= $args{cache};
+	$a->{lang}	= $args{lang} || '';
 
 	if (!$a->{path}) {
 		# no path? set the default one
@@ -665,6 +665,15 @@ sub _art5 {
 
 		# copy the external hash
 		$a->{xh} = $self->{cgi_vars};
+
+		# if a language is defined, load and exec it
+		if ($self->{lang}) {
+			my $c = $a->code('lang_' . $self->{lang});
+
+			if ($c) {
+				$a->exec($c);
+			}
+		}
 
 		# finally store
 		$self->{_art5} = $a;
