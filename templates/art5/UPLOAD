@@ -5,7 +5,7 @@
 
 	<h1><{@"Uploads"}></h1>
 
-	<{upload %updir %file}>
+	<{upload %updir 'file'}>
 
 	<p><{link {url 'ADMIN'} @"Back to admin"}>
 
