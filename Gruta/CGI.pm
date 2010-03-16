@@ -68,6 +68,9 @@ sub upload {
 		croak "Unauthorized upload directory $dir";
 	}
 
+	# create the directory
+	mkdir $dir;
+
 	my $filename = $dir . '/' . $basename;
 
 	open F, '>' . $filename or croak "Can't write $filename";
