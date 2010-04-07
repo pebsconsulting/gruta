@@ -75,6 +75,10 @@ lighttpd
  	cgi.assign = ( ".cgi" => "" )
  	index-file.names = ( "g.cgi" )
  
+ 	# protect the 'var' subdirectory (the Gruta raw
+ 	# storage depot) from being served via web
+ 	url.access-deny = ( "/var" )
+ 
  	# static URL rewriting instructions
  	url.rewrite-once = (
  	"^/([0-9]+)\.html$"	=>	"/?t=INDEX;offset=$1",
