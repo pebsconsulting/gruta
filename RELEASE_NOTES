@@ -18,6 +18,9 @@ Gruta Release Notes
  * Improved cookie parsing.
  * The `gruta_mksite' helper scripts has been renamed to
    `gruta-mksite' and it's also installed in /usr/local/bin.
+ * Added commands `new_topic' and `update_topic' and a new
+   optional argument to add tags to the `import_rss' command
+   for the `gruta' command line tool.
 
 2.2.1 "Montecatini"
 -------------------
