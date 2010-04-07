@@ -48,6 +48,36 @@ my $X = {
 			print get_topic($g, $topic_id);
 		}
 	],
+	'new_topic' =>	[
+		'new_topic {src} {topic_id}',
+		'Creates a new topic from STDIN',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
+
+			my $fh = File::Temp->new();
+			print $fh join('', <>);
+			my $fn = $fh->filename();
+			$fh->close();
+
+			save_topic($g, $topic_id, $fn, 1);
+		}
+	],
+	'update_topic' =>	[
+		'update_topic {src} {topic_id}',
+		'Updates a topic from STDIN',
+		sub {
+			my $g		= init();
+			my $topic_id	= arg();
+
+			my $fh = File::Temp->new();
+			print $fh join('', <>);
+			my $fn = $fh->filename();
+			$fh->close();
+
+			save_topic($g, $topic_id, $fn);
+		}
+	],
 	'edit_topic' =>	[
 		'edit_topic {src} {topic_id}',
 		'Edits topic data',
@@ -65,7 +95,6 @@ my $X = {
 
 			if ($mtime != (stat($fn))[9]) {
 				save_topic($g, $topic_id, $fn);
-				1;
 			}
 		}
 	],
@@ -604,17 +633,18 @@ sub save_topic
 	my $g		= shift;
 	my $topic_id	= shift;
 	my $fn		= shift;
+	my $new		= shift;
 
 	open F, $fn or die "Can't open $fn";
 
 	my $topic = undef;
 
-	if ($topic_id) {
+	if ($topic_id && !$new) {
 		$topic = $g->source->topic($topic_id);
 	}
 	else {
 		$topic = Gruta::Data::Topic->new (
-			topic_id	=> $topic_id,
+			id	=> $topic_id,
 		);
 	}
 
