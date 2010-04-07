@@ -325,11 +325,14 @@ my $X = {
 		}
 	],
 	'import_rss'		=> [
-		'import_rss {src} {topic_id}',
+		'import_rss {src} {topic_id} [{tag(s)}]',
 		'Import an RSS from STDIN into a topic',
 		sub {
 			my $g		= init();
 			my $topic_id	= arg();
+			my $tags	= arg_o() || '';
+
+			my @tags = split(/,\s*/, $tags);
 
 			use Digest::MD5;
 			require XML::Feed;
@@ -371,6 +374,10 @@ my $X = {
 				$story->set('format', 'html');
 				$story->set('content', $content);
 				$story->set('ctime', time());
+
+				if (@tags) {
+					$story->tags(@tags);
+				}
 
 				$g->render($story);
 
