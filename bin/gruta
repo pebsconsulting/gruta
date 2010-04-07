@@ -364,6 +364,7 @@ my $X = {
 			my @tags = split(/,\s*/, $tags);
 
 			use Digest::MD5;
+			use Encode qw(encode_utf8);
 			require XML::Feed;
 
 			my $feed = XML::Feed->parse(\*STDIN) or die XML::Feed->errstr;
@@ -386,8 +387,8 @@ my $X = {
 				}
 
 				my $md5 = Digest::MD5->new();
-				$md5->add($date);
-				$md5->add($content);
+				$md5->add(encode_utf8($date));
+				$md5->add(encode_utf8($content));
 				my $id = $md5->hexdigest();
 
 				my $story;
@@ -404,10 +405,6 @@ my $X = {
 				$story->set('content', $content);
 				$story->set('ctime', time());
 
-				if (@tags) {
-					$story->tags(@tags);
-				}
-
 				$g->render($story);
 
 				if ($story->source()) {
@@ -415,6 +412,10 @@ my $X = {
 				}
 				else {
 					$story = $g->source->insert_story($story);
+				}
+
+				if (@tags) {
+					$story->tags(@tags);
 				}
 			}
 		}
