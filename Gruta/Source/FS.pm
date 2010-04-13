@@ -331,6 +331,80 @@ sub save {
 }
 
 
+package Gruta::Data::FS::Comment;
+
+use base 'Gruta::Data::Comment';
+use base 'Gruta::Data::FS::BASE';
+
+use Carp;
+
+sub base {
+	if (!ref($_[0])) {
+		return '/comments/';
+	}
+
+	return '/comments/'	. $_[0]->get('topic_id') . '/'
+					. $_[0]->get('story_id') . '/';
+}
+
+sub fields {
+	grep !/content/, $_[0]->SUPER::fields();
+}
+
+sub vfields {
+	return ($_[0]->SUPER::vfields(), 'content');
+}
+
+
+sub save {
+	my $self	= shift;
+	my $driver	= shift;
+
+	$self->source($driver);
+
+	# create the directory tree
+	my @p = split('/', $self->_filename());
+	pop(@p);
+	my $p = pop(@p);
+	mkdir join('/', @p);
+	push(@p, $p);
+	mkdir join('/', @p);
+
+	$self->SUPER::save($driver);
+
+	my $filename = $self->_filename();
+	$filename =~ s/\.M$//;
+
+	open F, '>' . $filename or
+		croak "Cannot write " . $filename . ': ' . $!;
+
+	print F $self->get('content') || '';
+	close F;
+
+	return $self;
+}
+
+
+sub load {
+	my $self	= shift;
+	my $driver	= shift;
+
+	if (!$self->SUPER::load( $driver )) {
+		return undef;
+	}
+
+	my $filename = $self->_filename();
+	$filename =~ s/\.M$//;
+
+	if (open F, $filename) {
+		$self->set('content', join('', <F>));
+		close F;
+	}
+
+	return $self;
+}
+
+
 package Gruta::Source::FS;
 
 use Carp;
@@ -421,6 +495,26 @@ sub templates {
 	}
 
 	return @ret;
+}
+
+
+sub comment {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $story_id	= shift;
+	my $id		= shift;
+
+	my $comment = Gruta::Data::FS::Comment->new(
+		topic_id	=> $topic_id,
+		story_id	=> $story_id,
+		id			=> $id
+	);
+
+	if (not $comment->load($self)) {
+		return undef;
+	}
+
+	return $comment;
 }
 
 
@@ -928,6 +1022,17 @@ sub insert_template {
 	$_[0]->_insert($_[1], 'Gruta::Data::FS::Template');
 }
 
+sub insert_comment {
+	my $self	= shift;
+	my $comment	= shift;
+
+	if (not $comment->get('id')) {
+		$comment->set('id', $comment->new_id());
+	}
+
+	$self->_insert($comment, 'Gruta::Data::FS::Comment');
+}
+
 sub insert_story {
 	my $self	= shift;
 	my $story	= shift;
@@ -960,7 +1065,8 @@ sub create {
 		Gruta::Data::FS::Topic::base(),
 		Gruta::Data::FS::User::base(),
 		Gruta::Data::FS::Session::base(),
-		Gruta::Data::FS::Template::base()
+		Gruta::Data::FS::Template::base(),
+		Gruta::Data::FS::Comment::base()
 	);
 
 	foreach my $d (@l) {

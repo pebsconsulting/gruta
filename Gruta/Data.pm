@@ -251,6 +251,37 @@ sub fields {
 }
 
 
+package Gruta::Data::Comment;
+
+use base 'Gruta::Data::BASE';
+
+sub fields {
+	return qw(id topic_id story_id ctime approved author content);
+}
+
+
+sub filter_field {
+	my $self	= shift;
+	my $field	= shift;
+	my $value	= shift;
+
+	if ($field eq 'approved' && !$value) {
+		$value = 0;
+	}
+	elsif ($field eq 'ctime' && !$value) {
+		$value = time();
+	}
+
+	return $value;
+}
+
+sub new_id {
+	my $self	= shift;
+
+	return sprintf("%08x%04x", time(), $$);
+}
+
+
 package Gruta::Data;
 
 sub format_date {
