@@ -269,8 +269,22 @@ sub _img_special_uri {
 	my $src		= shift;
 	my $class	= shift;
 
-	my $r = sprintf('<img src = "%simg/%s" />',
-		$self->base_url(), $src
+	my $more = '';
+
+	# try to load Image::Size
+	eval("use Image::Size;");
+
+	if (!$@) {
+		# if available and image is found, add dimensions to <img>
+		my ($w, $h) = imgsize('img/' . $src);
+
+		if ($w && $h) {
+			$more = sprintf('width = "%d" height = "%d"', $w, $h);
+		}
+	}
+
+	my $r = sprintf('<img src = "%simg/%s" %s />',
+		$self->base_url(), $src, $more
 	);
 
 	if ($class) {
