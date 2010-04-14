@@ -365,13 +365,19 @@ sub save {
 	# create the directory tree
 	my @p = split('/', $self->_filename());
 	pop(@p);
-	my $p = pop(@p);
+	my $s = pop(@p);
 	mkdir join('/', @p);
-	push(@p, $p);
+	my $t = pop(@p);
+
+	my $pending = join('/', (@p, '/.pending/'));
+	mkdir $pending;
+	push(@p, $t);
+	push(@p, $s);
 	mkdir join('/', @p);
 
 	$self->SUPER::save($driver);
 
+	# write content
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
 
@@ -379,6 +385,15 @@ sub save {
 		croak "Cannot write " . $filename . ': ' . $!;
 
 	print F $self->get('content') || '';
+	close F;
+
+	# write pending
+	open F, '>' . $pending . join(':', (
+					$self->get('topic_id'),
+					$self->get('story_id'),
+					$self->get('id')
+					)
+				);
 	close F;
 
 	return $self;
@@ -1026,8 +1041,8 @@ sub insert_comment {
 	my $self	= shift;
 	my $comment	= shift;
 
-	if (not $comment->get('id')) {
-		$comment->set('id', $comment->new_id());
+	if (!$comment->setup($self)) {
+		return undef;
 	}
 
 	$self->_insert($comment, 'Gruta::Data::FS::Comment');

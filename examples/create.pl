@@ -14,7 +14,7 @@ $c->set('topic_id', 'main');
 $c->set('story_id', 'index');
 $c->set('content', 'This is <b>a</b> comment.');
 
-$src->insert_comment($c);
+$c = $src->insert_comment($c);
 
 my $c2 = $src->comment('main', 'index', $c->get('id'));
 

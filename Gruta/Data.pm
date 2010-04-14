@@ -268,19 +268,40 @@ sub filter_field {
 	if ($field eq 'approved' && !$value) {
 		$value = 0;
 	}
-	elsif ($field eq 'ctime' && !$value) {
-		$value = time();
-	}
 
 	return $value;
 }
 
-sub new_id {
+sub setup {
 	my $self	= shift;
+	my $source	= shift;
 
-	return sprintf("%08x%04x", time(), $$);
+	$self->source($source);
+
+	# invalid story? fail
+	if (!$source->story($self->get('topic_id'),
+						$self->get('story_id'))) {
+		return undef;
+	}
+
+	# too long? fail
+	my $content = $self->get('content');
+
+	if (length($content) > 16384) {
+		return undef;
+	}
+
+	# filter content
+	$content =~ s/</&lt;/g;
+
+	$self->set('content', $content);
+
+	# set the rest of data
+	$self->set('id', sprintf("%08x%04x", time(), $$));
+	$self->set('ctime', time());
+
+	return $self;
 }
-
 
 package Gruta::Data;
 
