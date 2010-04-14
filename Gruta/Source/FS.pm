@@ -128,7 +128,7 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->SUPER::save( $driver );
+	$self->SUPER::save( $driver ) if $driver;
 
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
@@ -248,7 +248,7 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->SUPER::save( $driver );
+	$self->SUPER::save( $driver ) if $driver;
 
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
@@ -356,22 +356,36 @@ sub vfields {
 }
 
 
+sub pending_file {
+	my $self	= shift;
+
+	my @p = split('/', $self->_filename());
+	pop(@p);
+	pop(@p);
+	pop(@p);
+
+	my $pending = join('/', @p) . '/.pending/' .
+				join(':',
+					$self->get('topic_id'),
+					$self->get('story_id'),
+					$self->get('id')
+				);
+
+	return $pending;
+}
+
+
 sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->source($driver);
+	$self->source($driver) if $driver;
 
 	# create the directory tree
 	my @p = split('/', $self->_filename());
 	pop(@p);
 	my $s = pop(@p);
 	mkdir join('/', @p);
-	my $t = pop(@p);
-
-	my $pending = join('/', (@p, '/.pending/'));
-	mkdir $pending;
-	push(@p, $t);
 	push(@p, $s);
 	mkdir join('/', @p);
 
@@ -388,12 +402,7 @@ sub save {
 	close F;
 
 	# write pending
-	open F, '>' . $pending . join(':', (
-					$self->get('topic_id'),
-					$self->get('story_id'),
-					$self->get('id')
-					)
-				);
+	open F, '>' . $self->pending_file();
 	close F;
 
 	return $self;
@@ -404,7 +413,7 @@ sub load {
 	my $self	= shift;
 	my $driver	= shift;
 
-	if (!$self->SUPER::load( $driver )) {
+	if (!$self->SUPER::load($driver)) {
 		return undef;
 	}
 
@@ -415,6 +424,35 @@ sub load {
 		$self->set('content', join('', <F>));
 		close F;
 	}
+
+	return $self;
+}
+
+
+sub delete {
+	my $self	= shift;
+	my $driver	= shift;
+
+	# delete content
+	my $file = $self->_filename();
+	$file =~ s/\.M$//;
+	unlink $file;
+
+	# delete (possible) pending
+	unlink $self->pending_file();
+
+	$self->SUPER::delete($driver);
+}
+
+
+sub approve {
+	my $self	= shift;
+
+	$self->set('approved', 1);
+	$self->save();
+
+	# delete (possible) pending
+	unlink $self->pending_file();
 
 	return $self;
 }
@@ -1081,7 +1119,8 @@ sub create {
 		Gruta::Data::FS::User::base(),
 		Gruta::Data::FS::Session::base(),
 		Gruta::Data::FS::Template::base(),
-		Gruta::Data::FS::Comment::base()
+		Gruta::Data::FS::Comment::base(),
+		Gruta::Data::FS::Comment::base() . '/.pending/'
 	);
 
 	foreach my $d (@l) {

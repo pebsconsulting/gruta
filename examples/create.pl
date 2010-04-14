@@ -19,3 +19,7 @@ $c = $src->insert_comment($c);
 my $c2 = $src->comment('main', 'index', $c->get('id'));
 
 print $c2->get('id'), "\n";
+
+$c->approve();
+
+$c->delete();
