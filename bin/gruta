@@ -353,6 +353,38 @@ my $X = {
 			$story->save();
 		}
 	],
+	'pending_comments'	=> [
+		'pending_comments {src}',
+		'List the comments with approval pending',
+		sub {
+			my $g		= init();
+
+			foreach my $e ($g->source->pending_comments()) {
+				print join(' ', @{$e}), "\n";
+			}
+		}
+	],
+	'comment'			=> [
+		'comment {src} {topic_id} {story_id} {id}',
+		'Dumps comment data',
+		sub {
+			my $g			= init();
+			my $topic_id	= arg();
+			my $story_id	= arg();
+			my $id			= arg();
+
+			my $c = $g->source->comment($topic_id, $story_id, $id)
+				or die "Cannot find comment '${topic_id}/${story_id}/${id}'";
+
+			foreach my $f ($c->fields()) {
+				if ($f ne 'content') {
+					print $f, ': ', ($c->get($f) || ''), "\n";
+				}
+			}
+
+			print "\n", $c->get('content'), "\n";
+		}
+	],
 	'import_rss'		=> [
 		'import_rss {src} {topic_id} [{tag(s)}]',
 		'Import an RSS from STDIN into a topic',
