@@ -228,6 +228,22 @@ sub table {
 	return 'comments';
 }
 
+sub approve {
+	my $self = shift;
+
+	my $sth = $self->source->_prepare(
+		'UPDATE comments SET approved = 1 WHERE topic_id = ? AND ' .
+		'story_id = ? AND id = ?');
+
+	$self->source->_execute($sth,
+						$self->get('topic_id'),
+						$self->get('story_id'),
+						$self->get('id')
+					);
+
+	return $self;
+}
+
 package Gruta::Source::DBI;
 
 sub _assert {
@@ -297,6 +313,26 @@ sub comment {
 				);
 
 	return $c->load($self);
+}
+
+
+sub pending_comments {
+	my $self	= shift;
+
+	my @ret = ();
+
+	my $sth = $self->_prepare('DELETE FROM comments WHERE ctime < ?');
+	$self->_execute($sth, time() - (60 * 60 * 24 * 7));
+
+	$sth = $self->_prepare('SELECT topic_id, story_id, id FROM comments ' .
+						'WHERE approved = 0');
+	$self->_execute($sth);
+
+	while(my @r = $sth->fetchrow_array()) {
+		push(@ret, [ @r ]);
+	}
+
+	return @ret;
 }
 
 
