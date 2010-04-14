@@ -1,9 +1,13 @@
 #!/usr/bin/perl
 
 use Gruta::Source::FS;
+use Gruta::Source::DBI;
 
-my $src = Gruta::Source::FS->new(
-	path => '/home/angel/tmp/gruta-test'
+#my $src = Gruta::Source::FS->new(
+#	path => '/home/angel/tmp/gruta-test'
+#);
+my $src = Gruta::Source::DBI->new(
+	string => 'dbi:SQLite:/home/angel/tmp/gruta-test.db'
 );
 
 $src->create();

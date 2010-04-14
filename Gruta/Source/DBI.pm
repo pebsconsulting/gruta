@@ -9,7 +9,7 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
-my $schema_version = 7;
+my $schema_version = 8;
 
 sub _prepare {
 	my $self	= shift;
@@ -219,6 +219,15 @@ sub table {
 	return 'templates';
 }
 
+package Gruta::Data::DBI::Comment;
+
+use base 'Gruta::Data::Comment';
+use base 'Gruta::Data::DBI::BASE';
+
+sub table {
+	return 'comments';
+}
+
 package Gruta::Source::DBI;
 
 sub _assert {
@@ -274,6 +283,22 @@ sub template {
 sub templates {
 	return $_[0]->_all('templates');
 }
+
+sub comment {
+	my $self	= shift;
+	my $topic_id	= shift;
+	my $story_id	= shift;
+	my $id		= shift;
+
+	my $c = Gruta::Data::DBI::Comment->new(
+						topic_id	=> $topic_id,
+						story_id	=> $story_id,
+						id			=> $id
+				);
+
+	return $c->load($self);
+}
+
 
 sub story {
 	my $self	= shift;
@@ -569,6 +594,17 @@ sub insert_template {
 	$_[0]->_insert($_[1], 'templates', 'Gruta::Data::DBI::Template');
 }
 
+sub insert_comment {
+	my $self	= shift;
+	my $comment	= shift;
+
+	if (!$comment->setup($self)) {
+		return undef;
+	}
+
+	$self->_insert($comment, 'comments', 'Gruta::Data::DBI::Comment');
+}
+
 
 sub insert_story {
 	my $self	= shift;
@@ -683,6 +719,21 @@ sub update_schema {
 				'ALTER TABLE stories ADD COLUMN toc INTEGER DEFAULT 0'
 			);
 		}
+		elsif ($version == 7) {
+			# from 7 to 8
+			$self->{dbh}->do(
+				'CREATE TABLE comments (' .
+				'  id			VARCHAR NOT NULL,' .
+				'  topic_id	VARCHAR NOT NULL,' .
+				'  story_id	VARCHAR NOT NULL,' .
+				'  ctime		INTEGER,' .
+				'  approved	INTEGER DEFAULT 0,' .
+				'  author		VARCHAR,' .
+				'  content		VARCHAR,' .
+				'  PRIMARY KEY	(id, topic_id, story_id)' .
+				')'
+			);
+		}
 
 		$version++;
 
@@ -771,6 +822,17 @@ CREATE TABLE tags (
 CREATE TABLE templates (
 	id		VARCHAR PRIMARY KEY,
 	content		VARCHAR
+)
+;
+CREATE TABLE comments (
+	id			VARCHAR NOT NULL,
+	topic_id	VARCHAR NOT NULL,
+	story_id	VARCHAR NOT NULL,
+	ctime		INTEGER,
+	approved	INTEGER DEFAULT 0,
+	author		VARCHAR,
+	content		VARCHAR,
+	PRIMARY KEY	(id, topic_id, story_id)
 )
 ;
 CREATE INDEX stories_by_date ON stories (date)
