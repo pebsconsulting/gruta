@@ -571,6 +571,36 @@ sub comment {
 }
 
 
+sub pending_comments {
+	my $self = shift;
+
+	my @ret = ();
+
+	my $path = $self->{path} . Gruta::Data::FS::Comment::base()
+							. '/.pending/';
+
+	if (opendir D, $path) {
+		while (my $id = readdir D) {
+			my $f = $path . $id;
+
+			next if -d $f;
+
+			# too old? delete
+			if (-M $f >= 7) {
+				unlink $f;
+				next;
+			}
+
+			push @ret, [ split(':', $id) ];
+		}
+
+		closedir D;
+	}
+
+	return @ret;
+}
+
+
 sub story {
 	my $self	= shift;
 	my $topic_id	= shift;
