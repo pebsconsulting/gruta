@@ -336,6 +336,37 @@ sub pending_comments {
 }
 
 
+sub story_comments {
+	my $self	= shift;
+	my $story	= shift;
+	my $all		= shift;
+
+	my @ret = ();
+
+	# delete old non-approved comments for this story
+	my $sth = $self->_prepare('DELETE FROM comments WHERE ctime < ? AND ' .
+							'topic_id = ? AND story_id = ?');
+	$self->_execute($sth, time() - (60 * 60 * 24 * 7),
+				$story->get('topic_id'), $story->get('id'));
+
+	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
+				'WHERE topic_id = ? AND story_id = ?';
+
+	if (!$all) {
+		$sql .= ' AND approved = 1';
+	}
+
+	$sth = $self->_prepare($sql);
+	$self->_execute($sth, $story->get('topic_id'), $story->get('id'));
+
+	while(my @r = $sth->fetchrow_array()) {
+		push(@ret, [ @r ]);
+	}
+
+	return @ret;
+}
+
+
 sub story {
 	my $self	= shift;
 	my $topic_id	= shift;
