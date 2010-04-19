@@ -4,6 +4,8 @@
 
 <{_story_footer $0 $1}>
 
+<{_story_comments $0 $1}>
+
 <div class = 'self_links'>
 	<{link {url 'STORY_PRINTABLE' 'topic' $0 'id' $1} @"Print version"}> -
 	<{link {aurl 'STORY' 'topic' $0 'id' $1} @"Permanent link to this page"}> -

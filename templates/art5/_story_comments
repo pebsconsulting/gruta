@@ -1,0 +1,10 @@
+<div class = 'story_comments'>
+<{foreach {story_comments $0 $1 is_logged_in}
+	{?
+	'<h3>' {comment_author $0 $1 $2} '</h3>'
+	'<div class = "comment_content">' {comment_content $0 $1 $2} '</div>'
+	}
+	'<p>'
+	{? '<h2>' @"User comments" '</h2>'}
+}>
+</div>
