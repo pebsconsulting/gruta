@@ -110,6 +110,19 @@ sub _art5 {
 			};
 		}
 
+		foreach my $p (Gruta::Data::Comment->new->afields()) {
+			$a->{op}->{'comment_' . $p} = sub {
+				my $topic_id	= $a->exec(shift);
+				my $story_id	= $a->exec(shift);
+				my $id			= $a->exec(shift);
+
+				my $comment = $data->source->comment(
+									$topic_id, $story_id, $id);
+
+				return $comment->get($p);
+			};
+		}
+
 		$a->{op}->{story_abstract} = sub {
 			my $topic	= $a->exec(shift);
 			my $id		= $a->exec(shift);
@@ -580,6 +593,18 @@ sub _art5 {
 				if (my $story = $data->source->story($topic_id, $id)) {
 					$ret = [ $story->tags() ];
 				}
+			}
+
+			return $ret;
+		};
+
+		$a->{op}->{story_comments} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+			my $ret			= [];
+
+			if ($id ne '[]') {
+				$ret = [ $data->source->story_comments($topic_id, $id) ];
 			}
 
 			return $ret;
