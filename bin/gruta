@@ -385,6 +385,30 @@ my $X = {
 			print "\n", $c->get('content'), "\n";
 		}
 	],
+	'new_comment'		=> [
+		'new_comment {src} {topic_id} {story_id} [{author}]',
+		'Adds a new comment from STDIN',
+		sub {
+			my $g			= init();
+			my $topic_id	= arg();
+			my $story_id	= arg();
+			my $author		= arg_o() || '';
+
+			my $s = $g->source->story($topic_id, $story_id)
+				or die "Cannot find story $topic_id, $story_id";
+
+			my $content = join('', <>);
+
+			my $c = new Gruta::Data::Comment(
+				topic_id 	=> $topic_id,
+				story_id	=> $story_id,
+				author		=> $author,
+				content		=> $content
+			);
+
+			$g->source->insert_comment($c);
+		}
+	],
 	'approve_comment' => [
 		'approve_comment {src} {topic_id} {story_id} {id}',
 		'Approves a comment',
