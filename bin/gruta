@@ -385,6 +385,53 @@ my $X = {
 			print "\n", $c->get('content'), "\n";
 		}
 	],
+	'approve_comment' => [
+		'approve_comment {src} {topic_id} {story_id} {id}',
+		'Approves a comment',
+		sub {
+			my $g			= init();
+			my $topic_id	= arg();
+			my $story_id	= arg();
+			my $id			= arg();
+
+			my $c = $g->source->comment($topic_id, $story_id, $id)
+				or die "Cannot find comment '${topic_id}/${story_id}/${id}'";
+
+			$c->approve();
+		}
+	],
+	'delete_comment' => [
+		'delete_comment {src} {topic_id} {story_id} {id}',
+		'Deletes a comment',
+		sub {
+			my $g			= init();
+			my $topic_id	= arg();
+			my $story_id	= arg();
+			my $id			= arg();
+
+			my $c = $g->source->comment($topic_id, $story_id, $id)
+				or die "Cannot find comment '${topic_id}/${story_id}/${id}'";
+
+			$c->delete();
+		}
+	],
+	'story_comments'	=> [
+		'story_comments {src} {topic_id} {story_id} [{include_not_approved}]',
+		'Lists all comments for a story',
+		sub {
+			my $g			= init();
+			my $topic_id	= arg();
+			my $story_id	= arg();
+			my $all			= arg_o();
+
+			my $story = $g->source->story($topic_id, $story_id)
+				or die "Cannot find story '$topic_id, $story_id'";
+
+			foreach my $c ($g->source->story_comments($story, $all)) {
+					print join(" ", @{$c}), "\n";
+			}
+		}
+	],
 	'import_rss'		=> [
 		'import_rss {src} {topic_id} [{tag(s)}]',
 		'Import an RSS from STDIN into a topic',
