@@ -601,6 +601,52 @@ sub pending_comments {
 }
 
 
+sub story_comments {
+	my $self	= shift;
+	my $story	= shift;
+	my $all		= shift;
+
+	my @ret = ();
+
+	my $topic_id = $story->get('topic_id');
+	my $story_id = $story->get('id');
+
+	my $base_path = $self->{path} . Gruta::Data::FS::Comment::base();
+
+	my $pend_path = $base_path . '/.pending/';
+	my $path = join('/', ($base_path, $topic_id, $story_id)) . '/';
+
+	if (opendir D, $path) {
+		while (my $id = readdir D) {
+			my $f = $path . $id;
+
+			next if -d $f;
+			next if $f =~ /\.M$/;
+
+			my $pf = $pend_path . join(':', ($topic_id, $story_id, $id));
+
+			# too old? delete
+			if (-M $f >= 7) {
+				unlink $f;
+				unlink $pf;
+				next;
+			}
+
+			# not all wanted and this comment not approved? skip
+			if (!$all && -f $pf) {
+				next;
+			}
+
+			push @ret, [ $topic_id, $story_id, $id ];
+		}
+
+		closedir D;
+	}
+
+	return @ret;
+}
+
+
 sub story {
 	my $self	= shift;
 	my $topic_id	= shift;
