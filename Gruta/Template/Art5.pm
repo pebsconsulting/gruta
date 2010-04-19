@@ -601,10 +601,12 @@ sub _art5 {
 		$a->{op}->{story_comments} = sub {
 			my $topic_id	= $a->exec(shift);
 			my $id			= $a->exec(shift);
+			my $all			= $a->exec(shift);
 			my $ret			= [];
 
 			if ($id ne '[]') {
-				$ret = [ $data->source->story_comments($topic_id, $id) ];
+				my $story = $data->source->story($topic_id, $id);
+				$ret = [ $data->source->story_comments($story, $all) ];
 			}
 
 			return $ret;
