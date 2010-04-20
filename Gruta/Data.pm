@@ -256,7 +256,7 @@ package Gruta::Data::Comment;
 use base 'Gruta::Data::BASE';
 
 sub fields {
-	return qw(id topic_id story_id ctime approved author content);
+	return qw(id topic_id story_id ctime date approved author content);
 }
 
 
@@ -299,8 +299,13 @@ sub setup {
 	# set the rest of data
 	$self->set('id', sprintf("%08x%04x", time(), $$));
 	$self->set('ctime', time());
+	$self->set('date', Gruta::Data::today());
 
 	return $self;
+}
+
+sub date {
+	return Gruta::Data::format_date($_[0]->get('date'), $_[1]);
 }
 
 package Gruta::Data;

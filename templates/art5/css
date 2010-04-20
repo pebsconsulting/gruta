@@ -71,7 +71,9 @@ h6 { font-size: 80%; }
 .navigator { clear: both; }
 .navigator .prev { float: left; }
 .navigator .next { float: right; }
-.story_comments { margin-bottom: 1em; }
+.story_comments { margin-bottom: 2em; }
+.comment_header { color: #555555; margin-bottom: 0.5em; }
+.comment_content { margin-left: 2em; }
 
 .index_date { border-bottom: solid 2px; }
 
