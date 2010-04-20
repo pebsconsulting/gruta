@@ -7,6 +7,17 @@
 			{or {comment_author $0 $1 $2} @"Anonymous" }
 	'</div>'
 	'<div class = "comment_content">' {comment_content $0 $1 $2} '</div>'
+	'<div class = "comment_controls">'
+		{if {not {comment_approved $0 $1 $2}}
+			{?
+				{link {url 'APPROVE_COMMENT' 'topic_id' $0
+					'story_id' $1 'id' $2} @"Approve comment"
+				}
+				' - '
+			}
+		}
+		{link {url 'DELETE_COMMENT' 'topic_id' $0 'story_id' $1 'id' $2} @"Delete comment" }
+	'</div>'
 	}
 	'<p>'
 	{? '<h2>' @"User comments" '</h2>'}
