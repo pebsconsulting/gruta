@@ -1,3 +1,4 @@
+<a name = 'comments'></a>
 <div class = 'story_comments'>
 <{foreach {story_comments $0 $1 {is_topic_editor $0}}
 	{?
