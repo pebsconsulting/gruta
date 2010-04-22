@@ -1,4 +1,7 @@
 <{T
+" by " 
+" por "
+
 "404 Not Found" 
 "404 No Encontrado"
 
@@ -13,6 +16,12 @@
 
 "Alternatively, this story will be available to everyone on " 
 "Alternativamente, esta historia estará disponible para todo el mundo el "
+
+"Anonymous" 
+"Anónimo"
+
+"Approve" 
+"Aprobar"
 
 "Are you sure you want to delete this story?" 
 "¿Está seguro de querer borrar esta historia?"
@@ -34,6 +43,9 @@
 
 "DELETE" 
 "BORRAR"
+
+"Delete" 
+"Borrar"
 
 "Delete story" 
 "Borrar historia"
@@ -196,6 +208,9 @@
 
 "User Id:" 
 "Identificador de usuario:"
+
+"User comments" 
+"Comentarios de los usuarios"
 
 "User data" 
 "Datos del usuario"
