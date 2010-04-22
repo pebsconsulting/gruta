@@ -25,6 +25,6 @@
 	}
 	}
 	'<p>'
-	{? '<h2>' @"User comments" '</h2>'}
+	{? '<h2>' @"Visitor comments" '</h2>'}
 }>
 </div>

@@ -209,9 +209,6 @@
 "User Id:" 
 "Identificador de usuario:"
 
-"User comments" 
-"Comentarios de los usuarios"
-
 "User data" 
 "Datos del usuario"
 
@@ -220,6 +217,9 @@
 
 "Users" 
 "Usuarios"
+
+"Visitor comments" 
+"Comentarios de los visitantes"
 
 "You are logged in as " 
 "Está conectado como "
