@@ -285,16 +285,9 @@ sub setup {
 	}
 
 	# too long? fail
-	my $content = $self->get('content');
-
-	if (length($content) > 16384) {
+	if (length($self->get('content')) > 16384) {
 		return undef;
 	}
-
-	# filter content
-	$content =~ s/</&lt;/g;
-
-	$self->set('content', $content);
 
 	# set the rest of data
 	$self->set('id', sprintf("%08x%04x", time(), $$));

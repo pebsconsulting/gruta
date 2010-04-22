@@ -44,6 +44,17 @@ sub redirect {
 	return $self;
 }
 
+sub filter_comment {
+	my $self	= shift;
+	my $content	= shift;
+
+	# do some filtering
+	$content =~ s/</&lt;/g;
+	$content =~ s/\n{2,}/<p>/g;
+
+	return $content;
+}
+
 sub data {
 	my $self	= shift;
 	my $data	= shift;

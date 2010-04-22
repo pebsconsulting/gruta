@@ -123,6 +123,17 @@ sub _art5 {
 			};
 		}
 
+		$a->{op}->{comment_content} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $story_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+
+			my $comment = $data->source->comment(
+							$topic_id, $story_id, $id);
+
+			return $data->cgi->filter_comment($comment->get('content'));
+		};
+
 		$a->{op}->{comment_date} = sub {
 			my $format		= $a->exec(shift);
 			my $topic_id	= $a->exec(shift);
