@@ -128,7 +128,7 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->SUPER::save( $driver ) if $driver;
+	$self->SUPER::save( $driver );
 
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
@@ -248,7 +248,7 @@ sub save {
 	my $self	= shift;
 	my $driver	= shift;
 
-	$self->SUPER::save( $driver ) if $driver;
+	$self->SUPER::save( $driver );
 
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
