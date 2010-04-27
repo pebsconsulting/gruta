@@ -12,14 +12,14 @@
 		'<div class = "comment_controls">'
 			{if {not {comment_approved $0 $1 $2}}
 				{?
-					{link {url 'APPROVE_COMMENT' 'topic_id' $0
-						'story_id' $1 'id' $2} @"Approve"
+					{link {url 'APPROVE_COMMENT' 'topic' $0
+						'story' $1 'id' $2} @"Approve"
 					}
 					' - '
 				}
 			}
-			{link {url 'DELETE_COMMENT' 'topic_id' $0
-						'story_id' $1 'id' $2} @"Delete" }
+			{link {url 'DELETE_COMMENT' 'topic' $0
+						'story' $1 'id' $2} @"Delete" }
 		'</div>'
 		}
 	}

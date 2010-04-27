@@ -716,7 +716,7 @@ sub _art5 {
 			my $content		= $a->exec(shift);
 
 			my $s = $data->source->story($topic_id, $story_id)
-				or croak("Invalid story $topic_id, $story_id");
+				or croak("Invalid story $topic_id/$story_id");
 
 			my $c = new Gruta::Data::Comment(
 				topic_id	=> $topic_id,
@@ -726,6 +726,32 @@ sub _art5 {
 			);
 
 			$data->source->insert_comment($c);
+
+			return 'OK';
+		};
+
+		$a->{op}->{delete_comment} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $story_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+
+			my $c = $data->source->comment($topic_id, $story_id, $id)
+				or croak("Invalid comment $topic_id/$story_id/$id");
+
+			$c->delete();
+
+			return 'OK';
+		};
+
+		$a->{op}->{approve_comment} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $story_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+
+			my $c = $data->source->comment($topic_id, $story_id, $id)
+				or croak("Invalid comment $topic_id/$story_id/$id");
+
+			$c->approve();
 
 			return 'OK';
 		};

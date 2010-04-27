@@ -1,0 +1,16 @@
+<{assert_topic_editor %topic}>
+<{header}>
+
+<div class = 'main'>
+
+	<h1><{@"Delete comment"}></h1>
+
+	<{approve_comment %topic %story %id}>
+
+	<p>
+	<{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
+		@"Continue" }>
+
+</div>
+
+<{footer}>
