@@ -1,4 +1,4 @@
-<{assert_logged_in 'INDEX'}>
+<{assert_logged_in}>
 <{header}>
 
 <{column1}>

@@ -58,6 +58,15 @@
 	<input type = 'hidden' name = 't'       value = 'EDIT_USER'>
 </form>
 
+<{if {not cfg_disable_comments} {
+	'<h1>'
+	@"Comments"
+	'</h1>'
+
+	{link {url 'PENDING_COMMENTS'} @"Pending comments"}
+	}
+}>
+
 </div>
 
 <{footer}>
