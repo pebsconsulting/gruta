@@ -67,7 +67,12 @@
 
 	<p><{@"Allow comments from visitors?"}><br>
 	<input type = 'checkbox' name = 'has_comments'
-		<{if {story_has_comments %topic %id} "checked"}>>
+		<{if {or
+				{story_has_comments %topic %id}
+				{if {eq %id '[]'} {not cfg_disable_comments}}
+			}
+			"checked"}>
+	>
 
 	<p><{@"Content:"}><br>
 
