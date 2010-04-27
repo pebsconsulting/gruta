@@ -1,0 +1,20 @@
+<{assert_logged_in 'INDEX'}>
+<{header}>
+
+<{column1}>
+
+<{column2}>
+
+<div class = 'main'>
+
+	<{main_top}>
+
+	<h1><{@"Pending comments"}></h1>
+
+	<{foreach pending_comments {_comment $0 $1 $2} '<p>'}>
+
+	<{main_bottom}>
+
+</div>
+
+<{footer}>

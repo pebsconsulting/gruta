@@ -1,0 +1,23 @@
+<{?
+	'<div class = "comment_header">'
+			{comment_date cfg_date_format $0 $1 $2}
+			@" by "
+			{or {comment_author $0 $1 $2} @"Anonymous" }
+	'</div>'
+	'<div class = "comment_content">' {comment_content $0 $1 $2} '</div>'
+	{if {is_topic_editor $0} {
+		'<div class = "comment_controls">'
+			{if {not {comment_approved $0 $1 $2}}
+				{?
+					{link {url 'APPROVE_COMMENT' 'topic' $0
+						'story' $1 'id' $2} @"Approve"
+					}
+					' - '
+				}
+			}
+			{link {url 'DELETE_COMMENT' 'topic' $0
+						'story' $1 'id' $2} @"Delete" }
+		'</div>'
+		}
+	}
+}>
