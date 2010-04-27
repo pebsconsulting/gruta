@@ -756,6 +756,10 @@ sub _art5 {
 			return 'OK';
 		};
 
+		$a->{op}->{pending_comments} = sub {
+			return [ $data->source->pending_comments() ];
+		};
+
 		$a->{op}->{about} = sub {
 			return 'Gruta ' . $data->version();
 		};

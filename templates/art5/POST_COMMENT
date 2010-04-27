@@ -1,16 +1,26 @@
-<{assert {not cfg_disable_comments} 'INDEX'}>
 <{header}>
 
 <div class = 'main'>
 
 	<h1><{@"Post comment"}></h1>
 
-	<{post_comment %topic %story %author %content}>
+	<{if cfg_disable_comments
+		{ @"Comments have been disabled. Sorry." }
+		{
+			{post_comment %topic %story %author %content}
 
-	<p><{@"Your comment has been queued for approval. Thank you."}></p>
+			'<p>'
+			@"Your comment has been queued for approval. Thank you."
+			'</p>'
 
-	<{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
-		@"Continue" }>
+			{link {?
+					{url 'STORY' 'topic' %topic 'id' %story}
+					'#comments'
+				}
+				@"Continue"
+			}
+		}
+	}>
 
 </div>
 
