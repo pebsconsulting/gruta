@@ -709,6 +709,27 @@ sub _art5 {
 			return '';
 		};
 
+		$a->{op}->{post_comment} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $story_id	= $a->exec(shift);
+			my $author		= $a->exec(shift);
+			my $content		= $a->exec(shift);
+
+			my $s = $data->source->story($topic_id, $story_id)
+				or croak("Invalid story $topic_id, $story_id");
+
+			my $c = new Gruta::Data::Comment(
+				topic_id	=> $topic_id,
+				story_id	=> $story_id,
+				author		=> $author,
+				content		=> $content
+			);
+
+			$data->source->insert_comment($c);
+
+			return 'OK';
+		};
+
 		$a->{op}->{about} = sub {
 			return 'Gruta ' . $data->version();
 		};

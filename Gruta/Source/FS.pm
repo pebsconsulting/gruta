@@ -385,9 +385,18 @@ sub save {
 	my @p = split('/', $self->_filename());
 	pop(@p);
 	my $s = pop(@p);
-	mkdir join('/', @p);
+
+	my $d = join('/', @p);
+	if (! -d $d) {
+		mkdir $d or croak "Error posting comment: $d, $!";
+	}
+
 	push(@p, $s);
-	mkdir join('/', @p);
+
+	$d = join('/', @p);
+	if (! -d $d) {
+		mkdir $d or croak "Error posting comment: $d, $!";
+	}
 
 	$self->SUPER::save($driver);
 
