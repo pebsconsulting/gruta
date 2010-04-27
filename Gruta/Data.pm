@@ -255,6 +255,8 @@ package Gruta::Data::Comment;
 
 use base 'Gruta::Data::BASE';
 
+use Carp;
+
 sub fields {
 	return qw(id topic_id story_id ctime date approved author content);
 }
@@ -278,18 +280,18 @@ sub setup {
 
 	$self->source($source);
 
+	my $topic_id = $self->get('topic_id');
+	my $story_id = $self->get('story_id');
+
 	# invalid story? fail
-	if (!$source->story($self->get('topic_id'),
-						$self->get('story_id'))) {
-		return undef;
-	}
+	$source->story($topic_id, $story_id)
+		or croak("Invalid story $topic_id, $story_id");
 
 	# too short or too long? fail
 	my $c = $self->get('content');
 
-	if (length($c) < 8 || length($c) > 16384) {
-		return undef;
-	}
+	length($c) > 8 or croak("Comment content too short");
+	length($c) < 16384 or croak("Comment content too long");
 
 	# set the rest of data
 	$self->set('id', sprintf("%08x%04x", time(), $$));
