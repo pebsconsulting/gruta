@@ -324,8 +324,10 @@ sub pending_comments {
 	my $sth = $self->_prepare('DELETE FROM comments WHERE ctime < ?');
 	$self->_execute($sth, time() - (60 * 60 * 24 * 7));
 
-	$sth = $self->_prepare('SELECT topic_id, story_id, id FROM comments ' .
-						'WHERE approved = 0');
+	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
+				'WHERE approved = 0 ORDER BY ctime DESC';
+
+	$sth = $self->_prepare($sql);
 	$self->_execute($sth);
 
 	while(my @r = $sth->fetchrow_array()) {
@@ -355,6 +357,8 @@ sub story_comments {
 	if (!$all) {
 		$sql .= ' AND approved = 1';
 	}
+
+	$sql .= ' ORDER BY ctime ASC';
 
 	$sth = $self->_prepare($sql);
 	$self->_execute($sth, $story->get('topic_id'), $story->get('id'));

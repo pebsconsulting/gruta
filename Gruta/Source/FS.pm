@@ -605,7 +605,7 @@ sub pending_comments {
 		closedir D;
 	}
 
-	return @ret;
+	return sort { $b->[2] cmp $a->[2] } @ret;
 }
 
 
@@ -651,7 +651,7 @@ sub story_comments {
 		closedir D;
 	}
 
-	return @ret;
+	return sort { $a->[2] cmp $b->[2] } @ret;
 }
 
 
