@@ -1,3 +1,4 @@
+<{assert {not cfg_disable_comments} 'INDEX'}>
 <{header}>
 
 <div class = 'main'>
