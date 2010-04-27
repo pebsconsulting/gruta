@@ -284,8 +284,10 @@ sub setup {
 		return undef;
 	}
 
-	# too long? fail
-	if (length($self->get('content')) > 16384) {
+	# too short or too long? fail
+	my $c = $self->get('content');
+
+	if (length($c) < 8 || length($c) > 16384) {
 		return undef;
 	}
 
