@@ -480,6 +480,7 @@ sub _art5 {
 			$story->set('description', $a->exec(shift));
 
 			$story->set('toc', $a->exec(shift) eq 'on' ? 1 : 0);
+			$story->set('has_comments', $a->exec(shift) eq 'on' ? 1 : 0);
 
 			# if there is no userid, add one
 			if (!$story->get('userid')) {

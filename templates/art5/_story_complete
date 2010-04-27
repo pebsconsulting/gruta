@@ -4,7 +4,7 @@
 
 <{_story_footer $0 $1}>
 
-<{if {not cfg_disable_comments} {
+<{if {and {not cfg_disable_comments} {story_has_comments $0 $1}} {
 	'<h2>' @"Add a comment" '</h2>'
 	'<form method = "post" action = "' {url} '">'
 	'<p>Author:<br><input name = "author">'

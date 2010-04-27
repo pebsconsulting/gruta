@@ -4,7 +4,7 @@
 
 	<h1><{@"Post comment"}></h1>
 
-	<{if cfg_disable_comments
+	<{if {or cfg_disable_comments {not {story_has_comments %topic %story}}}
 		{ @"Comments have been disabled. Sorry." }
 		{
 			{post_comment %topic %story %author %content}

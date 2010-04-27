@@ -9,7 +9,7 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
-my $schema_version = 9;
+my $schema_version = 10;
 
 sub _prepare {
 	my $self	= shift;
@@ -811,6 +811,12 @@ sub update_schema {
 				'ALTER TABLE comments ADD COLUMN date CHAR(14)'
 			);
 		}
+		elsif ($version == 9) {
+			#from 8 to 9
+			$self->{dbh}->do(
+				'ALTER TABLE stories ADD COLUMN has_comments INTEGER DEFAULT 0'
+			);
+		}
 
 		$version++;
 
@@ -870,6 +876,7 @@ CREATE TABLE stories (
 	abstract	VARCHAR,
 	body		VARCHAR,
 	toc			INTEGER DEFAULT 0,
+	has_comments INTEGER DEFAULT 0,
 	PRIMARY KEY	(id, topic_id)
 )
 ;

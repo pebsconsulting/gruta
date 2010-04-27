@@ -65,6 +65,10 @@
 	<input type = 'checkbox' name = 'toc'
 		<{if {story_toc %topic %id} "checked"}>>
 
+	<p><{@"Allow comments from visitors?"}><br>
+	<input type = 'checkbox' name = 'has_comments'
+		<{if {story_has_comments %topic %id} "checked"}>>
+
 	<p><{@"Content:"}><br>
 
 	<textarea name = 'content' cols = '80' rows = '30'
