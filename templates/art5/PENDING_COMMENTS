@@ -11,7 +11,13 @@
 
 	<h1><{@"Pending comments"}></h1>
 
-	<{foreach pending_comments {_comment $0 $1 $2} '<p>'}>
+	<{foreach pending_comments {
+		'<p>'
+		{link {url 'STORY' 'topic' $0 'id' $1} {story_title $0 $1}}
+		'</p>'
+		{_comment $0 $1 $2}
+	}
+	'<p>'}>
 
 	<{main_bottom}>
 
