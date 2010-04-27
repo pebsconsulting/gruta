@@ -435,13 +435,12 @@ sub delete {
 
 	# delete content
 	my $file = $self->_filename();
+	unlink $file;
 	$file =~ s/\.M$//;
 	unlink $file;
 
 	# delete (possible) pending
 	unlink $self->pending_file();
-
-	$self->SUPER::delete($driver);
 }
 
 
