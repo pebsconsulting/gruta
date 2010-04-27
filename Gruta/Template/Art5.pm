@@ -718,6 +718,8 @@ sub _art5 {
 			my $s = $data->source->story($topic_id, $story_id)
 				or croak("Invalid story $topic_id/$story_id");
 
+			$content =~ s/\r//g;
+
 			my $c = new Gruta::Data::Comment(
 				topic_id	=> $topic_id,
 				story_id	=> $story_id,
