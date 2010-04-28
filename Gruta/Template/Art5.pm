@@ -728,6 +728,22 @@ sub _art5 {
 				content		=> $content
 			);
 
+			my $u = $data->auth();
+
+			if ($u) {
+				# empty author? use username
+				if (!$author) {
+					$c->set('author', $u->get('username'));
+				}
+
+				# if user is a topic editor, approve automatically
+				if (my $topic = $data->source->topic($topic_id)) {
+					if ($topic->is_editor($u)) {
+						$c->set('approved', 1);
+					}
+				}
+			}
+
 			$data->source->insert_comment($c);
 
 			return 'OK';
