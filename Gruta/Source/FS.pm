@@ -410,9 +410,11 @@ sub save {
 	print F $self->get('content') || '';
 	close F;
 
-	# write pending
-	open F, '>' . $self->pending_file();
-	close F;
+	# if not approved, write pending
+	if (!$self->get('approved')) {
+		open F, '>' . $self->pending_file();
+		close F;
+	}
 
 	return $self;
 }
