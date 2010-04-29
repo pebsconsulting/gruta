@@ -8,11 +8,17 @@
 "Account expiration date: (empty, never)" 
 "Fecha de expiración de la cuenta (vacío, nunca)"
 
+"Add a comment" 
+"Añadir comentario"
+
 "Admin" 
 "Administración"
 
 "Administrator?" 
 "¿Administrador?"
+
+"Allow comments from visitors?" 
+"¿Permitir comentarios de visitantes?"
 
 "Alternatively, this story will be available to everyone on " 
 "Alternativamente, esta historia estará disponible para todo el mundo el "
@@ -35,8 +41,17 @@
 "Can upload files?" 
 "¿Puede subir ficheros?"
 
+"Comments" 
+"Comentarios"
+
+"Comments have been disabled. Sorry." 
+"Los comentarios están desactivados. Lo siento."
+
 "Content:" 
 "Contenido:"
+
+"Continue" 
+"Continuar"
 
 "Continue editing" 
 "Seguir modificando"
@@ -46,6 +61,9 @@
 
 "Delete" 
 "Borrar"
+
+"Delete comment" 
+"Borrar comentario"
 
 "Delete story" 
 "Borrar historia"
@@ -113,8 +131,14 @@
 "Passwords: (only new users or to change it)" 
 "Palabras clave: (sólo nuevos usuarios o para cambiarla)"
 
+"Pending comments" 
+"Comentarios pendientes"
+
 "Permanent link to this page" 
 "Enlace permanente a esta página"
+
+"Post comment" 
+"Publicar comentario"
 
 "Preferences" 
 "Preferencias"
@@ -223,6 +247,9 @@
 
 "You are logged in as " 
 "Está conectado como "
+
+"Your comment has been queued for approval. Thank you." 
+"Su comentario ha quedado pendiente de aprobación. Gracias."
 
 "[New]" 
 "[Nuevo]"
