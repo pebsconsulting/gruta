@@ -22,7 +22,7 @@
 
 	{foreach {
 		if %tag
-		{reverse {sort {stories_by_tag %tag} {$2}}}
+		{reverse {sort {stories_by_tag %topic %tag} {$2}}}
 		{stories_by_date {or %topic cfg_rss_topics} {or %num cfg_rss_num}}
 		}
 

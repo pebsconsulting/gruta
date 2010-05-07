@@ -1007,7 +1007,8 @@ sub _collect_tags {
 
 	foreach my $topic_id (@topics) {
 
-		my $topic = $self->topic($topic_id);
+		my $topic = $self->topic($topic_id)
+			or croak("Bad topic $topic_id");
 
 		my $files = $topic->_filename();
 		$files =~ s/\.M$/\/*.T/;
