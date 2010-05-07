@@ -293,6 +293,9 @@ sub setup {
 	length($c) > 8 or croak("Comment content too short");
 	length($c) < 16384 or croak("Comment content too long");
 
+	my @l = split('http:', $c);
+	scalar(@l) < 8 or croak("Too much URLs in comment");
+
 	# set the rest of data
 	$self->set('id', sprintf("%08x%04x", time(), $$));
 	$self->set('ctime', time());
