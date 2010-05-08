@@ -596,11 +596,10 @@ sub pending_comments {
 			next if -d $f;
 
 			# too old? delete
-			if (-M $f >= 7) {
-				# FIXME: delete also the real comment
-				unlink $f;
-				next;
-			}
+#			if (-M $f >= 7) {
+#				unlink $f;
+#				next;
+#			}
 
 			push @ret, [ split(':', $id) ];
 		}
