@@ -597,6 +597,7 @@ sub pending_comments {
 
 			# too old? delete
 			if (-M $f >= 7) {
+				# FIXME: delete also the real comment
 				unlink $f;
 				next;
 			}
@@ -638,6 +639,7 @@ sub story_comments {
 			# too old? delete
 			if (-f $pf && -M $f >= 7) {
 				unlink $f;
+				unlink $f . '.M';
 				unlink $pf;
 				next;
 			}
