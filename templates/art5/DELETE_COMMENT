@@ -7,9 +7,12 @@
 
 	<{delete_comment %topic %story %id}>
 
-	<p>
-	<{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
-		@"Continue" }>
+	<p><{@"Go to:"}></p>
+	<ul>
+	<li><{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
+		@"This story" }></li>
+	<li><{link {url 'PENDING_COMMENTS'} @"Pending comments"}></li>
+	</ul>
 
 </div>
 
