@@ -320,9 +320,10 @@ sub pending_comments {
 	my $self	= shift;
 
 	my @ret = ();
+	my $sth;
 
-	my $sth = $self->_prepare('DELETE FROM comments WHERE ctime < ?');
-	$self->_execute($sth, time() - (60 * 60 * 24 * 7));
+#	$sth = $self->_prepare('DELETE FROM comments WHERE ctime < ?');
+#	$self->_execute($sth, time() - (60 * 60 * 24 * 7));
 
 	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
 				'WHERE approved = 0 ORDER BY ctime DESC';

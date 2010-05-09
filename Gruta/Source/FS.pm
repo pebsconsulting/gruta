@@ -595,12 +595,6 @@ sub pending_comments {
 
 			next if -d $f;
 
-			# too old? delete
-#			if (-M $f >= 7) {
-#				unlink $f;
-#				next;
-#			}
-
 			push @ret, [ split(':', $id) ];
 		}
 
