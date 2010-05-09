@@ -101,6 +101,9 @@
 "Generate table of contents? (grutatxt only)" 
 "¿Generar tabla de contenidos? (sólo grutatxt)"
 
+"Go to:" 
+"Ir a:"
+
 "Hits:" 
 "Visitas:"
 
@@ -208,6 +211,9 @@
 
 "The requested page does not exist." 
 "La página solicitada no existe."
+
+"This story" 
+"Esta historia"
 
 "Top stories" 
 "Las más leídas"
