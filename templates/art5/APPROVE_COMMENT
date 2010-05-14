@@ -3,13 +3,16 @@
 
 <div class = 'main'>
 
-	<h1><{@"Delete comment"}></h1>
+	<h1><{@"Approve comment"}></h1>
 
 	<{approve_comment %topic %story %id}>
 
-	<p>
-	<{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
-		@"Continue" }>
+	<p><{@"Go to:"}></p>
+	<ul>
+	<li><{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
+		@"This story" }></li>
+	<li><{link {url 'PENDING_COMMENTS'} @"Pending comments"}></li>
+	</ul>
 
 </div>
 
