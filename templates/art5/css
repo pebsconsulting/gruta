@@ -96,3 +96,5 @@ blockquote {
 
 /* hack for IE 6 */
 table { clear: none; float: left; }
+
+.outer-container { margin: auto; max-width: 1000px; }
