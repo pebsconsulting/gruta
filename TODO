@@ -19,7 +19,6 @@ Open Bugs
 Pending Enhancements
 --------------------
 
- * 1048: Add user comments to stories.
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
    `abbr' or `acronym'.
  * 1062: Add `from' and `to' date arguments to `LIST'.
@@ -159,5 +158,7 @@ Closed
     ids with all numbers; Wed, 14 Oct 2009 12:08:26 +0200).
  * 1068: Modify gruta_mksite to ask for Art5 sites (it now creates
    Art5 sites by default; Sat, 13 Mar 2010 09:00:03 +0100).
+ * 1048: Add user comments to stories
+   (Tue, 18 May 2010 11:58:37 +0200).
 
 Email bugs to angel@triptico.com
