@@ -35,6 +35,9 @@
 "Are you sure you want to delete this story?" 
 "¿Está seguro de querer borrar esta historia?"
 
+"Author:" 
+"Autor:"
+
 "Back to admin" 
 "Volver a administración"
 
@@ -43,6 +46,9 @@
 
 "Can upload files?" 
 "¿Puede subir ficheros?"
+
+"Comment:" 
+"Comentario:"
 
 "Comments" 
 "Comentarios"
