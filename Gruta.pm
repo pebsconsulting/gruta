@@ -257,7 +257,23 @@ sub _story_special_uri {
 		}
 	}
 	else {
-		$ret = "Bad story '$topic_id/$story_id'";
+		my $topic = $self->source->topic($topic_id);
+
+		if (!$topic) {
+			$ret = "Bad topic '$topic_id'";
+		}
+		else {
+			$ret = "Bad story '$topic_id/$story_id'";
+
+			if ($topic->is_editor($self->auth())) {
+				$ret .= sprintf(' <a href = "%s">[Create]</a>',
+					$self->url('EDIT_STORY',
+						'topic' => $topic_id,
+						'id'	=> $story_id
+					)
+				);
+			}
+		}
 	}
 
 	return $ret;

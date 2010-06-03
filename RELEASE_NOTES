@@ -14,6 +14,8 @@ Gruta Release Notes
    existing installations to it is encouraged, as new features
    are only implemented on 5.x (as, for example, the new
    "comments from visitors" feature).
+ * If a story pseudo-url points to a non-existent story, it shows
+   a link to create it (ala Wikis).
  * Date formatting is done using strftime(), so its full
    set of percent-prefixed commands is available.
  * A new field in stories allow a Table of Contents to be
