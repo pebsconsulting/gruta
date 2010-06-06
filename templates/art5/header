@@ -8,7 +8,7 @@
 	<link rel = 'alternate' type = 'text/xml' title = 'RSS' href = '<{url 'RSS'}>'>
 	<link rel = 'stylesheet' type = 'text/css' href = '<{url 'CSS'}>'>
 	<meta name = 'generator' content = '<{about}> (http://triptico.com/software/gruta.html)'>
-	<{cfg_additional_headers}>
+	<{additional_headers}>
 	<{set_date %set_date}>
 </head>
 

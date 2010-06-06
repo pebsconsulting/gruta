@@ -4,7 +4,6 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1069: Rename 'cfg_additional_headers' to 'additional_headers'.
  * 1070: Renamed 'cfg_index' to 'index'.
 
 Open Bugs
@@ -161,5 +160,7 @@ Closed
    Art5 sites by default; Sat, 13 Mar 2010 09:00:03 +0100).
  * 1048: Add user comments to stories
    (Tue, 18 May 2010 11:58:37 +0200).
+ * 1069: Rename 'cfg_additional_headers' to 'additional_headers'
+   (Sun, 06 Jun 2010 20:31:27 +0200).
 
 Email bugs to angel@triptico.com
