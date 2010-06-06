@@ -1,9 +1,4 @@
 <{
-	# Additional HTML code to be added to the headers.
-	{ = 'cfg_additional_headers'
-	''
-	}
-
 	# Copyright string to be shown in the footer
 	{ = 'cfg_copyright'
 	{ 'Copyright ' {date '%y'} ', you' }
