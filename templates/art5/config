@@ -1,0 +1,67 @@
+<{
+	# Additional HTML code to be added to the headers.
+	{ = 'cfg_additional_headers'
+	''
+	}
+
+	# Copyright string to be shown in the footer
+	{ = 'cfg_copyright'
+	{ 'Copyright ' {date '%y'} ', you' }
+	}
+
+	# Date format
+	{ = 'cfg_date_format' '%y-%m-%d' }
+
+	# Disable comments global flag
+	# Set to 0 to enable comments (comments can also be
+	# toggled independently for each story)
+	{ = 'cfg_disable_comments' 1 }
+
+	# URL to an icon for the site, is MS Windows icon format
+	{ = 'cfg_favicon_url' 'http://triptico.com/img/gruta_favicon.ico' }
+
+	# Host name
+	{ = 'cfg_host_name' 'triptico.com' }
+
+	# The format of dates for the intermixed_index template
+	{ = 'cfg_index_date_format' cfg_date_format }
+
+	# Number of stories shown in the index
+	{ = 'cfg_index_num' 6 }
+
+	# Topics to be shown in the index. Empty: all
+	{ = 'cfg_index_topics' '' }
+
+	# URL to an image to shown as logo
+	{ = 'cfg_logo_url' 'http://triptico.com/img/gruta_logo.jpg' }
+
+	# Topics to be shown in the main menu. Empty: all
+	{ = 'cfg_main_menu_topics' '' }
+
+	# Number of entries for the RSS feed
+	{ = 'cfg_rss_num' cfg_index_num }
+
+	# Topics to be shown in the RSS feed. Empty: all
+	{ = 'cfg_rss_topics' '' }
+
+	# Site description (CANNOT contain HTML)
+	{ = 'cfg_site_description'
+	''
+	}
+
+	# Site name
+	{ = 'cfg_site_name' 'Gruta' }
+
+	# Slogan for the site
+	{ = 'cfg_slogan' 'Gruta - Yet another CMS' }
+
+	# Date format for the stories
+	{ = 'cfg_story_date_format' cfg_date_format }
+
+	# Number of story abstracts to be listed in the TOPIC page
+	{ = 'cfg_topic_num' 10 }
+
+	# Number of stories to be shown in the 'TOP TEN' option.
+	# If set to 0, this top menu option will not be shown.
+	{ = 'cfg_top_ten_num' 10 }
+}>

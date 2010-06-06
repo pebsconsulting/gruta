@@ -795,6 +795,11 @@ sub _art5 {
 			}
 		}
 
+		# load configuration
+		if (my $cfg = $a->code('config')) {
+			$a->exec($cfg);
+		}
+
 		# finally store
 		$self->{_art5} = $a;
 
