@@ -4,7 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1070: Renamed 'cfg_index' to 'index'.
+None!
 
 Open Bugs
 ---------
@@ -162,5 +162,7 @@ Closed
    (Tue, 18 May 2010 11:58:37 +0200).
  * 1069: Rename 'cfg_additional_headers' to 'additional_headers'
    (Sun, 06 Jun 2010 20:31:27 +0200).
+ * 1070: Rename 'cfg_index' to 'index'
+   (Mon, 07 Jun 2010 08:37:46 +0200).
 
 Email bugs to angel@triptico.com
