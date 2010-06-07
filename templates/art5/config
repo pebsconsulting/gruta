@@ -1,22 +1,44 @@
 <{
+	#################################
+	# Most important things to change
+	#################################
+
+	# Host name
+	{ = 'cfg_host_name' 'triptico.com' }
+
+	# Site name
+	{ = 'cfg_site_name' 'Gruta' }
+
+	# Slogan for the site
+	{ = 'cfg_slogan' 'Gruta - Yet another CMS' }
+
 	# Copyright string to be shown in the footer
 	{ = 'cfg_copyright'
 	{ 'Copyright ' {date '%y'} ', you' }
 	}
 
-	# Date format
-	{ = 'cfg_date_format' '%y-%m-%d' }
+	# URL to an icon for the site, in MS Windows icon format
+	{ = 'cfg_favicon_url' 'http://triptico.com/img/gruta_favicon.ico' }
+
+	# URL to an image to shown as logo
+	{ = 'cfg_logo_url' 'http://triptico.com/img/gruta_logo.jpg' }
+
+	# Site description (CANNOT contain HTML)
+	{ = 'cfg_site_description'
+	''
+	}
+
+	################################
+	# Other tunings
+	################################
 
 	# Disable comments global flag
 	# Set to 0 to enable comments (comments can also be
 	# toggled independently for each story)
 	{ = 'cfg_disable_comments' 1 }
 
-	# URL to an icon for the site, is MS Windows icon format
-	{ = 'cfg_favicon_url' 'http://triptico.com/img/gruta_favicon.ico' }
-
-	# Host name
-	{ = 'cfg_host_name' 'triptico.com' }
+	# Date format
+	{ = 'cfg_date_format' '%y-%m-%d' }
 
 	# The format of dates for the intermixed_index template
 	{ = 'cfg_index_date_format' cfg_date_format }
@@ -27,9 +49,6 @@
 	# Topics to be shown in the index. Empty: all
 	{ = 'cfg_index_topics' '' }
 
-	# URL to an image to shown as logo
-	{ = 'cfg_logo_url' 'http://triptico.com/img/gruta_logo.jpg' }
-
 	# Topics to be shown in the main menu. Empty: all
 	{ = 'cfg_main_menu_topics' '' }
 
@@ -38,17 +57,6 @@
 
 	# Topics to be shown in the RSS feed. Empty: all
 	{ = 'cfg_rss_topics' '' }
-
-	# Site description (CANNOT contain HTML)
-	{ = 'cfg_site_description'
-	''
-	}
-
-	# Site name
-	{ = 'cfg_site_name' 'Gruta' }
-
-	# Slogan for the site
-	{ = 'cfg_slogan' 'Gruta - Yet another CMS' }
 
 	# Date format for the stories
 	{ = 'cfg_story_date_format' cfg_date_format }
