@@ -870,8 +870,9 @@ sub stories_by_date {
 		@topics = @{ $topics };
 	}
 
-	$args{offset} += 0;
-	$args{offset} = 0 if $args{offset} < 0;
+	if (!$args{offset} || $args{offset} < 0) {
+		$args{offset} = 0;
+	}
 
 	# only one topic? execute it and return
 	if (scalar(@topics) == 1) {
