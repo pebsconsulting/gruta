@@ -31,6 +31,10 @@ Gruta Release Notes
  * All image pseudo-urls include the image's width and height
    in the `img' tag if the `Image::Size' Perl module is detected
    and installed.
+ * A timeout watchdog now exists to avoid the CGI hanging for too
+   much with a default of 20 seconds. It can be changed in the
+   creation of the Gruta::CGI object by setting the `query_timeout'
+   argument.
 
 2.2.1 "Montecatini"
 -------------------

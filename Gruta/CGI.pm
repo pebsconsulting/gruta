@@ -98,8 +98,9 @@ sub new {
 
 	my $obj = bless( { @_ }, $class );
 
-	$obj->{charset}			||= 'UTF-8';
+	$obj->{charset}				||= 'UTF-8';
 	$obj->{min_size_for_gzip}	||= 10000;
+	$obj->{query_timeout}		||= 20;
 
 	$obj->{http_headers} = {
 		'Content-Type'		=> 'text/html; charset=' . $obj->{charset},
@@ -172,7 +173,15 @@ sub run {
 
 	my $body = undef;
 
-	eval { $body = $data->template->process( $st ) };
+	eval {
+		# install a timeout handler
+		$SIG{ALRM} = sub { die "Timeout processing query"; };
+		alarm $self->{query_timeout};
+
+		$body = $data->template->process( $st )
+	};
+
+	alarm 0;
 
 	if ($@) {
 		$data->log($@);
