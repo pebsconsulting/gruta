@@ -501,7 +501,9 @@ sub stories_by_text {
 	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
 	my @cond;
 
-	push(@cond, 'content LIKE ?' x scalar(@q));
+	if (scalar(@q)) {
+		push(@cond, 'content LIKE ?' x scalar(@q));
+	}
 
 	unless ($future) {
 		push(@cond, 'date <= ?');
@@ -515,7 +517,8 @@ sub stories_by_text {
 		push(@q, @{$topics});
 	}
 
-	my $sql = 'SELECT topic_id, id FROM stories WHERE ' .
+	my $sql = 'SELECT topic_id, id FROM stories ' .
+		(scalar(@cond) ? 'WHERE ' : '') .
 		join(' AND ', @cond) .
 		'ORDER BY topic_id, title';
 
