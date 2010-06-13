@@ -9,6 +9,8 @@ Install the Artemus and Grutatxt modules, available from:
  	http://triptico.com/software/artemus.html
  	http://triptico.com/software/grutatxt.html
 
+You'll need at least Artemus 5.0.0 and Grutatxt 2.0.15.
+
 If you want to use the DBI source driver, you'll need DBI and a
 corresponding DBD, of course. SQLite is fine and probably what
 you want.
@@ -38,7 +40,7 @@ topic id `info', the stories with ids `about' and `legal' will be magically
 added to the top header. For the rest of your stories, create another topic.
 One with id `main' will be OK.
 
-Webserver Configuration examples
+Webserver configuration examples
 --------------------------------
 
 apache
