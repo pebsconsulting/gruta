@@ -456,6 +456,23 @@ my $X = {
 			}
 		}
 	],
+	'related_stories'	=> [
+		'related_stories {src} {topic_id} {id} [{max}]',
+		'Returns a list of stories related to the specified one',
+		sub {
+			my $g			= init();
+			my $topic_id	= arg();
+			my $story_id	= arg();
+			my $max			= arg_o();
+
+			my $story = $g->source->story($topic_id, $story_id)
+				or die "Cannot find story '$topic_id, $story_id'";
+
+			foreach my $i ($g->source->related_stories($story, $max)) {
+					print join(" ", @{$i}), "\n";
+			}
+		}
+	],
 	'import_rss'		=> [
 		'import_rss {src} {topic_id} [{tag(s)}]',
 		'Import an RSS from STDIN into a topic',
