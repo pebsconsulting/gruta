@@ -146,6 +146,16 @@ sub _art5 {
 			return $comment->date($format);
 		};
 
+		$a->{op}->{related_stories} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+			my $max			= $a->exec0(shift);
+
+			my $story = $data->source->story($topic_id, $id);
+
+			return [ $data->source->related_stories($story) ];
+		};
+
 		$a->{op}->{story_abstract} = sub {
 			my $topic	= $a->exec(shift);
 			my $id		= $a->exec(shift);
