@@ -7,7 +7,7 @@ use locale;
 
 use Gruta::Data;
 
-$Gruta::VERSION			= '2.2.2-dev';
+$Gruta::VERSION			= '2.3.0-dev';
 $Gruta::VERSION_CODENAME	= '"Lucca"';
 
 sub source {
