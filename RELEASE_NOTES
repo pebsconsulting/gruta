@@ -5,10 +5,12 @@ Gruta Release Notes
 -------------
 
  * Stories can now include comments from visitors. Comments
-   are disabled by default (it can be enabled by setting the
-   `cfg_disable_comments' to 0) and can also be enabled or
-   disabled on a per story basis. Comments are never automatically
-   published: they require approval one by one.
+   are disabled by default (it can be enabled by setting
+   `cfg_disable_comments' in the `config' template to 0) and can also
+   be enabled or disabled on a per story basis. Comments are never
+   automatically published: they require approval one by one, unless
+   it's posted by an identified user that also has section editor
+   capabilities.
  * Support for the new 5.x version of Artemus has been added.
    This version is now the recommended one and upgrading of
    existing installations to it is encouraged, as new features
