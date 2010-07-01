@@ -4,26 +4,25 @@ body, table {
 	color: black;
 	margin: 0;
 	padding: 0;
-	font-size: 14px
+	font-size: 14px;
 }
 
-A:link {
-	color: #c0803c;
-	font-weight: bold;
-	text-decoration:
-	underline;
-}
-A:visited {
+a:link {
 	color: #c0803c;
 	font-weight: bold;
 	text-decoration: underline;
 }
-A:active {
+a:visited {
+	color: #c0803c;
+	font-weight: bold;
+	text-decoration: underline;
+}
+a:active {
 	color: #c0803c;
 	font-weight: bold;
 	text-decoration: none;
 }
-A:hover {
+a:hover {
 	color: #c0803c;
 	font-weight: bold;
 	text-decoration: underline;
@@ -51,11 +50,12 @@ h6 {
 	font-size: 80%;
 }
 
-.top-container {
+.outer-container {
+	margin: auto;
+	max-width: 1000px;
 }
 
 .top {
-	height: 80px;
 	padding-top: 1em;
 	padding-right: 1em;
 	background-color: white;
@@ -63,57 +63,24 @@ h6 {
 	background-repeat: no-repeat;
 	text-align: left;
 	color: white;
-}
-
-.top .slogan {
-	padding-top: 30px;
-	padding-left: 4em;
-	margin-bottom: 10px;
 	clear: both;
 }
 
-.topnav {
-	background: #eeeecd;
-}
-.topnav ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-.topnav ul li {
-	display: inline;
-	padding-left: 1em;
-	font-size: 90%;
-}
-.topnav h1 {
-	display: none;
-}
-.topnav .boxtit {
+.top h1 {
 	display: none;
 }
 
-.topnav2 {
-	background: #ffffcd;
-}
-.topnav2 ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-.topnav2 ul li {
-	display: inline;
-	padding-left: 1em;
-	font-size: 90%;
-}
-.topnav2 h1 {
-	display: none;
-}
-.topnav2 .boxtit {
-	display: none;
+.top .slogan {
+	padding-top: 50px;
+	padding-left: 4em;
+	margin-bottom: 10px;
+	clear: none;
+	float: left;
 }
 
 .meta_menu {
-	float: right; color: black;
+	float: right;
+	color: black;
 }
 .meta_menu a:link {
 	color: #c0803c;
@@ -138,9 +105,33 @@ h6 {
 	font-size: 90%
 }
 
-.footer {
+.topnav {
+	background: #eeeecd;
 	clear: both;
-	text-align: center;
+}
+.topnav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.topnav ul li {
+	display: inline;
+	padding-left: 1em;
+	font-size: 90%;
+}
+
+.topnav2 {
+	background: #ffffcd;
+}
+.topnav2 ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.topnav2 ul li {
+	display: inline;
+	padding-left: 1em;
+	font-size: 90%;
 }
 
 .column1 {
@@ -150,13 +141,18 @@ h6 {
 }
 .main {
 	padding: 1em;
-	margin-left: 200px ;
+	margin-left: 200px;
 	margin-right: 200px;
 }
 .column2 {
 	float: right;
 	padding: 1em;
 	width: 160px;
+}
+
+.footer {
+	clear: both;
+	text-align: center;
 }
 
 .clearer {
@@ -166,11 +162,6 @@ h6 {
 .tags {
 	float: right;
 	font-size: 90%;
-}
-.self_links {
-	text-align: center;
-	font-size: 90%;
-	clear: both;
 }
 .hits {
 	font-size: 90%
@@ -226,6 +217,11 @@ h6 {
 .comment_controls {
 	margin-left: 2em;
 }
+.self_links {
+	text-align: center;
+	font-size: 90%;
+	clear: both;
+}
 
 .index_date {
 	border-bottom: solid 2px;
@@ -255,10 +251,5 @@ blockquote {
     font-size: 0.9em;
 }
 
-/* hack for IE 6 */
 table { clear: none; float: left; }
 
-.outer-container {
-	margin: auto;
-	max-width: 1000px;
-}

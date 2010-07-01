@@ -1,7 +1,5 @@
 <div class = 'main_menu'>
 
-	<h1><{cfg_site_name}></h1>
-
 	<ul>
 		<{li {link {url 'INDEX'} @"Index"}}>
 
