@@ -134,6 +134,10 @@ h6 {
 	font-size: 90%;
 }
 
+.top .site_description {
+	display: none;
+}
+
 .column1 {
 	float: left;
 	padding: 1em;
