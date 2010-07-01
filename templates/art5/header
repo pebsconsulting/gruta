@@ -15,10 +15,14 @@
 <body>
 <div class = 'outer-container'>
 
+<div class = 'top-container'>
+
 <{top}>
 
 <{topnav}>
 
 <{topnav2}>
+
+</div>
 
 <div class = 'inner-container'>
