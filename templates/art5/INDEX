@@ -11,7 +11,11 @@
 
 	<{main_top}>
 
-	<{index}>
+	<{if
+		{story_exists 'info' 'index'}
+		{story_body 'info' 'index'}
+		{index}
+	}>
 
 	<{main_bottom}>
 

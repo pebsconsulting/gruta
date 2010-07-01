@@ -5,6 +5,8 @@ Gruta Release Notes
 --------------
 
  * Reworked template structure and CSS.
+ * If a story named `index' in the `info' topic exists, it's used
+   to substitute the main body of the `INDEX' page.
 
 2.3.0 "Lucca"
 -------------
