@@ -10,4 +10,5 @@
 
 	<{topnav2}>
 
+	<div class = 'site_description'><{cfg_site_description}></div>
 </div>
