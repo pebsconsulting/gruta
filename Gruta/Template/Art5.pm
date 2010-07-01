@@ -92,6 +92,13 @@ sub _art5 {
 			};
 		}
 
+		$a->{op}->{'story_exists'} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+
+			return $data->source->story($topic_id, $id) ? 1 : 0;
+		};
+
 		foreach my $p (Gruta::Data::Story->new->afields()) {
 			$a->{op}->{'story_' . $p} = sub {
 				my $topic_id	= $a->exec(shift);
