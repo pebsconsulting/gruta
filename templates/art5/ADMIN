@@ -3,7 +3,9 @@
 
 <div class = 'main'>
 
-<h1><{@"Templates"}></h1>
+<h1><{@"Admin"}></h1>
+
+<h2><{@"Templates"}></h2>
 
 <form method = 'post' action = '<{url}>'>
 	<select name = 'id'>
@@ -15,7 +17,7 @@
 	<input type = 'hidden' name = 't'       value = 'EDIT_TEMPLATE'>
 </form>
 
-<h1><{@"Uploads"}></h1>
+<h2><{@"Uploads"}></h2>
 
 <form method = 'post' enctype = 'multipart/form-data' action = '<{url}>'>
 	<{@"Directory:"}><br>
@@ -32,7 +34,7 @@
 	<input type = 'hidden' name = 't'       value = 'UPLOAD'>
 </form>
 
-<h1><{@"Topics"}></h1>
+<h2><{@"Topics"}></h2>
 
 <form method = 'post' action = '<{url}>'>
 
@@ -45,7 +47,7 @@
 	<input type = 'hidden' name = 't'       value = 'EDIT_TOPIC'>
 </form>
 
-<h1><{@"Users"}></h1>
+<h2><{@"Users"}></h2>
 
 <form method = 'post' action = '<{url}>'>
 
@@ -59,9 +61,7 @@
 </form>
 
 <{if {not cfg_disable_comments} {
-	'<h1>'
-	@"Comments"
-	'</h1>'
+	'<h2>' @"Comments" '</h2>'
 
 	{link {url 'PENDING_COMMENTS'} @"Pending comments"}
 	}
