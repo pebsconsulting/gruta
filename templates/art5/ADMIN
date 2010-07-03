@@ -64,6 +64,7 @@
 	'<h2>' @"Comments" '</h2>'
 
 	{link {url 'PENDING_COMMENTS'} @"Pending comments"}
+	' (' {size pending_comments} ')'
 	}
 }>
 

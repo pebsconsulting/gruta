@@ -11,7 +11,8 @@
 	<ul>
 	<li><{link {? {url 'STORY' 'topic' %topic 'id' %story} '#comments'}
 		@"This story" }></li>
-	<li><{link {url 'PENDING_COMMENTS'} @"Pending comments"}></li>
+	<li><{link {url 'PENDING_COMMENTS'}
+		@"Pending comments"}> (<{size pending_comments}>)</li>
 	</ul>
 
 </div>
