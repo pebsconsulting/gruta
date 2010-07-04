@@ -297,7 +297,7 @@ sub setup {
 	scalar(@l) < 8 or croak("Too much URLs in comment");
 
 	# filter spam
-	if ($c =~ /\[url=/) {
+	if ($c =~ /\[(url|link)=/) {
 		croak("Invalid content");
 	}
 
