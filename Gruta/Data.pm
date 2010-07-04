@@ -296,6 +296,11 @@ sub setup {
 	my @l = split('http:', $c);
 	scalar(@l) < 8 or croak("Too much URLs in comment");
 
+	# filter spam
+	if ($c =~ /\[url=/) {
+		croak("Invalid content");
+	}
+
 	# set the rest of data
 	$self->set('id', sprintf("%08x%04x", time(), $$));
 	$self->set('ctime', time());
