@@ -160,7 +160,7 @@ sub _art5 {
 
 			my $story = $data->source->story($topic_id, $id);
 
-			return [ $data->source->related_stories($story) ];
+			return [ $data->source->related_stories($story, $max) ];
 		};
 
 		$a->{op}->{story_abstract} = sub {
