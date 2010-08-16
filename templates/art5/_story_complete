@@ -5,6 +5,9 @@
 		''
 		{ '</ul><h3>' @"Related" '</h3><ul>' }
 	}>
+
+	</ul><{share_story $0 $1}><p>
+
 </div>
 
 <{_story_footer $0 $1}>
@@ -25,6 +28,5 @@
 
 <div class = 'self_links'>
 	<{link {url 'STORY_PRINTABLE' 'topic' $0 'id' $1} @"Print version"}> -
-	<{link {aurl 'STORY' 'topic' $0 'id' $1} @"Permanent link to this page"}> -
-	<a name = "fb_share"></a><script src = "http://static.ak.fbcdn.net/connect.php/js/FB.Share"	type = "text/javascript"></script>
+	<{link {aurl 'STORY' 'topic' $0 'id' $1} @"Permanent link to this page"}>
 </div>
