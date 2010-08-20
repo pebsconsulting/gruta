@@ -1,0 +1,95 @@
+<{assert_admin}>
+<{header}>
+
+<div class = 'main'>
+
+<form method = 'post' action = '<{url}>'>
+
+	<h1><{@"Configuration"}></h1>
+
+	<input type = 'hidden' name = 't' value = 'SAVE_CONFIG'>
+
+	<p><{@"Host name:"}><br>
+	<input type = 'text' name = 'cfg_host_name'
+		value = '<{cfg_host_name}>' size = '55'>
+
+	<p><{@"Site name:"}><br>
+	<input type = 'text' name = 'cfg_site_name'
+		value = '<{cfg_site_name}>' size = '55'>
+
+	<p><{@"Slogan for the site:"}><br>
+	<input type = 'text' name = 'cfg_slogan'
+		value = "<{cfg_slogan}>" size = '55'>
+
+	<p><{@"Copyright string to be shown in the footer:"}><br>
+	<input type = 'text' name = 'cfg_copyright'
+		value = '<{cfg_copyright}>' size = '55'>
+
+	<p><{@"Site description (CANNOT contain HTML):"}><br>
+	<textarea name = 'cfg_site_description'
+	cols = '40' rows = '10'><{cfg_site_description}></textarea>
+
+	<p><{@"URL to an icon for the site, in MS Windows icon format:"}><br>
+	<input type = 'text' name = 'cfg_favicon_url'
+		value = '<{cfg_favicon_url}>' size = '55'>
+
+	<p><{@"URL to an image to shown as logo:"}><br>
+	<input type = 'text' name = 'cfg_logo_url'
+		value = '<{cfg_logo_url}>' size = '55'>
+
+	<h2>Behaviour</h2>
+
+	<p><{@"Disable comments:"}><br>
+	<input type = 'checkbox' name = 'cfg_disable_comments'
+		<{if cfg_disable_comments 'checked'}>>
+
+	<p><{@"Number of stories shown in the index:"}><br>
+	<input type = 'text' name = 'cfg_index_num'
+		value = '<{cfg_index_num}>' size = '4'>
+
+	<p><{@"Topics to be shown in the index (Empty, all):"}><br>
+	<input type = 'text' name = 'cfg_index_topics'
+		value = '<{cfg_index_topics}>' size = '55'>
+
+	<p><{@"Topics to be shown in the main menu (Empty, all):"}><br>
+	<input type = 'text' name = 'cfg_main_menu_topics'
+		value = '<{cfg_main_menu_topics}>' size = '55'>
+
+	<p><{@"Number of entries for the RSS feed:"}><br>
+	<input type = 'text' name = 'cfg_rss_num'
+		value = '<{cfg_rss_num}>' size = '4'>
+
+	<p><{@"Topics to be shown in the RSS feed (Empty, all):"}><br>
+	<input type = 'text' name = 'cfg_rss_topics'
+		value = '<{cfg_rss_topics}>' size = '55'>
+
+	<p><{@"Number of story abstracts to be listed in the TOPIC page:"}><br>
+	<input type = 'text' name = 'cfg_topic_num'
+		value = '<{cfg_topic_num}>' size = '4'>
+
+	<p><{@"Number of stories to be shown in the 'Top stories' option"}><br>
+		<{@"(If set to 0, this main menu option will not be shown)."}><br>
+	<input type = 'text' name = 'cfg_top_ten_num'
+		value = '<{cfg_top_ten_num}>' size = '4'>
+
+	<h2>Date formats</h2>
+
+	<p><{@"Global date format:"}><br>
+	<input type = 'text' name = 'cfg_date_format'
+		value = '<{cfg_date_format}>' size = '15'>
+
+	<p><{@"The format of dates for the <tt>intermixed_index</tt> template:"}><br>
+	<input type = 'text' name = 'cfg_index_date_format'
+		value = '<{cfg_index_date_format}>' size = '15'>
+
+	<p><{@"Date format for the stories:"}><br>
+	<input type = 'text' name = 'cfg_story_date_format'
+		value = '<{cfg_story_date_format}>' size = '15'>
+
+	<p><input type = 'submit' class = 'button' value = 'OK'>
+
+</form>
+
+</div>
+
+<{footer}>
