@@ -845,6 +845,11 @@ sub _art5 {
 			}
 		}
 
+		# if a 'config' template exists, read it
+		if (my $cfg = $a->code('config')) {
+			$a->exec($cfg);
+		}
+
 		# finally store
 		$self->{_art5} = $a;
 
