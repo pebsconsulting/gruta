@@ -5,7 +5,7 @@
 
 <form method = 'post' action = '<{url}>'>
 
-	<h1><{@"Configuration"}></h1>
+	<h1><{@"Edit configuration"}></h1>
 
 	<input type = 'hidden' name = 't' value = 'SAVE_CONFIG'>
 

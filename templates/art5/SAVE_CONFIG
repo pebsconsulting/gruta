@@ -3,6 +3,8 @@
 
 <div class = 'main'>
 
+<h1><{@"Save configuration"}></h1>
+
 <{save_config %%}>
 
 </div>
