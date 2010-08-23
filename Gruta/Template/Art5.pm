@@ -796,6 +796,39 @@ sub _art5 {
 			return [ $data->source->pending_comments() ];
 		};
 
+		$a->{op}->{save_config} = sub {
+			my $vars = $a->exec(shift);
+			my $ret = '';
+
+			foreach my $k (keys %{$vars}) {
+				next if $k eq 't';
+
+				if ($a->exec([ $k ]) eq $vars->{$k}) {
+					$ret .= "<tt>$k</tt> not changed<br>";
+					next;
+				}
+
+				my $template = $data->source->template($k);
+
+				if (!$template) {
+					$template = Gruta::Data::Template->new(id => $k);
+				}
+
+				$template->set('content', $vars->{$k});
+
+				if ($template->source()) {
+					$template = $template->save();
+				}
+				else {
+					$template = $data->source->insert_template($template);
+				}
+
+				$ret .= "<tt>$k</tt> <b>changed</b><br>";
+			}
+
+			return $ret;
+		};
+
 		$a->{op}->{about} = sub {
 			return 'Gruta ' . $data->version();
 		};

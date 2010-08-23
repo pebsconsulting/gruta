@@ -3,9 +3,7 @@
 
 <div class = 'main'>
 
-<pre>
-<{dump %%}>
-</pre>
+<{save_config %%}>
 
 </div>
 
