@@ -4,6 +4,8 @@ Gruta Release Notes
 2.3.1 "Sienna"
 --------------
 
+ * New interface to edit the configuration, instead of editing
+   the `cfg_' templates one by one.
  * Reworked template structure and CSS.
  * If a story named `index' in the `info' topic exists, it's used
    to substitute the main body of the `INDEX' page.
