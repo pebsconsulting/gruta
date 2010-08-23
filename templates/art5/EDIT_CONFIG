@@ -39,9 +39,9 @@
 
 	<h2>Behaviour</h2>
 
-	<p><{@"Disable comments:"}><br>
-	<input type = 'checkbox' name = 'cfg_disable_comments'
-		<{if cfg_disable_comments 'checked'}>>
+	<p><{@"Disable comments (1, disable; 0, enable):"}><br>
+	<input type = 'text' name = 'cfg_disable_comments'
+		value = '<{cfg_disable_comments}>' size = '1'>
 
 	<p><{@"Number of stories shown in the index:"}><br>
 	<input type = 'text' name = 'cfg_index_num'
