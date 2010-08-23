@@ -5,6 +5,9 @@
 
 <h1><{@"Admin"}></h1>
 
+<h2><{@"Configuration"}></h2>
+<a href = '<{url 'EDIT_CONFIG'}>'><{@"Edit"}></a>
+
 <h2><{@"Templates"}></h2>
 
 <form method = 'post' action = '<{url}>'>
