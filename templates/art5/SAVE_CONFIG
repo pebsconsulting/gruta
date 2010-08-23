@@ -1,0 +1,12 @@
+<{assert_admin}>
+<{header}>
+
+<div class = 'main'>
+
+<pre>
+<{dump %%}>
+</pre>
+
+</div>
+
+<{footer}>
