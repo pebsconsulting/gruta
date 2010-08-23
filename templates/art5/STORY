@@ -27,7 +27,7 @@
 			'to'
 				{story_date '%y%m%d235959' %topic %id}
 			}
-			{story_date cfg_story_date_format %topic %id}
+			{story_date {or cfg_story_date_format cfg_date_format} %topic %id}
 		}>
 	</div>
 

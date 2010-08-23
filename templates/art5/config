@@ -41,7 +41,7 @@
 	{ = 'cfg_date_format' '%y-%m-%d' }
 
 	# The format of dates for the intermixed_index template
-	{ = 'cfg_index_date_format' cfg_date_format }
+	{ = 'cfg_index_date_format' '' }
 
 	# Number of stories shown in the index
 	{ = 'cfg_index_num' 6 }
@@ -59,7 +59,7 @@
 	{ = 'cfg_rss_topics' '' }
 
 	# Date format for the stories
-	{ = 'cfg_story_date_format' cfg_date_format }
+	{ = 'cfg_story_date_format' '' }
 
 	# Number of story abstracts to be listed in the TOPIC page
 	{ = 'cfg_topic_num' 10 }

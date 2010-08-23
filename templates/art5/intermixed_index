@@ -12,7 +12,7 @@
 		''
 		{
 			"<h1 class = 'index_date'>"
-			{date cfg_index_date_format $2}
+			{date {or cfg_index_date_format cfg_date_format} $2}
 			"</h1>"
 		}
 	}
