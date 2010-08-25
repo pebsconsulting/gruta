@@ -333,7 +333,7 @@ sub _art5 {
 			}
 			elsif (my $sid = $data->login($user_id, $password)) {
 				$data->cgi->cookie("sid=$sid");
-				$data->cgi->redirect('INDEX');
+				$data->cgi->redirect('ADMIN');
 				$a->{abort} = 1;
 			}
 
