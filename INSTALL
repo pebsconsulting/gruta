@@ -9,7 +9,8 @@ Install the Artemus and Grutatxt modules, available from:
  	http://triptico.com/software/artemus.html
  	http://triptico.com/software/grutatxt.html
 
-You'll need at least Artemus 5.0.0 and Grutatxt 2.0.15.
+You'll need at least Artemus 5.0.1 and Grutatxt 2.0.16 (please take
+note that these versions may be development ones).
 
 If you want to use the DBI source driver, you'll need DBI and a
 corresponding DBD, of course. SQLite is fine and probably what
@@ -32,7 +33,8 @@ webserver configuration examples.
 Point your browser to the URL. As it's the first time, an `admin' user
 with a random password has been created and the program flow redirected
 to the administration page. Select the `admin' user from the _Users_ section
-and set a new password.
+and set a new password. After that, move to the _Configuration_ section and
+make all the changes you need.
 
 Create some topics. New topics will appear in the top menu. Clicking on
 them will allow you to create new stories. If you create a topic with the
