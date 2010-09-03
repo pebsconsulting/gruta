@@ -72,6 +72,10 @@
 	<input type = 'text' name = 'cfg_top_ten_num'
 		value = '<{cfg_top_ten_num}>' size = '4'>
 
+	<p><{@"Maximum number of related stories:"}><br>
+	<input type = 'text' name = 'cfg_max_related_stories'
+		value = '<{cfg_max_related_stories}>' size = '4'>
+
 	<h2>Date formats</h2>
 
 	<p><{@"Global date format:"}><br>

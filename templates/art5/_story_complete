@@ -1,6 +1,6 @@
 <div class = 'story_complete'>
 	<{story_body $0 $1 %hl}>
-	<{foreach {related_stories $0 $1}
+	<{foreach {related_stories $0 $1 cfg_max_related_stories}
 		{li {link {url 'STORY' 'topic' $0 'id' $1} {story_title $0 $1}}}
 		''
 		{ '</ul><h3>' @"Related" '</h3><ul>' }
