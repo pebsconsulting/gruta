@@ -266,7 +266,7 @@ sub _story_special_uri {
 			$ret = "Bad story '$topic_id/$story_id'";
 
 			if ($topic->is_editor($self->auth())) {
-				$ret .= sprintf(' <a href = "%s">[Create]</a>',
+				$ret .= sprintf(' <a href = "%s">[+]</a>',
 					$self->url('EDIT_STORY',
 						'topic' => $topic_id,
 						'id'	=> $story_id
