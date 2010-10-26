@@ -14,6 +14,11 @@
 
 <{if {and {not cfg_disable_comments} {story_has_comments $0 $1}} {
 	'<h2>' @"Add a comment" '</h2>'
+
+	"<!-- To any spammers out there: Any submission to this form is\n"
+	"moderated: this means that only I will see your URLs, and I will not\n"
+	"visit them nor link to them. Thus, you can stop wasting your time and mine. -->\n"
+
 	'<form method = "post" action = "' {url} '">'
 	'<p>' @"Author:" '<br><input name = "author">'
 	'<p>' @"Comment:" '<br><textarea name = "content" cols = "40" rows = "5" wrap = "virtual"></textarea>'
