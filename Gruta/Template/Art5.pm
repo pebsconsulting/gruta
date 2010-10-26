@@ -507,6 +507,17 @@ sub _art5 {
 			# render the story
 			$data->render($story);
 
+			# still no title?
+			if (!$story->get('title')) {
+				# try to find one in the body
+				my $b = $data->special_uris($story->get('body'));
+
+				if ($b =~ /<title>(.*)<\/title>/ ||
+					$b =~ /<h2 [^>]+>(.+)<\/h2>/) {
+					$story->set('title', $1);
+				}
+			}
+
 			if ($story->source()) {
 				$story = $story->save();
 			}
