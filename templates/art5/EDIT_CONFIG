@@ -37,7 +37,7 @@
 	<input type = 'text' name = 'cfg_logo_url'
 		value = '<{cfg_logo_url}>' size = '55'>
 
-	<h2>Behaviour</h2>
+	<h2><{@"Behaviour"}></h2>
 
 	<p><{@"Disable comments (1, disable; 0, enable):"}><br>
 	<input type = 'text' name = 'cfg_disable_comments'
@@ -76,7 +76,7 @@
 	<input type = 'text' name = 'cfg_max_related_stories'
 		value = '<{cfg_max_related_stories}>' size = '4'>
 
-	<h2>Date formats</h2>
+	<h2><{@"Date formats"}></h2>
 
 	<p><{@"Global date format:"}><br>
 	<input type = 'text' name = 'cfg_date_format'

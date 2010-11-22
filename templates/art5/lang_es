@@ -2,6 +2,9 @@
 " by " 
 " por "
 
+"(If set to 0, this main menu option will not be shown)." 
+"(si se pone a 0, esta opción del menú principal no se mostrará)."
+
 "404 Not Found" 
 "404 No Encontrado"
 
@@ -41,6 +44,9 @@
 "Back to admin" 
 "Volver a administración"
 
+"Behaviour" 
+"Comportamiento"
+
 "COPY" 
 "COPIAR"
 
@@ -56,6 +62,9 @@
 "Comments have been disabled. Sorry." 
 "Los comentarios están desactivados. Lo siento."
 
+"Configuration" 
+"Configuración"
+
 "Content:" 
 "Contenido:"
 
@@ -65,8 +74,17 @@
 "Continue editing" 
 "Seguir modificando"
 
+"Copyright string to be shown in the footer:" 
+"Cadena de copyright a mostrar en el pie:"
+
 "DELETE" 
 "BORRAR"
+
+"Date format for the stories:" 
+"Formato de fecha para las historias:"
+
+"Date formats" 
+"Formatos de fecha"
 
 "Delete" 
 "Borrar"
@@ -83,8 +101,14 @@
 "Directory:" 
 "Directorio:"
 
+"Disable comments (1, disable; 0, enable):" 
+"Deshabilitar comentarios (1, deshabilitar; 0, habilitar):"
+
 "Edit" 
 "Modificar"
+
+"Edit configuration" 
+"Modificar configuración"
 
 "Edit template" 
 "Modificar plantilla"
@@ -110,11 +134,17 @@
 "Generate table of contents? (grutatxt only)" 
 "¿Generar tabla de contenidos? (sólo grutatxt)"
 
+"Global date format:" 
+"Formato global para fechas:"
+
 "Go to:" 
 "Ir a:"
 
 "Hits:" 
 "Visitas:"
+
+"Host name:" 
+"Nombre del host:"
 
 "If you are already a subscriber to this site, please login to read it." 
 "Si usted ya es un subscriptor de este sitio web, por favor conéctese para leerlo."
@@ -134,8 +164,23 @@
 "Logout" 
 "Desconectar"
 
+"Maximum number of related stories:" 
+"Número máximo de historias relacionadas:"
+
 "More..." 
 "Más..."
+
+"Number of entries for the RSS feed:" 
+"Número de entradas para el feed RSS:"
+
+"Number of stories shown in the index:" 
+"Número de historias a mostrar en el índice:"
+
+"Number of stories to be shown in the 'Top stories' option" 
+"Número de historias a mostrar en la opción 'las más leídas'"
+
+"Number of story abstracts to be listed in the TOPIC page:" 
+"Número de abstract de historias a ser listadas en la página 'TOPIC':"
 
 "Password:" 
 "Palabra clave:"
@@ -167,6 +212,9 @@
 "Repeat password:" 
 "Repetir palabra clave:"
 
+"Save configuration" 
+"Guardar configuración"
+
 "Save story" 
 "Guardar historia"
 
@@ -193,6 +241,15 @@
 
 "Send" 
 "Enviar"
+
+"Site description (CANNOT contain HTML):" 
+"Descripción del sitio (NO PUEDE contener HTML):"
+
+"Site name:" 
+"Nombre del sitio:"
+
+"Slogan for the site:" 
+"Eslogan para el sitio:"
 
 "Story data" 
 "Datos de la historia"
@@ -221,6 +278,9 @@
 "The content you are trying to see" 
 "El contenido que está intentando ver"
 
+"The format of dates for the <tt>intermixed_index</tt> template:" 
+"Formato para las fechas de la plantilla <tt>intermixed_index</tt>:"
+
 "The requested page does not exist." 
 "La página solicitada no existe."
 
@@ -242,8 +302,23 @@
 "Topics" 
 "Secciones"
 
+"Topics to be shown in the RSS feed (Empty, all):" 
+"Secciones a mostrar en el feed RSS (vacío, todas):"
+
+"Topics to be shown in the index (Empty, all):" 
+"Secciones a mostrar en el índice (vacío, todas):"
+
+"Topics to be shown in the main menu (Empty, all):" 
+"Secciones a mostrar en el menú principal (vacío, todas):"
+
 "Total:" 
 "Total:"
+
+"URL to an icon for the site, in MS Windows icon format:" 
+"URL de un icono para el sitio, en formato de icono de MS Windows:"
+
+"URL to an image to shown as logo:" 
+"URL de una image a mostrar como logotipo:"
 
 "Uploads" 
 "Subidas"
