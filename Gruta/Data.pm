@@ -274,17 +274,18 @@ sub filter_field {
 	return $value;
 }
 
-sub setup {
-	my $self	= shift;
-	my $source	= shift;
 
-	$self->source($source);
+sub validate {
+	my $self	= shift;
+
+	# validate the comment as acceptable;
+	# if not, croak
 
 	my $topic_id = $self->get('topic_id');
 	my $story_id = $self->get('story_id');
 
 	# invalid story? fail
-	$source->story($topic_id, $story_id)
+	$self->source->story($topic_id, $story_id)
 		or croak("Invalid story $topic_id, $story_id");
 
 	# too short or too long? fail
@@ -300,6 +301,21 @@ sub setup {
 	if ($c =~ /\[(url|link)=/) {
 		croak("Invalid content");
 	}
+
+	return $self;
+}
+
+
+sub setup {
+	my $self	= shift;
+	my $source	= shift;
+
+	if ($source) {
+		$self->source($source);
+	}
+
+	# validate the comment as acceptable
+	$self->validate();
 
 	# set the rest of data
 	$self->set('id', sprintf("%08x%04x", time(), $$));
