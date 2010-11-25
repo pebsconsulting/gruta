@@ -90,6 +90,16 @@
 	<input type = 'text' name = 'cfg_story_date_format'
 		value = '<{cfg_story_date_format}>' size = '15'>
 
+	<h2><{@"Comment validation"}></h2>
+
+	<p><{@"Akismet API key:"}><br>
+	<input type = 'text' name = 'cfg_akismet_api_key'
+		value = '<{cfg_akismet_api_key}>' size = 32>
+
+	<p><{@"Akismet blog URL:"}><br>
+	<input type = 'text' name = 'cfg_akismet_url'
+		value = '<{cfg_akismet_url}>' size = 32>
+
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
 </form>

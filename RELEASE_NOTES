@@ -11,6 +11,7 @@ Gruta Release Notes
    to substitute the main body of the `INDEX' page.
  * Fixed a crash in `LIST' when connected.
  * Fixed story format in `EDIT_STORY'.
+ * Added support for Akismet comment SPAM detection.
 
 2.3.0 "Lucca"
 -------------

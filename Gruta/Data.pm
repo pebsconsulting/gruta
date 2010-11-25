@@ -302,6 +302,47 @@ sub validate {
 		croak("Invalid content");
 	}
 
+	# special spam validators
+
+	# Akismet
+	eval("use Net::Akismet;");
+
+	if (!$@) {
+		# validate with Akismet
+
+		# pick API key and hostname templates
+		my $api_key_t = $self->source->template('cfg_akismet_api_key');
+		my $url_t = $self->source->template('cfg_akismet_url');
+
+		if ($api_key_t && $url_t) {
+			my $api_key = $api_key_t->get('content');
+			my $url		= $url_t->get('content');
+
+			if ($api_key && $url) {
+				my $akismet = Net::Akismet->new(
+					KEY => $api_key,
+					URL => $url
+				);
+
+				if ($akismet) {
+					my $ret = $akismet->check(
+						USER_IP				=> $ENV{REMOTE_ADDR},
+						COMMENT_USER_AGENT	=> $ENV{HTTP_USER_AGENT},
+						COMMENT_CONTENT		=> $self->get('content'),
+						COMMENT_AUTHOR		=> $self->get('author'),
+						REFERRER			=> $ENV{HTTP_REFERER} 
+					);
+
+#					print STDERR "Akismet said: ", $ret, "\n";
+
+					if ($ret && $ret eq 'true') {
+						croak('Comment rejected as SPAM');
+					}
+				}
+			}
+		}
+	}
+
 	return $self;
 }
 
