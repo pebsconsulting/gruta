@@ -304,6 +304,34 @@ sub validate {
 
 	# special spam validators
 
+	# blogspam.net
+	eval("use RPC::XML::Client;");
+
+	if (!$@) {
+		my $blogspam = RPC::XML::Client->new(
+			'http://test.blogspam.net:8888/');
+
+		if ($blogspam) {
+			my $res = $blogspam->send_request('testComment', {
+				ip 		=> $ENV{REMOTE_ADDR},
+				comment	=> $self->get('content'),
+				agent	=> $ENV{HTTP_USER_AGENT},
+				name	=> $self->get('author')
+				}
+			);
+
+			if ($res) {
+				my $r = $res->value();
+
+#				print STDERR "blogspam.net " . $r . "\n";
+
+				if ($r =~ /^SPAM:/) {
+					croak("Comment rejected as " . $r);
+				}
+			}
+		}
+	}
+
 	# Akismet
 	eval("use Net::Akismet;");
 
