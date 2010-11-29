@@ -607,6 +607,9 @@ sub pending_comments {
 
 sub comments {
 	my $self = shift;
+	my $max = shift;
+
+	$max ||= 20;
 
 	my @ret = ();
 
@@ -642,7 +645,10 @@ sub comments {
 		closedir BASE;
 	}
 
-	return sort { $b->[2] cmp $a->[2] } @ret;
+	@ret = sort { $b->[2] cmp $a->[2] } @ret;
+	@ret = @ret[0 .. ($max - 1)];
+
+	return grep { defined $_ } @ret;
 }
 
 

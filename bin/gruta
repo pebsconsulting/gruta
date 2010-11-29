@@ -365,12 +365,13 @@ my $X = {
 		}
 	],
 	'comments'	=> [
-		'comments {src}',
+		'comments {src} [{max}]',
 		'Lists all comments',
 		sub {
 			my $g		= init();
+			my $max		= arg_o();
 
-			foreach my $e ($g->source->comments()) {
+			foreach my $e ($g->source->comments($max)) {
 				print join(' ', @{$e}), "\n";
 			}
 		}
