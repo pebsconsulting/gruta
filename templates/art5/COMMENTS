@@ -1,0 +1,25 @@
+<{header}>
+
+<{column1}>
+
+<{column2}>
+
+<div class = 'main'>
+
+	<{main_top}>
+
+	<h1><{@"Comments"}></h1>
+
+	<{foreach {comments %num} {
+		'<p>'
+		{link {url 'STORY' 'topic' $0 'id' $1} {story_title $0 $1}}
+		'</p>'
+		{_comment $0 $1 $2}
+	}
+	'<p>'}>
+
+	<{main_bottom}>
+
+</div>
+
+<{footer}>

@@ -807,6 +807,11 @@ sub _art5 {
 			return [ $data->source->pending_comments() ];
 		};
 
+		$a->{op}->{comments} = sub {
+			my $num = $a->exec0(shift);
+			return [ $data->source->comments($num) ];
+		};
+
 		$a->{op}->{save_config} = sub {
 			my $vars = $a->exec(shift);
 			my $ret = '';
