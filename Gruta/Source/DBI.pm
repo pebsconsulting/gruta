@@ -349,7 +349,7 @@ sub comments {
 	my $sth;
 
 	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
-				'ORDER BY ctime DESC LIMIT ?';
+				'WHERE approved = 1 ORDER BY ctime DESC LIMIT ?';
 
 	$sth = $self->_prepare($sql);
 	$self->_execute($sth, $max);

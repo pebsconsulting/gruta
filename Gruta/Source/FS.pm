@@ -630,7 +630,13 @@ sub comments {
 					if (opendir STORY, $sf) {
 						while (my $id = readdir STORY) {
 							if ($id =~ /^(.+)\.M/) {
-								push @ret, [ $topic_id, $story_id, $1 ];
+								$id = $1;
+								my $c = $self->comment($topic_id,
+												$story_id, $id);
+
+								if ($c && $c->get('approved')) {
+									push @ret, [ $topic_id, $story_id, $1 ];
+								}
 							}
 						}
 
