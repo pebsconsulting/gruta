@@ -320,13 +320,13 @@ sub validate {
 				}
 			);
 
-			if ($res) {
+			if (ref($res)) {
 				my $r = $res->value();
 
 #				print STDERR "blogspam.net " . $r . "\n";
 
 				if ($r =~ /^SPAM:/) {
-					croak("Comment rejected as " . $r);
+					croak("Comment rejected as " . $r . ' (blogspam.net)');
 				}
 			}
 		}
@@ -364,7 +364,7 @@ sub validate {
 #					print STDERR "Akismet said: ", $ret, "\n";
 
 					if ($ret && $ret eq 'true') {
-						croak('Comment rejected as SPAM');
+						croak('Comment rejected as SPAM (Akismet)');
 					}
 				}
 			}
