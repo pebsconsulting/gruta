@@ -339,6 +339,29 @@ sub pending_comments {
 }
 
 
+sub comments {
+	my $self = shift;
+	my $max = shift;
+
+	$max ||= 20;
+
+	my @ret = ();
+	my $sth;
+
+	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
+				'ORDER BY ctime DESC LIMIT ?';
+
+	$sth = $self->_prepare($sql);
+	$self->_execute($sth, $max);
+
+	while(my @r = $sth->fetchrow_array()) {
+		push(@ret, [ @r ]);
+	}
+
+	return @ret;
+}
+
+
 sub story_comments {
 	my $self	= shift;
 	my $story	= shift;
