@@ -355,11 +355,22 @@ my $X = {
 	],
 	'pending_comments'	=> [
 		'pending_comments {src}',
-		'List the comments with approval pending',
+		'Lists all comments with approval pending',
 		sub {
 			my $g		= init();
 
 			foreach my $e ($g->source->pending_comments()) {
+				print join(' ', @{$e}), "\n";
+			}
+		}
+	],
+	'comments'	=> [
+		'comments {src}',
+		'Lists all comments',
+		sub {
+			my $g		= init();
+
+			foreach my $e ($g->source->comments()) {
 				print join(' ', @{$e}), "\n";
 			}
 		}

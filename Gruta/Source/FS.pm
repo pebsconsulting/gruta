@@ -605,6 +605,47 @@ sub pending_comments {
 }
 
 
+sub comments {
+	my $self = shift;
+
+	my @ret = ();
+
+	my $path = $self->{path} . Gruta::Data::FS::Comment::base();
+
+	if (opendir BASE, $path) {
+		while (my $topic_id = readdir BASE) {
+			next if $topic_id =~ /^\./;
+
+			my $f = $path . $topic_id;
+
+			if (opendir TOPIC, $f) {
+				while (my $story_id = readdir TOPIC) {
+					next if $story_id =~ /^\./;
+
+					my $sf = $f . '/' . $story_id;
+
+					if (opendir STORY, $sf) {
+						while (my $id = readdir STORY) {
+							if ($id =~ /^(.+)\.M/) {
+								push @ret, [ $topic_id, $story_id, $1 ];
+							}
+						}
+
+						closedir STORY;
+					}
+				}
+
+				closedir TOPIC;
+			}
+		}
+
+		closedir BASE;
+	}
+
+	return sort { $b->[2] cmp $a->[2] } @ret;
+}
+
+
 sub story_comments {
 	my $self	= shift;
 	my $story	= shift;
