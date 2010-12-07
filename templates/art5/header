@@ -18,3 +18,7 @@
 <{top}>
 
 <div class = 'inner-container'>
+
+<{= 'html_title' {or cfg_slogan cfg_site_name}}>
+<{= 'html_description' cfg_site_description}>
+
