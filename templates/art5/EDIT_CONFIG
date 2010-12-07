@@ -76,6 +76,10 @@
 	<input type = 'text' name = 'cfg_max_related_stories'
 		value = '<{cfg_max_related_stories}>' size = '4'>
 
+	<p><{@"Show link to printable version (1, show; 0: do not show):"}><br>
+	<input type = 'text' name = 'cfg_show_printable'
+		value = '<{cfg_show_printable}>' size = '1'>
+
 	<h2><{@"Date formats"}></h2>
 
 	<p><{@"Global date format:"}><br>

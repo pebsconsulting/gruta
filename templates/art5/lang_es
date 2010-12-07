@@ -20,6 +20,12 @@
 "Administrator?" 
 "¿Administrador?"
 
+"Akismet API key:" 
+"API key proporcionada por Akismet:"
+
+"Akismet blog URL:" 
+"Blog URL proporcinada a Akismet:"
+
 "Allow comments from visitors?" 
 "¿Permitir comentarios de visitantes?"
 
@@ -52,6 +58,9 @@
 
 "Can upload files?" 
 "¿Puede subir ficheros?"
+
+"Comment validation" 
+"Validación de comentarios"
 
 "Comment:" 
 "Comentario:"
@@ -241,6 +250,9 @@
 
 "Send" 
 "Enviar"
+
+"Show link to printable version (1, show; 0: do not show):" 
+"Mostrar enlace a la versión para imprimir (1, mostrar; 0, no mostrar):"
 
 "Site description (CANNOT contain HTML):" 
 "Descripción del sitio (NO PUEDE contener HTML):"
