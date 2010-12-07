@@ -7,10 +7,11 @@
 	<{if {or cfg_disable_comments {not {story_has_comments %topic %story}}}
 		{ @"Comments have been disabled. Sorry." }
 		{
-			{post_comment %topic %story %author %content}
-
 			'<p>'
-			@"Your comment has been queued for approval. Thank you."
+			{if {post_comment %topic %story %author %content}
+				{@"Your comment has been posted. Thank you."}
+				{@"Your comment has been queued for approval. Thank you."}
+			}
 			'</p>'
 
 			{link {?

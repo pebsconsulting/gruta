@@ -774,7 +774,7 @@ sub _art5 {
 
 			$data->source->insert_comment($c);
 
-			return 'OK';
+			return $c->get('approved');
 		};
 
 		$a->{op}->{delete_comment} = sub {
