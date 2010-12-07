@@ -17,7 +17,7 @@
 	'<link>http://' cfg_host_name '</link>'
 	'<width>16</width>'
 	'<height>16</height>'
-	'<description>' cfg_slogan '</description>'
+	'<description>' cfg_site_description '</description>'
 	'</image>'
 
 	{foreach {
