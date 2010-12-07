@@ -2,7 +2,7 @@
 	{assert {topic_id %topic} '404'}
 	header
 
-	{= 'html_title'		{cfg_site_name ': ' {topic_name %topic}}}
+	{= 'html_title'		{? cfg_site_name ': ' {topic_name %topic}}}
 	{= 'html_description'	{topic_description %topic}}
 
 	column1
@@ -17,7 +17,7 @@
 	<{if {story_title %topic 'index'} {
 		"<div class = 'topic_index'>"
 		{= 'html_title'
-			{cfg_site_name ': ' {story_title %topic 'index'}}
+			{? cfg_site_name ': ' {story_title %topic 'index'}}
 		}
 
 		{story_body %topic 'index'}

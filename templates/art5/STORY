@@ -5,7 +5,7 @@
 	header
 
 	{= 'html_title'
-			{cfg_site_name ': ' {story_title %topic %id}}}
+			{? cfg_site_name ': ' {story_title %topic %id}}}
 	{= 'html_description'
 			{story_description %topic %id}}
 	{= 'html_keywords'
