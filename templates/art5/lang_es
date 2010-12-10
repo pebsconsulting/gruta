@@ -251,6 +251,9 @@
 "Send" 
 "Enviar"
 
+"Send a copy of new comments to this email address:" 
+"Enviar una copia de los nuevos comentarios a esta dirección de email:"
+
 "Show link to printable version (1, show; 0: do not show):" 
 "Mostrar enlace a la versión para imprimir (1, mostrar; 0, no mostrar):"
 

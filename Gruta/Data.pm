@@ -391,6 +391,29 @@ sub setup {
 	$self->set('ctime', time());
 	$self->set('date', Gruta::Data::today());
 
+	# send comment by email
+	if (!$self->get('approved')) {
+		if (my $t = $self->source->template('cfg_comment_email')) {
+			if (my $c = $t->get('content')) {
+
+				open F, "|/usr/sbin/sendmail -t"
+					or die "Error $!";
+
+				my $msg =
+					"From: Gruta CMS <gruta\@localhost>\n" .
+					"To: $c\n" .
+					"Subject: New comment waiting for approval\n" .
+					"\n" .
+					$self->get('date') . ", " .
+					$self->get('author') . "\n\n" .
+					$self->get('content') . "\n";
+
+				print F $msg;
+				close F;
+			}
+		}
+	}
+
 	return $self;
 }
 

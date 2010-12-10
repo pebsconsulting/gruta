@@ -104,6 +104,10 @@
 	<input type = 'text' name = 'cfg_akismet_url'
 		value = '<{cfg_akismet_url}>' size = 32>
 
+	<p><{@"Send a copy of new comments to this email address:"}><br>
+	<input type = 'text' name = 'cfg_comment_email'
+		value = '<{cfg_comment_email}>' size = 32>
+
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
 </form>
