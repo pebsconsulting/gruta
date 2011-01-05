@@ -403,6 +403,7 @@ sub setup {
 					"From: Gruta CMS <gruta\@localhost>\n" .
 					"To: $c\n" .
 					"Subject: New comment waiting for approval\n" .
+                    "Content-type: text/plain; charset=utf-8\n" .
 					"\n" .
 					$self->get('date') . ", " .
 					$self->get('author') . "\n\n" .
