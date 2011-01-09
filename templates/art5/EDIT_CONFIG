@@ -108,6 +108,16 @@
 
 	<h2><{@"Comment validation"}></h2>
 
+	<p><{@"Use blogspam.net:"}><br>
+	<select name = 'cfg_use_blogspam_net'>
+		<option <{if {not cfg_use_blogspam_net} 'selected'}> value = '0'>
+			<{@"no"}>
+		</option>
+		<option <{if cfg_use_blogspam_net 'selected'}> value = '1'>
+			<{@"yes"}>
+		</option>
+	</select>
+
 	<p><{@"Akismet API key:"}><br>
 	<input type = 'text' name = 'cfg_akismet_api_key'
 		value = '<{cfg_akismet_api_key}>' size = 32>

@@ -305,31 +305,35 @@ sub validate {
 	# special spam validators
 
 	# blogspam.net
-	eval("use RPC::XML::Client;");
+    my $use_blogspam_net = $self->source->template('cfg_use_blogspam_net');
 
-	if (!$@) {
-		my $blogspam = RPC::XML::Client->new(
-			'http://test.blogspam.net:8888/');
+    if ($use_blogspam_net && $use_blogspam_net->get('content')) {
+    	eval("use RPC::XML::Client;");
 
-		if ($blogspam) {
-			my $res = $blogspam->send_request('testComment', {
-				ip 		=> $ENV{REMOTE_ADDR},
-				comment	=> $self->get('content'),
-				agent	=> $ENV{HTTP_USER_AGENT},
-				name	=> $self->get('author')
-				}
-			);
+    	if (!$@) {
+    		my $blogspam = RPC::XML::Client->new(
+    			'http://test.blogspam.net:8888/');
 
-			if (ref($res)) {
-				my $r = $res->value();
+    		if ($blogspam) {
+    			my $res = $blogspam->send_request('testComment', {
+    				ip 		=> $ENV{REMOTE_ADDR},
+    				comment	=> $self->get('content'),
+    				agent	=> $ENV{HTTP_USER_AGENT},
+    				name	=> $self->get('author')
+    				}
+    			);
 
-#				print STDERR "blogspam.net " . $r . "\n";
+    			if (ref($res)) {
+    				my $r = $res->value();
 
-				if ($r =~ /^SPAM:/) {
-					croak("Comment rejected as " . $r . ' (blogspam.net)');
-				}
-			}
-		}
+#				   print STDERR "blogspam.net " . $r . "\n";
+
+    				if ($r =~ /^SPAM:/) {
+    					croak("Comment rejected as " . $r . ' (blogspam.net)');
+    				}
+    			}
+    		}
+        }
 	}
 
 	# Akismet
