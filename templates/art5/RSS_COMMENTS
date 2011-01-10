@@ -1,0 +1,42 @@
+<{
+	{content_type "application/rss+xml"}
+	'<?xml version="1.0" encoding="UTF-8"?>'
+	'<rss version="0.91">'
+
+	'<channel>'
+
+	'<title>' cfg_site_name '</title>'
+	'<link>http://' cfg_host_name '</link>'
+	'<description>' cfg_site_description @"(comments)" '</description>'
+	'<copyright>' cfg_copyright '</copyright>'
+	'<language>en-en</language>'
+
+	'<image>'
+	'<title>' cfg_site_name '</title>'
+	'<url>http://' cfg_host_name '/img/icon.png</url>'
+	'<link>http://' cfg_host_name '</link>'
+	'<width>16</width>'
+	'<height>16</height>'
+	'<description>' cfg_site_description '</description>'
+	'</image>'
+
+	{foreach
+		{comments {or %num 10}}
+
+		{
+			'<item>'
+			'<title>' {story_title $0 $1} '</title>'
+			'<link>' {aurl 'STORY' 'topic' $0 'id' $1} '#' $2 '</link>'
+			'<author>' {comment_author $0 $1 $2} '</author>'
+			'<description>'
+			"\n<![CDATA[\n"
+			{_comment $0 $1 $2}
+			"\n]]>\n"
+			'</description>'
+			'</item>'
+		}
+	}
+
+	'</channel>'
+	'</rss>'
+}>
