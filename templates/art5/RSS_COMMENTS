@@ -5,14 +5,14 @@
 
 	'<channel>'
 
-	'<title>' cfg_site_name '</title>'
+	'<title>' cfg_site_name @" (comments)" '</title>'
 	'<link>http://' cfg_host_name '</link>'
-	'<description>' cfg_site_description @"(comments)" '</description>'
+	'<description>' cfg_site_description @" (comments)" '</description>'
 	'<copyright>' cfg_copyright '</copyright>'
 	'<language>en-en</language>'
 
 	'<image>'
-	'<title>' cfg_site_name '</title>'
+	'<title>' cfg_site_name @" (comments)" '</title>'
 	'<url>http://' cfg_host_name '/img/icon.png</url>'
 	'<link>http://' cfg_host_name '</link>'
 	'<width>16</width>'
