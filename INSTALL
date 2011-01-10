@@ -16,7 +16,13 @@ If you want to use the DBI source driver, you'll need DBI and a
 corresponding DBD, of course. SQLite is fine and probably what
 you want.
 
-Install this package:
+These other Perl modules will be used if installed:
+
+ - Image::Size (to include image sizes in `img' tags)
+ - RPC::XML::Client (to use blogspam.net comment spam checks)
+ - Net::Akismet (to use Akismet comment spam checks)
+
+Install Gruta's package:
 
  	$ perl Makefile.PL && make && su -c "make install"
 
