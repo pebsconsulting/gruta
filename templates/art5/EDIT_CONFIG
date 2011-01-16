@@ -9,6 +9,8 @@
 
 	<input type = 'hidden' name = 't' value = 'SAVE_CONFIG'>
 
+	<p><input type = 'submit' class = 'button' value = 'OK'>
+
 	<p><{@"Host name:"}><br>
 	<input type = 'text' name = 'cfg_host_name'
 		value = '<{cfg_host_name}>' size = '55'>
