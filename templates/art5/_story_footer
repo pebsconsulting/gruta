@@ -26,6 +26,27 @@
 	<{link {url 'TOPIC' 'topic' $0} {topic_name $0}}>
 	</span>
 
+    <span class = 'comment_count'>
+    <{if {size {story_comments $0 $1}} {
+        ?
+        " - "
+        {link
+            {
+                ?
+                {url 'STORY' 'topic' $0 'id' $1}
+                '#comments'
+            }
+            {
+                ?
+                {size {story_comments $0 $1}}
+                ' '
+                @"comments"
+                }
+            }
+        }
+    }>
+    </span>
+
 	<span class = 'tags'>
 	<{foreach {story_tags $0 $1}
 		{link {url 'SEARCH_BY_TAG' 'tag' $0} $0}
