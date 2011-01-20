@@ -56,7 +56,7 @@
                         {url 'STORY' 'topic' $0 'id' $1}
                         '#comments'
                     }
-                    @"Add comment"
+                    @"Add a comment"
                 }
             }
         }
