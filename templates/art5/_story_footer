@@ -1,6 +1,9 @@
 <div class = 'story_footer'>
 
-	<{if {ne %t 'STORY'} {
+	<{if {and
+            {ne %t 'STORY'}
+            {ne {story_body $0 $1}{story_abstract $0 $1}}
+         } {
 		"<span class = 'full_story_link'>"
 		{link {url 'STORY' 'topic' $0 'id' $1} @"More..."}
 		" - </span>"
