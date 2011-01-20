@@ -12,6 +12,7 @@
 
 <{_story_footer $0 $1}>
 
+<a name = 'comments'></a>
 <{if {and {not cfg_disable_comments} {story_has_comments $0 $1}} {
 	'<h2>' @"Add a comment" '</h2>'
 
