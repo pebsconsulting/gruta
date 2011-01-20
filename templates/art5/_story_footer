@@ -47,6 +47,19 @@
                 }
             }
         }
+        {if {story_has_comments $0 $1} {
+            ?
+            " - "
+            {link
+                    {
+                        ?
+                        {url 'STORY' 'topic' $0 'id' $1}
+                        '#comments'
+                    }
+                    @"Add comment"
+                }
+            }
+        }
     }>
     </span>
 
