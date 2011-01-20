@@ -29,7 +29,7 @@
 	<{link {url 'TOPIC' 'topic' $0} {topic_name $0}}>
 	</span>
 
-    <span class = 'comment_count'>
+    <span class = 'comment_link'>
     <{if {size {story_comments $0 $1}} {
         ?
         " - "
