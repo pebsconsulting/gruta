@@ -171,6 +171,23 @@ sub _art5 {
 			return $data->special_uris($story->get('abstract'));
 		};
 
+        $a->{op}->{touch_story} = sub {
+            my $topic_id	= $a->exec(shift);
+            my $id			= $a->exec(shift);
+
+            if (my $topic = $data->source->topic($topic_id)) {
+                if (my $story = $data->source->story($topic_id, $id)) {
+                    # touch the story if user is not
+                    # (potentially) involved on it
+                    if (! $topic->is_editor($data->auth())) {
+                        $story->touch();
+                    }
+                }
+            }
+
+            return '';
+        };
+
 		$a->{op}->{story_body} = sub {
 			my $topic_id	= $a->exec(shift);
 			my $id			= $a->exec(shift);
@@ -185,12 +202,7 @@ sub _art5 {
 						$ret = $a->exec([ 'restricted_access' ]);
 					}
 					else {
-						# touch the story if user is not
-						# (potentially) involved on it
-						if (! $topic->is_editor($data->auth())) {
-							$story->touch();
-						}
-
+                        # parse special uris
 						$ret = $data->special_uris($story->get('body'));
 					}
 				}

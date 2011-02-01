@@ -1,6 +1,7 @@
 <{
 	{assert_visible_story %topic %id}
 	{redir_if_archived 'STORY' %topic %id}
+    {touch_story %topic %id}
 
 	header
 
