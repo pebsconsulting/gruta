@@ -151,19 +151,6 @@ h6 {
 }
 .tags {
 	float: right;
-	font-size: 90%;
-}
-.hits {
-	font-size: 90%;
-}
-.full_story_link {
-	font-size: 90%;
-}
-.edit_link {
-	font-size: 90%;
-}
-.topic_link {
-	font-size: 90%;
 }
 .date {
 	font-size: 90%;
@@ -177,6 +164,7 @@ h6 {
 	width: 100%;
 	background: #eeeecd;
 	margin-bottom: 2em;
+	font-size: 90%;
 }
 .topic_list {
 	margin-left: 2em;
