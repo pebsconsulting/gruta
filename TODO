@@ -15,6 +15,7 @@ Open Bugs
    no author.
  * 1065: Every time the supertemplate is changed, it should also
    be set in the CGI vars hash.
+ * 1071: Move comment SPAM testing to Gruta::CGI.
 
 Pending Enhancements
 --------------------
