@@ -7,7 +7,7 @@ use locale;
 
 use Gruta::Data;
 
-$Gruta::VERSION				= '2.3.1-dev';
+$Gruta::VERSION				= '2.3.1';
 $Gruta::VERSION_CODENAME	= '"Sienna"';
 
 sub source {
