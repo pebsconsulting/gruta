@@ -16,6 +16,8 @@ Open Bugs
  * 1065: Every time the supertemplate is changed, it should also
    be set in the CGI vars hash.
  * 1071: Move comment SPAM testing to Gruta::CGI.
+ * 1072: Add a "More..." link to RSS entries that need it.
+ * 1073: Change the comment mail notification to a template.
 
 Pending Enhancements
 --------------------
