@@ -1,8 +1,0 @@
-=head2 link_to_edit_story
-
- link_to_edit_story {topic_id} {id}
-
-Generates a link to edit the specified story.
-
-=cut
-<a href='{-url|EDIT_STORY|topic|$0|id|$1}'>[Edit]</a>

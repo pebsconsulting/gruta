@@ -1,8 +1,0 @@
-=head2 cfg_additional_headers
-
- cfg_additional_headers
-
-Add here more C<meta>, C<link> or similar HTML tags
-that will live inside the document C<head>.
-
-=cut

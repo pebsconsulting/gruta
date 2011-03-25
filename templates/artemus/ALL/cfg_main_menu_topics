@@ -1,9 +1,0 @@
-=head2 cfg_main_menu_topics
-
- cfg_main_menu_topics
-
-The topics that will be linked from the main menu,
-as a colon-separated list of topic ids.
-
-=cut
-{-topics}

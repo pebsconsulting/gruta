@@ -1,9 +1,0 @@
-=head2 cfg_logo_url
-
- cfg_logo_url
-
-Must contain the URL to the image (300 x 94 pixels) shown as
-the logo in the header.
-
-=cut
-http://triptico.com/img/gruta_logo.jpg

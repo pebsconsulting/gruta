@@ -1,8 +1,0 @@
-=head2 link_to_new_story
-
- link_to_new_story {topic_id}
-
-Generates a link to create a new story.
-
-=cut
-<a href = '{-url|EDIT_STORY|topic|$0|id|[]}'>[New]</a>

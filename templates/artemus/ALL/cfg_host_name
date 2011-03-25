@@ -1,9 +1,0 @@
-=head2 cfg_host_name
-
- cfg_host_name
-
-Write here your fully qualified host name, with any needed directory paths.
-Don't include any http:// prefix.
-
-=cut
-triptico.com
