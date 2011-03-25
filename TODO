@@ -16,7 +16,6 @@ Open Bugs
  * 1065: Every time the supertemplate is changed, it should also
    be set in the CGI vars hash.
  * 1071: Move comment SPAM testing to Gruta::CGI.
- * 1072: Add a "More..." link to RSS entries that need it.
  * 1073: Change the comment mail notification to a template.
 
 Pending Enhancements
@@ -167,5 +166,7 @@ Closed
    (Sun, 06 Jun 2010 20:31:27 +0200).
  * 1070: Rename 'cfg_index' to 'index'
    (Mon, 07 Jun 2010 08:37:46 +0200).
+ * 1072: Add a "More..." link to RSS entries that need it
+   (Fri, 25 Mar 2011 10:56:03 +0100).
 
 Email bugs to angel@triptico.com

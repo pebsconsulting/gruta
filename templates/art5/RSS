@@ -40,6 +40,12 @@
 			'<description>'
 			"\n<![CDATA[\n"
 			{story_abstract $0 $1}
+            {if {ne {story_body $0 $1}{story_abstract $0 $1}}
+                {?
+                    '<br>'
+                    {link {url 'STORY' 'topic' $0 'id' $1} @"More..."}
+                }
+            }
 			"\n]]>\n"
 			'</description>'
 			'</item>'
