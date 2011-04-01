@@ -3,18 +3,18 @@
 	@"The content you are trying to see"
 	' (<b>'
 	{story_title %topic %id}
-	'</b>)'
+	'</b>) '
 	@"it's actually only available to subscribers."
 	'</p>'
 
 	'<p>'
 	@"If you are already a subscriber to this site, please login to read it."
-	{link {url 'LOGIN'} @"Login"}
+	' ' {link {url 'LOGIN'} @"Login"}
 	'</p>'
 
 	'<p>'
 	@"If you are not, please consider subscribing."
-	{link {url 'SUBSCRIBE'} @"Subscribe"}
+	' ' {link {url 'SUBSCRIBE'} @"Subscribe"}
 	'</p>'
 
 	'<p>'
