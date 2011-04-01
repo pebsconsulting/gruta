@@ -11,7 +11,8 @@
 			%year %month %day '' '' ''
 			%format %tags
 			%year2 %month2 %day2
-			%description %toc %has_comments
+			%description %toc
+            %has_comments %full_story
 		}
 	}>
 

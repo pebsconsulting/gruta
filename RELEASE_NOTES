@@ -7,6 +7,10 @@ Gruta Release Notes
  - Artemus4 support has been dropped.
  - New bin/gruta commands:
    - `rename_tag', to rename or remove a tag
+ - New features:
+   - A new checkbox to show the full story in indexes (so that
+     the abstract and the body are the same, no need to add the
+     magic separator mark at the end)
 
 2.3.1 "Sienna"
 --------------

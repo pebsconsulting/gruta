@@ -74,6 +74,10 @@
 			"checked"}>
 	>
 
+	<p><{@"Show full story in indexes?"}><br>
+	<input type = 'checkbox' name = 'full_story'
+		<{if {story_full_story %topic %id} "checked"}>>
+
 	<p><{@"Content:"}><br>
 
 	<textarea name = 'content' cols = '80' rows = '30'

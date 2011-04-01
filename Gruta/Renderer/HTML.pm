@@ -98,6 +98,10 @@ sub story {
 
 	$content =~ s/<->//g;
 
+    if ($story->get('full_story')) {
+        $abstract = $content;
+    }
+
 	$story->set('title',	$title);
 	$story->set('abstract',	$abstract);
 	$story->set('body',	$content);

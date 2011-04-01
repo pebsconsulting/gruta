@@ -67,6 +67,10 @@ sub story {
 	$story->set('abstract',	join("\n", @o[0 .. $to]));
 	$story->set('body',	join("\n", @o));
 
+    if ($story->get('full_story')) {
+        $story->set('abstract', $story->get('body'));
+    }
+
 	return $self;
 }
 
