@@ -284,6 +284,33 @@ my $X = {
 			}
 		}
 	],
+    'rename_tag' => [
+        'rename_tag {src} {tag} [new tag]',
+        'Renames (or removes) a tag',
+        sub {
+            my $g       = init();
+            my $old_tag = arg();
+            my $new_tag = arg_o();
+
+            foreach my $s ($g->source->stories_by_tag('', $old_tag)) {
+                my $story = $g->source->story($s->[0], $s->[1]);
+
+                my @tags = $story->tags();
+
+                my @new_tags = ();
+
+                if ($new_tag) {
+                    @tags = map { $_ eq $old_tag ? $new_tag : $_ } @tags;
+                }
+                else {
+                    @tags = grep { ! /^$old_tag$/ } @tags;
+                }
+
+                $story->tags(@tags);
+                $story->save();
+            }
+        }
+    ],
 	'search'	=> [
 		'search {src} {topic(s)} {query}',
 		'Searches stories by content',
