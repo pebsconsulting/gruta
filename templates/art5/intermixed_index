@@ -8,7 +8,10 @@
 			{or %num	cfg_index_num}
 			{or %offset	0}
 		}
-		{_story_abstract $0 $1}
+        {
+            {_story_abstract $0 $1}
+            {_story_footer $0 $1}
+        }
 		''
 		{
 			"<h1 class = 'index_date'>"

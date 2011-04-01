@@ -39,17 +39,7 @@
 			'</author>'
 			'<description>'
 			"\n<![CDATA[\n"
-			{story_abstract $0 $1}
-            {if
-                {or
-                    {ne {story_date2 cfg_date_format $0 $1} '00000000000000'}
-                    {ne {story_body $0 $1}{story_abstract $0 $1}}
-                }
-                {?
-                    '<br>'
-                    {link {url 'STORY' 'topic' $0 'id' $1} @"More..."}
-                }
-            }
+			{_story_abstract $0 $1}
 			"\n]]>\n"
 			'</description>'
 			'</item>'
