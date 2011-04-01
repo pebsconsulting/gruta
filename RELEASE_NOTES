@@ -4,7 +4,9 @@ Gruta Release Notes
 2.3.2 "Arezzo"
 --------------
 
- * Artemus4 support has been dropped.
+ - Artemus4 support has been dropped.
+ - New bin/gruta commands:
+   - `rename_tag', to rename or remove a tag
 
 2.3.1 "Sienna"
 --------------
