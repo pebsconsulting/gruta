@@ -159,6 +159,9 @@ h6 {
 	float: left;
 	width: 100%;
 }
+.full_story_link {
+    margin-bottom: 1em;
+}
 .story_footer {
 	float: left;
 	width: 100%;
