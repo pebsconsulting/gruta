@@ -194,6 +194,9 @@
 "Number of story abstracts to be listed in the TOPIC page:" 
 "Número de abstract de historias a ser listadas en la página 'TOPIC':"
 
+"Older posts »" 
+"Más antiguas »"
+
 "Password:" 
 "Palabra clave:"
 
@@ -385,5 +388,8 @@
 
 "yes" 
 "sí"
+
+"« Newer posts" 
+"« Más modernas"
 
 }>

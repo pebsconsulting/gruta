@@ -4,7 +4,7 @@
 			"<span class = 'prev'>"
 			{link
 				{url {or %t 'INDEX'} 'topic' $0 'offset' {sub $2 $1}}
-				"&lt;&lt;"
+				@"« Newer posts"
 			}
 			"</span>"
 		}
@@ -16,7 +16,7 @@
 			"<span class = 'next'>"
 			{link
 				{url {or %t 'INDEX'} 'topic' $0 'offset' {add $2 $1}}
-				"&gt;&gt"
+                @"Older posts »"
 			}
 			"</span>"
 		}
