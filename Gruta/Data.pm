@@ -291,7 +291,7 @@ sub validate {
 	# too short or too long? fail
 	my $c = $self->get('content');
 
-	length($c) > 8 or croak("Comment content too short");
+#	length($c) > 8 or croak("Comment content too short");
 	length($c) < 16384 or croak("Comment content too long");
 
 	my @l = split('http:', $c);
