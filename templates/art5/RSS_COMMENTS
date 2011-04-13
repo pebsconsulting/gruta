@@ -21,7 +21,14 @@
 	'</image>'
 
 	{foreach
-		{comments {or %num 10}}
+        {if
+            {and
+                {ne %topic ''}
+                {ne %id ''}
+            }
+            {reverse {story_comments %topic %id}}
+            {comments {or %num 10}}
+        }
 
 		{
 			'<item>'

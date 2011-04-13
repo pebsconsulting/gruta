@@ -11,6 +11,8 @@ Gruta Release Notes
    - A new checkbox to show the full story in indexes (so that
      the abstract and the body are the same, no need to add the
      magic separator mark at the end)
+   - The `RSS_COMMENTS' template now accepts optional `topic'
+     and `id' arguments to return comments only from a story
  - Bug fixes:
    - Fixed a crash in RSS and TOPIC when a subscriber-only
      story was defined
