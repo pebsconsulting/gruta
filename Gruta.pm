@@ -196,7 +196,7 @@ sub url {
 				return $ret . $args{topic} . '/' . $args{id} . '.html';
 			}
 			if ($st eq 'TOPIC' && $args{topic} && $args{offset}) {
-				return $ret . $args{topic} . '/' . $args{offset} . '.html';
+				return $ret . $args{topic} . '/~' . $args{offset} . '.html';
 			}
 			if ($st eq 'SEARCH_BY_DATE' && $args{from} && $args{to}) {
 				return $ret . $args{from} . '-' . $args{to} . '.html';

@@ -72,7 +72,7 @@ apache
  	RewriteRule ^/top/$			/?t=TOP_TEN			[PT,L]
  	RewriteRule ^/(.+)/$			/?t=TOPIC&topic=$1		[PT,L]
  	RewriteRule ^/(.+)/index\.html$		/?t=TOPIC&topic=$1		[PT,L]
- 	RewriteRule ^/(.+)/([0-9]+)\.html$	/?t=TOPIC&topic=$1&offset=$2	[PT,L]
+ 	RewriteRule ^/(.+)/~([0-9]+)\.html$	/?t=TOPIC&topic=$1&offset=$2	[PT,L]
  	RewriteRule ^/(.+)/(.+)\.html$		/?t=STORY&topic=$1&id=$2	[PT,L]
  	RewriteRule ^/rss\.xml$			/?t=RSS				[PT,L]
  	RewriteRule ^/sitemap\.xml$		/?t=SITEMAP			[PT,L]
@@ -98,7 +98,7 @@ lighttpd
  	"^/top/$"		=>	"/?t=TOP_TEN",
  	"^/(.+)/$"		=>	"/?t=TOPIC;topic=$1",
  	"^/(.+)/index\.html$"	=>	"/?t=TOPIC;topic=$1",
- 	"^/(.+)/([0-9]+)\.html$" =>	"/?t=TOPIC;topic=$1;offset=$2",
+ 	"^/(.+)/~([0-9]+)\.html$" =>	"/?t=TOPIC;topic=$1;offset=$2",
  	"^/(.+)/(.+)\.html$"	=>	"/?t=STORY;topic=$1;id=$2",
  	"^/rss\.xml$"		=>	"/?t=RSS",
  	"^/sitemap\.xml$"	=>	"/?t=SITEMAP",
