@@ -207,7 +207,7 @@ sub url {
 	if ($st) {
 		$args{t} = $st;
 
-		$ret .= '?' . join('&', map { "$_=$args{$_}" } sort keys(%args));
+		$ret .= '?' . join(';', map { "$_=$args{$_}" } sort keys(%args));
 	}
 
 	return $ret;
