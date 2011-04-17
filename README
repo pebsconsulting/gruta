@@ -1,15 +1,31 @@
-Gruta README
-============
+Gruta - A web content management system
+=======================================
 
-About
------
+Features and highlights
+-----------------------
 
-Gruta is a web content management system written in Perl. Its goal is
-to be a full featured CMS while having very few external dependencies. No
-database is required (though you can use one).
-
-Gruta powers the sites http://nutriguia.com and http://calendario-lunar.com
-from year 2001, so its reliability is assured.
+ - Very lightweight, with as few external dependencies as possible.
+ - Posts are organized by topics and can be marked with tags.
+ - Posts can have a publishing date in the future, so that they
+   are automatically published.
+ - Posts can include visitor comments. Also, support for Akismet
+   or blogspam.net comment SPAM filters is included.
+ - Complete RSS support for posts (full, by topic or by tag) or
+   for comments.
+ - Support for subscriber-only posts (with a date to make them
+   publically accesible).
+ - Each topic can include a set of editors, with full publication
+   access.
+ - Includes a command-line tool with full access to the internal
+   database, for complex and repetitive operations that can
+   benefit from scripting in Unix-like environments.
+ - Hit counters can be stored for each post, maintaining an
+   automatic 'most read' list of posts.
+ - Fast, internal search.
+ - No SQL database needed (though you can use one if you want).
+ - Not written in PHP (nor Python, nor Ruby...).
+ - Used from 2001 in several live sites with moderate traffic, so
+   reliability is ensured.
 
 Installation
 ------------
