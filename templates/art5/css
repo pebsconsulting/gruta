@@ -7,22 +7,22 @@ body, table {
 	font-size: 14px;
 }
 a:link {
-	color: #c0803c;
+	color: #f58113;
 	font-weight: bold;
 	text-decoration: underline;
 }
 a:visited {
-	color: #c0803c;
+	color: #f58113;
 	font-weight: bold;
 	text-decoration: underline;
 }
 a:active {
-	color: #c0803c;
+	color: #f58113;
 	font-weight: bold;
 	text-decoration: none;
 }
 a:hover {
-	color: #c0803c;
+	color: #f58113;
 	font-weight: bold;
 	text-decoration: underline;
 }
@@ -76,10 +76,10 @@ h6 {
 	color: black;
 }
 .meta_menu a:link {
-	color: #c0803c;
+	color: #f58113;
 }
 .meta_menu a:visited {
-	color: #c0803c;
+	color: #f58113;
 }
 .meta_menu ul {
 	list-style-type: none;
