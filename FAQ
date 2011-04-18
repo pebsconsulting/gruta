@@ -1,0 +1,142 @@
+Gruta FAQ
+=========
+
+This is a list of Frequently Asked Questions about the Gruta web
+content management system.
+
+Story formatting
+----------------
+
+What is this Grutatxt format?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Grutatxt is a special plain text format that is designed to be as intuitive
+as possible oriented to web publising. Basicly, just separate paragraphs
+with an empty line, mark bold text enclosed in asterisks and italic
+enclosed in underscores. URLs are automatically formatted. Headings are
+defined by underlining phrases with equal signs, hyphens and tildes.
+
+Grutatxt is a very rich specification that allows even creating visually
+appealing lists and tables. Please consult the following two documents:
+
+ * http://triptico.com/docs/grutatxt_markup.html
+ * http://triptico.com/docs/grutatxt_markup_source.html
+
+The first one is a demo of all things doable in Grutatxt format and the
+second one is how they are written. You'll find it's really easy and
+powerful.
+
+What are "pseudo-URLs"?
+~~~~~~~~~~~~~~~~~~~~~~~
+
+These are special character strings that can be inserted in story texts and
+be interpreted by Gruta. The format is very similar to URLs (that's the
+reason of the naming) and are formed by a special keyword, followed by
+the usual :// mark, then by the arguments separated by slashes.
+
+ * story: includes a link to a story. Must be followed by the topic
+   and the story id separated by slashes.
+ * topic: includes a link to a topic. Must be followed by the topic id.
+ * abstract: inserts the abstract of a story into the current one. Same
+   as for *story*.
+ * body: inserts the full body of a story into the current one. Same as
+   for *story*.
+ * img: inserts a link to an image. Must be followed by the image file
+   name, with an optional alignment (left or right) separated by a slash.
+
+If any of the story links fail (i.e. they do not point to an existing
+story), an error is inserted instead.
+
+How can I control which portion of each post is listed in the indexes?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The piece of a story that is listed in indexes (being the topic page or an
+RSS feed) is called the _abstract_ and is by default the text from the top
+of the story down to the end of the first paragraph after the title. This
+can be changed by introducing a special set of characters, <->
+(familiarily called "the UFO"), alone in a line, marking the end of the
+abstract (it always starts at the top of the story).
+
+Since version 2.3.2, a new checkbox exist for each story to be listed
+fully in indexes (so the abstract is the same as the body).
+
+How can I insert a table of contents in a story?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since version 2.3.1, stories can include an automatically generated table
+of contents, built using the story headings. Tables of contents are
+inserted after the abstract.
+
+The special character string <?> can be inserted (alone in a line) to
+force a TOC creation in ad-hoc places.
+
+User management
+---------------
+
+How many user levels exist in Gruta?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are three main user levels: those having administrator capabilities
+(that can do everything), those that not (but can be set as "editors" for
+special topics, see below) and the rest of the world, that visit Gruta
+sites without being identified.
+
+How can I give topic maintenance capabilities to specific users?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Topics can have what it's called "editors", that is, plain users that have
+administrator capabilities on it, meaning that they can add, modify and
+delete stories.
+
+To add an editor to a topic, just write its name in the appropriate field
+in the topic modification form.
+
+How can I maintain a paid-by-content site with Gruta?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Gruta web CMS includes the following features to implement a
+commercial site:
+
+ * Users with an expiration date
+ * Posts with a subscriber-only limit date
+
+Only identified users can access subscriber-only articles.
+
+Subscriptions are managed by creating users with an expiration date (as,
+for example, using a yearly fee). If the expiration date is over, the user
+will no longer be able to login.
+
+If a non-identified user tries to access a post with a subscriber-only
+limit date, a special message suggesting him to subscribe will be shown
+instead.
+
+After a post's subscriber date is due, the article will be available to
+everyone. Consider using a short time for subscriber only article (like a
+week or two), because you will benefit from search engines when they'll
+become free for everyone.
+
+Contribution
+------------
+
+How can I add a new translation to Gruta?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to add your own translation to Gruta, please follow these
+steps:
+
+ # Create an empty file named `lang_XX', where `XX' is the two-letter
+   identifier for the name.
+ # Execute the command `art5 -l' (this program is part of the _Artemus_
+   template toolkit package) on the `templates/art5' directory of
+   a Gruta distribution. The new file will be filled with all the
+   translateable strings.
+ # Fill it with appropriate strings in your language. The format of
+   the file should be straightforward.
+ # Do a `make install' and the new language will be available for
+   selection.
+
+If you do that, please send your file to mailto:angel@triptico.com (me)
+to add it to the main Gruta distribution.
+
+----
+Angel Ortega <angel@triptico.com>
