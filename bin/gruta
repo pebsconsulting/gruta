@@ -630,13 +630,18 @@ sub init
 
 sub usage
 {
-	print "gruta - A command line tool for Gruta web sites\n";
-	print "===============================================\n\n";
+	print "Gruta Command Line Tool\n";
+	print "=======================\n\n";
 
 	print "(C) Angel Ortega angel\@triptico.com\n\n";
 
 	print "Usage:\n\n";
-	print "    gruta {command} [{arguments} ...]\n\n";
+	print "    gruta {command} {src} [{arguments} ...]\n\n";
+
+    print "Where {src} is a Gruta source spec. Examples:\n\n";
+    print " * /var/www/site_dir/var (FS type)\n";
+    print " * dbi:SQLite:/var/www/site_dir/var/gruta.db (Perl DBI type)\n";
+    print "\n";
 
 	my @keys = sort keys %{$X};
 
