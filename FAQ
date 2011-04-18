@@ -125,11 +125,11 @@ If you want to add your own translation to Gruta, please follow these
 steps:
 
  # Create an empty file named `lang_XX', where `XX' is the two-letter
-   identifier for the name.
+   identifier for the language, on the `templates/art5' directory of a
+   Gruta distribution.
  # Execute the command `art5 -l' (this program is part of the _Artemus_
-   template toolkit package) on the `templates/art5' directory of
-   a Gruta distribution. The new file will be filled with all the
-   translateable strings.
+   template toolkit package) there. The new file will be filled with all
+   the translateable strings.
  # Fill it with appropriate strings in your language. The format of
    the file should be straightforward.
  # Do a `make install' and the new language will be available for
