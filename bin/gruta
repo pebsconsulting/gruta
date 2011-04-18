@@ -630,8 +630,8 @@ sub init
 
 sub usage
 {
-	print "Gruta Command Line Tool\n";
-	print "=======================\n\n";
+	print "Gruta - command line tool\n";
+	print "=========================\n\n";
 
     print "Manipulates Gruta sources directly.\n\n";
 	print "(C) Angel Ortega angel\@triptico.com\n\n";
