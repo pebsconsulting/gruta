@@ -9,26 +9,27 @@ Features and highlights
  - Posts are organized by topics and can be marked with tags.
  - Posts can have a publishing date in the future, so that they
    are automatically published.
- - Posts can include visitor comments. Also, support for Akismet
-   or blogspam.net comment SPAM filters is included.
+ - Posts can include moderated visitor comments. Also, support for
+   Akismet or blogspam.net comment SPAM filters is included.
  - Complete RSS support for posts (full, by topic or by tag) or
    for comments.
  - Support for posts available only to logged-in users for a specified
    time, to implement commercial paid-for-content sites.
- - Each topic can include its own set of editors.
+ - Each topic can include its own set of editors, so that content
+   can be delegated to users.
  - Includes a command-line tool with full access to the internal
    database, for complex and repetitive operations that can
    benefit from scripting in Unix-like environments.
  - Hit counters can be stored for each post, maintaining an
-   automatic list of most read posts.
+   automatic list of most read entries.
  - Automatic support for Google's sitemaps.
  - Posts can be written in HTML or using an easy and intuitive plain
    text format (Grutatxt).
  - Fast, internal search.
  - No SQL database needed (though you can use one if you want).
+ - Used from 2001 in several live sites with intense to moderate
+   traffic, so reliability is ensured.
  - Not written in PHP (nor Python, nor Ruby...).
- - Used from 2001 in several live sites with moderate traffic, so
-   reliability is ensured.
 
 Installation
 ------------
