@@ -5,6 +5,7 @@ Features and highlights
 -----------------------
 
  - Very lightweight, with as few external dependencies as possible.
+ - Optimal to build blogs, portals and other post-oriented web sites.
  - Posts are organized by topics and can be marked with tags.
  - Posts can have a publishing date in the future, so that they
    are automatically published.
@@ -12,8 +13,8 @@ Features and highlights
    or blogspam.net comment SPAM filters is included.
  - Complete RSS support for posts (full, by topic or by tag) or
    for comments.
- - Support for subscriber-only posts, including a date to make them
-   accesible to anyone.
+ - Support for posts available only to logged-in users for a specified
+   time, to implement commercial paid-for-content sites.
  - Each topic can include its own set of editors.
  - Includes a command-line tool with full access to the internal
    database, for complex and repetitive operations that can
