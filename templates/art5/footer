@@ -1,1 +1,6 @@
-<div class = 'footer'><{cfg_copyright}></div>
+<div class = 'footer'>
+    <{cfg_copyright}>
+    <div class = 'powered_by'>Powered by
+        <a href = 'http://triptico.com/software/gruta.html'>Gruta</a>
+    </div>
+</div>
