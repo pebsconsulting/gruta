@@ -633,6 +633,7 @@ sub usage
 	print "Gruta Command Line Tool\n";
 	print "=======================\n\n";
 
+    print "Manipulates Gruta source directly.\n\n";
 	print "(C) Angel Ortega angel\@triptico.com\n\n";
 
 	print "Usage:\n\n";
