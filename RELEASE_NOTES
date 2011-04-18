@@ -20,11 +20,11 @@ Gruta Release Notes
 Please take also note that, if you use static links, the following
 `mod_rewrite' redirections has to be changed from
 
- RewriteRule ^/(.+)/([0-9]+)\.html$	/?t=TOPIC&topic=$1&offset=$2	[PT,L]
+ RewriteRule ^/(.+)/([0-9]+)\.html$ /?t=TOPIC&topic=$1&offset=$2 [PT,L]
 
 to
 
- RewriteRule ^/(.+)/~([0-9]+)\.html$	/?t=TOPIC&topic=$1&offset=$2	[PT,L]
+ RewriteRule ^/(.+)/~([0-9]+)\.html$ /?t=TOPIC&topic=$1&offset=$2 [PT,L]
 
 2.3.1 "Sienna"
 --------------
