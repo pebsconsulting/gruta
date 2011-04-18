@@ -57,8 +57,8 @@ can be changed by introducing a special set of characters, <->
 (familiarily called "the UFO"), alone in a line, marking the end of the
 abstract (it always starts at the top of the story).
 
-Since version 2.3.2, a new checkbox exist for each story to be listed
-fully in indexes (so the abstract is the same as the body).
+Since version 2.3.2, a new checkbox exists for each story to list its
+full content in indexes (so the abstract is the same as the body).
 
 How can I insert a table of contents in a story?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
