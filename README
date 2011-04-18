@@ -21,6 +21,9 @@ Features and highlights
    benefit from scripting in Unix-like environments.
  - Hit counters can be stored for each post, maintaining an
    automatic list of most read posts.
+ - Automatic support for Google's sitemaps.
+ - Posts can be written in HTML or using an easy and intuitive plain
+   text format (Grutatxt).
  - Fast, internal search.
  - No SQL database needed (though you can use one if you want).
  - Not written in PHP (nor Python, nor Ruby...).
