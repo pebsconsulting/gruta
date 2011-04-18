@@ -1,6 +1,9 @@
 Gruta Installation Guide
 ========================
 
+This document contains a brief guide for the installation of Gruta,
+the web content management system.
+
 Installation steps
 ------------------
 
@@ -10,7 +13,8 @@ Install the Artemus and Grutatxt modules, available from:
  	http://triptico.com/software/grutatxt.html
 
 You'll need at least Artemus 5.0.1 and Grutatxt 2.0.16 (please take
-note that these versions may be development ones).
+note that these versions may be development ones, so you might need
+to download them from the Git repository).
 
 If you want to use the DBI source driver, you'll need DBI and a
 corresponding DBD, of course. SQLite is fine and probably what
@@ -54,33 +58,35 @@ Webserver configuration examples
 apache
 ~~~~~~
 
+ 
  	# directory index
  	DirectoryIndex g.cgi
  
  	# protect the 'var' subdirectory (the Gruta raw
  	# storage depot) from being served via web
  	<Location /var>
-         	order allow,deny
- 	        deny from all
+        order allow,deny
+ 	    deny from all
  	</Location>
  
  	# static URL rewriting instructions
- 	RewriteRule ^/([0-9]+)\.html$		/?t=INDEX&offset=$1		[PT,L]
- 	RewriteRule ^/([0-9]+)-([0-9]+)\.html$	/?t=SEARCH_BY_DATE&from=$1&to=$2 [PT,L]
- 	RewriteRule ^/tag/(.+)\.html$		/?t=SEARCH_BY_TAG&tag=$1	[PT,L]
- 	RewriteRule ^/tag/$			/?t=TAGS			[PT,L]
- 	RewriteRule ^/top/$			/?t=TOP_TEN			[PT,L]
- 	RewriteRule ^/(.+)/$			/?t=TOPIC&topic=$1		[PT,L]
- 	RewriteRule ^/(.+)/index\.html$		/?t=TOPIC&topic=$1		[PT,L]
- 	RewriteRule ^/(.+)/~([0-9]+)\.html$	/?t=TOPIC&topic=$1&offset=$2	[PT,L]
- 	RewriteRule ^/(.+)/(.+)\.html$		/?t=STORY&topic=$1&id=$2	[PT,L]
- 	RewriteRule ^/rss\.xml$			/?t=RSS				[PT,L]
- 	RewriteRule ^/sitemap\.xml$		/?t=SITEMAP			[PT,L]
- 	RewriteRule ^/style\.css$		/?t=CSS				[PT,L]
+ 	RewriteRule ^/([0-9]+)\.html$             /?t=INDEX&offset=$1                 [PT,L]
+ 	RewriteRule ^/([0-9]+)-([0-9]+)\.html$    /?t=SEARCH_BY_DATE&from=$1&to=$2    [PT,L]
+ 	RewriteRule ^/tag/(.+)\.html$             /?t=SEARCH_BY_TAG&tag=$1            [PT,L]
+ 	RewriteRule ^/tag/$                       /?t=TAGS                            [PT,L]
+ 	RewriteRule ^/top/$                       /?t=TOP_TEN                         [PT,L]
+ 	RewriteRule ^/(.+)/$                      /?t=TOPIC&topic=$1                  [PT,L]
+ 	RewriteRule ^/(.+)/index\.html$           /?t=TOPIC&topic=$1                  [PT,L]
+ 	RewriteRule ^/(.+)/~([0-9]+)\.html$       /?t=TOPIC&topic=$1&offset=$2        [PT,L]
+ 	RewriteRule ^/(.+)/(.+)\.html$            /?t=STORY&topic=$1&id=$2            [PT,L]
+ 	RewriteRule ^/rss\.xml$                   /?t=RSS                             [PT,L]
+ 	RewriteRule ^/sitemap\.xml$               /?t=SITEMAP                         [PT,L]
+ 	RewriteRule ^/style\.css$                 /?t=CSS                             [PT,L]
 
 lighttpd
 ~~~~~~~~
 
+ 
  	# activate CGIs and set g.cgi as index
  	cgi.assign = ( ".cgi" => "" )
  	index-file.names = ( "g.cgi" )
@@ -91,18 +97,18 @@ lighttpd
  
  	# static URL rewriting instructions
  	url.rewrite-once = (
- 	"^/([0-9]+)\.html$"	=>	"/?t=INDEX;offset=$1",
- 	"^/([0-9]+)-([0-9]+)\.html$" =>	"/?t=SEARCH_BY_DATE;from=$1;to=$2",
- 	"^/tag/(.+)\.html$"	=>	"/?t=SEARCH_BY_TAG;tag=$1",
- 	"^/tag/$"		=>	"/?t=TAGS",
- 	"^/top/$"		=>	"/?t=TOP_TEN",
- 	"^/(.+)/$"		=>	"/?t=TOPIC;topic=$1",
- 	"^/(.+)/index\.html$"	=>	"/?t=TOPIC;topic=$1",
- 	"^/(.+)/~([0-9]+)\.html$" =>	"/?t=TOPIC;topic=$1;offset=$2",
- 	"^/(.+)/(.+)\.html$"	=>	"/?t=STORY;topic=$1;id=$2",
- 	"^/rss\.xml$"		=>	"/?t=RSS",
- 	"^/sitemap\.xml$"	=>	"/?t=SITEMAP",
- 	"^/style\.css$"		=>	"/?t=CSS"
+ 	"^/([0-9]+)\.html$"           => "/?t=INDEX;offset=$1",
+ 	"^/([0-9]+)-([0-9]+)\.html$"  => "/?t=SEARCH_BY_DATE;from=$1;to=$2",
+ 	"^/tag/(.+)\.html$"           => "/?t=SEARCH_BY_TAG;tag=$1",
+ 	"^/tag/$"                     => "/?t=TAGS",
+ 	"^/top/$"                     => "/?t=TOP_TEN",
+ 	"^/(.+)/$"                    => "/?t=TOPIC;topic=$1",
+ 	"^/(.+)/index\.html$"         => "/?t=TOPIC;topic=$1",
+ 	"^/(.+)/~([0-9]+)\.html$"     => "/?t=TOPIC;topic=$1;offset=$2",
+ 	"^/(.+)/(.+)\.html$"          => "/?t=STORY;topic=$1;id=$2",
+ 	"^/rss\.xml$"                 => "/?t=RSS",
+ 	"^/sitemap\.xml$"             => "/?t=SITEMAP",
+ 	"^/style\.css$"               => "/?t=CSS"
  	)
 
 ---
