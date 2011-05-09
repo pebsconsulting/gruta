@@ -665,6 +665,8 @@ sub story_comments {
 
 	my @ret = ();
 
+    my $expire_days = $self->template('cfg_comment_expire_days') || 7;
+
 	my $topic_id = $story->get('topic_id');
 	my $story_id = $story->get('id');
 
@@ -683,7 +685,7 @@ sub story_comments {
 			my $pf = $pend_path . join(':', ($topic_id, $story_id, $id));
 
 			# too old? delete
-			if (-f $pf && -M $f >= 40) {
+			if (-f $pf && -M $f >= $expire_days) {
 				unlink $f;
 				unlink $f . '.M';
 				unlink $pf;

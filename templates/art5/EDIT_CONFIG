@@ -132,6 +132,10 @@
 	<input type = 'text' name = 'cfg_comment_email'
 		value = '<{cfg_comment_email}>' size = 32>
 
+    <p><{@"Number of days for non-approved comments to expire:"}><br>
+	<input type = 'text' name = 'cfg_comment_expire_days'
+		value = '<{cfg_comment_expire_days}>' size = 32>
+
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
 </form>

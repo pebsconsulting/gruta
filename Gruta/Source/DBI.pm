@@ -369,10 +369,12 @@ sub story_comments {
 
 	my @ret = ();
 
+    my $expire_days = $self->template('cfg_comment_expire_days') || 7;
+
 	# delete old non-approved comments for this story
 	my $sth = $self->_prepare('DELETE FROM comments WHERE ctime < ? AND ' .
 							'topic_id = ? AND story_id = ?');
-	$self->_execute($sth, time() - (60 * 60 * 24 * 40),
+	$self->_execute($sth, time() - (60 * 60 * 24 * $expire_days),
 				$story->get('topic_id'), $story->get('id'));
 
 	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
