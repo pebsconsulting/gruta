@@ -683,7 +683,7 @@ sub story_comments {
 			my $pf = $pend_path . join(':', ($topic_id, $story_id, $id));
 
 			# too old? delete
-			if (-f $pf && -M $f >= 7) {
+			if (-f $pf && -M $f >= 40) {
 				unlink $f;
 				unlink $f . '.M';
 				unlink $pf;

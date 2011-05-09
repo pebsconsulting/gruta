@@ -372,7 +372,7 @@ sub story_comments {
 	# delete old non-approved comments for this story
 	my $sth = $self->_prepare('DELETE FROM comments WHERE ctime < ? AND ' .
 							'topic_id = ? AND story_id = ?');
-	$self->_execute($sth, time() - (60 * 60 * 24 * 7),
+	$self->_execute($sth, time() - (60 * 60 * 24 * 40),
 				$story->get('topic_id'), $story->get('id'));
 
 	my $sql = 'SELECT topic_id, story_id, id FROM comments ' .
