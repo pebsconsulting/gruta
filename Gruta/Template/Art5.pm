@@ -789,22 +789,21 @@ sub _art5 {
 
         	# send comment by email
         	if (!$c->get('approved')) {
-                if (my $t = $self->template('cfg_comment_email')) {
+                if (my $t = $data->source->template('cfg_comment_email')) {
                     if (my $addr = $t->get('content')) {
         
                         open F, "|/usr/sbin/sendmail -t"
                             or die "Error $!";
 
-        				my $msg =
-        					"From: Gruta CMS <gruta\@localhost>\n" .
-        					"To: $addr\n" .
-        					"Subject: New comment waiting for approval\n" .
-                            "Content-type: text/plain; charset=utf-8\n" .
-        					"\n" .
-        					$c->get('date') . ", " .
-        					$c->get('author') . "\n\n" .
-        					$c->get('content') . "\n";
-        
+                        my $msg = $self->{_art5}->process(
+                            sprintf('<{comment_email_message "%s" "%s" "%s" "%s"}>',
+                                $addr,
+                                $c->get('topic_id'),
+                                $c->get('story_id'),
+                                $c->get('id')
+                            )
+                        );
+
                         print F $msg;
                         close F;
                     }

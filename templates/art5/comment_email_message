@@ -4,6 +4,7 @@ Subject: <{@"New comment waiting for approval"}>
 Content-type: text/plain; charset=utf-8
 
 <{story_title $1 $2}>
-(<{comment_date $1 $2 $3}>, <{comment_author $1 $2 $3}>)
+
+<{comment_date cfg_date_format $1 $2 $3}>, <{comment_author $1 $2 $3}>:
 
 <{comment_content $1 $2 $3}>
