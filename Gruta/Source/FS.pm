@@ -1214,14 +1214,7 @@ sub insert_template {
 }
 
 sub insert_comment {
-	my $self	= shift;
-	my $comment	= shift;
-
-	if (!$comment->setup($self)) {
-		return undef;
-	}
-
-	$self->_insert($comment, 'Gruta::Data::FS::Comment');
+	$_[0]->_insert($_[1], 'Gruta::Data::FS::Comment');
 }
 
 sub insert_story {

@@ -15,7 +15,6 @@ Open Bugs
    no author.
  * 1065: Every time the supertemplate is changed, it should also
    be set in the CGI vars hash.
- * 1071: Move comment SPAM testing to Gruta::CGI.
 
 Pending Enhancements
 --------------------
@@ -169,5 +168,7 @@ Closed
    (Fri, 25 Mar 2011 10:56:03 +0100).
  * 1073: Change the comment mail notification to a template
    (Tue, 10 May 2011 09:42:00 +0200).
+ * 1071: Move comment SPAM testing to Gruta::CGI
+   (Tue, 10 May 2011 16:05:37 +0200).
 
 Email bugs to angel@triptico.com

@@ -55,6 +55,100 @@ sub filter_comment {
 	return $content;
 }
 
+sub validate_comment {
+    my $self    = shift;
+    my $comment = shift; # Gruta::Data::Comment
+
+    # too short or too long? fail
+    my $c = $comment->get('content');
+
+#   length($c) > 8 or croak("Comment content too short");
+    length($c) < 16384 or croak("Comment content too long");
+
+    my @l = split('http:', $c);
+    scalar(@l) < 8 or croak("Too much URLs in comment");
+
+    # filter spam
+    if ($c =~ /\[(url|link)=/) {
+        croak("Invalid content");
+    }
+
+    # special spam validators
+
+    # blogspam.net
+    my $use_blogspam_net = $self->data->source->template('cfg_use_blogspam_net');
+
+    if ($use_blogspam_net && $use_blogspam_net->get('content')) {
+        eval("use RPC::XML::Client;");
+
+        if (!$@) {
+            my $blogspam = RPC::XML::Client->new(
+                'http://test.blogspam.net:8888/');
+
+            if ($blogspam) {
+                my $res = $blogspam->send_request('testComment', {
+                    ip      => $ENV{REMOTE_ADDR},
+                    comment => $comment->get('content'),
+                    agent   => $ENV{HTTP_USER_AGENT},
+                    name    => $comment->get('author')
+                    }
+                );
+
+                if (ref($res)) {
+                    my $r = $res->value();
+
+#                   print STDERR "blogspam.net " . $r . "\n";
+
+                    if ($r =~ /^SPAM:/) {
+                        croak("Comment rejected as " . $r . ' (blogspam.net)');
+                    }
+                }
+            }
+        }
+	}
+
+    # Akismet
+    eval("use Net::Akismet;");
+
+    if (!$@) {
+        # validate with Akismet
+
+        # pick API key and hostname templates
+        my $api_key_t   = $self->data->source->template('cfg_akismet_api_key');
+        my $url_t       = $self->data->source->template('cfg_akismet_url');
+
+        if ($api_key_t && $url_t) {
+            my $api_key = $api_key_t->get('content');
+            my $url     = $url_t->get('content');
+
+            if ($api_key && $url) {
+                my $akismet = Net::Akismet->new(
+                    KEY => $api_key,
+                    URL => $url
+                );
+
+                if ($akismet) {
+                    my $ret = $akismet->check(
+                        USER_IP             => $ENV{REMOTE_ADDR},
+                        COMMENT_USER_AGENT  => $ENV{HTTP_USER_AGENT},
+                        COMMENT_CONTENT     => $comment->get('content'),
+                        COMMENT_AUTHOR      => $comment->get('author'),
+                        REFERRER            => $ENV{HTTP_REFERER} 
+                    );
+
+#                   print STDERR "Akismet said: ", $ret, "\n";
+
+                    if ($ret && $ret eq 'true') {
+                        croak('Comment rejected as SPAM (Akismet)');
+                    }
+                }
+            }
+        }
+    }
+
+    return $self;
+}
+
 sub data {
 	my $self	= shift;
 	my $data	= shift;

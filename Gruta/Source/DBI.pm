@@ -695,14 +695,7 @@ sub insert_template {
 }
 
 sub insert_comment {
-	my $self	= shift;
-	my $comment	= shift;
-
-	if (!$comment->setup($self)) {
-		return undef;
-	}
-
-	$self->_insert($comment, 'comments', 'Gruta::Data::DBI::Comment');
+	$_[0]->_insert($_[1], 'comments', 'Gruta::Data::DBI::Comment');
 }
 
 

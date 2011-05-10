@@ -785,6 +785,8 @@ sub _art5 {
 				}
 			}
 
+            $data->cgi->validate_comment($c);
+
 			$data->source->insert_comment($c);
 
         	# send comment by email
