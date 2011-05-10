@@ -796,7 +796,7 @@ sub _art5 {
                             or die "Error $!";
 
                         my $msg = $self->{_art5}->process(
-                            'comment_email_message',
+                            '<{comment_email_message}>',
                             $addr,
                             $c->get('topic_id'),
                             $c->get('story_id'),
