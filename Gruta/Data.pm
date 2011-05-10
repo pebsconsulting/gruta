@@ -390,17 +390,26 @@ sub setup {
 	# validate the comment as acceptable
 	$self->validate();
 
-	# set the rest of data
-	$self->set('id', sprintf("%08x%04x", time(), $$));
-	$self->set('ctime', time());
-	$self->set('date', Gruta::Data::today());
-
 	return $self;
 }
 
 sub date {
 	return Gruta::Data::format_date($_[0]->get('date'), $_[1]);
 }
+
+sub new {
+	my $class = shift;
+
+	my $id = sprintf("%08x%04x", time(), $$);
+
+	return $class->SUPER::new(
+        id      => $id,
+        ctime   => time(),
+        date    => Gruta::Data::today(),
+        @_
+    );
+}
+
 
 package Gruta::Data;
 
