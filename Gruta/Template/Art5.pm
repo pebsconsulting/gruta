@@ -796,12 +796,11 @@ sub _art5 {
                             or die "Error $!";
 
                         my $msg = $self->{_art5}->process(
-                            sprintf('<{comment_email_message "%s" "%s" "%s" "%s"}>',
-                                $addr,
-                                $c->get('topic_id'),
-                                $c->get('story_id'),
-                                $c->get('id')
-                            )
+                            'comment_email_message',
+                            $addr,
+                            $c->get('topic_id'),
+                            $c->get('story_id'),
+                            $c->get('id')
                         );
 
                         print F $msg;
