@@ -787,7 +787,31 @@ sub _art5 {
 
 			$data->source->insert_comment($c);
 
-			return $c->get('approved');
+        	# send comment by email
+        	if (!$c->get('approved')) {
+                if (my $t = $self->template('cfg_comment_email')) {
+                    if (my $addr = $t->get('content')) {
+        
+                        open F, "|/usr/sbin/sendmail -t"
+                            or die "Error $!";
+
+        				my $msg =
+        					"From: Gruta CMS <gruta\@localhost>\n" .
+        					"To: $addr\n" .
+        					"Subject: New comment waiting for approval\n" .
+                            "Content-type: text/plain; charset=utf-8\n" .
+        					"\n" .
+        					$c->get('date') . ", " .
+        					$c->get('author') . "\n\n" .
+        					$c->get('content') . "\n";
+        
+                        print F $msg;
+                        close F;
+                    }
+                }
+            }
+        
+            return $c->get('approved');
 		};
 
 		$a->{op}->{delete_comment} = sub {
