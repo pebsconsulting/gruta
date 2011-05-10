@@ -6,16 +6,19 @@ Gruta Release Notes
 
  - Artemus4 support has been dropped.
  - New bin/gruta commands:
-   - `rename_tag', to rename or remove a tag
+   - `rename_tag', to rename or remove a tag.
  - New features:
    - A new checkbox to show the full story in indexes (so that
      the abstract and the body are the same, no need to add the
-     magic separator mark at the end)
+     magic separator mark at the end).
    - The `RSS_COMMENTS' template now accepts optional `topic'
-     and `id' arguments to return comments only from a story
+     and `id' arguments to return comments only from a story.
+ - New configurable options:
+   - The maximum number of days a non-approved comment is hold
+     before being purged.
  - Bug fixes:
    - Fixed a crash in RSS and TOPIC when a subscriber-only
-     story was defined
+     story was defined.
 
 Please take also note that, if you use static links, the following
 `mod_rewrite' redirections has to be changed from
