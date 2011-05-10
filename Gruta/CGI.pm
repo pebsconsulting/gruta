@@ -49,7 +49,7 @@ sub filter_comment {
 	my $content	= shift;
 
 	# do some filtering
-	$content =~ s/</&lt;/g;
+    $content =~ s/([<>"'&])/sprintf("&#%d;",ord($1))/ge;
 	$content =~ s/\n{2,}/<p>/g;
 
 	return $content;
