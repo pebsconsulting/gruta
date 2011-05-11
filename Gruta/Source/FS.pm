@@ -665,7 +665,8 @@ sub story_comments {
 
 	my @ret = ();
 
-    my $expire_days = $self->template('cfg_comment_expire_days') || 7;
+    my $expire_days_t = $self->template('cfg_comment_expire_days');
+    my $expire_days = $expire_days_t->get('content') || 7;
 
 	my $topic_id = $story->get('topic_id');
 	my $story_id = $story->get('id');
@@ -683,6 +684,13 @@ sub story_comments {
 			next if $f =~ /\.M$/;
 
 			my $pf = $pend_path . join(':', ($topic_id, $story_id, $id));
+
+            open L, ">>/tmp/qq.log";
+            print L $pf, "\n";
+            print L $f, "\n";
+            print L -M $f, "\n";
+            print L $expire_days, "\n";
+            close L;
 
 			# too old? delete
 			if (-f $pf && -M $f >= $expire_days) {
