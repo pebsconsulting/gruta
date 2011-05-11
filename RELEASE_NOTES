@@ -4,9 +4,6 @@ Gruta Release Notes
 2.3.2 "Arezzo"
 --------------
 
- - Artemus4 support has been dropped.
- - New bin/gruta commands:
-   - `rename_tag', to rename or remove a tag.
  - New features:
    - A new checkbox to show the full story in indexes (so that
      the abstract and the body are the same, no need to add the
@@ -16,9 +13,14 @@ Gruta Release Notes
  - New configurable options:
    - The maximum number of days a non-approved comment is hold
      before being purged.
+ - New bin/gruta commands:
+   - `rename_tag', to rename or remove a tag.
  - Bug fixes:
    - Fixed a crash in RSS and TOPIC when a subscriber-only
      story was defined.
+   - Fixed comment expiration (comments didn't really expire).
+ - Dropped features:
+   - Artemus4 support.
 
 Please take also note that, if you use static links, the following
 `mod_rewrite' redirections has to be changed from
