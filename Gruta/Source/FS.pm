@@ -665,8 +665,12 @@ sub story_comments {
 
 	my @ret = ();
 
+    my $expire_days = 7;
     my $expire_days_t = $self->template('cfg_comment_expire_days');
-    my $expire_days = $expire_days_t->get('content') || 7;
+
+    if ($expire_days_t) {
+        $expire_days = $expire_days_t->get('content');
+    }
 
 	my $topic_id = $story->get('topic_id');
 	my $story_id = $story->get('id');
