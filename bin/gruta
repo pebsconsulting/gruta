@@ -362,7 +362,7 @@ my $X = {
 	],
 	'set_story_date' =>	[
 		'set_story_date {src} {topic_id} {id} {date}',
-		'Sets the date of a story (-, now)',
+		'Sets the date of a story (YYYYMMDDHHMMSS; -, now; =NNN, Unix time)',
 		sub {
 			my $g		= init();
 			my $topic_id	= arg();
@@ -375,6 +375,13 @@ my $X = {
 			if ($date eq '-') {
 				$date = Gruta::Data::today();
 			}
+            elsif ($date =~ /^=(\d+)/) {
+                my ($S, $M, $H, $d, $m, $y) = (localtime($1))[0..5];
+
+                $date = sprintf('%04d%02d%02d%02d%02d%02d',
+                                1900 + $y, $m + 1, $d, $H, $M, $S
+                );
+            }
 
 			$story->set('date', $date);
 			$story->save();
