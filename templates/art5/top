@@ -1,6 +1,6 @@
 <div class = 'top'>
 
-	<h1><{cfg_site_name}></h1>
+	<h1><a href = 'http://<{cfg_host_name}>'><{cfg_site_name}></a></h1>
 
 	<div class = 'slogan'><{cfg_slogan}></div>
 
