@@ -1103,8 +1103,6 @@ sub stories_by_tag {
 	my $tag		= shift;
 	my $future	= shift;
 
-	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
-
 	my @topics;
 
 	if (!$topics) {
@@ -1114,43 +1112,60 @@ sub stories_by_tag {
 		@topics = @{ $topics };
 	}
 
-	my %r = ();
+    my %r = ();
+    
+    if ($tag) {
+    	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
+    
+    	foreach my $tr ($self->_collect_tags(@topics)) {
+    
+    		my @ts = @{$tr->[2]};
+    
+    		# skip stories with less tags than the wanted ones
+    		if (scalar(@ts) < scalar(@tags)) {
+    			next;
+    		}
+    
+    		# count matches
+    		my $c = 0;
+    
+    		foreach my $t (@ts) {
+    			if (grep(/^$t$/, @tags)) {
+    				$c++;
+    			}
+    		}
+    
+    		if ($c >= scalar(@tags)) {
+    
+    			my $story = $self->story($tr->[0], $tr->[1]);
+    
+    			# if no future stories are wanted, discard them
+    			if (!$future) {
+    				if ($story->get('date') gt Gruta::Data::today()) {
+    					next;
+    				}
+    			}
+    
+    			$r{$story->get('title')} =
+    				[ $tr->[0], $tr->[1], $story->get('date') ];
+    		}
+    	}
+    }
+    else {
+        # return all those stories without tags
+        foreach my $topic_id (@topics) {
+            foreach my $story_id ($self->stories($topic_id)) {
+                my $story = $self->story($topic_id, $story_id);
 
-	foreach my $tr ($self->_collect_tags(@topics)) {
+                if (!$story->tags()) {
+        			$r{$story->get('title')} =
+        				[ $topic_id, $story_id, $story->get('date') ];
+                }
+            }
+        }
+    }
 
-		my @ts = @{$tr->[2]};
-
-		# skip stories with less tags than the wanted ones
-		if (scalar(@ts) < scalar(@tags)) {
-			next;
-		}
-
-		# count matches
-		my $c = 0;
-
-		foreach my $t (@ts) {
-			if (grep(/^$t$/, @tags)) {
-				$c++;
-			}
-		}
-
-		if ($c >= scalar(@tags)) {
-
-			my $story = $self->story($tr->[0], $tr->[1]);
-
-			# if no future stories are wanted, discard them
-			if (!$future) {
-				if ($story->get('date') gt Gruta::Data::today()) {
-					next;
-				}
-			}
-
-			$r{$story->get('title')} =
-				[ $tr->[0], $tr->[1], $story->get('date') ];
-		}
-	}
-
-	return map { $r{$_} } sort keys %r;
+    return map { $r{$_} } sort keys %r;
 }
 
 
