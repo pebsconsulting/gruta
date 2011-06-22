@@ -1157,6 +1157,13 @@ sub stories_by_tag {
             foreach my $story_id ($self->stories($topic_id)) {
                 my $story = $self->story($topic_id, $story_id);
 
+    			# if no future stories are wanted, discard them
+    			if (!$future) {
+    				if ($story->get('date') gt Gruta::Data::today()) {
+    					next;
+    				}
+    			}
+    
                 if (!$story->tags()) {
         			$r{$story->get('title')} =
         				[ $topic_id, $story_id, $story->get('date') ];
