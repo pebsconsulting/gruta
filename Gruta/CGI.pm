@@ -196,11 +196,12 @@ sub new {
 	$obj->{min_size_for_gzip}	||= 10000;
 	$obj->{query_timeout}		||= 20;
 
-	$obj->{http_headers} = {
-		'Content-Type'		=> 'text/html; charset=' . $obj->{charset},
-		'X-Gateway-Interface'	=> $ENV{'GATEWAY_INTERFACE'},
-		'X-Server-Name'		=> $ENV{'SERVER_NAME'}
-	};
+    $obj->{http_headers} = {
+        'Content-Type'          => 'text/html; charset=' . $obj->{charset},
+        'X-Gateway-Interface'   => $ENV{'GATEWAY_INTERFACE'},
+        'X-Server-Name'         => $ENV{'SERVER_NAME'},
+#        'Expires'               => "Sat, 17 Aug 2030 00:00:00 GMT"
+    };
 
 	$obj->{upload_dirs} ||= [];
 
