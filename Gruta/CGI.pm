@@ -297,7 +297,7 @@ sub run {
 
 		my $md5 = Digest::MD5->new();
 		$md5->add(encode_utf8($body));
-		my $etag = $md5->hexdigest();
+		my $etag = '"' . $md5->hexdigest() . '"';
 
 		my $inm = $ENV{HTTP_IF_NONE_MATCH} || '';
 
