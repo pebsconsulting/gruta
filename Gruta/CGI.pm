@@ -310,7 +310,7 @@ sub run {
         else {
             $self->http_headers(
                 'ETag'          => $etag,
-                'Cache-Control' => 'max-age=' . $obj->{cache_control_max_age}
+                'Cache-Control' => 'max-age=' . $self->{cache_control_max_age}
             );
         }
 	}
