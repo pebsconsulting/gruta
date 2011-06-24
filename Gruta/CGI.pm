@@ -192,9 +192,10 @@ sub new {
 
 	my $obj = bless( { @_ }, $class );
 
-	$obj->{charset}				||= 'UTF-8';
-	$obj->{min_size_for_gzip}	||= 10000;
-	$obj->{query_timeout}		||= 20;
+    $obj->{charset}                 ||= 'UTF-8';
+    $obj->{min_size_for_gzip}       ||= 10000;
+    $obj->{query_timeout}           ||= 20;
+    $obj->{cache_control_max_age}   ||= 300;
 
     $obj->{http_headers} = {
         'Content-Type'          => 'text/html; charset=' . $obj->{charset},
@@ -306,9 +307,12 @@ sub run {
 			$self->status(304);
 			$body = '';
 		}
-		else {
-			$self->http_headers('ETag' => $etag);
-		}
+        else {
+            $self->http_headers(
+                'ETag'          => $etag,
+                'Cache-Control' => 'max-age=' . $obj->{cache_control_max_age}
+            );
+        }
 	}
 
 	# does the client accept compression?

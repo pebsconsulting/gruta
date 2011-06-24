@@ -10,6 +10,7 @@ Gruta Release Notes
      magic separator mark at the end).
    - The `RSS_COMMENTS' template now accepts optional `topic'
      and `id' arguments to return comments only from a story.
+   - New Gruta::CGI argument `cache_control_max_age' (default 300).
  - New configurable options:
    - The maximum number of days a non-approved comment is hold
      before being purged.
