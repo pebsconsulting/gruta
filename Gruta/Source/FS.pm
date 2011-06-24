@@ -689,13 +689,6 @@ sub story_comments {
 
 			my $pf = $pend_path . join(':', ($topic_id, $story_id, $id));
 
-            open L, ">>/tmp/qq.log";
-            print L $pf, "\n";
-            print L $f, "\n";
-            print L -M $f, "\n";
-            print L $expire_days, "\n";
-            close L;
-
 			# too old? delete
 			if (-f $pf && -M $f >= $expire_days) {
 				unlink $f;
