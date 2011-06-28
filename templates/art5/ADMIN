@@ -37,6 +37,10 @@
 	<input type = 'hidden' name = 't'       value = 'UPLOAD'>
 </form>
 
+<h2><{@"Search image by name"}></h2>
+
+<{search_image_form}>
+
 <h2><{@"Topics"}></h2>
 
 <form method = 'post' action = '<{url}>'>

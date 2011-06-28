@@ -187,6 +187,28 @@ sub upload {
 }
 
 
+sub search_image {
+    my $self    = shift;
+    my $str     = shift;
+    my $dir;
+    my @ret = ();
+
+    # find first the 'img' directory
+    foreach my $d ($self->upload_dirs()) {
+        if ($d =~ /\/img$/) {
+            $dir = $d;
+        }
+    }
+
+    if ($dir) {
+        @ret = map { /\/([^\/]+)$/; $_ = $1; }
+                    glob($dir . '/*' . $str . '*');
+    }
+
+    return @ret;
+}
+
+
 sub new {
 	my $class	= shift;
 

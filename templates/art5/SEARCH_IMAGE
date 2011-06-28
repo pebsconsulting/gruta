@@ -1,0 +1,36 @@
+<{assert_admin}>
+<{header}>
+
+<{column1}>
+
+<{column2}>
+
+<div class = 'main'>
+
+    <{main_top}>
+
+    <h1><{@"Search image by name"}></h1>
+
+    <{search_image_form}>
+
+    <{foreach {search_image %query}
+        {
+            '<p><b>'
+            $0
+            '</b><br><img src = "'
+            {? 'http://' cfg_host_name '/img/' $0}
+            '" alt = "'
+            $0
+            '" title = "'
+            $0
+            '"></p>'
+        }
+    }>
+
+    <{search_hits}>
+
+    <{main_bottom}>
+
+</div>
+
+<{footer}>

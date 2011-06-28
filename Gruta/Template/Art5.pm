@@ -615,6 +615,14 @@ sub _art5 {
 			return 'OK';
 		};
 
+        $a->{op}->{search_image} = sub {
+            my @ret = $data->cgi->search_image($a->exec(shift));
+
+            $self->{search_count} = scalar(@ret);
+
+            return [ @ret ];
+        };
+
 		$a->{op}->{delete_story} = sub {
 			my $topic_id	= $a->exec(shift) || return 'Error 1';
 			my $id			= $a->exec(shift);
