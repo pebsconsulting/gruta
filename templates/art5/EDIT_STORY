@@ -14,20 +14,20 @@
 
 	<p><{@"Publication date: (empty, today)"}><br>
 
-	<input type = 'text' size = '2' name = 'day'
-		value = '<{story_date '%d' %topic %id}>'> /
-	<input type = 'text' size = '2' name = 'month'
-		value = '<{story_date '%m' %topic %id}>'> /
-	<input type = 'text' size = '4' name = 'year'
+	<{@"Day:"}> <input type = 'text' size = '2' name = 'day'
+		value = '<{story_date '%d' %topic %id}>'>
+	<{@"Month:"}> <input type = 'text' size = '2' name = 'month'
+		value = '<{story_date '%m' %topic %id}>'>
+	<{@"Year:"}> <input type = 'text' size = '4' name = 'year'
 		value = '<{story_date '%y' %topic %id}>'>
 
 	<p><{@"Liberation date for non-subscribers: (empty, same as above)"}><br>
 
-	<input type = 'text' size = '2' name = 'day2'
-		value = '<{story_date2 '%d' %topic %id}>'> /
-	<input type = 'text' size = '2' name = 'month2'
-		value = '<{story_date2 '%m' %topic %id}>'> /
-	<input type = 'text' size = '4' name = 'year2'
+	<{@"Day:"}> <input type = 'text' size = '2' name = 'day2'
+		value = '<{story_date2 '%d' %topic %id}>'>
+	<{@"Month:"}> <input type = 'text' size = '2' name = 'month2'
+		value = '<{story_date2 '%m' %topic %id}>'>
+	<{@"Year:"}> <input type = 'text' size = '4' name = 'year2'
 		value = '<{story_date2 '%y' %topic %id}>'>
 
 	<p><{@"Description: (about 15 words)"}><br>
