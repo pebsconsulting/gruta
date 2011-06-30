@@ -45,6 +45,7 @@ sub render {
 
         # replace the title with a link
         if ($story->get('title')) {
+            my $c;
             my $tit = $story->get('title');
 
             my $url = $self->url('STORY',
@@ -54,10 +55,10 @@ sub render {
 
             my $newtit = '<a href = "' . $url . '">' . $tit . '</a>';
 
-            my $c = $story->get('abstract');
+            $c = $story->get('abstract');
             $c =~ s/\Q$tit\E/$newtit/e;
             $story->set('abstract', $c);
-            my $c = $story->get('body');
+            $c = $story->get('body');
             $c =~ s/\Q$tit\E/$newtit/e;
             $story->set('body', $c);
         }
