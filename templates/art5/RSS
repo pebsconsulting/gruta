@@ -13,7 +13,7 @@
 
 	'<image>'
 	'<title>' cfg_site_name '</title>'
-	'<url>http://' cfg_host_name '/img/icon.png</url>'
+	'<url>' cfg_favicon_url '</url>'
 	'<link>http://' cfg_host_name '</link>'
 	'<width>16</width>'
 	'<height>16</height>'
