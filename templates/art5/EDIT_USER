@@ -41,15 +41,16 @@
 
 			'<p>' @"Account expiration date: (empty, never)" '<br>'
 
-			"<input type = 'text' size = '2' name = 'day' value = '"
+			@"Day:"
+            " <input type = 'text' size = '2' name = 'day' value = '"
 				{user_xdate '%d' %userid}
-			"'>"
-			' / '
-			"<input type = 'text' size = '2' name = 'month' value = '"
+			"'> "
+            @"Month:"
+			" <input type = 'text' size = '2' name = 'month' value = '"
 				{user_xdate '%m' %userid}
-			"'>"
-			' / '
-			"<input type = 'text' size = '4' name = 'year' value = '"
+			"'> "
+            @"Year:"
+			" <input type = 'text' size = '4' name = 'year' value = '"
 				{user_xdate '%y' %userid}
 			"'>"
 			}
