@@ -42,26 +42,6 @@ sub render {
 
     if (my $rndr = $self->{renderers_h}->{$format}) {
         $rndr->story($story);
-
-        # replace the title with a link
-        if ($story->get('title')) {
-            my $c;
-            my $tit = $story->get('title');
-
-            my $url = $self->url('STORY',
-                'topic' => $story->get('topic_id'),
-                'id'    => $story->get('id')
-            );
-
-            my $newtit = '<a href = "' . $url . '">' . $tit . '</a>';
-
-            $c = $story->get('abstract');
-            $c =~ s/\Q$tit\E/$newtit/e;
-            $story->set('abstract', $c);
-            $c = $story->get('body');
-            $c =~ s/\Q$tit\E/$newtit/e;
-            $story->set('body', $c);
-        }
     }
 }
 
