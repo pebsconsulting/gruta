@@ -311,6 +311,30 @@ sub _img_special_uri {
 }
 
 
+sub _thumb_special_uri {
+    my $self    = shift;
+    my $src     = shift;
+    my $class   = shift;
+
+    my $more = '';
+
+    my $r = sprintf(
+        '<a href = "%simg/%s"><img src = "%simg/%s" width = "%d" /></a>',
+        $self->base_url(),
+        $src,
+        $self->base_url(),
+        $src,
+        ($self->{args}->{thumbnail_size} || 400)
+    );
+
+    if ($class) {
+        $r = "<span class = '$class'>" . $r . '</span>';
+    }
+
+    return $r;
+}
+
+
 sub _content_special_uri {
 	my $self	= shift;
 	my $topic_id	= shift;
@@ -332,16 +356,17 @@ sub _content_special_uri {
 
 
 sub special_uris {
-	my $self	= shift;
-	my $string	= shift;
+    my $self    = shift;
+    my $string  = shift;
 
-	$string =~ s!topic://([\w\d_-]+)!$self->_topic_special_uri($1)!ge;
-	$string =~ s!story://([\w\d_-]+)/([\w\d_-]+)!$self->_story_special_uri($1,$2)!ge;
-	$string =~ s!img://([\w\d_\.-]+)/?([\w\d_-]*)!$self->_img_special_uri($1,$2)!ge;
-	$string =~ s!body://([\w\d_-]+)/([\w\d_-]+)!$self->_content_special_uri($1,$2,'body')!ge;
-	$string =~ s!abstract://([\w\d_-]+)/([\w\d_-]+)!$self->_content_special_uri($1,$2,'abstract')!ge;
+    $string =~ s!topic://([\w\d_-]+)!$self->_topic_special_uri($1)!ge;
+    $string =~ s!story://([\w\d_-]+)/([\w\d_-]+)!$self->_story_special_uri($1,$2)!ge;
+    $string =~ s!img://([\w\d_\.-]+)/?([\w\d_-]*)!$self->_img_special_uri($1,$2)!ge;
+    $string =~ s!thumb://([\w\d_\.-]+)/?([\w\d_-]*)!$self->_thumb_special_uri($1,$2)!ge;
+    $string =~ s!body://([\w\d_-]+)/([\w\d_-]+)!$self->_content_special_uri($1,$2,'body')!ge;
+    $string =~ s!abstract://([\w\d_-]+)/([\w\d_-]+)!$self->_content_special_uri($1,$2,'abstract')!ge;
 
-	return $string;
+    return $string;
 }
 
 
