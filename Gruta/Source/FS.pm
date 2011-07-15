@@ -40,6 +40,8 @@ sub load {
 		return undef;
 	}
 
+    flock F, 1;
+
 	while (<F>) {
 		chop;
 
@@ -68,6 +70,7 @@ sub save {
 	my $filename = $self->_filename();
 
 	open F, '>' . $filename or croak "Can't write " . $filename . ': ' . $!;
+    flock F, 2;
 
 	foreach my $k ($self->fields()) {
 		my $f = $k;
@@ -179,12 +182,14 @@ sub tags {
 
 	if (scalar(@_)) {
 		if (open F, '>' . $filename) {
+            flock F, 2;
 			print F join(', ', map { s/^\s+//; s/\s+$//; lc($_) } @_), "\n";
 			close F;
 		}
 	}
 	else {
 		if (open F, $filename) {
+            flock F, 1;
 			my $l = <F>;
 			close F;
 
