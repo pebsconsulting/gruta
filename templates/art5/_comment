@@ -1,9 +1,8 @@
 <{?
 	'<a name = "' $2 '"></a>'
 	'<div class = "comment_header">'
+			{or {comment_author $0 $1 $2} @"Anonymous" } '<br>'
 			{comment_date cfg_date_format $0 $1 $2}
-			@" by "
-			{or {comment_author $0 $1 $2} @"Anonymous" }
 	'</div>'
 	'<div class = "comment_content">' {comment_content $0 $1 $2} '</div>'
 	{if {is_topic_editor $0} {
