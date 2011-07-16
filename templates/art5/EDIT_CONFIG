@@ -136,6 +136,16 @@
 	<input type = 'text' name = 'cfg_comment_expire_days'
 		value = '<{cfg_comment_expire_days}>' size = 32>
 
+	<p><{@"Use 'Gravatars' on comments:"}><br>
+	<select name = 'cfg_use_gravatars'>
+		<option <{if {not cfg_use_gravatars} 'selected'}> value = '0'>
+			<{@"no"}>
+		</option>
+		<option <{if cfg_use_gravatars 'selected'}> value = '1'>
+			<{@"yes"}>
+		</option>
+	</select>
+
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
 </form>
