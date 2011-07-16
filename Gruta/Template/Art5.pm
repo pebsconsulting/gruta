@@ -759,46 +759,53 @@ sub _art5 {
 			return '';
 		};
 
-		$a->{op}->{post_comment} = sub {
-			my $topic_id	= $a->exec(shift);
-			my $story_id	= $a->exec(shift);
-			my $author		= $a->exec(shift);
-			my $content		= $a->exec(shift);
+        $a->{op}->{post_comment} = sub {
+            my $topic_id    = $a->exec(shift);
+            my $story_id    = $a->exec(shift);
+            my $author      = $a->exec(shift);
+            my $content     = $a->exec(shift);
+            my $email       = $a->exec(shift);
 
-			my $s = $data->source->story($topic_id, $story_id)
-				or croak("Invalid story $topic_id/$story_id");
+            my $s = $data->source->story($topic_id, $story_id)
+                or croak("Invalid story $topic_id/$story_id");
 
-			$content =~ s/\r//g;
+            $content =~ s/\r//g;
 
-			my $c = new Gruta::Data::Comment(
-				topic_id	=> $topic_id,
-				story_id	=> $story_id,
-				author		=> $author,
-				content		=> $content
-			);
+            my $c = new Gruta::Data::Comment(
+                topic_id    => $topic_id,
+                story_id    => $story_id,
+                author      => $author,
+                email       => $email,
+                content     => $content
+            );
 
-			my $u = $data->auth();
+            my $u = $data->auth();
 
-			if ($u) {
-				# empty author? use username
-				if (!$author) {
-					$c->set('author', $u->get('username'));
-				}
+            if ($u) {
+                # empty author?
+                if (!$author) {
+                    $c->set('author', $u->get('username'));
+                }
 
-				# if user is a topic editor, approve automatically
-				if (my $topic = $data->source->topic($topic_id)) {
-					if ($topic->is_editor($u)) {
-						$c->set('approved', 1);
-					}
-				}
-			}
+                # empty email?
+                if (!$email) {
+                    $c->set('email', $u->get('email'));
+                }
+
+                # if user is a topic editor, approve automatically
+                if (my $topic = $data->source->topic($topic_id)) {
+                    if ($topic->is_editor($u)) {
+                        $c->set('approved', 1);
+                    }
+                }
+            }
 
             $data->cgi->validate_comment($c);
 
-			$data->source->insert_comment($c);
+            $data->source->insert_comment($c);
 
-        	# send comment by email
-        	if (!$c->get('approved')) {
+            # send comment by email
+            if (!$c->get('approved')) {
                 if (my $t = $data->source->template('cfg_comment_email')) {
                     if (my $addr = $t->get('content')) {
         
@@ -820,7 +827,7 @@ sub _art5 {
             }
         
             return $c->get('approved');
-		};
+        };
 
 		$a->{op}->{delete_comment} = sub {
 			my $topic_id	= $a->exec(shift);

@@ -258,7 +258,7 @@ use base 'Gruta::Data::BASE';
 use Carp;
 
 sub fields {
-	return qw(id topic_id story_id ctime date approved author content);
+	return qw(id topic_id story_id ctime date approved author email content);
 }
 
 
