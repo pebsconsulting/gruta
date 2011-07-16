@@ -8,7 +8,7 @@
 		{ @"Comments have been disabled. Sorry." }
 		{
 			'<p>'
-			{if {post_comment %topic %story %author %content}
+			{if {post_comment %topic %story %author %content %email}
 				{@"Your comment has been posted. Thank you."}
 				{@"Your comment has been queued for approval. Thank you."}
 			}

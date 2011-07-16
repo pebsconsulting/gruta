@@ -2,9 +2,6 @@
 " (comments)" 
 " (comentarios)"
 
-" by " 
-" por "
-
 "(If set to 0, this main menu option will not be shown)." 
 "(si se pone a 0, esta opción del menú principal no se mostrará)."
 
@@ -136,6 +133,9 @@
 
 "Editors:" 
 "Editores:"
+
+"Email (optional, not shown):" 
+"Email (opcional, no mostrado):"
 
 "Email:" 
 "Email:"

@@ -22,6 +22,7 @@
 
 	'<form method = "post" action = "' {url} '">'
 	'<p>' @"Author:" '<br><input name = "author">'
+    '<p>' @"Email (optional, not shown):" '<br><input name = "email">'
 	'<p>' @"Comment:" '<br><textarea name = "content" cols = "40" rows = "5" wrap = "virtual"></textarea>'
 	'<p><input type = "submit" class = "button" value = "' @"Send" '">'
 	'<input type = "hidden" name = "topic" value = "' $0 '">'
