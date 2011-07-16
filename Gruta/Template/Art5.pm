@@ -153,6 +153,31 @@ sub _art5 {
 			return $comment->date($format);
 		};
 
+        $a->{op}->{comment_gravatar} = sub {
+			my $topic_id	= $a->exec(shift);
+			my $story_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+
+			my $comment = $data->source->comment(
+							$topic_id, $story_id, $id);
+
+            my $email = $comment->get('email') || '';
+
+            # strip spaces, convert to lowercase and calculate md5
+            # (as of http://es.gravatar.com/site/implement/hash/)
+
+            $email =~ s/ //g;
+            $email = lc($email);
+
+            use Digest::MD5;
+
+            my $md5 = Digest::MD5->new();
+            $md5->add($email);
+
+            return '<img src = "http://www.gravatar.com/avatar/' .
+                $md5->hexdigest() . '?d=mm&s=40" />';
+        };
+
 		$a->{op}->{related_stories} = sub {
 			my $topic_id	= $a->exec(shift);
 			my $id			= $a->exec(shift);

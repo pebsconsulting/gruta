@@ -194,9 +194,15 @@ h6 {
 .comment_content {
 	margin-left: 2em;
 	margin-bottom: 0.5em;
+	padding: 0 20px;
+	border-left: 6px solid #efefef;
 }
 .comment_controls {
 	margin-left: 2em;
+}
+.gravatar {
+    float: left;
+    padding-right: 1em;
 }
 .self_links {
 	text-align: center;
