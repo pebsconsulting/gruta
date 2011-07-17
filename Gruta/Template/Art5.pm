@@ -175,7 +175,8 @@ sub _art5 {
             $md5->add($email);
 
             return '<img src = "http://www.gravatar.com/avatar/' .
-                $md5->hexdigest() . '?d=mm&s=40" />';
+                $md5->hexdigest() .
+                '?d=mm&s=40" width = "40" height = "40" />';
         };
 
 		$a->{op}->{related_stories} = sub {
