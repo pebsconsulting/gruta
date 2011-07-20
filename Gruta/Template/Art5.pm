@@ -756,6 +756,10 @@ sub _art5 {
 			my $query	= $a->exec(shift);
 			my $future	= $a->exec(shift);
 
+            # strip strange characters
+            $query =~ s/[\+\"\']+/ /g;
+            $query =~ s/^\s+//;
+
 			my @ret = $data->source->stories_by_text(
 				$topic ?
 					[ map { (split(',', $_))[0] }
