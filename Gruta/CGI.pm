@@ -223,7 +223,6 @@ sub new {
         'Content-Type'          => 'text/html; charset=' . $obj->{charset},
         'X-Gateway-Interface'   => $ENV{'GATEWAY_INTERFACE'},
         'X-Server-Name'         => $ENV{'SERVER_NAME'},
-#        'Expires'               => "Sat, 17 Aug 2030 00:00:00 GMT"
     };
 
 	$obj->{upload_dirs} ||= [];
