@@ -938,6 +938,19 @@ sub _art5 {
 				$a->exec($c);
 			}
 		}
+        elsif ($ENV{'HTTP_ACCEPT_LANGUAGE'}) {
+            # if there is no forced language, try HTTP header
+            foreach my $l (split(/,\s*/, $ENV{HTTP_ACCEPT_LANGUAGE})) {
+                $l =~ s/;.*$//;
+
+                my $c = $a->code('lang_' . $l);
+
+                if ($c) {
+                    $a->exec($c);
+                    last;
+                }
+            }
+        }
 
 		# if a 'config' template exists, read it
 		if (my $cfg = $a->code('config')) {

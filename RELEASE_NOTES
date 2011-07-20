@@ -7,6 +7,7 @@ Gruta Release Notes
  - New features:
    - A new image search engine (by name) for admins.
    - Added support for Gravatars in user comments.
+   - Unless forced, language is selected from the HTTP header.
    - A new checkbox to show the full story in indexes (so that
      the abstract and the body are the same, no need to add the
      magic separator mark at the end).
