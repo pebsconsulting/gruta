@@ -943,6 +943,11 @@ sub _art5 {
             foreach my $l (split(/,\s*/, $ENV{HTTP_ACCEPT_LANGUAGE})) {
                 $l =~ s/;.*$//;
 
+                # prefers english? look no further
+                if ($l eq 'en') {
+                    last;
+                }
+
                 my $c = $a->code('lang_' . $l);
 
                 if ($c) {
