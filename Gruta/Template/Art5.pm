@@ -815,11 +815,11 @@ sub _art5 {
                 # empty author?
                 if (!$author) {
                     $c->set('author', $u->get('username'));
-                }
 
-                # empty email?
-                if (!$email) {
-                    $c->set('email', $u->get('email'));
+                    # empty email?
+                    if (!$email) {
+                        $c->set('email', $u->get('email'));
+                    }
                 }
 
                 # if user is a topic editor, approve automatically
