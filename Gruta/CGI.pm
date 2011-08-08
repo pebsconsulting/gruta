@@ -28,7 +28,7 @@ sub cookie {
 	if (@_) {
         my $cookie = shift;
 
-		$self->http_headers('Set-Cookie', $cookie . '; secure; HttpOnly');
+		$self->http_headers('Set-Cookie', $cookie . '; HttpOnly');
 	}
 
 	return $ENV{HTTP_COOKIE};
