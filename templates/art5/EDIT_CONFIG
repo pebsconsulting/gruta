@@ -128,16 +128,32 @@
 	<input type = 'text' name = 'cfg_akismet_url'
 		value = '<{cfg_akismet_url}>' size = 32>
 
-	<p><{@"Send a copy of new comments to this email address:"}><br>
-	<input type = 'text' name = 'cfg_comment_email'
-		value = '<{cfg_comment_email}>' size = 32>
+    <p><label for = 'cfg_comment_email'>
+        <{@"Send a copy of new comments to this email address:"}>
+    </label><br>
+    <input
+        type    = 'text'
+        name    = 'cfg_comment_email'
+        id      = 'cfg_comment_email'
+        value   = '<{cfg_comment_email}>'
+        size    = 32
+    />
 
-    <p><{@"Number of days for non-approved comments to expire:"}><br>
-	<input type = 'text' name = 'cfg_comment_expire_days'
-		value = '<{cfg_comment_expire_days}>' size = 32>
+    <p><label for = 'cfg_comment_expire_days'>
+        <{@"Number of days for non-approved comments to expire:"}>
+    </label><br>
+	<input
+        type    = 'text'
+        name    = 'cfg_comment_expire_days'
+        id      = 'cfg_comment_expire_days'
+        value   = '<{cfg_comment_expire_days}>'
+        size    = 32
+    />
 
-	<p><{@"Use 'Gravatars' on comments:"}><br>
-	<select name = 'cfg_use_gravatars'>
+	<p><label for = 'cfg_use_gravatars'>
+        <{@"Use 'Gravatars' on comments:"}>
+    </label><br>
+	<select name = 'cfg_use_gravatars' id = 'cfg_use_gravatars'>
 		<option <{if {not cfg_use_gravatars} 'selected'}> value = '0'>
 			<{@"no"}>
 		</option>
