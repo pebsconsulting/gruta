@@ -14,28 +14,71 @@
 
 	<p><{@"Publication date: (empty, today)"}><br>
 
-	<{@"Day:"}> <input type = 'text' size = '2' name = 'day'
-		value = '<{story_date '%d' %topic %id}>'>
-	<{@"Month:"}> <input type = 'text' size = '2' name = 'month'
-		value = '<{story_date '%m' %topic %id}>'>
-	<{@"Year:"}> <input type = 'text' size = '4' name = 'year'
-		value = '<{story_date '%y' %topic %id}>'>
+    <label for = 'day'><{@"Day:"}></label>
+    <input
+        type    = 'text'
+        size    = '2'
+        name    = 'day'
+        id      = 'day'
+        value   = '<{story_date '%d' %topic %id}>'
+    />
+    <label for = 'month'><{@"Month:"}></label>
+    <input
+        type    = 'text'
+        size    = '2'
+        name    = 'month'
+        id      = 'month'
+        value   = '<{story_date '%m' %topic %id}>'
+    />
+    <label for = 'year'><{@"Year:"}></label>
+    <input
+        type    = 'text'
+        size    = '4'
+        name    = 'year'
+        id      = 'year'
+        value   = '<{story_date '%y' %topic %id}>'
+    />
 
 	<p><{@"Liberation date for non-subscribers: (empty, same as above)"}><br>
 
-	<{@"Day:"}> <input type = 'text' size = '2' name = 'day2'
-		value = '<{story_date2 '%d' %topic %id}>'>
-	<{@"Month:"}> <input type = 'text' size = '2' name = 'month2'
-		value = '<{story_date2 '%m' %topic %id}>'>
-	<{@"Year:"}> <input type = 'text' size = '4' name = 'year2'
-		value = '<{story_date2 '%y' %topic %id}>'>
+    <label for = 'day2'><{@"Day:"}></label>
+    <input
+        type    = 'text'
+        size    = '2'
+        name    = 'day2'
+        id      = 'day2'
+        value   = '<{story_date2 '%d' %topic %id}>'
+    />
+    <label for = 'month2'><{@"Month:"}></label>
+    <input
+        type    = 'text'
+        size    = '2'
+        name    = 'month2'
+        id      = 'month2'
+        value   = '<{story_date2 '%m' %topic %id}>'
+    />
+    <label for = 'year2'><{@"Year:"}></label>
+    <input
+        type    = 'text'
+        size    = '4'
+        name    = 'year2'
+        id      = 'year2'
+        value   = '<{story_date2 '%y' %topic %id}>'
+    />
 
-	<p><{@"Description: (about 15 words)"}><br>
-	<input size = '80' type = 'text' name = 'description'
-		value = '<{story_description %topic %id}>'>
+    <p><label for = 'description'>
+        <{@"Description: (about 15 words)"}>
+    </label><br>
+    <input
+        size    = '80'
+        type    = 'text'
+        name    = 'description'
+        id      = 'description'
+        value   = '<{story_description %topic %id}>'
+    />
 
-	<p><{@"Format:"}><br>
-	<select name = 'format'>
+	<p><label for = 'format'><{@"Format:"}></label><br>
+	<select name = 'format' id = 'format'>
 	<{foreach renderers {
 		option $0 $0
 			{if {eq $0 {story_format %topic %id}} 'selected'}
@@ -45,46 +88,73 @@
 
 	<{if {eq {or %cp_id %id} '[]'}
 		{
-			'<p>'
+			'<p><label for = "id">'
 			@"Story id: (Optional; if you don't know what it means, leave it blank)"
-			'<br>'
-			"<input type = 'text' size = '32' name = 'id' value = ''>"
+			'</label><br>'
+			"<input type = 'text' size = '32' name = 'id' id = 'id' value = ''>"
 		}
 		{
-			"<input type = 'hidden' name = 'id' value = '"
+			"<input type = 'hidden' name = 'id' id = 'id' value = '"
 			{or %cp_id %id}
 			"'>"
 		}
 	}>
 
-	<p><{@"Tags: (comma-separated)"}><br>
-	<input type = 'text' size = '60' name = 'tags'
-		value = '<{foreach {story_tags %topic %id} $0 ', '}>'>
+    <p><label for = 'tags'><{@"Tags: (comma-separated)"}></label><br>
+    <input
+        type    = 'text'
+        size    = '60'
+        name    = 'tags'
+        id      = 'tags'
+        value   = '<{foreach {story_tags %topic %id} $0 ', '}>'
+    />
 
-	<p><{@"Generate table of contents? (grutatxt only)"}><br>
-	<input type = 'checkbox' name = 'toc'
-		<{if {story_toc %topic %id} "checked"}>>
+    <p><label for = 'toc'>
+        <{@"Generate table of contents? (grutatxt only)"}>
+    </label><br>
+    <input
+        type    = 'checkbox'
+        name    = 'toc'
+        id      = 'toc'
+        <{if {story_toc %topic %id} "checked"}>
+    />
 
-	<p><{@"Allow comments from visitors?"}><br>
-	<input type = 'checkbox' name = 'has_comments'
-		<{if {or
-				{story_has_comments %topic %id}
-				{if {eq %id '[]'} {not cfg_disable_comments}}
-			}
-			"checked"}>
-	>
+    <p><label for = 'has_comments'>
+        <{@"Allow comments from visitors?"}>
+    </label><br>
+    <input
+        type    = 'checkbox'
+        name    = 'has_comments'
+        id      = 'has_comments'
+        <{if {or
+                {story_has_comments %topic %id}
+                {if {eq %id '[]'} {not cfg_disable_comments}}
+            }
+            "checked"
+        }>
+    />
 
-	<p><{@"Show full story in indexes?"}><br>
-	<input type = 'checkbox' name = 'full_story'
-		<{if {story_full_story %topic %id} "checked"}>>
+    <p><label for = 'full_story'>
+        <{@"Show full story in indexes?"}>
+    </label><br>
+    <input
+        type    = 'checkbox'
+        name    = 'full_story'
+        id      = 'full_story'
+        <{if {story_full_story %topic %id} "checked"}>
+    />
 
-	<p><{@"Content:"}><br>
+	<p><label for = 'content'><{@"Content:"}></label><br>
 
-	<textarea name = 'content' cols = '80' rows = '30'
-		wrap = 'virtual'><{story_content %topic %id}></textarea>
+    <textarea
+        name    = 'content'
+        id      = 'content'
+        cols    = '80'
+        rows    = '30'
+        wrap    = 'virtual'><{story_content %topic %id}></textarea>
 
-	<p>
-	<input type = 'submit' class = 'button' value = 'OK'>
+    <p>
+    <input type = 'submit' class = 'button' value = 'OK'>
 </form>
 
 <form method = 'post' onsubmit =
