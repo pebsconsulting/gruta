@@ -141,7 +141,12 @@
         type    = 'checkbox'
         name    = 'full_story'
         id      = 'full_story'
-        <{if {story_full_story %topic %id} "checked"}>
+        <{if {or
+                {story_full_story %topic %id}
+                {if {eq %id '[]'} {cfg_full_story}}
+            }
+            "checked"
+        }>
     />
 
 	<p><label for = 'content'><{@"Content:"}></label><br>

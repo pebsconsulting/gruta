@@ -20,6 +20,8 @@ Gruta Release Notes
  - New configurable options:
    - The maximum number of days a non-approved comment is hold
      before being purged.
+   - A default value for the 'show full story in indexes' story
+     configuration item.
  - New bin/gruta commands:
    - `rename_tag', to rename or remove a tag.
  - Bug fixes:

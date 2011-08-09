@@ -94,6 +94,18 @@
 		</option>
 	</select>
 
+    <p><label for = 'cfg_full_story'>
+        <{@"Full stories by default:"}>
+    </label><br>
+    <select name = 'cfg_full_story' id = 'cfg_full_story'>
+        <option <{if {not cfg_full_story} 'selected'}> value = '0'>
+            <{@"no"}>
+        </option>
+        <option <{if cfg_full_story 'selected'}> value = '1'>
+            <{@"yes"}>
+        </option>
+    </select>
+
 	<h2><{@"Date formats"}></h2>
 
 	<p><{@"Global date format:"}><br>
