@@ -5,13 +5,13 @@ Gruta Release Notes
 --------------
 
  - New features:
-   - A new image search engine (by name) for admins.
+   - A new image search engine (by file name) for admins.
    - Added support for Gravatars in user comments.
    - Unless forced, language is selected from the HTTP header.
    - A new checkbox to show the full story in indexes (so that
      the abstract and the body are the same, no need to add the
      magic separator mark at the end).
-   - An new pseudo-url `thumb://', to be used like the `img://'
+   - A new pseudo-url `thumb://', to be used like the `img://'
      one, that inserts a thumbnail of the image with a link to
      the real image.
    - The `RSS_COMMENTS' template now accepts optional `topic'
