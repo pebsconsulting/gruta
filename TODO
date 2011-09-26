@@ -11,12 +11,8 @@ Open Bugs
 
  * 1001: Audit all possible directory traversal vulnerabilities
    in Source::FS.
- * 1060: Fix RSS to avoid generating an author tag if there is
-   no author.
  * 1065: Every time the supertemplate is changed, it should also
    be set in the CGI vars hash.
- * 1074: Add an `Expires' header a little time in the future
-   (i.e. 10 minutes) when the user is not logged in.
 
 Pending Enhancements
 --------------------
@@ -172,5 +168,10 @@ Closed
    (Tue, 10 May 2011 09:42:00 +0200).
  * 1071: Move comment SPAM testing to Gruta::CGI
    (Tue, 10 May 2011 16:05:37 +0200).
+ * 1074: Add an `Expires' header a little time in the future
+   (i.e. 10 minutes) when the user is not logged in (used cache
+   control; Mon, 26 Sep 2011 15:26:10 +0200).
+ * 1060: Fix RSS to avoid generating an author tag if there is
+   no author (no longer applicable; Mon, 26 Sep 2011 15:26:10 +0200).
 
 Email bugs to angel@triptico.com
