@@ -223,8 +223,6 @@ sub new {
 
     $obj->{http_headers} = {
         'Content-Type'          => 'text/html; charset=' . $obj->{charset},
-        'X-Gateway-Interface'   => $ENV{'GATEWAY_INTERFACE'},
-        'X-Server-Name'         => $ENV{'SERVER_NAME'},
     };
 
 	$obj->{upload_dirs} ||= [];
@@ -313,7 +311,6 @@ sub run {
 		$self->{error} = 1;
 	}
 
-	$self->http_headers('X-BaseURL'		=> $self->data->base_url());
 	$self->http_headers('X-Powered-By'	=> 'Gruta ' . $self->data->version());
 
 	if (!$data->auth()) {
