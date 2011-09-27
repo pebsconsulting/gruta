@@ -174,10 +174,16 @@ sub new_id {
 
 	my $id;
 
-	do {
-		$id = sprintf('%08x', int(rand(0xffffffff)));
-	}
-	while ($id =~ /^\d+$/);
+    my ($s, $m, $h, $d, $M, $y) = localtime(time());
+
+    $id = sprintf("%02x%c%c%c%c%02x",
+        $$ % 256,
+        ($y % 25) + 97,
+        (($d + $M) % 25) + 97,
+        (($h + $m) % 25) + 97,
+        ($s % 25) + 97,
+        rand(0xff)
+    );
 
 	return $id;
 }
