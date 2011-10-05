@@ -931,6 +931,11 @@ sub _art5 {
 			return 'Gruta ' . $data->version();
 		};
 
+        # default error handler
+        $a->{op}->{AUTOLOAD} = sub {
+            return "<mark>ERROR: '" . $a->exec($_[0]) . "' not found</mark>";
+        };
+
 		# copy the external hash
 		$a->{xh} = $self->{cgi_vars};
 
