@@ -384,17 +384,28 @@ sub _art5 {
 			$a->{abort} = 1;
 		};
 
-		$a->{op}->{assert} = sub {
-			my $cond	= $a->exec(shift);
-			my $redir	= $a->exec(shift) || 'ADMIN';
+        $a->{op}->{assert} = sub {
+            my $cond    = $a->exec(shift);
+            my $redir   = $a->exec(shift) || 'ADMIN';
+            my $ret     = '';
 
-			if (! $cond) {
-				$data->cgi->redirect($redir);
-				$a->{abort} = 1;
-			}
+            if (! $cond) {
+                # if redir is three numbers, it's
+                # a special HTTP status
+                if ($redir =~ /^\d{3}$/) {
+                    $data->cgi->status($redir);
+                    $ret = $a->exec([$redir]);
+                }
+                else {
+                    $data->cgi->redirect($redir);
+                }
 
-			return '';
-		};
+                # either way, do nothing more
+                $a->{abort} = 1;
+            }
+
+            return $ret;
+        };
 
 		$a->{op}->{username} = sub {
 			return $data->auth() && $data->auth->get('username') || '';
