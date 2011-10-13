@@ -1,1 +1,2 @@
+<{assert {is_enabled_story $0 $1} '410'}>
 <{assert {is_visible_story $0 $1} '404'}>
