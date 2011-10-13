@@ -18,7 +18,9 @@ Gruta Release Notes
      and `id' arguments to return comments only from a story.
    - New Gruta::CGI argument `cache_control_max_age' (default 300).
    - If a story is set to year 9999, it's assumed to be disabled
-     forever and fails with a '410 Gone' HTTP error.
+     forever and fails with a `410 Gone' HTTP error.
+   - All internal redirections are done with an HTTP status of
+     `301 Moved Permanently' instead of `302 Found'.
  - New configurable options:
    - The maximum number of days a non-approved comment is hold
      before being purged.
