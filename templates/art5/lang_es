@@ -8,6 +8,9 @@
 "404 Not Found" 
 "404 No Encontrado"
 
+"410 Gone" 
+"410 Borrado"
+
 "Account expiration date: (empty, never)" 
 "Fecha de expiración de la cuenta (vacío, nunca)"
 
@@ -328,6 +331,9 @@
 
 "The requested page does not exist." 
 "La página solicitada no existe."
+
+"The requested page is no longer available on this server. Please remove all references to this resource." 
+"La página solicitada ya no está disponible en este servidor. Por favor, borre todas las referencias a este recurso."
 
 "This story" 
 "Esta historia"
