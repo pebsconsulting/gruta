@@ -35,15 +35,18 @@ sub cookie {
 }
 
 sub status {
-	$_[0]->http_headers( 'Status', $_[1] );
+    $_[0]->http_headers( 'Status', $_[1] );
 }
 
 sub redirect {
-	my $self	= shift;
+    my $self    = shift;
+    my $t       = shift;
+    my $status  = shift || 301;
 
-	$self->http_headers('Location', $self->data->url(@_));
+    $self->status($status);
+    $self->http_headers('Location', $self->data->url($t));
 
-	return $self;
+    return $self;
 }
 
 sub filter_comment {
