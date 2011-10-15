@@ -27,6 +27,8 @@ Pending Enhancements
    the source, so that uploaded things are inside it. For the FS
    nothing would change regarding filesystem layout, but on the DBI
    binaries will be stored as blobs.
+ * 1075: Create a server process that serves Gruta databases, maybe
+   as a RESTful service.
 
 Closed
 ------
