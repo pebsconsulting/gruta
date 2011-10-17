@@ -43,6 +43,8 @@ the usual :// mark, then by the arguments separated by slashes.
    for *story*.
  * img: inserts a link to an image. Must be followed by the image file
    name, with an optional alignment (left or right) separated by a slash.
+ * thumb: inserts a thumbnail to the image, that can be clicked to be
+   seen in full size. Format is the same as for `img'.
 
 If any of the story links fail (i.e. they do not point to an existing
 story), an error is inserted instead.
