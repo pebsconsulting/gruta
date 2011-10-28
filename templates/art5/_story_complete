@@ -16,10 +16,6 @@
 <{if {and {not cfg_disable_comments} {story_has_comments $0 $1}} {
 	'<h2>' @"Add a comment" '</h2>'
 
-	"<!-- To any spammers out there: Any submission to this form is\n"
-	"moderated: this means that only I will see your URLs, and I will not\n"
-	"visit them nor link to them. Thus, you can stop wasting your time and mine. -->\n"
-
 	'<form method = "post" action = "' {url} '">'
 	'<p>' @"Author:" '<br><input name = "author">'
     '<p>' @"Email (optional, not shown):" '<br><input name = "email">'
@@ -28,7 +24,9 @@
 	'<input type = "hidden" name = "topic" value = "' $0 '">'
 	'<input type = "hidden" name = "story" value = "' $1 '">'
 	'<input type = "hidden" name = "t" value = "POST_COMMENT">'
-	'</form>'
+	'</form><p>'
+
+    @"<b>Note:</b> These comments won't be published until confirmed by a human being, so don't bother sending spam."
 }>
 
 <{_story_comments $0 $1}>
