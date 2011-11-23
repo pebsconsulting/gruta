@@ -7,6 +7,7 @@ Gruta Release Notes
  - New bin/gruta commands:
    - `copy_story', to copy a story from one topic to another
      (like the web interface option).
+   - `delete_story', to do the obvious.
 
 2.3.2 "Arezzo"
 --------------
