@@ -1,6 +1,13 @@
 Gruta Release Notes
 ===================
 
+2.3.3 "Volterra"
+----------------
+
+ - New bin/gruta commands:
+   - `copy_story', to copy a story from one topic to another
+     (like the web interface option).
+
 2.3.2 "Arezzo"
 --------------
 

@@ -121,6 +121,42 @@ my $X = {
 			print get_story($g, $topic_id, $id);
 		}
 	],
+	'copy_story' =>	[
+		'copy_story {src} {topic_id} {id} {new_topic_id} [{new_id}]',
+        'Copies a story to a new topic',
+		sub {
+            my $g           = init();
+            my $topic_id    = arg();
+            my $id          = arg();
+            my $n_topic     = arg();
+            my $n_id        = arg_o();
+
+        	my $story = $g->source->story($topic_id, $id)
+    		  	or die "Cannot find story '${topic_id}/${id}'";
+
+            if (!$n_id) {
+                $n_id = $story->new_id();
+            }
+
+            # pick the list of comments
+            my @c = $g->source->story_comments($story, 1);
+
+            $story->set('id',       $n_id);
+            $story->set('topic_id', $n_topic);
+
+            foreach my $c (@c) {
+                my $comment = $g->source->comment($c->[0], $c->[1], $c->[2])
+                    or die "Cannot find comment '$c->[0]/$c->[1]/$c->[2]";
+
+                $comment->set('topic_id',   $n_topic);
+                $comment->set('story_id',   $n_id);
+
+                $comment->save();
+            }
+
+            $story->save();
+		}
+	],
 	'edit_story' =>	[
 		'edit_story {src} {topic_id} {id}',
 		'Calls $EDITOR to edit story data',
