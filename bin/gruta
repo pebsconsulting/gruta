@@ -152,6 +152,8 @@ my $X = {
                 $n_id = $story->new_id();
             }
 
+            my @tags = $story->tags();
+
             # pick the list of comments
             my @c = $g->source->story_comments($story, 1);
 
@@ -167,6 +169,8 @@ my $X = {
 
                 $comment->save();
             }
+
+            $story->tags(@tags);
 
             $story->save();
 		}
@@ -569,9 +573,45 @@ my $X = {
 			}
 		}
 	],
+    'export_json'       => [
+        'export_json {src}',
+        'Exports a source to JSON format',
+        sub {
+            my $g   = init();
+
+            print "{";
+
+            print "\n  \"topics\": {";
+
+            print join(",",
+                map {
+                    my $topic = $_;
+                    my $o = '';
+
+                    $o =    "\n    \"$topic\": {";
+
+                    my $t = $g->source->topic($topic);
+
+                    $o .= join(",",
+                        map {
+                            $_ = "\n      \"$_\": \"" . $t->get($_) . "\""
+                        } $t->fields()
+                    );
+
+                    $o .=   "\n    }";
+
+                    $_ = $o;
+                } $g->source->topics()
+            );
+
+            print "\n  }";
+
+            print "\n}\n";
+        }
+    ],
 	'import_rss'		=> [
 		'import_rss {src} {topic_id} [{tag(s)}]',
-		'Import an RSS from STDIN into a topic',
+		'Imports an RSS from STDIN into a topic',
 		sub {
 			my $g		= init();
 			my $topic_id	= arg();
