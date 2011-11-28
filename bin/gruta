@@ -901,6 +901,20 @@ sub save_topic
 }
 
 
+sub js_quote
+{
+    my $str = shift;
+
+    $str ||= '';
+
+    $str =~ s/\r/\\r/g;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/"/\\"/g;
+
+    return $str;
+}
+
+
 sub export_json
 {
     my $g   = init();
@@ -929,11 +943,11 @@ sub export_json
                     if ($f eq 'editors') {
                         $o .= '[ ' . join(', ',
                             map { '"' . $_ . '"' }
-                                split(/,\s*/, ($t->get($f) || ''))
+                                split(/,\s*/, js_quote($t->get($f)))
                         ) . ' ]';
                     }
                     else {
-                        $o .= "\"" . ($t->get($f) || '') . "\"";
+                        $o .= "\"" . js_quote($t->get($f)) . "\"";
                     }
 
                     $_ = $o;
@@ -946,6 +960,75 @@ sub export_json
         } $g->source->topics()
     );
 
+    # end of topics
+    print "\n  },";
+
+    # users
+    print "\n  \"users\": {";
+
+    print join(",",
+        map {
+            my $user = $_;
+            my $o = '';
+
+            $o =    "\n    \"$user\": {";
+
+            my $t = $g->source->user($user);
+
+            $o .= join(",",
+                map {
+                    my $f = $_;
+
+                    # key
+                    my $o = "\n      \"$_\": ";
+
+                    $o .= "\"" . js_quote($t->get($f)) . "\"";
+
+                    $_ = $o;
+                } $t->fields()
+            );
+
+            $o .=   "\n    }";
+
+            $_ = $o;
+        } $g->source->users()
+    );
+
+    # end of users
+    print "\n  },";
+
+    # templates
+    print "\n  \"templates\": {";
+
+    print join(",",
+        map {
+            my $id = $_;
+            my $o = '';
+
+            $o =    "\n    \"$id\": {";
+
+            my $t = $g->source->template($id);
+
+            $o .= join(",",
+                map {
+                    my $f = $_;
+
+                    # key
+                    my $o = "\n      \"$f\": ";
+
+                    $o .= "\"" . js_quote($t->get($f)) . "\"";
+
+                    $_ = $o;
+                } $t->fields()
+            );
+
+            $o .=   "\n    }";
+
+            $_ = $o;
+        } $g->source->templates()
+    );
+
+    # end of templates
     print "\n  }";
 
     print "\n}\n";
