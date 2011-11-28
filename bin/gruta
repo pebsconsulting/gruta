@@ -577,36 +577,7 @@ my $X = {
         'export_json {src}',
         'Exports a source to JSON format',
         sub {
-            my $g   = init();
-
-            print "{";
-
-            print "\n  \"topics\": {";
-
-            print join(",",
-                map {
-                    my $topic = $_;
-                    my $o = '';
-
-                    $o =    "\n    \"$topic\": {";
-
-                    my $t = $g->source->topic($topic);
-
-                    $o .= join(",",
-                        map {
-                            $_ = "\n      \"$_\": \"" . ($t->get($_) || '') . "\"";
-                        } $t->fields()
-                    );
-
-                    $o .=   "\n    }";
-
-                    $_ = $o;
-                } $g->source->topics()
-            );
-
-            print "\n  }";
-
-            print "\n}\n";
+            export_json(@_);
         }
     ],
 	'import_rss'		=> [
@@ -927,4 +898,55 @@ sub save_topic
 	else {
 		$g->source->insert_topic($topic);
 	}
+}
+
+
+sub export_json
+{
+    my $g   = init();
+
+    print "{";
+
+    # topics
+    print "\n  \"topics\": {";
+
+    print join(",",
+        map {
+            my $topic = $_;
+            my $o = '';
+
+            $o =    "\n    \"$topic\": {";
+
+            my $t = $g->source->topic($topic);
+
+            $o .= join(",",
+                map {
+                    my $f = $_;
+
+                    # key
+                    my $o = "\n      \"$_\": ";
+
+                    if ($f eq 'editors') {
+                        $o .= '[ ' . join(', ',
+                            map { '"' . $_ . '"' }
+                                split(/,\s*/, ($t->get($f) || ''))
+                        ) . ' ]';
+                    }
+                    else {
+                        $o .= "\"" . ($t->get($f) || '') . "\"";
+                    }
+
+                    $_ = $o;
+                } $t->fields()
+            );
+
+            $o .=   "\n    }";
+
+            $_ = $o;
+        } $g->source->topics()
+    );
+
+    print "\n  }";
+
+    print "\n}\n";
 }
