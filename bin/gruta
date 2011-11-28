@@ -1029,7 +1029,7 @@ sub export_json
     );
 
     # end of templates
-    print "\n  }";
+    print "\n  },";
 
     # stories
     print "\n  \"stories\": {";
