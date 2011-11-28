@@ -951,7 +951,7 @@ sub export_json
                     }
 
                     $_ = $o;
-                } $t->fields()
+                } $t->afields()
             );
 
             $o .=   "\n    }";
@@ -985,7 +985,7 @@ sub export_json
                     $o .= "\"" . js_quote($t->get($f)) . "\"";
 
                     $_ = $o;
-                } $t->fields()
+                } $t->afields()
             );
 
             $o .=   "\n    }";
@@ -1019,7 +1019,7 @@ sub export_json
                     $o .= "\"" . js_quote($t->get($f)) . "\"";
 
                     $_ = $o;
-                } $t->fields()
+                } $t->afields()
             );
 
             $o .=   "\n    }";
@@ -1029,6 +1029,56 @@ sub export_json
     );
 
     # end of templates
+    print "\n  }";
+
+    # stories
+    print "\n  \"stories\": {";
+
+    print join(",",
+        map {
+            my $topic   = $_->[0];
+            my $id      = $_->[1];
+
+            my $o = '';
+
+            $o =    "\n    \"$topic/$id\": {";
+
+            my $t = $g->source->story($topic, $id);
+
+            $o .= "\n      \"tags\": [ " .
+                join(', ', map { $_ = '"' . js_quote($_) . '"' }
+                    $t->tags()
+                ) . " ],";
+
+            $o .= join(",",
+                map {
+                    my $f = $_;
+
+                    # key
+                    my $o = "\n      \"$_\": ";
+
+                    if ($f eq 'editors') {
+                        $o .= '[ ' . join(', ',
+                            map { '"' . $_ . '"' }
+                                split(/,\s*/, js_quote($t->get($f)))
+                        ) . ' ]';
+                    }
+                    else {
+                        $o .= "\"" . js_quote($t->get($f)) . "\"";
+                    }
+
+                    $_ = $o;
+                } $t->afields()
+            );
+
+            $o .=   "\n    }";
+
+            $_ = $o;
+        } $g->source->stories_by_date([ $g->source->topics() ],
+                future => 1, num => 0, offset => 0)
+    );
+
+    # end of stories
     print "\n  }";
 
     print "\n}\n";
