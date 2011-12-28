@@ -30,6 +30,9 @@
 			'<item>'
 			'<title>' {story_title $0 $1} '</title>'
 			'<link>' {aurl 'STORY' 'topic' $0 'id' $1} '</link>'
+            '<pubDate>'
+                {story_date '%C_LOCALE%a, %d %b %Y %T +0100' $0 $1}
+            '</pubDate>'
 			'<author>'
 				{= 'USERID' {or {story_userid $0 $1} 'admin'}}
 				{user_email USERID}

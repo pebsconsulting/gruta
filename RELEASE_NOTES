@@ -4,6 +4,10 @@ Gruta Release Notes
 2.3.3 "Volterra"
 ----------------
 
+ - New features:
+   - The `date' templates now include the `%C_LOCALE' command,
+     that switches temporarily to C locale before parsing
+     the date.
  - New bin/gruta commands:
    - `copy_story', to copy a story from one topic to another
      (like the web interface option).

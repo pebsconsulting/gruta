@@ -311,6 +311,7 @@ sub format_date {
 
 	if ($format) {
 		use POSIX;
+        my $ol;
 
 		my ($y, $m, $d, $H, $M, $S) = ($date =~
 			/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
@@ -318,8 +319,18 @@ sub format_date {
 		# convert %y to %Y for compatibility
 		$format =~ s/%y/%Y/g;
 
+        # if %C_LOCALE is included in the format string,
+        # set locale to C temporarily
+        if ($format =~ s/%C_LOCALE//) {
+            $ol = setlocale(LC_ALL, 'C');
+        }
+
 		$format = POSIX::strftime($format, $S, $M, $H,
 					$d, $m - 1, $y - 1900);
+
+        if ($ol) {
+            setlocale(LC_ALL, $ol);
+        }
 	}
 	else {
 		$format = $date;
