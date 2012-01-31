@@ -116,18 +116,18 @@ foreach my $t (sort $g->source->topics()) {
     }
 
     out($g, 'TOPIC',    "$t/index.html", { 'topic' => $t, 'num' => $step });
-    foreach my $i (1..$step) { shift(@stories); }
 
+    my $max = scalar(@stories) - $step;
     my $offset = $step;
 
-    while (@stories) {
+    while ($max > 0) {
         out($g, 'TOPIC', "$t/~${offset}.html", {
             topic   => $t,
             num     => $step,
             offset  => $offset
             }
         );
-        foreach my $i (1..$step) { shift(@stories); }
+        $max -= $step;
         $offset += $step;
     }
 }
