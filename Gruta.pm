@@ -461,6 +461,11 @@ sub new {
 		$g->cgi->data($g);
 	}
 
+    # ensure base_url has a final /
+    if ($g->{args}->{base_url} && $g->{args}->{base_url} !~ /\/$/) {
+        $g->{args}->{base_url} .= '/';
+    }
+
 	return $g;
 }
 
