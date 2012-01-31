@@ -22,6 +22,7 @@ TODO
 bin
 bin/gruta
 bin/gruta-mksite
+bin/gruta-snapshot
 examples
 examples/copy.pl
 examples/create.pl

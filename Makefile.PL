@@ -17,6 +17,6 @@ WriteMakefile(
 	'NAME'		=> 'Gruta',
 	'dist'		=> { COMPRESS => gzip, SUFFIX => '.gz'},
 	'VERSION_FROM'	=> 'Gruta.pm',
-	'EXE_FILES' 	=> [ 'bin/gruta', 'bin/gruta-mksite' ],
+	'EXE_FILES' 	=> [ 'bin/gruta', 'bin/gruta-mksite', 'bin/gruta-snapshot' ],
 	'INSTALLSCRIPT'	=> '/usr/local/bin',
 );

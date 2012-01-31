@@ -1,0 +1,129 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my $VERSION = '0.2';
+
+use locale;
+use POSIX qw (locale_h);
+setlocale(LC_ALL, 'es_ES.UTF-8');
+
+use Gruta;
+
+use Gruta::CGI;
+use Gruta::Source::FS;
+use Gruta::Renderer::Grutatxt;
+use Gruta::Renderer::HTML;
+use Gruta::Renderer::Text;
+use Gruta::Template::Art5;
+
+sub usage() {
+    print "Usage: $0 {src} {folder} {base url}\n";
+    exit 1;
+}
+
+sub out {
+    my $g           = shift;
+    my $template    = shift;
+    my $file        = shift;
+    my $args        = shift || {};
+
+    $args->{t} = $template;
+    $g->template->_art5->{xh} = $args;
+
+    $g->template->_art5->{abort} = 0;
+    $g->template->{search_count} = 0;
+
+    my $o = $g->template->process($template);
+
+    if ($g->template->_art5->{abort}) {
+        print ("NOT Creating $file\n");
+    }
+    else {
+        printf("Creating $file\n");
+        open F, '>' . $g->{_folder} . '/' . $file or die;
+        print F $o;
+        close F;
+    }
+}
+
+############################################################
+
+my $step    = 35;
+
+my $base    = shift(@ARGV) or usage();
+my $folder  = shift(@ARGV) or usage();
+my $url     = shift(@ARGV) or usage();
+
+$Gruta::VERSION_CODENAME .= " (+ gruta-snapshot $VERSION)";
+
+my $g = Gruta->new(
+    id          => '',
+    source      => Gruta::Source::FS->new( path => "${base}/var"),
+    renderers   => [
+        Gruta::Renderer::Grutatxt->new(),
+        Gruta::Renderer::HTML->new(),
+        Gruta::Renderer::HTML->new( valid_tags => undef ),
+        Gruta::Renderer::Text->new(),
+    ],
+    template    => Gruta::Template::Art5->new(lang => 'en'),
+    cgi         => Gruta::CGI->new(
+            upload_dirs	=> [
+                "${base}/img",
+                "${base}/download"
+            ],
+    ),
+    args        => {
+            base_url    =>  $url,
+            static_urls =>  1,
+    },
+    _folder     => $folder
+);
+
+mkdir $folder, 0755;
+mkdir $folder . '/tag/', 0755;
+mkdir $folder . '/top/', 0755;
+
+out($g, 'INDEX',    'index.html');
+out($g, 'CSS',      'style.css');
+out($g, 'RSS',      'rss.xml');
+out($g, 'SITEMAP',  'sitemap.xml');
+
+foreach my $t (sort $g->source->topics()) {
+    mkdir $folder . '/' . $t, 0755;
+
+    my @stories = $g->source->stories($t);
+
+    foreach my $s (sort @stories) {
+        out($g, 'STORY', "$t/$s.html", {
+            topic   => $t,
+            id      => $s
+            }
+        );    
+    }
+
+    out($g, 'TOPIC',    "$t/index.html", { 'topic' => $t, 'num' => $step });
+    foreach my $i (1..$step) { shift(@stories); }
+
+    my $offset = $step;
+
+    while (@stories) {
+        out($g, 'TOPIC', "$t/~${offset}.html", {
+            topic   => $t,
+            num     => $step,
+            offset  => $offset
+            }
+        );
+        foreach my $i (1..$step) { shift(@stories); }
+        $offset += $step;
+    }
+}
+
+out($g, 'TAGS',     'tag/index.html');
+
+foreach my $t ($g->source->tags()) {
+    out($g, 'SEARCH_BY_TAG', "tag/$t->[0].html", { tag => $t->[0] });
+}
+
+out($g, 'TOP_TEN',  'top/index.html');
