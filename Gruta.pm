@@ -199,6 +199,14 @@ sub url {
 				return $ret . $args{topic} . '/~' . $args{offset} . '.html';
 			}
 			if ($st eq 'SEARCH_BY_DATE' && $args{from} && $args{to}) {
+                # special case: full day search
+                $args{from} =~ /^([0-9]{8})/;
+                my $d = $1;
+
+                if ($d && $args{from} =~ /^${d}000000$/ && $args{to} =~ /^${d}235959$/) {
+                    return $ret . $d . '/';
+                }
+
 				return $ret . $args{from} . '-' . $args{to} . '.html';
 			}
 		}

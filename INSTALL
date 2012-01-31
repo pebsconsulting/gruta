@@ -75,6 +75,7 @@ apache
  RewriteRule ^/tag/(.+)\.html$          /?t=SEARCH_BY_TAG&tag=$1         [PT,L]
  RewriteRule ^/tag/$                    /?t=TAGS                         [PT,L]
  RewriteRule ^/top/$                    /?t=TOP_TEN                      [PT,L]
+ RewriteRule ^/([0-9]{8})/$             /?t=SEARCH_BY_DATE;from=$1000000;to=$1235959 [PT,L]
  RewriteRule ^/(.+)/$                   /?t=TOPIC&topic=$1               [PT,L]
  RewriteRule ^/(.+)/index\.html$        /?t=TOPIC&topic=$1               [PT,L]
  RewriteRule ^/(.+)/~([0-9]+)\.html$    /?t=TOPIC&topic=$1&offset=$2     [PT,L]
@@ -102,6 +103,7 @@ lighttpd
     "^/tag/(.+)\.html$"          => "/?t=SEARCH_BY_TAG;tag=$1",
     "^/tag/$"                    => "/?t=TAGS",
     "^/top/$"                    => "/?t=TOP_TEN",
+    "^/([0-9]{8})/$"             => "/?t=SEARCH_BY_DATE;from=$1000000;to=$1235959",
     "^/(.+)/$"                   => "/?t=TOPIC;topic=$1",
     "^/(.+)/index\.html$"        => "/?t=TOPIC;topic=$1",
     "^/(.+)/~([0-9]+)\.html$"    => "/?t=TOPIC;topic=$1;offset=$2",
