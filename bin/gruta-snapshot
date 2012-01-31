@@ -106,7 +106,9 @@ foreach my $t (sort $g->source->topics()) {
 
         my $d = $story->date('%y%m%d');
 
-        out($g, 'SEARCH_BY_DATE', "${d}000000-${d}235959.html", {
+        mkdir $folder . '/' . $d;
+
+        out($g, 'SEARCH_BY_DATE', "${d}/index.html", {
             from    => "${d}000000",
             to      => "${d}235959"
             }
