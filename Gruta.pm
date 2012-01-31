@@ -202,6 +202,11 @@ sub url {
 				return $ret . $args{from} . '-' . $args{to} . '.html';
 			}
 		}
+
+        # if static_urls is 2, *never* return non-static
+        if ($self->{args}->{static_urls} == 2) {
+            return $ret;
+        }
 	}
 
 	if ($st) {

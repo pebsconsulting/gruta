@@ -76,7 +76,7 @@ my $g = Gruta->new(
     ),
     args        => {
             base_url    =>  $url,
-            static_urls =>  1,
+            static_urls =>  2,
     },
     _folder     => $folder
 );
