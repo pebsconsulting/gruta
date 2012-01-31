@@ -50,7 +50,8 @@ sub out {
 
 ############################################################
 
-my $step    = 35;
+my $index_num   = 20;
+my $topic_num   = 20;
 
 my $base    = shift(@ARGV) or usage();
 my $folder  = shift(@ARGV) or usage();
@@ -82,10 +83,25 @@ my $g = Gruta->new(
 );
 
 mkdir $folder, 0755;
-mkdir $folder . '/tag/', 0755;
 mkdir $folder . '/top/', 0755;
 
 out($g, 'INDEX',    'index.html');
+
+my @topics = split(/:/, ($g->template->process('cfg_index_topics')));
+
+my @all = $g->source->stories_by_date(\@topics);
+
+my $max = scalar(@all) - $index_num;
+my $offset = $index_num;
+
+print "$max stories\n";
+
+while ($max > 0) {
+    out($g, 'INDEX', "${offset}.html", { num => $index_num, offset => $offset });
+    $offset += $index_num;
+    $max    -= $index_num;
+}
+
 out($g, 'CSS',      'style.css');
 out($g, 'RSS',      'rss.xml');
 out($g, 'SITEMAP',  'sitemap.xml');
@@ -115,24 +131,26 @@ foreach my $t (sort $g->source->topics()) {
         );
     }
 
-    out($g, 'TOPIC',    "$t/index.html", { 'topic' => $t, 'num' => $step });
+    out($g, 'TOPIC',    "$t/index.html", { 'topic' => $t, 'num' => $topic_num });
 
-    my $max = scalar(@stories) - $step;
-    my $offset = $step;
+    my $max = scalar(@stories) - $topic_num;
+    my $offset = $topic_num;
 
     while ($max > 0) {
         out($g, 'TOPIC', "$t/~${offset}.html", {
             topic   => $t,
-            num     => $step,
+            num     => $topic_num,
             offset  => $offset
             }
         );
-        $max -= $step;
-        $offset += $step;
+        $max -= $topic_num;
+        $offset += $topic_num;
     }
 }
 
-out($g, 'TAGS',     'tag/index.html');
+mkdir $folder . '/tag/', 0755;
+
+out($g, 'TAGS', 'tag/index.html');
 
 foreach my $t ($g->source->tags()) {
     out($g, 'SEARCH_BY_TAG', "tag/$t->[0].html", { tag => $t->[0] });
