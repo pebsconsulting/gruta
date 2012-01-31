@@ -6,20 +6,20 @@
 
 	<{if {is_topic_editor $0} {
 		{if cfg_top_ten_num {
-			"<span class = 'hits'>("
+			"<span class = 'hits'> · ("
 			@"Hits:"
 			' '
 			{story_hits $0 $1}
-			') · </span>'
+			')</span>'
 			}
 		}
-		"<span class = 'edit_link'>"
+		"<span class = 'edit_link'> · "
 		{link_to_edit_story $0 $1}
-		" · </span>"
+		"</span>"
 		}
 	}>
 
-	<span class = 'date_link'>
+	<span class = 'date_link'> ·
 		<{link
 			{url 'SEARCH_BY_DATE' 'from' 
 				{story_date '%y%m%d000000' $0 $1}
@@ -28,32 +28,36 @@
 			}
 			{story_date {or cfg_story_date_format cfg_date_format} $0 $1}
 		}>
-	· </span>
+	</span>
 
-	<span class = 'topic_link'>
-	<{link {url 'TOPIC' 'topic' $0} {topic_name $0}}>
-	· </span>
+    <span class = 'topic_link'> ·
+    <{link {url 'TOPIC' 'topic' $0} {topic_name $0}}>
+    </span>
 
     <span class = 'comment_link'>
     <{if {size {story_comments $0 $1}} {
-        {link
-            {
-                ?
-                {url 'STORY' 'topic' $0 'id' $1}
-                '#comments'
-            }
-            {
-                ?
-                {size {story_comments $0 $1}}
-                ' '
-                @"comments"
+        {?
+            " · "
+            {link
+                {
+                    ?
+                    {url 'STORY' 'topic' $0 'id' $1}
+                    '#comments'
+                }
+                {
+                    ?
+                    {size {story_comments $0 $1}}
+                    ' '
+                    @"comments"
+                    }
                 }
             }
         }
         {if {and {not cfg_disable_comments} {story_has_comments $0 $1}} {
-            {link
-                    {
-                        ?
+            {?
+                " · "
+                {link
+                    {?
                         {url 'STORY' 'topic' $0 'id' $1}
                         '#comments'
                     }
