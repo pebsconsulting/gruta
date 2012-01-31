@@ -101,6 +101,16 @@ foreach my $t (sort $g->source->topics()) {
             id      => $s
             }
         );    
+
+        my $story = $g->source->story($t, $s);
+
+        my $d = $story->date('%y%m%d');
+
+        out($g, 'SEARCH_BY_DATE', "${d}000000-${d}235959.html", {
+            from    => "${d}000000",
+            to      => "${d}235959"
+            }
+        );
     }
 
     out($g, 'TOPIC',    "$t/index.html", { 'topic' => $t, 'num' => $step });
