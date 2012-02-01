@@ -85,7 +85,7 @@ my $g = Gruta->new(
 mkdir $folder, 0755;
 mkdir $folder . '/top/', 0755;
 
-out($g, 'INDEX',    'index.html');
+out($g, 'INDEX',    'index.html', { num => $index_num } );
 
 my @topics = split(/:/, ($g->template->process('cfg_index_topics')));
 
