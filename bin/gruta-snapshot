@@ -102,9 +102,10 @@ while ($max > 0) {
     $max    -= $index_num;
 }
 
-out($g, 'CSS',      'style.css');
-out($g, 'RSS',      'rss.xml');
-out($g, 'SITEMAP',  'sitemap.xml');
+out($g, 'CSS',          'style.css');
+out($g, 'RSS',          'rss.xml');
+out($g, 'RSS_COMMENTS', 'rss-comments.xml');
+out($g, 'SITEMAP',      'sitemap.xml');
 
 foreach my $t (sort $g->source->topics()) {
     mkdir $folder . '/' . $t, 0755;

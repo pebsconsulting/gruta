@@ -164,20 +164,21 @@ sub url {
 	if ($self->{args}->{static_urls}) {
 		my $kn = scalar(keys(%args));
 
-		if ($kn == 0) {
-			my %p = (
-				'INDEX'		=> '',
-				'RSS'		=> 'rss.xml',
-				'SITEMAP'	=> 'sitemap.xml',
-				'CSS'		=> 'style.css',
-				'TAGS'		=> 'tag/',
-				'TOP_TEN'	=> 'top/'
-			);
+        if ($kn == 0) {
+            my %p = (
+                'INDEX'         => '',
+                'RSS'           => 'rss.xml',
+                'RSS_COMMENTS'  => 'rss-comments.xml',
+                'SITEMAP'       => 'sitemap.xml',
+                'CSS'           => 'style.css',
+                'TAGS'          => 'tag/',
+                'TOP_TEN'       => 'top/'
+            );
 
-			if (exists($p{$st})) {
-				return $ret . $p{$st};
-			}
-		}
+            if (exists($p{$st})) {
+                return $ret . $p{$st};
+            }
+        }
 
 		if ($kn == 1) {
 			if ($st eq 'INDEX' && $args{offset}) {

@@ -81,6 +81,7 @@ apache
  RewriteRule ^/(.+)/~([0-9]+)\.html$    /?t=TOPIC&topic=$1&offset=$2     [PT,L]
  RewriteRule ^/(.+)/(.+)\.html$         /?t=STORY&topic=$1&id=$2         [PT,L]
  RewriteRule ^/rss\.xml$                /?t=RSS                          [PT,L]
+ RewriteRule ^/rss-comments\.xml$       /?t=RSS_COMMENTS                 [PT,L]
  RewriteRule ^/sitemap\.xml$            /?t=SITEMAP                      [PT,L]
  RewriteRule ^/style\.css$              /?t=CSS                          [PT,L]
 
@@ -109,6 +110,7 @@ lighttpd
     "^/(.+)/~([0-9]+)\.html$"    => "/?t=TOPIC;topic=$1;offset=$2",
     "^/(.+)/(.+)\.html$"         => "/?t=STORY;topic=$1;id=$2",
     "^/rss\.xml$"                => "/?t=RSS",
+    "^/rss-comments\.xml$"       => "/?t=RSS_COMMENTS",
     "^/sitemap\.xml$"            => "/?t=SITEMAP",
     "^/style\.css$"              => "/?t=CSS"
  )
