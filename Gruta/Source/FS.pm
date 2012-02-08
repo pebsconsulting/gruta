@@ -1078,7 +1078,9 @@ sub _collect_tags {
 
         foreach my $f (@ls) {
             if (open F, $f) {
-                if (my $tags = <F>) {
+                my $tags = <F>;
+
+                if ($tags) {
                     chomp $tags;
                     close F;
 
