@@ -128,13 +128,19 @@ foreach my $t (sort $g->source->topics()) {
 
         my $d = $story->date('%y%m%d');
 
-        mkdir $folder . '/' . $d;
+        if ($d) {
+            mkdir $folder . '/' . $d;
 
-        out($g, 'SEARCH_BY_DATE', "${d}/index.html", {
-            from    => "${d}000000",
-            to      => "${d}235959"
+            my $f = $folder . '/' . $d . '/index.html';
+
+            if (! -f $f || (-M $folder . '/index.html' < -M $f)) {
+                out($g, 'SEARCH_BY_DATE', "${d}/index.html", {
+                    from    => "${d}000000",
+                    to      => "${d}235959"
+                    }
+                );
             }
-        );
+        }
     }
 
     out($g, 'TOPIC',    "$t/index.html", { 'topic' => $t, 'num' => $topic_num });
