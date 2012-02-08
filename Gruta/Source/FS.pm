@@ -1076,19 +1076,20 @@ sub _collect_tags {
 
 		my @ls = glob($files);
 
-		foreach my $f (@ls) {
-			if (open F, $f) {
-				my $tags = <F>;
-				chomp $tags;
-				close F;
+        foreach my $f (@ls) {
+            if (open F, $f) {
+                if (my $tags = <F>) {
+                    chomp $tags;
+                    close F;
 
-				my ($id) = ($f =~ m{/([^/]+)\.T});
+                    my ($id) = ($f =~ m{/([^/]+)\.T});
 
-				push(@ret,
-					[ $topic_id, $id, [ split(/\s*,\s*/, $tags) ] ]
-				);
-			}
-		}
+                    push(@ret,
+                        [ $topic_id, $id, [ split(/\s*,\s*/, $tags) ] ]
+                    );
+                }
+            }
+        }
 	}
 
 	return @ret;
