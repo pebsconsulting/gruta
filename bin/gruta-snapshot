@@ -95,12 +95,16 @@ my @all = $g->source->stories_by_date(\@topics);
 my $max = scalar(@all) - $index_num;
 my $offset = $index_num;
 
-print "$max stories\n";
+# if @all is empty, it can be because 'cfg_index_topics' contain
+# numbers and uses 'grouped_index', so this may not be an error
+if (scalar(@all)) {
+    print "$max stories\n";
 
-while ($max > 0) {
-    out($g, 'INDEX', "${offset}.html", { num => $index_num, offset => $offset });
-    $offset += $index_num;
-    $max    -= $index_num;
+    while ($max > 0) {
+        out($g, 'INDEX', "${offset}.html", { num => $index_num, offset => $offset });
+        $offset += $index_num;
+        $max    -= $index_num;
+    }
 }
 
 out($g, 'CSS',          'style.css');
