@@ -1050,6 +1050,28 @@ sub export_json
                     $t->tags()
                 ) . " ],";
 
+            $o .= "\n      \"comments\": { " .
+                join(', ', map {
+                        my $topic   = $_->[0];
+                        my $story   = $_->[1];
+                        my $id      = $_->[2];
+
+                        my $c = $g->source->comment($topic, $story, $id);
+
+                        my $o;
+
+                        $o .= "\n        \"" . $id . "\": {";
+
+                        $o .= join(',', map {
+                                "\n          \"" . $_ .
+                                "\": \"" . js_quote($c->get($_)) . "\"";
+                            } $c->afields()
+                        );
+
+                        $o .= "\n        }";
+                    } $g->source->story_comments($t)
+                ) . "\n      },";
+
             $o .= join(",",
                 map {
                     my $f = $_;
