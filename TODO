@@ -4,7 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
-None!
+ * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
 
 Open Bugs
 ---------
@@ -20,7 +20,6 @@ Pending Enhancements
  * 1051: Add a glossary://topic/story pseudo-url, that creates an
    `abbr' or `acronym'.
  * 1062: Add `from' and `to' date arguments to `LIST'.
- * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
  * 1057: Delete the vfields() and afields() methods, and use only
    fields().
  * 1066: Add uploads (img/ dir and such) as another component of
