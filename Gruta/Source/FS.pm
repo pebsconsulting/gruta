@@ -154,23 +154,31 @@ sub save {
 }
 
 sub touch {
-	my $self = shift;
+    my $self = shift;
 
-	if (! $self->source->dummy_touch()) {
-		my $hits = $self->get('hits') + 1;
+    if (! $self->source->dummy_touch()) {
+        # if title is empty, the 'empty story metadata' bug
+        # has probably bitten, so don't do further damage
+        # making it permanent
+        if ($self->get('title')) {
+            my $hits = $self->get('hits') + 1;
 
-		$self->set('hits', $hits);
+            $self->set('hits', $hits);
 
-		# call $self->SUPER::save() instead of $self->save()
-		# to avoid saving content (unnecessary) and deleting
-		# the topic INDEX (even probably dangerous)
-		$self->SUPER::save();
+            # call $self->SUPER::save() instead of $self->save()
+            # to avoid saving content (unnecessary) and deleting
+            # the topic INDEX (even probably dangerous)
+            $self->SUPER::save();
 
-		$self->source->_update_top_ten($hits, $self->get('topic_id'),
-			$self->get('id'));
-	}
+            $self->source->_update_top_ten(
+                $hits,
+                $self->get('topic_id'),
+                $self->get('id')
+            );
+        }
+    }
 
-	return $self;
+    return $self;
 }
 
 sub tags {
