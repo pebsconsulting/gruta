@@ -132,7 +132,7 @@ sub _rebuild_index {
     my $self = shift;
 
     $self->_destroy_index();
-    $self->_topic_index();
+    $self->source->_topic_index($self->get('topic_id'));
 }
 
 

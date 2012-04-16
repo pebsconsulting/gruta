@@ -4,7 +4,7 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
- * 1056: Delete _destroy_index() and create _rebuild_index() in FS.
+None!
 
 Open Bugs
 ---------
@@ -174,5 +174,7 @@ Closed
    control; Mon, 26 Sep 2011 15:26:10 +0200).
  * 1060: Fix RSS to avoid generating an author tag if there is
    no author (no longer applicable; Mon, 26 Sep 2011 15:26:10 +0200).
+ * 1056: Delete _destroy_index() and create _rebuild_index() in FS
+   (Mon, 16 Apr 2012 09:18:16 +0200).
 
 Email bugs to angel@triptico.com
