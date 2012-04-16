@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $VERSION = '0.2';
+my $VERSION = '0.3';
 
 use locale;
 use POSIX qw (locale_h);
@@ -112,10 +112,14 @@ out($g, 'RSS',          'rss.xml');
 out($g, 'RSS_COMMENTS', 'rss-comments.xml');
 out($g, 'SITEMAP',      'sitemap.xml');
 
+my %DATES = ();
+
 foreach my $t (sort $g->source->topics()) {
     mkdir $folder . '/' . $t, 0755;
 
     my @stories = $g->source->stories($t);
+
+    my $today = Gruta::Data::today('%y%m%d');
 
     foreach my $s (sort @stories) {
         out($g, 'STORY', "$t/$s.html", {
@@ -128,18 +132,8 @@ foreach my $t (sort $g->source->topics()) {
 
         my $d = $story->date('%y%m%d');
 
-        if ($d) {
-            mkdir $folder . '/' . $d;
-
-            my $f = $folder . '/' . $d . '/index.html';
-
-            if (! -f $f || (-M $folder . '/index.html' < -M $f)) {
-                out($g, 'SEARCH_BY_DATE', "${d}/index.html", {
-                    from    => "${d}000000",
-                    to      => "${d}235959"
-                    }
-                );
-            }
+        if ($d && $d <= $today) {
+            $DATES{$d}++;
         }
     }
 
@@ -159,6 +153,19 @@ foreach my $t (sort $g->source->topics()) {
         $offset += $topic_num;
     }
 }
+
+foreach my $d (sort(keys(%DATES))) {
+    mkdir $folder . '/' . $d;
+
+    my $f = $folder . '/' . $d . '/index.html';
+
+    out($g, 'SEARCH_BY_DATE', "${d}/index.html", {
+        from    => "${d}000000",
+        to      => "${d}235959"
+        }
+    );
+}
+
 
 mkdir $folder . '/tag/', 0755;
 
