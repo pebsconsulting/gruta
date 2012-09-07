@@ -122,6 +122,16 @@
 
 	<h2><{@"Comment validation"}></h2>
 
+	<p><{@"Use Facebook comments:"}><br>
+	<select name = 'cfg_facebook_comments'>
+		<option <{if {not cfg_facebook_comments} 'selected'}> value = '0'>
+			<{@"no"}>
+		</option>
+		<option <{if cfg_facebook_comments 'selected'}> value = '1'>
+			<{@"yes"}>
+		</option>
+	</select>
+
 	<p><{@"Use blogspam.net:"}><br>
 	<select name = 'cfg_use_blogspam_net'>
 		<option <{if {not cfg_use_blogspam_net} 'selected'}> value = '0'>

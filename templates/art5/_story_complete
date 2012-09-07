@@ -14,19 +14,31 @@
 
 <a name = 'comments'></a>
 <{if {and {not cfg_disable_comments} {story_has_comments $0 $1}} {
-	'<h2>' @"Add a comment" '</h2>'
+    {if cfg_facebook_comments
+    {
+        {?
+            facebook_comment_api
 
-	'<form method = "post" action = "' {url} '">'
-	'<p>' @"Author:" '<br><input name = "author">'
-    '<p>' @"Email (optional, not shown):" '<br><input name = "email">'
-	'<p>' @"Comment:" '<br><textarea name = "content" cols = "40" rows = "5" wrap = "virtual"></textarea>'
-	'<p><input type = "submit" class = "button" value = "' @"Send" '">'
-	'<input type = "hidden" name = "topic" value = "' $0 '">'
-	'<input type = "hidden" name = "story" value = "' $1 '">'
-	'<input type = "hidden" name = "t" value = "POST_COMMENT">'
-	'</form><p>'
+            '<div class="fb-comments" data-href="'
+                {url 'STORY' 'topic' $0 'id' $1}
+            '" data-num-posts="100" data-width="470"></div>'
+        }
+    }
+    {
+        '<h2>' @"Add a comment" '</h2>'
 
-    @"<b>Note:</b> These comments won't be published until confirmed by a human being, so don't bother sending spam."
+        '<form method = "post" action = "' {url} '">'
+        '<p>' @"Author:" '<br><input name = "author">'
+        '<p>' @"Email (optional, not shown):" '<br><input name = "email">'
+        '<p>' @"Comment:" '<br><textarea name = "content" cols = "40" rows = "5" wrap = "virtual"></textarea>'
+        '<p><input type = "submit" class = "button" value = "' @"Send" '">'
+        '<input type = "hidden" name = "topic" value = "' $0 '">'
+        '<input type = "hidden" name = "story" value = "' $1 '">'
+        '<input type = "hidden" name = "t" value = "POST_COMMENT">'
+        '</form><p>'
+
+        @"<b>Note:</b> These comments won't be published until confirmed by a human being, so don't bother sending spam."
+    }
 }>
 
 <{_story_comments $0 $1}>
