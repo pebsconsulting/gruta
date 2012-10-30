@@ -12,7 +12,7 @@
         "</li>"
         "<li>"
             "<a href = 'http://twitter.com/home?status="
-            {story_title $0 $1}
+            {story_title $0 $1} " "
             {aurl 'STORY' 'topic' $0 'id' $1}
             "'>twitter</a>"
         "</li>"
