@@ -20,15 +20,32 @@
     }
     {
         {facebook_api}
+        '<div style="float: left; padding: 0.3em;">'
         '<fb:like href="'
             {aurl 'STORY' 'topic' $0 'id' $1}
-            '" send="true" width="450" show_faces="true">'
+            '" width="450" layout="button_count" show_faces="false">'
         '</fb:like>'
+        '</div>'
 
         ' '
 
+        '<div style="float: left; padding: 0.3em;">'
         '<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>'
         '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>'
+        '</div>'
+
+        ' '
+
+        '<div style="float: left; padding: 0.3em;">'
+        '<div class="g-plusone"></div>'
+        '<script type="text/javascript">'
+        '(function() {'
+        "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;"
+        "po.src = 'https://apis.google.com/js/plusone.js';"
+        "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);"
+        "})();"
+        "</script>"
+        '</div>'
 
         '<br>'
     }
