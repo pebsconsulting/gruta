@@ -17,7 +17,7 @@
     {if cfg_facebook_comments
     {
         {?
-            facebook_comment_api
+            facebook_api
 
             '<div class="fb-comments" data-href="'
                 {url 'STORY' 'topic' $0 'id' $1}
