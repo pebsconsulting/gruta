@@ -17,6 +17,7 @@
             "'>twitter</a>"
         "</li>"
 	   {cfg_more_share_links}
+        "</ul>"
     }
     {
         {facebook_api}
@@ -46,9 +47,6 @@
         '</td>'
 
         '</tr></table>'
-
-        '<br>'
     }
 }>
-</ul>
 </div>

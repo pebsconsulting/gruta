@@ -185,6 +185,7 @@ h6 {
 	float: right;
 }
 .story_comments {
+    clear: both;
 	margin-bottom: 2em;
 }
 .comment_header {
@@ -238,4 +239,7 @@ blockquote {
 table {
 	clear: none;
 	float: left;
+}
+.comment_form {
+    float: left;
 }
