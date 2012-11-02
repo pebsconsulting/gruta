@@ -268,6 +268,10 @@ sub _story_special_uri {
 		}
 		else {
 			$ret = $s->get('title');
+
+            if ($self->{args}->{show_story_pub_date}) {
+                $ret .= ' [' . $s->date('%d/%m/%Y') . ']';
+            }
 		}
 	}
 	else {
