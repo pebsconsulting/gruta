@@ -21,6 +21,8 @@
 		}
 
 		{story_body %topic 'index'}
+        {share_story %topic 'index'}
+
 		"</div>"
 
 		{if {is_topic_editor %topic} {
