@@ -11,7 +11,7 @@
 	<{if
 		{story_exists 'info' 'index'} {
 		  {story_body 'info' 'index'}
-		  {share_story 'info' 'index'}
+		  {share_buttons {aurl 'INDEX'}}
         }
 		{index}
 	}>
