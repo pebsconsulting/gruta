@@ -8,6 +8,10 @@ Gruta Release Notes
    - The `date' templates now include the `%C_LOCALE' command,
      that switches temporarily to C locale before parsing
      the date.
+   - New object initialization argument `show_story_pub_date', to
+     show the publication date besides the title of a future
+     story in a special URI.
+   - New social network links as buttons.
  - New bin/gruta commands:
    - `copy_story', to copy a story from one topic to another
      (like the web interface option).
