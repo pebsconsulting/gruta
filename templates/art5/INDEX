@@ -6,17 +6,17 @@
 
 <div class = 'main'>
 
-	<{main_top}>
+<{main_top}>
 
-	<{if
-		{story_exists 'info' 'index'} {
-		  {story_body 'info' 'index'}
-		  {share_buttons {aurl 'INDEX'}}
-        }
-		{index}
-	}>
+<{if
+    {story_exists 'info' 'index'}
+    {story_body 'info' 'index'}
+    {index}
+}>
 
-	<{main_bottom}>
+<{share_buttons {aurl 'INDEX'}}>
+
+<{main_bottom}>
 
 </div>
 

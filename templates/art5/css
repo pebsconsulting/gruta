@@ -243,3 +243,6 @@ table {
 .comment_form {
     float: left;
 }
+.share_buttons {
+    float: left;
+}

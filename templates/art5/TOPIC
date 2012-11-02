@@ -36,6 +36,8 @@
 			{or %num cfg_topic_num} {or %offset 0}
 		}
 
+        {share_buttons {aurl 'TOPIC' %topic}}
+
 		"<div class = 'navigator'>"
 		{navigator %topic {or %num cfg_topic_num} {or %offset 0}}
 		"</div>"
