@@ -8,7 +8,7 @@ use locale;
 use Gruta::Data;
 
 $Gruta::VERSION				= '2.3.3-dev';
-$Gruta::VERSION_CODENAME	= '"Volterra"';
+$Gruta::VERSION_CODENAME	= '"Firenze"';
 
 sub source {
 	$_[0]->{source};
