@@ -771,14 +771,20 @@ sub _art5 {
             $query =~ s/[\+\"\']+/ /g;
             $query =~ s/^\s+//;
 
-			my @ret = $data->source->stories_by_text(
-				$topic ?
-					[ map { (split(',', $_))[0] }
-						split(':', $topic)
-					] : undef,
-				$query, $future);
+			my @ret = ();
 
-			$self->{search_count} += scalar(@ret);
+            if ($query) {
+                @ret = $data->source->stories_by_text(
+                    $topic ?
+                        [ map { (split(',', $_))[0] } 
+                            split(':', $topic)
+                        ]
+                        : undef,
+                    $query, $future
+                );
+
+                $self->{search_count} += scalar(@ret);
+            }
 
 			return [ @ret ];
 		};
