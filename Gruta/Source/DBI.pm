@@ -9,7 +9,7 @@ use Carp;
 use DBI;
 use Gruta::Data;
 
-my $schema_version = 12;
+my $schema_version = 13;
 
 sub _prepare {
 	my $self	= shift;
@@ -854,6 +854,11 @@ sub update_schema {
 				'ALTER TABLE comments ADD COLUMN email VARCHAR'
 			);
         }
+        elsif ($version == 12) {
+			$self->{dbh}->do(
+				'ALTER TABLE stories ADD COLUMN image VARCHAR'
+			);
+        }
 
 		$version++;
 
@@ -912,6 +917,7 @@ CREATE TABLE stories (
 	description	VARCHAR,
 	abstract	VARCHAR,
 	body		VARCHAR,
+    image       VARCHAR,
 	toc			INTEGER DEFAULT 0,
 	has_comments INTEGER DEFAULT 0,
     full_story  INTEGER DEFAULT 0,
