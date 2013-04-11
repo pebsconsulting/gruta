@@ -39,4 +39,8 @@
     {? '{"hits":' {story_hits %topic_id %id} '}' }
 }
 
+"story" {
+    {story_as_json %topic_id %id 1}
+}
+
 }>
