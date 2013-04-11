@@ -34,4 +34,9 @@
     }
 }
 
+"touch" {
+    {touch_story %topic_id %id}
+    {? '{"hits":' {story_hits %topic_id %id} '}' }
+}
+
 }>
