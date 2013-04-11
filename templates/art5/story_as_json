@@ -5,9 +5,14 @@
         '"image":"' {story_image $0 $1} '",'
         '"hits":' {story_hits $0 $1} ','
         '"date":"' {story_date cfg_date_format $0 $1} '",'
-        '"tags":[' {foreach {story_tags $0 $1} {? '"' $0 '"'} ','} '],'
-        '"comments":[' '],'
-        '"title":"' {json_quote {story_title $0 $1}} '",'
-        '"abstract":"' {json_quote {story_abstract $0 $1}} '"'
+        '"topic_name":"' {topic_name $0} '",'
+        {if $2 {?
+            '"tags":[' {foreach {story_tags $0 $1} {? '"' $0 '"'} ','} '],'
+            '"comments":[' '],'
+            '"abstract":"' {json_quote {story_abstract $0 $1}} '",'
+            '"body":"' {json_quote {story_body $0 $1}} '",'
+            }
+        }
+        '"title":"' {json_quote {story_title $0 $1}} '"'
     '}'
 }>

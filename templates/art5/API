@@ -15,7 +15,19 @@
         '['
         {foreach
             {stories_by_date %topics {or %num 10} {or %offset 0}}
-            {story_as_json $0 $1}
+            {story_as_json $0 $1 %full}
+            ",\n"
+        }
+        ']'
+    }
+}
+
+"stories_by_tag" {
+    {?
+        '['
+        {foreach
+            {stories_by_tag {or %topics ""} %tag}
+            {story_as_json $0 $1 %full}
             ",\n"
         }
         ']'
