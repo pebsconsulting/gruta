@@ -944,6 +944,14 @@ sub _art5 {
 			return $ret;
 		};
 
+        $a->{op}->{json_quote} = sub {
+			my $s = $a->exec(shift);
+            $s =~ s/\n/\\n/g;
+            $s =~ s/\"/\\"/g;
+
+            return $s;
+        };
+
 		$a->{op}->{about} = sub {
 			return 'Gruta ' . $data->version();
 		};
