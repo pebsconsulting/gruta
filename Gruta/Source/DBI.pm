@@ -593,6 +593,7 @@ sub stories_by_tag {
 	my $topics	= shift;
 	my $tag		= shift;
 	my $future	= shift;
+    my $by_date = shift;
 
 	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
 
@@ -619,7 +620,13 @@ sub stories_by_tag {
 		}
 
 		$sql .= ' GROUP BY tags.topic_id, tags.id HAVING count(tags.id) = ' . scalar(@tags);
-		$sql .= ' ORDER BY stories.title';
+
+        if ($by_date) {
+    		$sql .= ' ORDER BY stories.date';
+        }
+        else {
+    		$sql .= ' ORDER BY stories.title';
+        }
 
 		my $sth = $self->_prepare($sql);
 		$self->_execute($sth, map { lc($_) } @args);

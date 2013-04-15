@@ -1120,6 +1120,7 @@ sub stories_by_tag {
 	my $topics	= shift;
 	my $tag		= shift;
 	my $future	= shift;
+    my $by_date = shift;
 
 	my @topics;
 
@@ -1163,8 +1164,8 @@ sub stories_by_tag {
     					next;
     				}
     			}
-    
-    			$r{$story->get('title')} =
+
+    			$r{$story->get($by_date ? 'date' : 'title')} =
     				[ $tr->[0], $tr->[1], $story->get('date') ];
     		}
     	}
