@@ -864,20 +864,26 @@ sub _rebuild_master_index {
             my $si = $story->get('id');
             my $sd = $story->get('date') || '0' x 14;
 
+            my $entry = $sd . ':' . $ti . ':' . $si . ':' .
+                        join(',', $story->tags());
+
             while (my $l = <MI>) {
                 chomp($l);
                 my @l = split(':', $l);
 
                 if ($sd && $sd gt $l[0]) {
-                    print NMI $sd, ':', $ti, ':', $si, ':',
-                        join(',', $story->tags()), "\n";
-
+                    print NMI $entry, "\n";
                     $sd = '';
                 }
 
                 if ($ti ne $l[1] || $si ne $l[2]) {
                     print NMI $l, "\n";
                 }
+            }
+
+            # not yet saved? store at the end
+            if ($sd) {
+                print NMI $entry, "\n";
             }
 
             close NMI;
