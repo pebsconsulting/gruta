@@ -1115,6 +1115,24 @@ sub _collect_tags {
 }
 
 
+sub is_subset_of {
+    my $subset  = shift;
+    my $set     = shift;
+    my $c       = 0;
+
+    my @subset  = @{$subset};
+    my @set     = @{$set};
+
+    foreach my $e (@subset) {
+        if (grep(/^$e$/, @set)) {
+            $c++;
+        }
+    }
+
+    return $c && $c == scalar(@subset);
+}
+
+
 sub stories_by_tag {
 	my $self	= shift;
 	my $topics	= shift;
