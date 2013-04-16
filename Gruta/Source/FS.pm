@@ -134,7 +134,7 @@ sub _rebuild_index {
     $self->_destroy_index();
     $self->source->_topic_index($self->get('topic_id'));
 
-#    $self->source->_rebuild_master_index($self);
+    $self->source->_rebuild_master_index($self);
 }
 
 
@@ -906,10 +906,35 @@ sub _rebuild_master_index {
 
 	if (open MI, $index) {
         if ($story) {
-            1;
+            open(NMI, '>', $index . '.new') or croak("Cannot update master index");
+
+            my $ti = $story->get('topic_id');
+            my $si = $story->get('id');
+            my $sd = $story->get('date') || '0' x 14;
+
+            while (my $l = <MI>) {
+                chomp($l);
+                my @l = split(':', $l);
+
+                if ($sd && $sd gt $l[0]) {
+                    print NMI $sd, ':', $ti, ':', $si, ':',
+                        join(',', $story->tags()), "\n";
+
+                    $sd = '';
+                }
+
+                if ($ti ne $l[1] || $si ne $l[2]) {
+                    print NMI $l, "\n";
+                }
+            }
+
+            close NMI;
         }
 
         close MI;
+
+        rename($index,          $index . '.old');
+        rename($index . '.new', $index);
     }
     else {
         my @ml = ();
