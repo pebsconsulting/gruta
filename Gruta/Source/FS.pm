@@ -906,6 +906,8 @@ sub _rebuild_master_index {
 
 	if (open MI, $index) {
         if ($story) {
+            flock MI, 2;
+
             open(NMI, '>', $index . '.new') or croak("Cannot update master index");
 
             my $ti = $story->get('topic_id');
@@ -929,18 +931,19 @@ sub _rebuild_master_index {
             }
 
             close NMI;
+
+            rename($index,          $index . '.old');
+            rename($index . '.new', $index);
         }
 
         close MI;
-
-        rename($index,          $index . '.old');
-        rename($index . '.new', $index);
     }
     else {
         my @ml = ();
 
         # create from scratch
         open(MI, '>', $index) or croak("Cannot create master index");
+        flock MI, 2;
 
         # build the list
         foreach my $ti ($self->topics()) {
