@@ -967,62 +967,6 @@ sub _rebuild_master_index {
 }
 
 
-sub _stories_by_date {
-	my $self	= shift;
-	my $topic_id	= shift;
-	my %args	= @_;
-
-	my @r = ();
-
-	my $i = $self->_topic_index($topic_id) or return @r;
-	open I, $i or return @r;
-	flock I, 1;
-
-	my $o = 0;
-
-    my @tags = ();
-
-    if ($args{tags}) {
-        @tags = split(/\s*,\s*/, $args{tags});
-    }
-
-	while (<I>) {
-		chomp;
-
-		my ($date, $id) = split(/:/);
-
-		# skip future stories
-		next if not $args{future} and $date gt Gruta::Data::today();
-
-		# skip if date is above the threshold
-		next if $args{'to'} and $date gt $args{'to'};
-
-		# exit if date is below the threshold
-		last if $args{'from'} and $date lt $args{'from'};
-
-        if (@tags) {
-            # skip if tags do not match
-            my $story = $self->story($topic_id, $id);
-            my @stags = $story->tags();
-
-            next if (!is_subset_of(\@tags, \@stags));
-        }
-
-		# skip offset stories
-		next if $args{'offset'} and ++$o <= $args{'offset'};
-
-		push(@r, [ $topic_id, $id, $date ]);
-
-		# exit if we have all we need
-		last if $args{'num'} and $args{'num'} == scalar(@r);
-	}
-
-	close I;
-
-	return @r;
-}
-
-
 sub stories_by_date {
 	my $self	= shift;
 	my $topics	= shift;
@@ -1041,36 +985,58 @@ sub stories_by_date {
 		$args{offset} = 0;
 	}
 
-	# only one topic? execute it and return
-	if (scalar(@topics) == 1) {
-		return $self->_stories_by_date($topics[0], %args);
+	my @r = ();
+
+	my $o = 0;
+
+    my @tags = ();
+
+    if ($args{tags}) {
+        @tags = split(/\s*,\s*/, $args{tags});
+    }
+
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
+	open I, $index or return @r;
+	flock I, 1;
+
+	while (<I>) {
+		chomp;
+
+		my ($date, $ti, $si, $tags) = split(/:/);
+
+        # skip stories not from a wanted topic
+        next if not grep(/^$ti$/, @topics);
+
+		# skip future stories
+		next if not $args{future} and $date gt Gruta::Data::today();
+
+		# skip if date is above the threshold
+		next if $args{'to'} and $date gt $args{'to'};
+
+		# exit if date is below the threshold
+		last if $args{'from'} and $date lt $args{'from'};
+
+        if (@tags) {
+            # skip if tags do not match
+            my @stags = split(/\s*,\s*/, $tags);
+
+            next if (!is_subset_of(\@tags, \@stags));
+        }
+
+		# skip offset stories
+		next if $args{'offset'} and ++$o <= $args{'offset'};
+
+		push(@r, [ $ti, $si, $date ]);
+
+		# exit if we have all we need
+		last if $args{'num'} and $args{'num'} == scalar(@r);
 	}
 
-	# more than one topic; 'num' and 'offset' need to be
-	# calculated from the full set
-	my @R = ();
+	close I;
 
-	foreach my $topic_id (@topics) {
-
-		my @r = $self->_stories_by_date($topic_id,
-			%args, num => 0, offset => 0);
-
-		push(@R, @r);
-	}
-
-	# sort by date
-	@R = sort { $b->[2] cmp $a->[2] } @R;
-
-	# split now
-	if ($args{num}) {
-		@R = @R[$args{offset} .. ($args{offset} + $args{num} - 1)];
-	}
-	else {
-		@R = @R[$args{offset} .. (scalar(@R) - 1)];
-	}
-
-	return grep { defined $_ } @R;
+	return @r;
 }
+
 
 sub search_stories {
 	my $self	= shift;
