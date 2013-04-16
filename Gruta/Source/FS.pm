@@ -133,6 +133,8 @@ sub _rebuild_index {
 
     $self->_destroy_index();
     $self->source->_topic_index($self->get('topic_id'));
+
+#    $self->source->_rebuild_master_index($self);
 }
 
 
@@ -893,6 +895,47 @@ sub _update_top_ten {
 	}
 
 	return undef;
+}
+
+
+sub _rebuild_master_index {
+    my $self    = shift;
+    my $story   = shift; # story object
+
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
+
+	if (open MI, $index) {
+        if ($story) {
+            1;
+        }
+
+        close MI;
+    }
+    else {
+        my @ml = ();
+
+        # create from scratch
+        open(MI, '>', $index) or croak("Cannot create master index");
+
+        # build the list
+        foreach my $ti ($self->topics()) {
+            foreach my $si ($self->stories($ti)) {
+                my $story = $self->story($ti, $si);
+
+                push(@ml,
+                    ($story->get('date') || ('0' x 14)) . ':' .
+                    $ti . ':' . $si . ':' . join(',', $story->tags())
+                );
+            }
+        }
+
+        # write the list
+        foreach my $l (reverse sort @ml) {
+            print MI $l, "\n";
+        }
+
+        close MI;
+    }
 }
 
 
