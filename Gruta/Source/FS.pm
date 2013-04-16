@@ -1152,30 +1152,12 @@ sub stories_by_tag {
     my %r = ();
     
     if ($tag) {
-    	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
-    
+    	my @tags = map { lc($_) } split(/\s*,\s*/, $tag);
+
     	foreach my $tr ($self->_collect_tags(@topics)) {
-    
-    		my @ts = @{$tr->[2]};
-    
-    		# skip stories with less tags than the wanted ones
-    		if (scalar(@ts) < scalar(@tags)) {
-    			next;
-    		}
-    
-    		# count matches
-    		my $c = 0;
-    
-    		foreach my $t (@ts) {
-    			if (grep(/^$t$/, @tags)) {
-    				$c++;
-    			}
-    		}
-    
-    		if ($c >= scalar(@tags)) {
-    
+    		if (is_subset_of(\@tags, $tr->[2])) {
     			my $story = $self->story($tr->[0], $tr->[1]);
-    
+
     			# if no future stories are wanted, discard them
     			if (!$future) {
     				if ($story->get('date') gt Gruta::Data::today()) {
