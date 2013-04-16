@@ -1116,11 +1116,10 @@ sub _collect_tags {
 
 
 sub is_subset_of {
-    my $subset  = shift;
     my $set     = shift;
+    my @subset  = @_;
     my $c       = 0;
 
-    my @subset  = @{$subset};
     my @set     = @{$set};
 
     foreach my $e (@subset) {
@@ -1155,7 +1154,7 @@ sub stories_by_tag {
     	my @tags = map { lc($_) } split(/\s*,\s*/, $tag);
 
     	foreach my $tr ($self->_collect_tags(@topics)) {
-    		if (is_subset_of(\@tags, $tr->[2])) {
+    		if (is_subset_of($tr->[2], @tags)) {
     			my $story = $self->story($tr->[0], $tr->[1]);
 
     			# if no future stories are wanted, discard them
