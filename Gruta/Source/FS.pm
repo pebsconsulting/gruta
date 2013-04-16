@@ -116,23 +116,9 @@ sub vfields {
 	return ($_[0]->SUPER::vfields(), 'content', 'topic_id', 'abstract', 'body');
 }
 
-sub _destroy_index {
-	my $self	= shift;
-
-	my $filename = $self->_filename();
-
-	# destroy the topic index, to be rewritten
-	# in the future by _topic_index()
-	$filename =~ s!/[^/]+$!/.INDEX!;
-	unlink $filename;
-}
-
 
 sub _rebuild_index {
     my $self = shift;
-
-    $self->_destroy_index();
-    $self->source->_topic_index($self->get('topic_id'));
 
     $self->source->_rebuild_master_index($self);
 }
