@@ -749,14 +749,13 @@ sub _art5 {
 			my $topic	= $a->exec(shift);
 			my $tag		= $a->exec(shift);
 			my $future	= $a->exec(shift);
-			my $by_date	= $a->exec(shift);
 
 			my @ret = $data->source->stories_by_tag(
 				$topic ?
 					[ map { (split(',', $_))[0] }
 						split(':', $topic)
 					] : undef,
-				$tag, $future, $by_date);
+				$tag, $future);
 
 			$self->{search_count} += scalar(@ret);
 
