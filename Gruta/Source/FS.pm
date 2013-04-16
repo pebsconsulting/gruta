@@ -133,7 +133,7 @@ sub save {
 	my $filename = $self->_filename();
 	$filename =~ s/\.M$//;
 
-	my @d = ('', 'content', '.A', 'abstract', '.B', 'body');
+	my @d = ('', 'content', '.A', 'abstract', '.B', 'body', '.H', 'hits');
 
 	while (@d) {
 		my $ext		= shift(@d);
@@ -153,26 +153,24 @@ sub save {
 sub touch {
     my $self = shift;
 
-    if (! $self->source->dummy_touch()) {
-        # if title is empty, the 'empty story metadata' bug
-        # has probably bitten, so don't do further damage
-        # making it permanent
-        if ($self->get('title')) {
-            my $hits = $self->get('hits') + 1;
+    if (!$self->source->dummy_touch()) {
+        my $hits = $self->get('hits') + 1;
+        $self->set('hits', $hits);
 
-            $self->set('hits', $hits);
+        my $filename = $self->_filename();
+    	$filename =~ s/\.M$//;
+        $filename .= '.H';
 
-            # call $self->SUPER::save() instead of $self->save()
-            # to avoid saving content (unnecessary) and deleting
-            # the topic INDEX (even probably dangerous)
-            $self->SUPER::save();
-
-            $self->source->_update_top_ten(
-                $hits,
-                $self->get('topic_id'),
-                $self->get('id')
-            );
+        if (open(F, '>', $filename)) {
+            print F $hits;
+            close F;
         }
+
+        $self->source->_update_top_ten(
+            $hits,
+            $self->get('topic_id'),
+            $self->get('id')
+        );
     }
 
     return $self;
@@ -221,6 +219,7 @@ sub delete {
 	unlink $file . '.A';
 	unlink $file . '.B';
 	unlink $file . '.T';
+	unlink $file . '.H';
 
 	$self->_rebuild_index();
 
@@ -749,7 +748,7 @@ sub story {
 	my $file = $story->_filename();
 	$file =~ s/\.M$//;
 
-	my @d = ('', 'content', '.A', 'abstract', '.B', 'body');
+	my @d = ('', 'content', '.A', 'abstract', '.B', 'body', '.H', 'hits');
 
 	while (@d) {
 		my $ext		= shift(@d);
