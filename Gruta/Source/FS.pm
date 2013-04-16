@@ -792,41 +792,6 @@ sub stories {
 }
 
 
-sub _topic_index {
-    my $self        = shift;
-    my $topic_id    = shift;
-
-    my $index = $self->{path} . Gruta::Data::FS::Topic::base() . $topic_id;
-
-    if (! -d $index) {
-        return undef;
-    }
-
-    $index .= '/.INDEX';
-
-    if (not open I, $index) {
-
-        my @i = ();
-        foreach my $id ($self->stories($topic_id)) {
-            my $story = $self->story($topic_id, $id);
-        
-            push(@i, ($story->get('date') || ('0' x 14)). ':' . $id);
-        }
-        
-        open I, '>' . $index or croak "Can't create INDEX for $topic_id: $!";
-        flock I, 2;
-        
-        foreach my $l (reverse(sort(@i))) {
-            print I $l, "\n";
-        }
-	}
-
-    close I;
-
-    return $index;
-}
-
-
 sub _update_top_ten {
 	my $self	= shift;
 	my $hits	= shift;
