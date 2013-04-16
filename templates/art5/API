@@ -14,7 +14,7 @@
     {?
         '['
         {foreach
-            {stories_by_date %topics {or %num 10} {or %offset 0}}
+            {stories_by_date %topics {or %num 10} {or %offset 0} '' '' 0 %tags}
             {story_as_json $0 $1 %full}
             ",\n"
         }

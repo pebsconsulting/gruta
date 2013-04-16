@@ -909,6 +909,12 @@ sub _stories_by_date {
 
 	my $o = 0;
 
+    my @tags = ();
+
+    if ($args{tags}) {
+        @tags = split(/\s*,\s*/, $args{tags});
+    }
+
 	while (<I>) {
 		chomp;
 
@@ -922,6 +928,14 @@ sub _stories_by_date {
 
 		# exit if date is below the threshold
 		last if $args{'from'} and $date lt $args{'from'};
+
+        if (@tags) {
+            # skip if tags do not match
+            my $story = $self->story($topic_id, $id);
+            my @stags = $story->tags();
+
+            next if (!is_subset_of(\@tags, \@stags));
+        }
 
 		# skip offset stories
 		next if $args{'offset'} and ++$o <= $args{'offset'};

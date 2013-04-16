@@ -729,6 +729,7 @@ sub _art5 {
 			my $from_date	= $a->exec(shift);
 			my $to_date		= $a->exec(shift);
 			my $future		= $a->exec(shift);
+            my $tags        = $a->exec(shift);
 
 			my @ret = $data->source->stories_by_date(
 					$topic ?
@@ -739,7 +740,8 @@ sub _art5 {
 					offset	=> $offset,
 					from	=> $from_date,
 					to		=> $to_date,
-					future	=> $future
+					future	=> $future,
+                    tags    => $tags
 			);
 
 			return [ @ret ];
