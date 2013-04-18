@@ -118,9 +118,10 @@ sub vfields {
 
 
 sub _rebuild_index {
-    my $self = shift;
+    my $self    = shift;
+    my $del     = shift;
 
-    $self->source->_rebuild_master_index($self);
+    $self->source->_rebuild_master_index($self, $del);
 }
 
 
@@ -221,7 +222,7 @@ sub delete {
 	unlink $file . '.T';
 	unlink $file . '.H';
 
-	$self->_rebuild_index();
+	$self->_rebuild_index(1);
 
 	return $self;
 }
@@ -851,6 +852,7 @@ sub _update_top_ten {
 sub _rebuild_master_index {
     my $self    = shift;
     my $story   = shift; # story object
+    my $del     = shift;
 
 	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
 
@@ -862,7 +864,7 @@ sub _rebuild_master_index {
 
             my $ti = $story->get('topic_id');
             my $si = $story->get('id');
-            my $sd = $story->get('date') || '0' x 14;
+            my $sd = $del ? '' : ($story->get('date') || '0' x 14);
 
             my $entry = $sd . ':' . $ti . ':' . $si . ':' .
                         join(',', $story->tags());
