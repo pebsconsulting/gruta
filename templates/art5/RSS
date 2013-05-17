@@ -42,7 +42,7 @@
 			'</author>'
 			'<description>'
 			"\n<![CDATA[\n"
-			{_story_abstract $0 $1}
+			{regex {_story_abstract $0 $1} "<h2.*</h2>" ""}
 			"\n]]>\n"
 			'</description>'
 			'</item>'
