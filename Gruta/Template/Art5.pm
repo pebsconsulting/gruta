@@ -189,6 +189,10 @@ sub _art5 {
 			return [ $data->source->related_stories($story, $max) ];
 		};
 
+        $a->{op}->{expand_special_uris} = sub {
+            return $data->special_uris($a->exec($_[0]));
+        };
+
 		$a->{op}->{story_abstract} = sub {
 			my $topic	= $a->exec(shift);
 			my $id		= $a->exec(shift);
