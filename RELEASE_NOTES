@@ -1,8 +1,8 @@
 Gruta Release Notes
 ===================
 
-2.3.3 "Volterra"
-----------------
+2.3.3 "Firenze"
+---------------
 
  - New features:
    - The `date' templates now include the `%C_LOCALE' command,
@@ -12,6 +12,8 @@ Gruta Release Notes
      show the publication date besides the title of a future
      story in a special URI.
    - New social network links as buttons.
+   - `cfg_main_menu_topics' now also accepts topic/story pairs.
+
  - New bin/gruta commands:
    - `copy_story', to copy a story from one topic to another
      (like the web interface option).
