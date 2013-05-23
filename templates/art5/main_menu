@@ -1,18 +1,21 @@
 <div class = 'main_menu'>
 
-	<ul>
-		<{li {link {url 'INDEX'} @"Index"}}>
+    <ul>
+        <{li {link {url 'INDEX'} @"Index"}}>
 
-		<{foreach
-			{if cfg_main_menu_topics {split ':' cfg_main_menu_topics} topics}
-			{li {link {url 'TOPIC' 'topic' $0} {topic_name $0}}}
-		}>
+        <{foreach
+            {if cfg_main_menu_topics {split ':' cfg_main_menu_topics} topics}
+            {if {regex $0 "/"}
+                {li {expand_special_uris {? "story://" $0}}}
+                {li {expand_special_uris {? "topic://" $0}}}
+            }
+        }>
 
-		<{li {link {url 'TAGS'} @"Tags"}}>
+        <{li {link {url 'TAGS'} @"Tags"}}>
 
-		<{if cfg_top_ten_num
-			{li {link {url 'TOP_TEN'} @"Top stories"}}
-		}>
-	</ul>
+        <{if cfg_top_ten_num
+            {li {link {url 'TOP_TEN'} @"Top stories"}}
+        }>
+    </ul>
 
 </div>
