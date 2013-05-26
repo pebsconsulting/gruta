@@ -1133,8 +1133,22 @@ sub is_subset_of {
     my @set     = @{$set};
 
     foreach my $e (@subset) {
-        if (grep(/^$e$/, @set)) {
-            $c++;
+        # if $e starts with !, it's an element
+        # that should *not* be in the set
+        if ($e =~ /^!(.+)$/) {
+            $e = $1;
+            if (grep(/^$e$/, @set)) {
+                $c = 0;
+                last;
+            }
+            else {
+                $c++;
+            }
+        }
+        else {
+            if (grep(/^$e$/, @set)) {
+                $c++;
+            }
         }
     }
 
