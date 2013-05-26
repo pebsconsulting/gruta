@@ -2,7 +2,6 @@
 	<{story_abstract $0 $1}>
 </div>
 
-<div class = 'full_story_link'>
 <{if
     {and
         {ne %t 'STORY'}
@@ -12,7 +11,11 @@
         }
     }
     {?
+        "<div class = 'full_story_link'>"
         {link {url 'STORY' 'topic' $0 'id' $1} @"More..."}
+        "</div>"
+    }
+    {
+        {_story_related $0 $1}
     }
 }>
-</div>
