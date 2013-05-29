@@ -572,13 +572,13 @@ sub _art5 {
 				}
 			}
 
-			$story->tags(split(/\s*,\s*/, $tags));
-
 			if ($story->source()) {
+    			$story->tags(split(/\s*,\s*/, $tags));
 				$story = $story->save();
 			}
 			else {
 				$story = $data->source->insert_story($story);
+    			$story->tags(split(/\s*,\s*/, $tags));
 			}
 
 			return $story ? $story->get('id') : 'Error 2';
