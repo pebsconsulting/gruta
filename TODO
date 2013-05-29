@@ -4,7 +4,11 @@ Gruta TODO / Bug List
 Release Critical Bugs
 ---------------------
 
-None!
+ * 1076: When inserting a story, the tags are not correctly stored
+   in the master index, because calling $story->tags() before the
+   story exists generates a crash.
+ * 1077: When inserting a story, Renderer::BASE::story() is unable
+   to call related_stories().
 
 Open Bugs
 ---------
