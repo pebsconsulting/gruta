@@ -106,18 +106,6 @@
         </option>
     </select>
 
-    <p><label for = 'cfg_share_links_as_text'>
-        <{@"Social network share links are text-only (no, as buttons):"}>
-    </label><br>
-    <select name = 'cfg_share_links_as_text' id = 'cfg_share_links_as_text'>
-        <option <{if {not cfg_share_links_as_text} 'selected'}> value = '0'>
-            <{@"no"}>
-        </option>
-        <option <{if cfg_share_links_as_text 'selected'}> value = '1'>
-            <{@"yes"}>
-        </option>
-    </select>
-
 	<h2><{@"Date formats"}></h2>
 
 	<p><{@"Global date format:"}><br>
@@ -133,16 +121,6 @@
 		value = '<{cfg_story_date_format}>' size = '15'>
 
 	<h2><{@"Comment validation"}></h2>
-
-	<p><{@"Use Facebook comments:"}><br>
-	<select name = 'cfg_facebook_comments'>
-		<option <{if {not cfg_facebook_comments} 'selected'}> value = '0'>
-			<{@"no"}>
-		</option>
-		<option <{if cfg_facebook_comments 'selected'}> value = '1'>
-			<{@"yes"}>
-		</option>
-	</select>
 
 	<p><{@"Use blogspam.net:"}><br>
 	<select name = 'cfg_use_blogspam_net'>
@@ -195,6 +173,41 @@
 			<{@"yes"}>
 		</option>
 	</select>
+
+	<h2><{@"Social networks"}></h2>
+
+    <p><label for = 'cfg_share_links_as_text'>
+        <{@"Social network share links are text-only (no, as buttons):"}>
+    </label><br>
+    <select name = 'cfg_share_links_as_text' id = 'cfg_share_links_as_text'>
+        <option <{if {not cfg_share_links_as_text} 'selected'}> value = '0'>
+            <{@"no"}>
+        </option>
+        <option <{if cfg_share_links_as_text 'selected'}> value = '1'>
+            <{@"yes"}>
+        </option>
+    </select>
+
+	<p><{@"Use Facebook comments:"}><br>
+	<select name = 'cfg_facebook_comments'>
+		<option <{if {not cfg_facebook_comments} 'selected'}> value = '0'>
+			<{@"no"}>
+		</option>
+		<option <{if cfg_facebook_comments 'selected'}> value = '1'>
+			<{@"yes"}>
+		</option>
+	</select>
+
+    <p><label for = 'cfg_twitter_user'>
+        <{@"Twitter user (for adding 'via' to shares):"}>
+    </label><br>
+    <input
+        type    = 'text'
+        name    = 'cfg_twitter_user'
+        id      = 'cfg_twitter_user'
+        value   = '<{cfg_twitter_user}>'
+        size    = 32
+    />
 
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
