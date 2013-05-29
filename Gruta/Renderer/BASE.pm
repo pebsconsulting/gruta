@@ -17,6 +17,18 @@ sub story
         # pure HTML img tag
         $img = $1;
     }
+    else {
+        # find an image in the related stories
+        foreach my $s ($story->source->related_stories($story, 10)) {
+            my $ns = $story->source->story($s->[0], $s->[1]);
+
+            # pick it
+            if (my $i = $ns->get('image')) {
+                $img = $i;
+                last;
+            }
+        }
+    }
 
     $story->set('image', $img);
 
