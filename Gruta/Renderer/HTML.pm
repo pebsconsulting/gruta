@@ -3,6 +3,8 @@ package Gruta::Renderer::HTML;
 use strict;
 use warnings;
 
+use base 'Gruta::Renderer::BASE';
+
 sub new {
 	my $class	= shift;
 
@@ -106,7 +108,7 @@ sub story {
 	$story->set('abstract',	$abstract);
 	$story->set('body',	$content);
 
-	return $self;
+	return $self->SUPER::story($story);
 }
 
 1;

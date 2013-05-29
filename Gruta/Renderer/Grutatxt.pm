@@ -3,6 +3,7 @@ package Gruta::Renderer::Grutatxt;
 use strict;
 use warnings;
 
+use base 'Gruta::Renderer::BASE';
 use Grutatxt;
 
 sub new {
@@ -71,13 +72,7 @@ sub story {
         $story->set('abstract', $story->get('body'));
     }
 
-    # get the first image inside the content and
-    # use it as the story's image
-    if ($story->get('content') =~ /img:\/\/([^ \/]+)/) {
-        $story->set('image', $1);
-    }
-
-	return $self;
+	return $self->SUPER::story($story);
 }
 
 1;

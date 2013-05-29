@@ -3,6 +3,8 @@ package Gruta::Renderer::Text;
 use strict;
 use warnings;
 
+use base 'Gruta::Renderer::BASE';
+
 sub new {
 	my $class	= shift;
 
@@ -32,7 +34,7 @@ sub story {
 	$story->set('abstract', $abstract);
 	$story->set('body', "<pre>\n" . $content . "</pre>\n");
 
-	return $self;
+	return $self->SUPER::story($story);
 }
 
 1;
