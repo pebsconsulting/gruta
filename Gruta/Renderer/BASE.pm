@@ -11,7 +11,7 @@ sub story
 
     if ($body =~ /img:\/\/([^ \/]+)/) {
         # img:// pseudo_url
-        $img = $1;
+        $img = '/img/' . $1;
     }
     elsif ($body =~ /<\s*img\s+src\s*=\s*"([^"]+)"/) {
         # pure HTML img tag
