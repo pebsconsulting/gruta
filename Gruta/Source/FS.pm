@@ -890,7 +890,7 @@ sub _rebuild_master_index {
 
             close NMI;
 
-            rename($index,          $index . '.old');
+            link  ($index,          $index . '.old');
             rename($index . '.new', $index);
         }
 
