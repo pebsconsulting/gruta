@@ -420,11 +420,11 @@ sub transfer_to_source {
 			# set new topic
 			$s->set('topic_id', $nti);
 
-			my $ns = $dst->insert_story($s);
-
 			if (@tags) {
-				$ns->tags(@tags);
+				$s->tags(@tags);
 			}
+
+			my $ns = $dst->insert_story($s);
 		}
 	}
 
