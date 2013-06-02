@@ -73,6 +73,11 @@ sub set {
 
 	confess 'set ' . ref($self) . " field '$field'?" unless exists $self->{$field};
 
+    if (exists $self->{prev}) {
+        # store previous value
+        $self->{prev}->{$field} = $self->{$field};
+    }
+
 	$self->{$field} = $self->filter_field($field, $value);
 
 	return $self->{$field};
