@@ -148,7 +148,12 @@ sub save {
 		close F;
 	}
 
-	$self->_rebuild_index();
+    # if date or tags were changed, rebuild master index
+    if (!$self->{prev} ||
+        $self->get('date') ne ($self->{prev}->{date} || '') ||
+        $self->get('tags') ne ($self->{prev}->{tags} || '')) {
+    	$self->_rebuild_index();
+    }
 
 	return $self;
 }
