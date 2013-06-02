@@ -131,6 +131,10 @@ sub pk {
 	return qw(id topic_id);
 }
 
+sub fields {
+	grep !/(tags)/, $_[0]->SUPER::fields();
+}
+
 sub touch {
 	my $self = shift;
 
