@@ -165,10 +165,10 @@ sub tags {
 	my @ret		= undef;
 
 	if (scalar(@_)) {
-		$self->set('tags', [ @_ ]);
+		$self->set('tags', join(',', @_));
 	}
 	else {
-		@ret = @{ $self->get('tags') };
+		@ret = split(/\s*,\s*/, $self->get('tags'));
 	}
 
 	return @ret;
