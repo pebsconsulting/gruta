@@ -178,31 +178,45 @@ sub touch {
 }
 
 sub tags {
-	my $self	= shift;
-	my @ret		= ();
+    my $self    = shift;
+    my @ret     = ();
 
-	my $filename = $self->_filename();
-	$filename =~ s/\.M$/.T/;
+    my $filename = $self->_filename();
+    $filename =~ s/\.M$/.T/;
 
-	if (scalar(@_)) {
-		if (open F, '>' . $filename) {
-            flock F, 2;
-			print F join(', ', map { s/^\s+//; s/\s+$//; lc($_) } @_), "\n";
-			close F;
-		}
-	}
-	else {
-		if (open F, $filename) {
-            flock F, 1;
-			my $l = <F>;
-			close F;
+    if (scalar(@_)) {
+        $self->set('tags',
+            join(',',
+                map { s/^\s+//; s/\s+$//; lc($_) } @_
+            )
+        );
 
-			chomp($l);
-			@ret = split(/\s*,\s*/, $l);
-		}
-	}
+        # delete old .T file
+        unlink($filename);
 
-	return @ret;
+#		if (open F, '>' . $filename) {
+#            flock F, 2;
+#			print F join(', ', map { s/^\s+//; s/\s+$//; lc($_) } @_), "\n";
+#			close F;
+#		}
+    }
+    else {
+        my $l;
+
+        if (!($l = $self->get('tags'))) {
+            if (open F, $filename) {
+                flock F, 1;
+                $l = <F>;
+                close F;
+
+                chomp($l);
+            }
+        }
+
+        @ret = split(/\s*,\s*/, $l);
+    }
+
+    return @ret;
 }
 
 sub delete {
