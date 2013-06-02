@@ -634,15 +634,15 @@ my $X = {
 
 				$g->render($story);
 
+				if (@tags) {
+					$story->tags(@tags);
+				}
+
 				if ($story->source()) {
 					$story = $story->save();
 				}
 				else {
 					$story = $g->source->insert_story($story);
-				}
-
-				if (@tags) {
-					$story->tags(@tags);
 				}
 			}
 		}
@@ -849,15 +849,15 @@ sub save_story
 	$story->set('content', $c);
 	$g->render($story);
 
+	if ($tags) {
+		$story->tags(split(/,\s*/, $tags));
+	}
+
 	if ($story->source()) {
 		$story->save();
 	}
 	else {
 		$g->source->insert_story($story);
-	}
-
-	if ($tags) {
-		$story->tags(split(/,\s*/, $tags));
 	}
 }
 
