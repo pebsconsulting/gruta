@@ -1088,7 +1088,7 @@ sub stories_top_ten {
 
 sub _collect_tags {
 	my $self	= shift;
-	my @topics	= @_;
+	my $topics	= shift;
 
 	my @ret = ();
 
@@ -1101,8 +1101,8 @@ sub _collect_tags {
 
 		my ($date, $ti, $si, $tags) = split(/:/);
 
-        if (scalar(@topics)) {
-            if (!grep(@topics, $ti)) {
+        if ($topics) {
+            if (!grep(@{$topics}, $ti)) {
                 next;
             }
         }
@@ -1154,21 +1154,12 @@ sub stories_by_tag {
 	my $tag		= shift;
 	my $future	= shift;
 
-	my @topics;
-
-	if (!$topics) {
-		@topics = $self->topics();
-	}
-	else {
-		@topics = @{ $topics };
-	}
-
     my %r = ();
     
     if ($tag) {
     	my @tags = map { lc($_) } split(/\s*,\s*/, $tag);
 
-    	foreach my $tr ($self->_collect_tags(@topics)) {
+    	foreach my $tr ($self->_collect_tags($topics)) {
     		if (is_subset_of(\@tags, $tr->[2])) {
     			my $story = $self->story($tr->[0], $tr->[1]);
 
@@ -1186,6 +1177,8 @@ sub stories_by_tag {
     }
     else {
         # return all those stories without tags
+        my @topics = $topics ? @{$topics} : $self->topics();
+
         foreach my $topic_id (@topics) {
             foreach my $story_id ($self->stories($topic_id)) {
                 my $story = $self->story($topic_id, $story_id);
@@ -1215,8 +1208,7 @@ sub tags {
 	my @ret = ();
 	my %h = ();
 
-	foreach my $tr ($self->_collect_tags($self->topics())) {
-
+	foreach my $tr ($self->_collect_tags(undef)) {
 		foreach my $t (@{$tr->[2]}) {
 			$h{$t}++;
 		}
