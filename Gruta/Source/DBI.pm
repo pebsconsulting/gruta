@@ -64,6 +64,8 @@ sub load {
 		$self->set($k, $r->{$k});
 	}
 
+    $self->{prev} = {};
+
 	return $self;
 }
 

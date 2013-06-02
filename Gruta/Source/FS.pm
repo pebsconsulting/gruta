@@ -58,6 +58,8 @@ sub load {
 
 	close F;
 
+    $self->{prev} = {};
+
 	return $self;
 }
 
@@ -462,6 +464,8 @@ sub load {
 		$self->set('content', join('', <F>));
 		close F;
 	}
+
+    $self->{prev} = {};
 
 	return $self;
 }
