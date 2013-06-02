@@ -1092,35 +1092,27 @@ sub _collect_tags {
 
 	my @ret = ();
 
-	foreach my $topic_id (@topics) {
+	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
+	open I, $index or return @ret;
+	flock I, 1;
 
-		my $topic = $self->topic($topic_id)
-			or croak("Bad topic $topic_id");
+	while (<I>) {
+		chomp;
 
-		my $files = $topic->_filename();
-		$files =~ s/\.M$/\/*.T/;
+		my ($date, $ti, $si, $tags) = split(/:/);
 
-		my @ls = glob($files);
-
-        foreach my $f (@ls) {
-            if (open F, $f) {
-                my $tags = <F>;
-
-                if ($tags) {
-                    chomp $tags;
-                    close F;
-
-                    my ($id) = ($f =~ m{/([^/]+)\.T});
-
-                    push(@ret,
-                        [ $topic_id, $id, [ split(/\s*,\s*/, $tags) ] ]
-                    );
-                }
+        if (scalar(@topics)) {
+            if (!grep(@topics, $ti)) {
+                next;
             }
         }
-	}
 
-	return @ret;
+        push(@ret,
+            [ $ti, $si, [ split(/\s*,\s*/, $tags) ] ]
+        );
+    }
+
+    return @ret;
 }
 
 
