@@ -1089,6 +1089,7 @@ sub stories_top_ten {
 sub _collect_tags {
 	my $self	= shift;
 	my $topics	= shift;
+    my $future  = shift;
 
 	my @ret = ();
 
@@ -1096,10 +1097,14 @@ sub _collect_tags {
 	open I, $index or return @ret;
 	flock I, 1;
 
+    my $maxdate = $future ? '99999999999999' : Gruta::Data::today();
+
 	while (<I>) {
 		chomp;
 
 		my ($date, $ti, $si, $tags) = split(/:/);
+
+        next if ($date gt $maxdate);
 
         if ($topics) {
             if (!grep(@{$topics}, $ti)) {
@@ -1108,7 +1113,7 @@ sub _collect_tags {
         }
 
         push(@ret,
-            [ $ti, $si, [ split(/\s*,\s*/, $tags) ] ]
+            [ $ti, $si, [ split(/\s*,\s*/, $tags) ], $date ]
         );
     }
 
@@ -1159,19 +1164,11 @@ sub stories_by_tag {
     if ($tag) {
     	my @tags = map { lc($_) } split(/\s*,\s*/, $tag);
 
-    	foreach my $tr ($self->_collect_tags($topics)) {
+    	foreach my $tr ($self->_collect_tags($topics, $future)) {
     		if (is_subset_of(\@tags, $tr->[2])) {
     			my $story = $self->story($tr->[0], $tr->[1]);
 
-    			# if no future stories are wanted, discard them
-    			if (!$future) {
-    				if ($story->get('date') gt Gruta::Data::today()) {
-    					next;
-    				}
-    			}
-
-    			$r{$story->get('title')} =
-    				[ $tr->[0], $tr->[1], $story->get('date') ];
+    			$r{$story->get('title')} = [$tr->[0], $tr->[1], $tr->[3]];
     		}
     	}
     }
@@ -1208,7 +1205,7 @@ sub tags {
 	my @ret = ();
 	my %h = ();
 
-	foreach my $tr ($self->_collect_tags(undef)) {
+	foreach my $tr ($self->_collect_tags(undef, 0)) {
 		foreach my $t (@{$tr->[2]}) {
 			$h{$t}++;
 		}
