@@ -211,6 +211,9 @@ sub tags {
 
                 chomp($l);
             }
+            else {
+                $l = '';
+            }
         }
 
         @ret = split(/\s*,\s*/, $l);
