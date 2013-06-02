@@ -17,7 +17,7 @@ sub story
         # pure HTML img tag
         $img = $1;
     }
-    elsif ($story->source) {
+    elsif (0 && $story->source) {
         # find an image in the related stories
         foreach my $s ($story->source->related_stories($story, 10)) {
             my $ns = $story->source->story($s->[0], $s->[1]);
