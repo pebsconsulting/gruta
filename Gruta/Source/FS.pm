@@ -247,23 +247,6 @@ sub delete {
 }
 
 
-sub load {
-	my $self	= shift;
-	my $driver	= shift;
-
-	if (!$self->SUPER::load( $driver )) {
-		return undef;
-	}
-
-	my $filename = $self->_filename();
-	$filename =~ s/\.M$//;
-
-	rename($filename . '.TAGS', $filename . '.T');
-
-	return $self;
-}
-
-
 package Gruta::Data::FS::Topic;
 
 use base 'Gruta::Data::Topic';
