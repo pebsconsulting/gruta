@@ -3,10 +3,10 @@
         '"topic_id":"' $0 '",'
         '"id":"' $1 '",'
         '"image":"' {story_image $0 $1} '",'
-        '"hits":' {story_hits $0 $1} ','
         '"date":"' {story_date cfg_date_format $0 $1} '",'
-        '"topic_name":"' {topic_name $0} '",'
         {if $2 {?
+            '"hits":' {story_hits $0 $1} ','
+            '"topic_name":"' {topic_name $0} '",'
             '"tags":[' {foreach {story_tags $0 $1} {? '"' $0 '"'} ','} '],'
             '"comments":[' '],'
             '"abstract":"' {json_quote {story_abstract $0 $1}} '",'
