@@ -14,7 +14,7 @@
             "<a href = 'http://twitter.com/home?status="
             {story_title $0 $1} " "
             {aurl 'STORY' 'topic' $0 'id' $1}
-            {if {ne cfg_twitter_user ""} {? " via " cfg_twitter_user}}
+            {if {ne cfg_twitter_user ""} {? " via @" cfg_twitter_user}}
             "'>twitter</a>"
         "</li>"
 	   {cfg_more_share_links}
