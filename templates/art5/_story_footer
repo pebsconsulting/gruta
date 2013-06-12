@@ -1,7 +1,7 @@
 <div class = 'story_footer'>
 
     <span class = 'story_link'>
-        <{link {url 'STORY' 'topic' $0 'id' $1} '»'}>
+        <{link {url 'STORY' 'topic' $0 'id' $1} '∞'}>
     </span>
 
 	<{if {is_topic_editor $0} {
