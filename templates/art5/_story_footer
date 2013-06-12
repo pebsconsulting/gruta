@@ -1,6 +1,6 @@
 <div class = 'story_footer'>
 
-    <span class = 'story_link'>
+    <span class = 'story_link' title='permalink'>
         <{link {url 'STORY' 'topic' $0 'id' $1} '∞'}>
     </span>
 
