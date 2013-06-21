@@ -907,6 +907,7 @@ sub js_quote
 
     $str ||= '';
 
+    $str =~ s/\\/\\\\/g;
     $str =~ s/\r/\\r/g;
     $str =~ s/\n/\\n/g;
     $str =~ s/"/\\"/g;
