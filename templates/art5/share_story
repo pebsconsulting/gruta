@@ -11,10 +11,11 @@
             "'>facebook</a>"
         "</li>"
         "<li>"
-            "<a href = 'http://twitter.com/home?status="
-            {story_title $0 $1} " "
+            "<a href = 'http://twitter.com/intent/tweet?url="
             {aurl 'STORY' 'topic' $0 'id' $1}
-            {if {ne cfg_twitter_user ""} {? " via @" cfg_twitter_user}}
+            "&text="
+            {story_title $0 $1}
+            {if {ne cfg_twitter_user ""} {? "&via=" cfg_twitter_user}}
             "'>twitter</a>"
         "</li>"
         "<li>"
