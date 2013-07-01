@@ -17,6 +17,11 @@
             {if {ne cfg_twitter_user ""} {? " via @" cfg_twitter_user}}
             "'>twitter</a>"
         "</li>"
+        "<li>"
+            "<a href='https://plus.google.com/share?url="
+            {aurl 'STORY' 'topic' $0 'id' $1}
+            "'>Google+</a>"
+        "</li>"
 	   {cfg_more_share_links}
         "</ul>"
     }
