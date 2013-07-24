@@ -767,7 +767,7 @@ sub get_story
 			or die "Cannot find story '${topic_id}/${id}'";
 
 	foreach my $f ($story->fields()) {
-		if ($f ne 'content') {
+		if ($f ne 'content' && $f ne 'tags') {
 			push (@r, $f . ': ' . ($story->get($f) || ''));
 		}
 	}
