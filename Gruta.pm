@@ -188,13 +188,23 @@ sub url {
 				return $ret . $args{topic} . '/';
 			}
 			if ($st eq 'SEARCH_BY_TAG' && $args{tag}) {
-				return $ret . 'tag/' . $args{tag} . '.html';
+                if ($self->{args}->{grutajs_urls}) {
+                    return $ret . "#!" . $args{tag};
+                }
+                else {
+				    return $ret . 'tag/' . $args{tag} . '.html';
+                }
 			}
 		}
 
 		if ($kn == 2) {
 			if ($st eq 'STORY' && $args{topic} && $args{id}) {
-				return $ret . $args{topic} . '/' . $args{id} . '.html';
+                if ($self->{args}->{grutajs_urls}) {
+				    return $ret . "#!" . $args{id} . '@' . $args{topic};
+                }
+                else {
+				    return $ret . $args{topic} . '/' . $args{id} . '.html';
+                }
 			}
 			if ($st eq 'TOPIC' && $args{topic} && $args{offset}) {
 				return $ret . $args{topic} . '/~' . $args{offset} . '.html';
