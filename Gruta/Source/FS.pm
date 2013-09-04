@@ -144,6 +144,7 @@ sub save {
 
 		open F, '>' . $filename . $ext or
 			croak "Cannot write " . $filename . $ext . ': ' . $!;
+        flock F, 2;
 		print F $self->get($field) || '';
 		close F;
 	}
@@ -170,6 +171,7 @@ sub touch {
         $filename .= '.H';
 
         if (open(F, '>', $filename)) {
+            flock F, 2;
             print F $hits;
             close F;
         }
@@ -765,6 +767,7 @@ sub story {
 		my $field	= shift(@d);
 
 		if (open F, $file . $ext) {
+            flock F, 1;
 			$story->set($field, join('', <F>));
 			close F;
 		}
