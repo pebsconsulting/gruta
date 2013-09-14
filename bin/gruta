@@ -293,7 +293,8 @@ my $X = {
 					to	=> $to,
 					future	=> $future
 				) ) {
-				print join(' ', @{$s}), "\n";
+                my $story = $g->source->story($s->[0], $s->[1]);
+				print join(' ', @{$s}), " ", $story->get('hits'), "\n";
 			}
 		}
 	],
