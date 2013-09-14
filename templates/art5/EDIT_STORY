@@ -66,6 +66,17 @@
         value   = '<{story_date2 '%y' %topic %id}>'
     />
 
+    <p><label for = 'hits'>
+        <{@"Hits:"}>
+    </label><br>
+    <input
+        size    = '15'
+        type    = 'text'
+        name    = 'hits'
+        id      = 'hits'
+        value   = '<{story_hits %topic %id}>'
+    />
+
     <p><label for = 'description'>
         <{@"Description: (about 15 words)"}>
     </label><br>
