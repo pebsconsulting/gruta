@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<link rel='stylesheet' type='text/css' href='/grutajs.css'>
+<script type='text/javascript' src='/grutajs.js'></script>
+<script type='text/javascript' src='/nutriguia.js'></script>
+</head>
+
+<body onload='nutriguia.start();'>
+
+<div id='menu_bar_bkg'><div></div></div>
+<div id='menu_bar'></div>
+
+<div id='content'>
+  <div id='card_deck'></div>
+  <div id='load_more'>
+    <button type='button' id='more_btn'
+      onclick='javascript:nutriguia.ui_load_more();'>Ver más</button>
+  </div>
+</div>
+
+<div id='veil'></div>
+
+<div id='story'>
+  <div id='story_content'></div>
+  <div id='story_side'>Anuncios aquí...</div>
+  <div id='close_btn' onclick='history.back();'>&times;</div>
+</div>
+
+</body>

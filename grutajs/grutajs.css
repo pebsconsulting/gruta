@@ -1,0 +1,205 @@
+body {
+    font-family: Arial;
+    font-size: 13px;
+    z-index: 500;
+    width: 80em;
+    margin: auto;
+}
+img {
+    border: 0;
+}
+#menu_bar_bkg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #000;
+    height: 40px;
+}
+#menu_bar {
+    position: fixed;
+    top: 0;
+    height: 40px;
+    background: #000;
+    color: #fff;
+    z-index: 1000;
+    overflow: hidden;
+}
+.menu_opt {
+    position: relative;
+    width: 130px;
+    height: 28px;
+    float: left;
+    font-size: 13px;
+    font-family: Segoe UI;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 #000;
+    border-top-width: 4px;
+    border-top-style: solid;
+    border-top-color: #000;
+    padding-top: 8px;
+    transition: background-color .25s;
+//    transition: opacity .25s;
+}
+.menu_opt a {
+    color: #fff;
+    text-decoration: none;
+}
+.menu_opt:hover {
+    background: #bbbbbb;
+//    opacity: 0;
+}
+//#menu_opt_0 { font-family: Magneto; text-transform: none; }
+//#menu_opt_1 { border-top-color: #009bff; }
+#menu_opt_1:hover { background-color: #009bff; }
+//#menu_opt_2 { border-top-color: #b81800; }
+#menu_opt_2:hover { background-color: #b81800; }
+//#menu_opt_3 { border-top-color: #9600b4; }
+#menu_opt_3:hover { background-color: #9600b4; }
+//#menu_opt_4 { border-top-color: #00a53c; }
+#menu_opt_4:hover { background-color: #00a53c; }
+//#menu_opt_5 { border-top-color: #fa5f00; }
+#menu_opt_5:hover { background-color: #fa5f00; }
+//#menu_opt_6 { border-top-color: #00c3c3; }
+#menu_opt_6:hover { background-color: #00c3c3; }
+
+#content {
+//    width: 80em;
+//    margin-left: 20em;
+//    margin: auto;
+    padding-top: 48px;
+}
+#card_deck {
+    float: left;
+}
+.card {
+    position: relative;
+    margin: 15px;
+    float: left;
+    width: 200px;
+    height: 220px;
+    overflow: hidden;
+}
+.card img {
+    min-height: 220px;
+    min-width: 200px;
+}
+.card h1 {
+    width: 180px;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    margin: 0;
+    opacity: 0.8;
+}
+.full {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+}
+#load_more {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+#more_btn {
+    padding: 15px 64px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#veil {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    background: #000;
+    opacity: 0.75;
+    z-index: 1500;
+}
+#story {
+    position: fixed;
+    display: none;
+    width: 70em;
+    font-size: 17px;
+    line-height: 1.5em;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    background: #bbbbbb;
+    z-index: 2000;
+}
+#story_content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50em;
+    height: 100%;
+    padding: 0 1em;
+    overflow: auto;
+    background: #fff;
+    display: block;
+}
+#story_side {
+    position: absolute;
+    width: 16em;
+    padding: 0 1em;
+    height: 100%;
+    top: 0%;
+    right: 0%;
+}
+#close_btn {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    font-size: 32px;
+    padding: 4px 6px;
+    background: #ff0000;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.left {
+    float: left;
+    margin: 0.5em;
+    padding: 1.5em;
+}
+.right {
+    float: right;
+    margin: 0.5em;
+    padding: 1.5em;
+}
+
+/* fancy scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(128,128,128,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(128,128,128,0.4); 
+}
