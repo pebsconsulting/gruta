@@ -163,24 +163,24 @@ sub touch {
     my $self = shift;
 
     if (!$self->source->dummy_touch()) {
-        my $hits = $self->get('hits') + 1;
-        $self->set('hits', $hits);
-
         my $filename = $self->_filename();
-    	$filename =~ s/\.M$//;
-        $filename .= '.H';
+        $filename =~ s/\.M$/.H/;
 
-        if (open(F, '>', $filename)) {
-            flock F, 2;
-            print F $hits;
-            close F;
+        if (open(my $f, "+<", $filename)) {
+            flock $f, 2;
+            my $hits = <$f> + 1;
+            seek($f, 0, 0);
+            print $f $hits;
+            close $f;
+
+            $self->set('hits', $hits);
+
+            $self->source->_update_top_ten(
+                $hits,
+                $self->get('topic_id'),
+                $self->get('id')
+            );
         }
-
-        $self->source->_update_top_ten(
-            $hits,
-            $self->get('topic_id'),
-            $self->get('id')
-        );
     }
 
     return $self;
