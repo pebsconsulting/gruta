@@ -383,6 +383,7 @@ sub _art5 {
 		};
 
 		$a->{op}->{logout} = sub {
+            $data->cgi->cookie("sid=0; expires=Thu, 01 Jan 1970 00:00:00 GMT");
 			$data->logout();
 			$data->cgi->redirect('INDEX');
 			$a->{abort} = 1;
