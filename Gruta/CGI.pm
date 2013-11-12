@@ -245,7 +245,8 @@ sub run {
 	$data->template->cgi_vars($vars);
 
     # change process name
-    $0 = 'Gruta:' . $data->{id} . ':' . $ENV{REMOTE_ADDR} . ':' . $ENV{REQUEST_URI};
+    my $ip = $ENV{HTTP_X_FORWARDED_FOR} || $ENV{REMOTE_ADDR};
+    $0 = 'Gruta:' . $data->{id} . ':' . $ip . ':' . $ENV{REQUEST_URI};
 
 	if ($ENV{REMOTE_USER} and my $u = $data->source->user($ENV{REMOTE_USER})) {
 		$data->auth( $u );
