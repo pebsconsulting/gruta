@@ -1119,7 +1119,7 @@ sub _collect_tags {
         next if ($date gt $maxdate);
 
         if ($topics) {
-            if (!grep(@{$topics}, $ti)) {
+            if (!grep(/$ti/, @{$topics})) {
                 next;
             }
         }
