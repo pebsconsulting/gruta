@@ -88,7 +88,7 @@ sub related_stories {
         @ret1 = sort { $b->[2] cmp $a->[2] } @ret1;
 
         # if not enough, get others, tag by tag
-        if (scalar(@ret1) < $max) {
+        if (0 && scalar(@ret1) < $max) {
             while (scalar(@tags)) {
                 foreach my $i ($self->stories_by_tag(undef, shift(@tags))) {
                     my $k = $i->[0] . '/' . $i->[1];
