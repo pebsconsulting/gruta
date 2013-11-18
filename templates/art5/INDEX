@@ -14,8 +14,6 @@
     {index}
 }>
 
-<{share_buttons {aurl 'INDEX'}}>
-
 <{main_bottom}>
 
 </div>
