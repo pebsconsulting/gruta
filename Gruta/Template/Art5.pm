@@ -685,6 +685,12 @@ sub _art5 {
 			return '';
 		};
 
+        $a->{op}->{cache_control_max_age} = sub {
+            $data->cgi->{cache_control_max_age} = $a->exec(shift);
+
+            return '';
+        };
+
 		$a->{op}->{status}		= sub { $data->cgi->status($a->exec(shift)); return ''; };
 
 		$a->{op}->{topics}		= sub { [ $data->source->topics() ]; };
