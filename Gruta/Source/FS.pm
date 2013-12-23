@@ -980,8 +980,17 @@ sub stories_by_date {
         # skip stories not from a wanted topic
         next if not grep(/^$ti$/, @topics);
 
-		# skip future stories
-		next if not $args{future} and $date gt Gruta::Data::today();
+        if (not $args{future}) {
+            # skip future stories
+            if ($date gt Gruta::Data::today()) {
+                next;
+            }
+
+            # skip "unpublished" stories
+            if ($udate && $udate le Gruta::Data::today()) {
+                next;
+            }
+        }
 
 		# skip if date is above the threshold
 		next if $args{'to'} and $date gt $args{'to'};
@@ -1112,14 +1121,20 @@ sub _collect_tags {
 	open I, $index or return @ret;
 	flock I, 1;
 
-    my $maxdate = $future ? '99999999999999' : Gruta::Data::today();
-
 	while (<I>) {
 		chomp;
 
 		my ($date, $ti, $si, $tags, $udate) = split(/:/);
 
-        next if ($date gt $maxdate);
+        if ($future) {
+            if ($date gt Gruta::Data::today()) {
+                next;
+            }
+
+            if ($udate && $udate le Gruta::Data::today()) {
+                next;
+            }
+        }
 
         if ($topics) {
             if (!grep(/$ti/, @{$topics})) {
