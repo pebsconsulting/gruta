@@ -156,6 +156,10 @@ sub date2 {
 	return Gruta::Data::format_date($_[0]->get('date2'), $_[1]);
 }
 
+sub udate {
+	return Gruta::Data::format_date($_[0]->get('udate'), $_[1]);
+}
+
 sub touch {
 	return $_[0];
 }

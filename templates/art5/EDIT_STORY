@@ -66,6 +66,33 @@
         value   = '<{story_date2 '%y' %topic %id}>'
     />
 
+	<p><{@"Unpublish date (empty, never)"}><br>
+
+    <label for = 'uday'><{@"Day:"}></label>
+    <input
+        type    = 'text'
+        size    = '2'
+        name    = 'uday'
+        id      = 'uday'
+        value   = '<{story_udate '%d' %topic %id}>'
+    />
+    <label for = 'umonth'><{@"Month:"}></label>
+    <input
+        type    = 'text'
+        size    = '2'
+        name    = 'umonth'
+        id      = 'umonth'
+        value   = '<{story_udate '%m' %topic %id}>'
+    />
+    <label for = 'uyear'><{@"Year:"}></label>
+    <input
+        type    = 'text'
+        size    = '4'
+        name    = 'uyear'
+        id      = 'uyear'
+        value   = '<{story_udate '%y' %topic %id}>'
+    />
+
     <p><label for = 'hits'>
         <{@"Hits:"}>
     </label><br>

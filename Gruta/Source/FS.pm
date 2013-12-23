@@ -152,6 +152,7 @@ sub save {
     # if date or tags were changed, rebuild master index
     if (!$self->{prev} ||
         $self->get('date') ne ($self->{prev}->{date} || '') ||
+        $self->get('udate') ne ($self->{prev}->{udate} || '') ||
         $self->get('tags') ne ($self->{prev}->{tags} || '')) {
     	$self->_rebuild_index();
     }
@@ -877,9 +878,10 @@ sub _rebuild_master_index {
             my $ti = $story->get('topic_id');
             my $si = $story->get('id');
             my $sd = $del ? '' : ($story->get('date') || '0' x 14);
+            my $ud = ($story->get('udate') || '');
 
             my $entry = $sd . ':' . $ti . ':' . $si . ':' .
-                        join(',', $story->tags());
+                        join(',', $story->tags()) . ':' . $ud;
 
             while (my $l = <MI>) {
                 chomp($l);
@@ -922,7 +924,8 @@ sub _rebuild_master_index {
 
                 push(@ml,
                     ($story->get('date') || ('0' x 14)) . ':' .
-                    $ti . ':' . $si . ':' . join(',', $story->tags())
+                    $ti . ':' . $si . ':' . join(',', $story->tags()) .
+                    ':' . ($story->get('udate') || '')
                 );
             }
         }
@@ -972,7 +975,7 @@ sub stories_by_date {
 	while (<I>) {
 		chomp;
 
-		my ($date, $ti, $si, $tags) = split(/:/);
+		my ($date, $ti, $si, $tags, $udate) = split(/:/);
 
         # skip stories not from a wanted topic
         next if not grep(/^$ti$/, @topics);
@@ -1114,7 +1117,7 @@ sub _collect_tags {
 	while (<I>) {
 		chomp;
 
-		my ($date, $ti, $si, $tags) = split(/:/);
+		my ($date, $ti, $si, $tags, $udate) = split(/:/);
 
         next if ($date gt $maxdate);
 

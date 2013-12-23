@@ -280,6 +280,23 @@ sub _art5 {
 			return $ret;
 		};
 
+		$a->{op}->{story_udate} = sub {
+			my $format		= $a->exec(shift);
+			my $topic_id	= $a->exec(shift);
+			my $id			= $a->exec(shift);
+			my $ret			= '';
+
+			if ($id ne '[]') {
+				my $story;
+
+				if ($story = $data->source->story($topic_id, $id)) {
+					$ret = $story->udate($format);
+				}
+			}
+
+			return $ret;
+		};
+
 		foreach my $p (Gruta::Data::User->new->afields()) {
 			$a->{op}->{'user_' . $p} = sub {
 				my $id	= $a->exec(shift);
@@ -555,6 +572,20 @@ sub _art5 {
 			$story->set('full_story', $a->exec(shift) eq 'on' ? 1 : 0);
 
             $story->set('hits', $a->exec(shift));
+
+			# get udate
+			$y = $a->exec(shift);
+			$m = $a->exec(shift);
+			$d = $a->exec(shift);
+
+			if ($y && $m && $d) {
+				$date = sprintf("%04d%02d%02d000000", $y, $m, $d);
+			}
+			else {
+				$date = '';
+			}
+
+			$story->set('udate', $date);
 
 			# if there is no userid, add one
 			if (!$story->get('userid')) {
