@@ -1,6 +1,6 @@
 <{
 	{content_type "application/rss+xml"}
-    {cache_control_max_age "21600"}
+    {cache_control_max_age "3600"}
 	'<?xml version="1.0" encoding="UTF-8"?>'
 	'<rss version="0.91">'
 
