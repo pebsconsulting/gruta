@@ -2,7 +2,7 @@
 
 <{if cfg_search_as_google_redirect
     {redirect
-        {? "http://google.com#q=site:" cfg_host_name " " %query}
+        {? "http://google.com#q=site:" cfg_host_name "%20" %query}
     }
 }>
 
