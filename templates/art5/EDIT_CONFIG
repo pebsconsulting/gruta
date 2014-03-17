@@ -106,6 +106,18 @@
         </option>
     </select>
 
+    <p><label for = 'cfg_search_as_google_redirect'>
+        <{@"Search using a Google redirection:"}>
+    </label><br>
+    <select name = 'cfg_search_as_google_redirect' id = 'cfg_search_as_google_redirect'>
+        <option <{if {not cfg_search_as_google_redirect} 'selected'}> value = '0'>
+            <{@"no"}>
+        </option>
+        <option <{if cfg_search_as_google_redirect 'selected'}> value = '1'>
+            <{@"yes"}>
+        </option>
+    </select>
+
 	<h2><{@"Date formats"}></h2>
 
 	<p><{@"Global date format:"}><br>
