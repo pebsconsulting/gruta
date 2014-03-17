@@ -998,6 +998,13 @@ sub _art5 {
             return $s;
         };
 
+        $a->{op}->{redirect} = sub {
+            $data->cgi->http_headers('Location' => $a->exec(shift));
+            $a->{abort} = 1;
+
+            return '';
+        };
+
 		$a->{op}->{about} = sub {
 			return 'Gruta ' . $data->version();
 		};
