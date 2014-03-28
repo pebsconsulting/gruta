@@ -21,7 +21,7 @@
 		}
 
 		{story_body %topic 'index'}
-        {share_buttons {aurl 'TOPIC' 'topic' %topic}}
+        {share_story %topic 'index'}
 
 		"</div>"
 
