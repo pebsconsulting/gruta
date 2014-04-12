@@ -174,6 +174,13 @@ sub touch {
             print $f $hits;
             close $f;
 
+            # FIXME signal hit loss
+            if ($hits < $self->get('hits')) {
+                open my $log, ">>/tmp/gruta-hits-error.log";
+                print $log "hits: $hits get('hits'): ", $self->get('hits'), "\n";
+                close $log;
+            }
+
             $self->set('hits', $hits);
 
             $self->source->_update_top_ten(
