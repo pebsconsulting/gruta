@@ -157,6 +157,15 @@ sub save {
     	$self->_rebuild_index();
     }
 
+    # FIXME log saved hits
+    open my $log, ">>/tmp/gruta-hits-save.log";
+    print $log
+        scalar(localtime()), " ",
+        $self->get('topic_id'), " ",
+        $self->get('id'), " ",
+        $self->get('hits'), "\n";
+    close $log;
+
 	return $self;
 }
 
@@ -178,7 +187,7 @@ sub touch {
             if ($hits < $self->get('hits')) {
                 open my $log, ">>/tmp/gruta-hits-error.log";
                 print $log
-                    "ERROR: ",
+                    scalar(localtime()), " ",
                     $self->get('topic_id'), " ",
                     $self->get('id'), " ",
                     $hits, " < ",
