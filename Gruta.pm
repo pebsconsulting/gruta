@@ -443,6 +443,16 @@ sub transfer_to_source {
 		$dst->insert_template($t);
 	}
 
+    foreach my $id ($self->source->comments(100000)) {
+        my $c = $self->source->comment($id->[0], $id->[1], $id->[2]);
+        $dst->insert_comment($c);
+    }
+
+    foreach my $id ($self->source->pending_comments()) {
+        my $c = $self->source->comment($id->[0], $id->[1], $id->[2]);
+        $dst->insert_comment($c);
+    }
+
 	return $self;
 }
 
