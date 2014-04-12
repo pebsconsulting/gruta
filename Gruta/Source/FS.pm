@@ -177,7 +177,12 @@ sub touch {
             # FIXME signal hit loss
             if ($hits < $self->get('hits')) {
                 open my $log, ">>/tmp/gruta-hits-error.log";
-                print $log "hits: $hits get('hits'): ", $self->get('hits'), "\n";
+                print $log
+                    "ERROR: ",
+                    $self->get('topic_id'), " ",
+                    $self->get('id'), " ",
+                    $hits, " < ",
+                    $self->get('hits'), "\n";
                 close $log;
             }
 
