@@ -157,15 +157,6 @@ sub save {
     	$self->_rebuild_index();
     }
 
-    # FIXME log saved hits
-    open my $log, ">>/tmp/gruta-hits-save.log";
-    print $log
-        scalar(localtime()), " ",
-        $self->get('topic_id'), " ",
-        $self->get('id'), " ",
-        $self->get('hits'), "\n";
-    close $log;
-
 	return $self;
 }
 
@@ -182,29 +173,6 @@ sub touch {
             seek($f, 0, 0);
             print $f $hits;
             close $f;
-
-            # FIXME log hits == 1
-            if ($hits == 1) {
-                open my $log, ">>/tmp/gruta-hits-1.log";
-                print $log
-                    scalar(localtime()), " ",
-                    $self->get('topic_id'), " ",
-                    $self->get('id'), " ",
-                    $self->get('hits'), "\n";
-                close $log;
-            }
-
-            # FIXME signal hit loss
-            if ($hits < $self->get('hits')) {
-                open my $log, ">>/tmp/gruta-hits-error.log";
-                print $log
-                    scalar(localtime()), " ",
-                    $self->get('topic_id'), " ",
-                    $self->get('id'), " ",
-                    $hits, " < ",
-                    $self->get('hits'), "\n";
-                close $log;
-            }
 
             $self->set('hits', $hits);
 
