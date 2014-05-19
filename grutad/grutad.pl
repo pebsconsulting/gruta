@@ -127,6 +127,44 @@ sub dump_as_list
 }
 
 
+sub read_obj
+{
+    my %h = ();
+
+    print "OK Ready to receive object\n";
+
+    while (my $k = <>) {
+        chomp($k);
+
+        if ($k eq '.') {
+            last;
+        }
+
+        my $v = <> || '';
+        chomp($v);
+        $v =~ s/\\n/\n/g;
+
+        $h{$k} = $v;
+    }
+
+    return %h;
+}
+
+
+sub store_result
+{
+    my $e = shift;
+
+    if (!$e) {
+        print "OK Stored\n";
+    }
+    else {
+        $e =~ s/\n/\\n/g;
+        print "ERROR $e\n";
+    }
+}
+
+
 sub dialog
 {
     my $g = shift;
@@ -212,6 +250,25 @@ sub dialog
             my $obj = $g->source->template($args[0]);
 
             dump_as_hash($obj, "Template '$args[0]' not found");
+        }
+        elsif ($k eq 'store_template') {
+            my $t = Gruta::Data::Template->new(read_obj());
+
+            eval { $g->source->insert_template($t) };
+
+            store_result($@);
+        }
+        elsif ($k eq 'store_story') {
+            my %a = read_obj();
+            my $o = Gruta::Data::Story->new(%a);
+
+            eval {
+                $g->render($o);
+                $g->source->insert_story($o);
+                $o->tags($a{tags});
+            };
+
+            store_result($@);
         }
         else {
             print "ERROR '$k' command not found\n";
