@@ -7,6 +7,203 @@ Gruta
 Gruta::Source
 -------------
 
+topic
+~~~~~
+
+ $topic_obj = $source->topic($topic_id);
+
+Returns a topic object or crashes.
+
+topics
+~~~~~~
+
+ @topic_ids = $source->topics();
+
+Returns a list of topic ids.
+
+user
+~~~~
+
+ $user_obj = $source->user($user_id);
+
+Returns a user object or crashes.
+
+users
+~~~~~
+
+ @user_ids = $source->users();
+
+Returns a list of user ids.
+
+template
+~~~~~~~~
+
+ $template_obj = $source->template($template_id);
+
+Returns a template id or crashes.
+
+templates
+~~~~~~~~~
+
+ @template_ids = $source->templates();
+
+Returns a list of template ids.
+
+comment
+~~~~~~~
+
+ $comment_obj = $source->comment($topic_id, $story_id, $id);
+
+Returns a comment object or undef if not found.
+
+pending_comments
+~~~~~~~~~~~~~~~~
+
+ @comments = $source->pending_comments();
+
+Returns a list of [$topic_id, $story_id, $id] tuplets
+describing pending (not-approved) comments, ordered by time.
+
+comments
+~~~~~~~~
+
+ @comments = $source->comments();
+ @comments = $source->comments($max);
+
+Returns a list of [$topic_id, $story_id, $id] tuplets
+describing approved comments, ordered by time.
+
+story_comments
+~~~~~~~~~~~~~~
+
+ @comments = $source->story_comments($story_obj);    # only approved
+ @comments = $source->story_comments($story_obj, 1); # approved and not
+
+Returns a list of [$topic_id, $story_id, $id] tuplets
+describing comments for a story, ordered by time.
+
+story
+~~~~~
+
+ $story_obj = $source->story($topic_id, $id);
+
+Returns a story object or undef if not found.
+
+stories
+~~~~~~~
+
+ @story_ids = $source->stories($topic_id);
+
+Returns all story ids for a topic.
+
+stories_by_date
+~~~~~~~~~~~~~~~
+
+ @story_list = $source->stories_by_date(\@topic_list,
+                                num     => $num,
+                                offset  => $offset,
+                                from    => $from_date,
+                                to      => $to_date,
+                                future  => $bool
+                );
+
+Returns a list of [$topic_id, $story_id, $date] tuplets
+describing stories from the \@topic_list ordered by story time.
+$num and $offset is the maximum and offset of the set to be
+returned. $from and $to are YYYYMMDDHHMMSS strings of the date
+range to be returned. If $future is set stories with a pub date
+in the future are also returned.
+
+stories_by_text
+~~~~~~~~~~~~~~~
+
+ @story_list = $source->stories_by_text(\@topic_list,
+                                $query, $future);
+
+Returns a list of [$topic_id, $story_id] tuplets describing
+stories from the \@topic_list contaning $query in the story
+body, ordered by story title. If $future is set stories with
+a pub date in the future are also returned.
+
+stories_top_ten
+~~~~~~~~~~~~~~~
+
+ @story_list = $source->stories_top_ten();
+ @story_list = $source->stories_top_ten($num);
+
+Returns a list of [$hits, $topic_id, $story_id] tuplets describing
+the 10 most read stories, ordered by hits. If $num is set, other
+than 10 can be queried.
+
+stories_by_tag
+~~~~~~~~~~~~~~
+
+ @story_list = $source->stories_by_tag(\@topic_list,
+                                $tag_spec, $future);
+
+Returns a list of [$topic_id, $story_id, $date] tuplets describing
+stories from the \@topic_list tagged with the full set of tags
+described in the comma-separated string $tag_spec, ordered by
+title. If $future is set stories with a pub date in the future
+can also be returned.
+
+tags
+~~~~
+
+ @tag_list = $source->tags();
+
+Returns a list of [$tag, $count] tuplets describing tags and the
+number of stories that contain them, ordered by tag.
+
+session
+~~~~~~~
+
+ $session_obj = $source->session($session_id);
+
+Returns a session object.
+
+purge_old_sessions
+~~~~~~~~~~~~~~~~~~
+
+ $source->purge_old_sessions();
+
+insert_topic
+~~~~~~~~~~~~
+
+ $obj = $source->insert_topic($obj);
+
+insert_user
+~~~~~~~~~~~
+
+ $obj = $source->insert_user($obj));
+
+insert_template
+~~~~~~~~~~~~~~~
+
+ $obj = $source->insert_template($obj));
+
+insert_comment
+~~~~~~~~~~~~~~
+
+ $obj = $source->insert_comment($obj));
+
+insert_story
+~~~~~~~~~~~~
+
+ $obj = $source->insert_story($obj));
+
+insert_session
+~~~~~~~~~~~~~~
+
+ $obj = $source->insert_session(obj));
+
+create
+~~~~~~
+
+ $source->create();
+
+Creates a source storage.
+
 Gruta::Source::Story
 --------------------
 
@@ -49,3 +246,69 @@ tags
 
 Gets or sets the tags of a story.
 
+Gruta::Source::Topic
+--------------------
+
+load
+~~~~
+
+save
+~~~~
+
+delete
+~~~~~~
+
+Gruta::Source::User
+-------------------
+
+load
+~~~~
+
+save
+~~~~
+
+delete
+~~~~~~
+
+Gruta::Source::Session
+----------------------
+
+load
+~~~~
+
+save
+~~~~
+
+delete
+~~~~~~
+
+Gruta::Source::Template
+-----------------------
+
+load
+~~~~
+
+save
+~~~~
+
+delete
+~~~~~~
+
+Gruta::Source::Comment
+----------------------
+
+load
+~~~~
+
+save
+~~~~
+
+delete
+~~~~~~
+
+approve
+~~~~~~~
+
+ $comment_obj = $comment_obj->approve();
+
+Approves the comment.
