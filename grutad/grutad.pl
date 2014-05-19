@@ -86,7 +86,7 @@ sub dump_as_hash
     my $e = shift;
 
     if ($h) {
-        print "OK\n";
+        print "OK Object follows\n";
 
         foreach my $k (keys(%{$h})) {
             my $v = $h->{$k} || '';
@@ -111,7 +111,7 @@ sub dump_as_list
 {
     my @l   = @_;
 
-    print "OK\n";
+    print "OK List follows\n";
 
     foreach my $e (@l) {
         my $t = ref($e);
