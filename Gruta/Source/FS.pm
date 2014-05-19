@@ -306,6 +306,8 @@ sub base {
 
 package Gruta::Data::FS::Template;
 
+use Carp;
+
 use base 'Gruta::Data::Template';
 use base 'Gruta::Data::FS::BASE';
 
@@ -340,10 +342,8 @@ sub save {
 
 	$self->source($driver) if $driver;
 
-	if (not open(F, '>' . $self->_filename())) {
-		return undef;
-	}
-
+    my $filename = $self->_filename();
+    open(F, '>' . $filename) or croak "Can't write " . $filename . ': ' . $!;
 	print F $self->get('content');
 	close F;
 
