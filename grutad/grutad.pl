@@ -160,6 +160,18 @@ sub dialog
         elsif ($k eq 'tags') {
             dump_as_list($g->source->tags());
         }
+        elsif ($k eq 'templates') {
+            dump_as_list($g->source->templates());
+        }
+        elsif ($k eq 'pending_comments') {
+            dump_as_list($g->source->pending_comments());
+        }
+        elsif ($k eq 'comments') {
+            dump_as_list($g->source->comments($args[0]));
+        }
+        elsif ($k eq 'stories') {
+            dump_as_list($g->source->stories($args[0]));
+        }
         elsif ($k eq 'stories_top_ten') {
             dump_as_list($g->source->stories_top_ten($args[0] || 10));
         }
@@ -195,6 +207,11 @@ sub dialog
             my $obj = $g->source->user($args[0]);
 
             dump_as_hash($obj, "User '$args[0]' not found");
+        }
+        elsif ($k eq 'template') {
+            my $obj = $g->source->template($args[0]);
+
+            dump_as_hash($obj, "Template '$args[0]' not found");
         }
         else {
             print "ERROR '$k' command not found\n";
