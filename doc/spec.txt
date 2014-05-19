@@ -1,0 +1,51 @@
+Gruta Perl Module Spec
+======================
+
+Gruta
+-----
+
+Gruta::Source
+-------------
+
+Gruta::Source::Story
+--------------------
+
+load
+~~~~
+
+ $story_obj = $story_obj->load();
+ $story_obj = $story_obj->load($driver);
+
+Loads a story. If the story is not in the storage, return undef, otherwise
+the same $story_obj.
+
+save
+~~~~
+
+ $story_obj = $story_obj->save();
+ $story_obj = $story_obj->save($driver);
+
+Saves a story. Crashes on errors.
+
+delete
+~~~~~~
+
+ $story_obj = $story_obj->delete();
+
+Deletes the story from the storage.
+
+touch
+~~~~~
+
+ $story_obj = $story_obj->touch();
+
+Increments story's hit count.
+
+tags
+~~~~
+
+ @tags = $story_obj->tags();
+ @tags = $story_obj->tags(@taglist);
+
+Gets or sets the tags of a story.
+
