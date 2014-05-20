@@ -231,6 +231,22 @@ sub dialog
                         future  => $args[5] || 0
              ));
         }
+        elsif ($k eq 'stories_by_tag') {
+            # FIXME: tags can contain spaces, so they
+            # cannot be taken as is from the 'command' line
+            my $topics = undef;
+
+            if ($args[0]) {
+                $topics = [ $args[0] eq '-' ?
+                    $g->source->topics() :
+                    split(/:/, $args[0])
+                ];
+            }
+
+            dump_as_list($g->source->stories_by_tag($topics,
+                                $args[1], $args[2]
+             ));
+        }
         elsif ($k eq 'story') {
             my $obj = $g->source->story($args[0], $args[1]);
 
