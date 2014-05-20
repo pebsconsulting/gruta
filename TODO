@@ -29,6 +29,9 @@ Pending Enhancements
    binaries will be stored as blobs.
  * 1075: Create a server process that serves Gruta databases, maybe
    as a RESTful service.
+ * 1078: Unify all stories_by Source functions in one, named
+   story_set(), that searches by date, tag and content and with
+   a sorting option (date or title).
 
 Closed
 ------
