@@ -154,9 +154,10 @@ sub read_obj
 sub store_result
 {
     my $e = shift;
+    my $m = shift || 'Stored';
 
     if (!$e) {
-        print "OK Stored\n";
+        print "OK $m\n";
     }
     else {
         $e =~ s/\n/\\n/g;
@@ -284,7 +285,7 @@ sub dialog
                 $o->tags($a{tags});
             };
 
-            store_result($@);
+            store_result($@, $o->get('id'));
         }
         else {
             print "ERROR '$k' command not found\n";
