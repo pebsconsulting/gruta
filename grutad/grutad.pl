@@ -185,8 +185,9 @@ sub dialog
         }
         elsif ($k eq 'version') {
             dump_as_hash({
-                PROTO_VERSION   => $PROTO_VERSION,
-                SERVER_VERSION  => $SERVER_VERSION
+                proto_version   => $PROTO_VERSION,
+                server_version  => $SERVER_VERSION,
+                server_id       => 'grutad.pl'
                 }
             );
         }
