@@ -96,6 +96,37 @@ stories
 
 Returns all story ids for a topic.
 
+story_set
+~~~~~~~~~
+
+ @story_list = $source->story_set(
+                                topics  => \@topic_list,
+                                num     => $num,
+                                offset  => $offset,
+                                from    => $from_date,
+                                to      => $to_date,
+                                future  => $bool,
+                                tags    => \@tag_list,
+                                content => $string,
+                                order   => $order
+                );
+
+Returns a list of [$topic_id, $story_id, $date] tuplets
+describing stories. All arguments are optional. If topics
+is set, only stories from those topics are returned.
+$num and $offset is the count and offset of the set to be
+returned. $from and $to are YYYYMMDDHHMMSS strings of the date
+range to be returned. If $future is set stories with a pub date
+in the future are also returned. If tags is set, only stories
+tagged as such are returned. If content is set, only stories
+with the string in its content are returned. By default, order
+is 'date', with other options being 'title'.
+
+This method deprecates stories_by_date(), stories_by_text()
+and stories_by_tag().
+
+Related to TODO item #1068.
+
 stories_by_date
 ~~~~~~~~~~~~~~~
 
@@ -127,16 +158,6 @@ stories from the \@topic_list contaning $query in the story
 body, ordered by story title. If $future is set stories with
 a pub date in the future are also returned.
 
-stories_top_ten
-~~~~~~~~~~~~~~~
-
- @story_list = $source->stories_top_ten();
- @story_list = $source->stories_top_ten($num);
-
-Returns a list of [$hits, $topic_id, $story_id] tuplets describing
-the 10 most read stories, ordered by hits. If $num is set, other
-than 10 can be queried.
-
 stories_by_tag
 ~~~~~~~~~~~~~~
 
@@ -148,6 +169,16 @@ stories from the \@topic_list tagged with the full set of tags
 described in the comma-separated string $tag_spec, ordered by
 title. If $future is set stories with a pub date in the future
 can also be returned.
+
+stories_top_ten
+~~~~~~~~~~~~~~~
+
+ @story_list = $source->stories_top_ten();
+ @story_list = $source->stories_top_ten($num);
+
+Returns a list of [$hits, $topic_id, $story_id] tuplets describing
+the 10 most read stories, ordered by hits. If $num is set, other
+than 10 can be queried.
 
 tags
 ~~~~
