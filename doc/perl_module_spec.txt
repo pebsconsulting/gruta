@@ -104,7 +104,8 @@ stories_by_date
                                 offset  => $offset,
                                 from    => $from_date,
                                 to      => $to_date,
-                                future  => $bool
+                                future  => $bool,
+                                tags    => $tag_spec
                 );
 
 Returns a list of [$topic_id, $story_id, $date] tuplets
@@ -112,7 +113,8 @@ describing stories from the \@topic_list ordered by story time.
 $num and $offset is the maximum and offset of the set to be
 returned. $from and $to are YYYYMMDDHHMMSS strings of the date
 range to be returned. If $future is set stories with a pub date
-in the future are also returned.
+in the future are also returned. If tags is set as a comma-separated
+value string of tags, only stories tagged as such are returned.
 
 stories_by_text
 ~~~~~~~~~~~~~~~
