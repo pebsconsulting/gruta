@@ -1,0 +1,27 @@
+<{header}>
+
+<{column1}>
+
+<{column2}>
+
+<div class = 'main'>
+
+	<{main_top}>
+
+	<h1><{@"Search"}></h1>
+
+<div id="cse-search-results"></div>
+<script type="text/javascript">
+  var googleSearchIframeName = "cse-search-results";
+  var googleSearchFormName = "cse-search-box";
+  var googleSearchFrameWidth = 800;
+  var googleSearchDomain = "www.google.es";
+  var googleSearchPath = "/cse";
+</script>
+<script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+
+	<{main_bottom}>
+
+</div>
+
+<{footer}>
