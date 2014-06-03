@@ -44,7 +44,7 @@
 <div class = 'self_links'>
 	<{if {cfg_show_printable}
 		{?
-		{link {url 'STORY_PRINTABLE' 'topic' $0 'id' $1} @"Print version"}
+		{link {url 'STORY_PRINTABLE' 'topic' $0 'id' $1} @"Print version" "rel=nofollow"}
 		' -'
 		}
 	}>
