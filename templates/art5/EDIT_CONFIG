@@ -118,6 +118,18 @@
         </option>
     </select>
 
+    <p><label for = 'cfg_adsense_search'>
+        <{@"Use Google Adsense for searching (also fill <i>search_form_adsense</i> with content from Google):"}>
+    </label><br>
+    <select name = 'cfg_adsense_search' id = 'cfg_adsense_search'>
+        <option <{if {not cfg_adsense_search} 'selected'}> value = '0'>
+            <{@"no"}>
+        </option>
+        <option <{if cfg_adsense_search 'selected'}> value = '1'>
+            <{@"yes"}>
+        </option>
+    </select>
+
 	<h2><{@"Date formats"}></h2>
 
 	<p><{@"Global date format:"}><br>
