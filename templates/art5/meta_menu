@@ -37,6 +37,6 @@
 }>
 
 	<li>
-	<{search_form}>
+	<{if cfg_adsense_search search_form_adsense search_form}>
 	</li>
 </ul>
