@@ -134,6 +134,22 @@ sub auth_token {
 }
 
 
+sub auth_from_token {
+    my $self    = shift;
+    my $token   = shift;
+
+    if ($token) {
+        if ($self->auth_token($token) eq "1") {
+            my $u = $self->source->user('admin');
+
+            if ($u) {
+                $self->auth($u);
+            }
+        }
+    }
+}
+
+
 sub login {
 	my $self	= shift;
 	my $user_id	= shift;

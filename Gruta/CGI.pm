@@ -256,6 +256,9 @@ sub run {
 			$data->auth_from_sid( $sid );
 		}
 	}
+    elsif ($vars->{token}) {
+        $data->auth_from_token($vars->{token});
+    }
 
 	my $st = 'INDEX';
 
