@@ -110,7 +110,7 @@ sub auth_token {
             $s ||= '';
             $k ||= '';
 
-            my $t = int(time() / 86400 * 2);
+            my $t = int(time() / 86400);
             $md5->add($s . ':' . $t . ':' . $self->{args}->{token_pwd});
 
             $token = $md5->hexdigest() eq $k ? "1" : "0";
@@ -123,7 +123,7 @@ sub auth_token {
                     rand() * 0xffffff
                 );
 
-            my $t = int(time() / 86400 * 2);
+            my $t = int(time() / 86400);
             $md5->add($s . ':' . $t . ':' . $self->{args}->{token_pwd});
 
             $token = $s . ':' . $md5->hexdigest();
