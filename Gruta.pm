@@ -91,6 +91,49 @@ sub auth_from_sid {
 }
 
 
+sub auth_token {
+    my $self    = shift;
+    my $token   = shift;
+
+    if (!$self->{args}->{token_pwd}) {
+        # no token_pwd? nothing to do
+        $token = '';
+    }
+    else {
+    	use Digest::MD5;
+        my $md5 = Digest::MD5->new();
+
+        if ($token) {
+            # validate token
+            my ($s, $k) = split(/:/, $token);
+
+            $s ||= '';
+            $k ||= '';
+
+            my $t = int(time() / 86400 * 2);
+            $md5->add($s . ':' . $t . ':' . $self->{args}->{token_pwd});
+
+            $token = $md5->hexdigest() eq $k ? "1" : "0";
+        }
+        else {
+            # create token
+            my $s = sprintf("%06x%06x%06x",
+                    rand() * 0xffffff,
+                    rand() * 0xffffff,
+                    rand() * 0xffffff
+                );
+
+            my $t = int(time() / 86400 * 2);
+            $md5->add($s . ':' . $t . ':' . $self->{args}->{token_pwd});
+
+            $token = $s . ':' . $md5->hexdigest();
+        }
+    }
+
+    return $token;
+}
+
+
 sub login {
 	my $self	= shift;
 	my $user_id	= shift;
