@@ -910,7 +910,8 @@ sub _art5 {
                             $addr,
                             $c->get('topic_id'),
                             $c->get('story_id'),
-                            $c->get('id')
+                            $c->get('id'),
+                            $data->auth_token()
                         );
 
                         print F $msg;

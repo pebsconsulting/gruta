@@ -10,3 +10,11 @@ Content-type: text/plain; charset=utf-8
 <{comment_date cfg_date_format $1 $2 $3}>, <{comment_author $1 $2 $3}>:
 
 <{comment_content $1 $2 $3}>
+
+<{
+@"To approve, click here:"
+"\n\n" {url 'APPROVE_COMMENT' 'topic' $1 'story' $2 'id' $3 'token' $4}
+"\n\n"
+@"To delete, click here:"
+"\n\n" {url 'DELETE_COMMENT' 'topic' $1 'story' $2 'id' $3 'token' $4}
+}>
