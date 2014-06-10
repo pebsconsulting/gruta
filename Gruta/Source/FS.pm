@@ -1077,6 +1077,23 @@ sub stories_by_date {
 	my $topics	= shift;
 	my %args	= @_;
 
+    if ($topics) {
+        $args{topics} = $topics;
+    }
+    if ($args{tags}) {
+        $args{tags} = [split(/\s*,\s*/, $args{tags})];
+    }
+
+    return $self->story_set(%args);
+}
+
+
+# FIXME: Delete me
+sub _stories_by_date {
+	my $self	= shift;
+	my $topics	= shift;
+	my %args	= @_;
+
 	my @topics;
 
 	if (!$topics) {
