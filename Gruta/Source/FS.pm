@@ -1061,12 +1061,7 @@ sub story_set {
 
         # do slicing if needed
         if ($args{num} || $args{offset}) {
-            if ($args{num}) {
-                @r = splice(@r, $args{offset} || 0, $args{num});
-            }
-            else {
-                @r = splice(@r, $args{offset} || 0);
-            }
+            @r = splice(@r, $args{offset} || 0, $args{num} || undef);
         }
     }
 
