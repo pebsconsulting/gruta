@@ -82,11 +82,14 @@ sub usage
 
 sub dump_as_hash
 {
+    my $c = shift;
     my $h = shift;
     my $e = shift;
 
+    my $o = $c->{o};
+
     if ($h) {
-        print "OK Object follows\n";
+        print $o "OK Object follows\n";
 
         foreach my $k (keys(%{$h})) {
             my $v = $h->{$k} || '';
@@ -94,53 +97,59 @@ sub dump_as_hash
             if (ref(\$v) eq 'SCALAR') {
                 $v =~ s/\n/\\n/g;
 
-                print $k, "\n";
-                print $v, "\n";
+                print $o $k, "\n";
+                print $o $v, "\n";
             }
         }
 
-        print ".\n";
+        print $o ".\n";
     }
     else {
-        print "ERROR ", $e, "\n";
+        print $o "ERROR ", $e, "\n";
     }
 }
 
 
 sub dump_as_list
 {
+    my $c   = shift;
     my @l   = @_;
+    my $o   = $c->{o};
 
-    print "OK List follows\n";
+    print $o "OK List follows\n";
 
     foreach my $e (@l) {
         my $t = ref($e);
 
         if ($t eq 'ARRAY') {
-            print join(":", @{$e}), "\n";
+            print $o join(":", @{$e}), "\n";
         }
         else {
-            print $e, "\n";
+            print $o $e, "\n";
         }
     }
-    print ".\n";
+    print $o ".\n";
 }
 
 
 sub read_obj
 {
+    my $c = shift;
     my %h = ();
 
-    print "OK Ready to receive object\n";
+    my $i = $c->{i};
+    my $o = $c->{o};
 
-    while (my $k = <>) {
+    print $o "OK Ready to receive object\n";
+
+    while (my $k = <$i>) {
         chomp($k);
 
         if ($k eq '.') {
             last;
         }
 
-        my $v = <> || '';
+        my $v = <$i> || '';
         chomp($v);
         $v =~ s/\\n/\n/g;
 
@@ -153,25 +162,31 @@ sub read_obj
 
 sub store_result
 {
+    my $c = shift;
     my $e = shift;
     my $m = shift || 'Stored';
 
+    my $o = $c->{o};
+
     if (!$e) {
-        print "OK $m\n";
+        print $o "OK $m\n";
     }
     else {
         $e =~ s/\n/\\n/g;
-        print "ERROR $e\n";
+        print $o "ERROR $e\n";
     }
 }
 
 
 sub dialog
 {
-    my $g = shift;
+    my $c = shift;
+
+    my $g = $c->{g};
+    my $i = $c->{i};
 
     for (;;) {
-        my $l = <>;
+        my $l = <$i>;
         chomp($l);
 
         if (!$l) {
@@ -184,7 +199,7 @@ sub dialog
             last;
         }
         elsif ($k eq 'version') {
-            dump_as_hash({
+            dump_as_hash($c, {
                 proto_version   => $PROTO_VERSION,
                 server_version  => $SERVER_VERSION,
                 server_id       => 'grutad.pl'
@@ -192,58 +207,58 @@ sub dialog
             );
         }
         elsif ($k eq 'topics') {
-            dump_as_list($g->source->topics());
+            dump_as_list($c, $g->source->topics());
         }
         elsif ($k eq 'users') {
-            dump_as_list($g->source->users());
+            dump_as_list($c, $g->source->users());
         }
         elsif ($k eq 'tags') {
-            dump_as_list($g->source->tags());
+            dump_as_list($c, $g->source->tags());
         }
         elsif ($k eq 'templates') {
-            dump_as_list($g->source->templates());
+            dump_as_list($c, $g->source->templates());
         }
         elsif ($k eq 'pending_comments') {
-            dump_as_list($g->source->pending_comments());
+            dump_as_list($c, $g->source->pending_comments());
         }
         elsif ($k eq 'comments') {
-            dump_as_list($g->source->comments($args[0]));
+            dump_as_list($c, $g->source->comments($args[0]));
         }
         elsif ($k eq 'stories') {
-            dump_as_list($g->source->stories($args[0]));
+            dump_as_list($c, $g->source->stories($args[0]));
         }
         elsif ($k eq 'stories_top_ten') {
-            dump_as_list($g->source->stories_top_ten($args[0] || 10));
+            dump_as_list($c, $g->source->stories_top_ten($args[0] || 10));
         }
         elsif ($k eq 'story') {
             my $obj = $g->source->story($args[0], $args[1]);
 
-            dump_as_hash($obj, "Story '$args[0]/$args[1]' not found");
+            dump_as_hash($c, $obj, "Story '$args[0]/$args[1]' not found");
         }
         elsif ($k eq 'topic') {
             my $obj = $g->source->topic($args[0]);
 
-            dump_as_hash($obj, "Topic '$args[0]' not found");
+            dump_as_hash($c, $obj, "Topic '$args[0]' not found");
         }
         elsif ($k eq 'user') {
             my $obj = $g->source->user($args[0]);
 
-            dump_as_hash($obj, "User '$args[0]' not found");
+            dump_as_hash($c, $obj, "User '$args[0]' not found");
         }
         elsif ($k eq 'template') {
             my $obj = $g->source->template($args[0]);
 
-            dump_as_hash($obj, "Template '$args[0]' not found");
+            dump_as_hash($c, $obj, "Template '$args[0]' not found");
         }
         elsif ($k eq 'store_template') {
-            my $t = Gruta::Data::Template->new(read_obj());
+            my $t = Gruta::Data::Template->new(read_obj($c));
 
             eval { $g->source->insert_template($t) };
 
-            store_result($@);
+            store_result($c, $@);
         }
         elsif ($k eq 'store_story') {
-            my %a = read_obj();
+            my %a = read_obj($c);
             my $o = Gruta::Data::Story->new(%a);
 
             eval {
@@ -252,10 +267,10 @@ sub dialog
                 $o->tags($a{tags});
             };
 
-            store_result($@, $o->get('id'));
+            store_result($c, $@, $o->get('id'));
         }
         elsif ($k eq 'story_set') {
-            my %a = read_obj();
+            my %a = read_obj($c);
 
             if ($a{topics}) {
                 $a{topics} = [split(/\s*,\s*/, $a{topics})];
@@ -269,10 +284,10 @@ sub dialog
             eval { @r = $g->source->story_set(%a); };
 
             if ($@) {
-                store_result($@);
+                store_result($c, $@);
             }
             else {
-                dump_as_list(@r);
+                dump_as_list($c, @r);
             }
         }
         else {
@@ -281,7 +296,8 @@ sub dialog
     }
 }
 
+my $c = {"g" => init(), "i" => *STDIN, "o" => *STDOUT};
 
-dialog(init());
+dialog($c);
 
 exit 0;
