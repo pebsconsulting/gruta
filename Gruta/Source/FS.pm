@@ -1043,6 +1043,16 @@ sub story_set {
         close I;
     }
 
+    # special sorting
+    if ($args{order} && $args{order} ne 'date') {
+        @r = sort {
+            my $sa = $self->story($a->[0], $a->[1]);
+            my $sb = $self->story($b->[0], $b->[1]);
+
+            $sa->get($args{order}) cmp $sb->get($args{order});
+        } @r;
+    }
+
     return @r;
 }
 
