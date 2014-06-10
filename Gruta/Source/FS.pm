@@ -940,6 +940,113 @@ sub _rebuild_master_index {
 }
 
 
+sub story_set {
+    my $self    = shift;
+    my %args    = @_;
+
+    my @r       = ();
+    my @topics  = $args{topics}   ? @{$args{topics}}                : ();
+    my @tags    = $args{tags}     ? @{$args{tags}}                  : ();
+    my @content = $args{content}  ? split(/\s+/, $args{content})    : ();
+
+    my $o = 0;
+
+    my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
+    if (open I, $index) {
+        flock I, 1;
+
+        while (<I>) {
+            chomp;
+
+            my ($date, $ti, $si, $tags, $udate) = split(/:/);
+
+            # not on topic?
+            if (@topics && !grep(/^$ti$/, @topics)) {
+                next;
+            }
+
+            # skip future stories?
+            if (!$args{future}) {
+                # skip future stories
+                if ($date gt Gruta::Data::today()) {
+                    next;
+                }
+
+                # skip "unpublished" stories
+                if ($udate && $udate le Gruta::Data::today()) {
+                    next;
+                }
+            }
+
+            # skip if date is above the threshold
+            if ($args{to} and $date gt $args{to}) {
+                next;
+            }
+            # exit if date is below the threshold
+            if ($args{from} and $date lt $args{from}) {
+                last;
+            }
+
+            if (@tags) {
+                # skip if tags do not match
+                my @stags = split(/\s*,\s*/, $tags);
+
+                if (!is_subset_of(\@tags, \@stags)) {
+                    next;
+                }
+            }
+
+            if (@content) {
+                # search content
+                my $found = 0;
+                my $story = $self->story($ti, $si);
+
+                if ($story) {
+                    my $c = $story->get('content');
+
+                    # try complete query first
+                    if ($c =~ /\b$args{content}\b/i) {
+                        $found = scalar(@content);
+                    }
+                    else {
+                        # try separate words
+                        foreach my $w (@content) {
+                            if (length($w) > 1 and $c =~ /\b$w\b/i) {
+                                $found++;
+                            }
+                        }
+                    }
+                }
+
+                # less words than needed? skip
+                if ($found < scalar(@content)) {
+                    next;
+                }
+            }
+
+            # story matches!
+
+            # skip offset stories
+            if ($args{offset} && ++$o <= $args{offset}) {
+                next;
+            }
+
+            # store result
+            push(@r, [$ti, $si, $date]);
+
+            # exit if we have all we need
+            if ($args{num} and $args{num} == scalar(@r)) {
+                last;
+            }
+        }
+
+        close I;
+    }
+
+    return @r;
+}
+
+
 sub stories_by_date {
 	my $self	= shift;
 	my $topics	= shift;
