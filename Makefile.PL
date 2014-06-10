@@ -12,7 +12,8 @@ install::
 	install -m 644 templates/art5/* /usr/share/gruta/templates/art5
 
 check:
-	find . -name "*.pm" -exec perl -cw {} \;
+	perl -cw Gruta.pm
+	find Gruta -name "*.pm" -exec perl -cw {} \;
 EOF
 }
 
