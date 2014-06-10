@@ -948,6 +948,13 @@ sub story_set {
     my @topics  = $args{topics}   ? @{$args{topics}}                : ();
     my @tags    = $args{tags}     ? @{$args{tags}}                  : ();
     my @content = $args{content}  ? split(/\s+/, $args{content})    : ();
+    my $order   = $args{order}    || 'date';
+    my $num     = $args{num}      || 0;
+    my $offset  = $args{offset}   || 0;
+
+    if ($order ne 'date') {
+        $num = $offset = 0;
+    }
 
     my $o = 0;
 
@@ -1027,7 +1034,7 @@ sub story_set {
             # story matches!
 
             # skip offset stories
-            if ($args{offset} && ++$o <= $args{offset}) {
+            if (++$o <= $offset) {
                 next;
             }
 
@@ -1035,7 +1042,7 @@ sub story_set {
             push(@r, [$ti, $si, $date]);
 
             # exit if we have all we need
-            if ($args{num} and $args{num} == scalar(@r)) {
+            if ($num and $num == scalar(@r)) {
                 last;
             }
         }
@@ -1044,13 +1051,23 @@ sub story_set {
     }
 
     # special sorting
-    if ($args{order} && $args{order} ne 'date') {
+    if ($order ne 'date') {
         @r = sort {
             my $sa = $self->story($a->[0], $a->[1]);
             my $sb = $self->story($b->[0], $b->[1]);
 
-            $sa->get($args{order}) cmp $sb->get($args{order});
+            $sa->get($order) cmp $sb->get($order);
         } @r;
+
+        # do slicing if needed
+        if ($args{num} || $args{offset}) {
+            if ($args{num}) {
+                @r = splice(@r, $args{offset} || 0, $args{num});
+            }
+            else {
+                @r = splice(@r, $args{offset} || 0);
+            }
+        }
     }
 
     return @r;
