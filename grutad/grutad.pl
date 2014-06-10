@@ -215,40 +215,6 @@ sub dialog
         elsif ($k eq 'stories_top_ten') {
             dump_as_list($g->source->stories_top_ten($args[0] || 10));
         }
-        elsif ($k eq 'stories_by_date') {
-            my $topics = undef;
-
-            if ($args[0]) {
-                $topics = [ $args[0] eq '-' ?
-                    $g->source->topics() :
-                    split(/:/, $args[0])
-                ];
-            }
-
-            dump_as_list($g->source->stories_by_date($topics,
-                        num     => $args[1] || 0,
-                        offset  => $args[2] || 0,
-                        from    => $args[3] || '',
-                        to      => $args[4] || '',
-                        future  => $args[5] || 0
-             ));
-        }
-        elsif ($k eq 'stories_by_tag') {
-            # FIXME: tags can contain spaces, so they
-            # cannot be taken as is from the 'command' line
-            my $topics = undef;
-
-            if ($args[0]) {
-                $topics = [ $args[0] eq '-' ?
-                    $g->source->topics() :
-                    split(/:/, $args[0])
-                ];
-            }
-
-            dump_as_list($g->source->stories_by_tag($topics,
-                                $args[1], $args[2]
-             ));
-        }
         elsif ($k eq 'story') {
             my $obj = $g->source->story($args[0], $args[1]);
 
@@ -287,6 +253,18 @@ sub dialog
             };
 
             store_result($@, $o->get('id'));
+        }
+        elsif ($k eq 'story_set') {
+            my %a = read_obj();
+
+            if ($a{topics}) {
+                $a{topics} = [split(/\s*,\s*/, $a{topics})];
+            }
+            if ($a{tags}) {
+                $a{tags} = [split(/\s*,\s*/, $a{tags})];
+            }
+
+            dump_as_list($g->source->story_set(%a));
         }
         else {
             print "ERROR '$k' command not found\n";
