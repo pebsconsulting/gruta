@@ -264,7 +264,16 @@ sub dialog
                 $a{tags} = [split(/\s*,\s*/, $a{tags})];
             }
 
-            dump_as_list($g->source->story_set(%a));
+            my @r;
+
+            eval { @r = $g->source->story_set(%a); };
+
+            if ($@) {
+                store_result($@);
+            }
+            else {
+                dump_as_list(@r);
+            }
         }
         else {
             print "ERROR '$k' command not found\n";
