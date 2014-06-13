@@ -1088,72 +1088,25 @@ sub stories_by_date {
 }
 
 
-sub search_stories {
-	my $self	= shift;
-	my $topic_id	= shift;
-	my $query	= shift;
-	my $future	= shift;
-
-	my @q = split(/\s+/,$query);
-
-	my %r = ();
-
-	foreach my $id ($self->stories($topic_id)) {
-
-		my $story = $self->story($topic_id, $id);
-
-		if (!$future and $story->get('date') gt Gruta::Data::today()) {
-			next;
-		}
-
-		my $content = $story->get('content');
-		my $found = 0;
-
-		# try complete query first
-		if($content =~ /\b$query\b/i) {
-			$found = scalar(@q);
-		}
-		else {
-			# try separate words
-			foreach my $q (@q) {
-				if(length($q) > 1 and $content =~ /\b$q\b/i) {
-					$found++;
-				}
-			}
-		}
-
-		if ($found == scalar(@q)) {
-			$r{$id} = $story->get('title');
-		}
-	}
-
-	return sort { $r{$a} cmp $r{$b} } keys %r;
-}
-
 sub stories_by_text {
-	my $self	= shift;
-	my $topics	= shift;
-	my $query	= shift;
-	my $future	= shift;
+    my $self	= shift;
+    my $topics	= shift;
+    my $query	= shift;
+    my $future	= shift;
 
-	my @ret;
-	my @topics;
+    my %args = (
+        content => $query,
+        future  => $future,
+        order   => 'title'
+    );
 
-	if (!$topics) {
-		@topics = $self->topics();
-	}
-	else {
-		@topics = @{ $topics };
-	}
+    if ($topics) {
+        $args{topics} = $topics;
+    }
 
-	foreach my $t (@topics) {
-		foreach my $id ($self->search_stories($t, $query, $future)) {
-			push(@ret, [ $t, $id ]);
-		}
-	}
-
-	return @ret;
+    return $self->story_set(%args);
 }
+
 
 sub stories_top_ten {
 	my $self	= shift;
