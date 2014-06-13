@@ -22,7 +22,6 @@
 	<{foreach {stories_by_text %topic %query is_admin}
 		{li {link {url 'STORY' 'topic' $0 'id' $1} {story_title $0 $1}}}
 		''
-		{'</ul><p><b>' {topic_name $0} '</b><br><ul>'}
 	}>
 	</ul>
 
