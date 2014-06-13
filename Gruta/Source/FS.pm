@@ -1205,48 +1205,51 @@ sub is_subset_of {
 
 
 sub stories_by_tag {
-	my $self	= shift;
-	my $topics	= shift;
-	my $tag		= shift;
-	my $future	= shift;
+    my $self    = shift;
+    my $topics  = shift;
+    my $tag     = shift;
+    my $future  = shift;
 
-    my %r = ();
-    
+    my @r = ();
+
     if ($tag) {
-    	my @tags = map { lc($_) } split(/\s*,\s*/, $tag);
+        my %args = (
+            topics  => $topics,
+            future  => $future,
+            order   => 'title',
+            tags    => [map { lc($_) } split(/\s*,\s*/, $tag)]
+        );
 
-    	foreach my $tr ($self->_collect_tags($topics, $future)) {
-    		if (is_subset_of(\@tags, $tr->[2])) {
-    			my $story = $self->story($tr->[0], $tr->[1]);
-
-    			$r{$story->get('title')} = [$tr->[0], $tr->[1], $tr->[3]];
-    		}
-    	}
+        @r = $self->story_set(%args);
     }
     else {
         # return all those stories without tags
         my @topics = $topics ? @{$topics} : $self->topics();
 
+        my %r = ();
+
         foreach my $topic_id (@topics) {
             foreach my $story_id ($self->stories($topic_id)) {
                 my $story = $self->story($topic_id, $story_id);
 
-    			# if no future stories are wanted, discard them
-    			if (!$future) {
-    				if ($story->get('date') gt Gruta::Data::today()) {
-    					next;
-    				}
-    			}
+                # if no future stories are wanted, discard them
+                if (!$future) {
+                    if ($story->get('date') gt Gruta::Data::today()) {
+                        next;
+                    }
+                }
     
                 if (!$story->tags()) {
-        			$r{$story->get('title')} =
-        				[ $topic_id, $story_id, $story->get('date') ];
+                    $r{$story->get('title')} =
+                        [ $topic_id, $story_id, $story->get('date') ];
                 }
             }
         }
+
+        @r = map { $r{$_} } sort keys %r;
     }
 
-    return map { $r{$_} } sort keys %r;
+    return @r;
 }
 
 
