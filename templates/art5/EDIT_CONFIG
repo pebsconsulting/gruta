@@ -233,6 +233,28 @@
         size    = 32
     />
 
+    <p><label for = 'cfg_facebook_user_id'>
+        <{@"Facebook user ID:"}>
+    </label><br>
+    <input
+        type    = 'text'
+        name    = 'cfg_facebook_user_id'
+        id      = 'cfg_facebook_user_id'
+        value   = '<{cfg_facebook_user_id}>'
+        size    = 32
+    />
+
+    <p><label for = 'cfg_facebook_app_id'>
+        <{@"Facebook app ID:"}>
+    </label><br>
+    <input
+        type    = 'text'
+        name    = 'cfg_facebook_app_id'
+        id      = 'cfg_facebook_app_id'
+        value   = '<{cfg_facebook_app_id}>'
+        size    = 32
+    />
+
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
 </form>

@@ -9,6 +9,12 @@
 	<link rel = 'stylesheet' type = 'text/css' href = '<{url 'CSS'}>'>
 	<meta name = 'generator' content = '<{about}> (http://triptico.com/software/gruta.html)'>
     <meta http-equiv = "Content-Type" content = "text/html; charset=utf-8">
+    <{if cfg_facebook_user_id
+        {? "<meta property='fb:admins' content='" cfg_facebook_user_id "'/>" }
+    }>
+    <{if cfg_facebook_app_id
+        {? "<meta property='fb:app_id' content='" cfg_facebook_app_id "'/>" }
+    }>
 	<{additional_headers}>
 	<{set_date %set_date}>
 </head>
