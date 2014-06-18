@@ -447,9 +447,16 @@ sub story_set {
     my $num     = $args{num}      || 0;
     my $offset  = $args{offset}   || 0;
 
-    my $sql = 'SELECT topic_id, id, date FROM stories ';
+    my $sql = '';
     my @args = ();
     my @sql_w = ();
+
+    if (@tags) {
+        $sql = 'SELECT DISTINCT stories.topic_id, stories.id, stories.date FROM tags, stories ';
+    }
+    else {
+        $sql = 'SELECT topic_id, id, date FROM stories ';
+    }
 
     if (@topics) {
         push(@sql_w, '(' . join(' OR ', map { 'topic_id = ?' } @topics) . ')');
@@ -476,9 +483,20 @@ sub story_set {
         push(@args, map { '%' . $_ . '%' } @content);
     }
 
+    if (@tags) {
+        push(@sql_w, 'tags.topic_id = stories.topic_id AND tags.id = stories.id');
+
+        push(@sql_w, '(' . join(' OR ', map { 'tag = ?' } @tags) . ')');
+        push(@args, @tags);
+    }
+
     # end of conditions
     if (@sql_w) {
         $sql .= ' WHERE ' . join(' AND ', @sql_w);
+    }
+
+    if (@tags) {
+        $sql .= ' GROUP BY tags.topic_id, tags.id HAVING count(tags.id) = ' . scalar(@tags);
     }
 
     if ($order eq 'date') {
@@ -503,7 +521,7 @@ sub story_set {
         }
     }
 
-    print STDERR $sql;
+    print STDERR $sql, "\n";
 
     my $sth = $self->_prepare($sql);
     $self->_execute($sth, @args);
@@ -530,52 +548,6 @@ sub stories_top_ten {
 
 	while (my @a = $sth->fetchrow_array()) {
 		push(@r, [ @a ]);
-	}
-
-	return @r;
-}
-
-
-sub stories_by_tag {
-	my $self	= shift;
-	my $topics	= shift;
-	my $tag		= shift;
-	my $future	= shift;
-
-	my @tags	= map { lc($_) } split(/\s*,\s*/, $tag);
-
-	my @r = ();
-
-	my @args = ( @tags );
-
-	if (@tags) {
-		my $sql = 'SELECT DISTINCT tags.topic_id, tags.id, stories.date' .
-			' FROM tags, stories WHERE ' .
-			'tags.topic_id = stories.topic_id AND tags.id = stories.id AND ';
-
-		if (!$future) {
-			$sql .= "stories.date <= '" . Gruta::Data::today() . "' AND ";
-		}
-
-		$sql .= '(' . join(' OR ', map { 'tag = ?' } @tags) . ')';
-
-		if ($topics) {
-			$sql .= ' AND (' .
-				join(' OR ', map { 'tags.topic_id = ?' } @{$topics}) . ')';
-
-			push(@args, @{$topics});
-		}
-
-		$sql .= ' GROUP BY tags.topic_id, tags.id HAVING count(tags.id) = ' . scalar(@tags);
-
-		$sql .= ' ORDER BY stories.title';
-
-		my $sth = $self->_prepare($sql);
-		$self->_execute($sth, map { lc($_) } @args);
-
-		while (my @a = $sth->fetchrow_array()) {
-			push(@r, [ @a ]);
-		}
 	}
 
 	return @r;
