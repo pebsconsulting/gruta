@@ -435,65 +435,73 @@ sub stories {
 }
 
 
-sub stories_by_date {
-	my $self	= shift;
-	my $topics	= shift;
-	my %args	= @_;
+sub story_set {
+    my $self    = shift;
+    my %args    = @_;
 
-	$args{offset} += 0;
-	$args{offset} = 0 if $args{offset} < 0;
+    my @r       = ();
+    my @topics  = $args{topics}   ? @{$args{topics}}                : ();
+    my @tags    = $args{tags}     ? @{$args{tags}}                  : ();
+    my @content = $args{content}  ? split(/\s+/, $args{content})    : ();
+    my $order   = $args{order}    || 'date';
+    my $num     = $args{num}      || 0;
+    my $offset  = $args{offset}   || 0;
 
-	my $sql = 'SELECT topic_id, id, date FROM stories ';
-	my @args = ();
-	my @sql_w = ();
+    my $sql = 'SELECT topic_id, id, date FROM stories ';
+    my @args = ();
+    my @sql_w = ();
 
-	if ($topics) {
-		push(@sql_w, '(' . join(' OR ', map { 'topic_id = ?' } @{$topics}) . ')');
-		@args = ( @{$topics} );
-	}
+    if (@topics) {
+        push(@sql_w, '(' . join(' OR ', map { 'topic_id = ?' } @topics) . ')');
+        @args = (@topics);
+    }
 
-	if ($args{from}) {
-		push(@sql_w, 'date > ?');
-		push(@args, $args{from});
-	}
+    if ($args{from}) {
+        push(@sql_w, 'date > ?');
+        push(@args, $args{from});
+    }
 
-	if ($args{to}) {
-		push(@sql_w, 'date < ?');
-		push(@args, $args{to});
-	}
+    if ($args{to}) {
+        push(@sql_w, 'date < ?');
+        push(@args, $args{to});
+    }
 
-	if (!$args{future}) {
-		push(@sql_w, 'date <= ?');
-		push(@args, Gruta::Data::today());
-	}
+    if (!$args{future}) {
+        push(@sql_w, 'date <= ?');
+        push(@args, Gruta::Data::today());
+    }
 
-	if (@sql_w) {
-		$sql .= ' WHERE ' . join(' AND ', @sql_w);
-	}
+    # end of conditions
+    if (@sql_w) {
+        $sql .= ' WHERE ' . join(' AND ', @sql_w);
+    }
 
-	$sql .= ' ORDER BY date DESC';
+    if ($order eq 'date') {
+        $sql .= ' ORDER BY date DESC';
+    }
+    else {
+        $sql .= ' ORDER by ?';
+        push(@args, $order);
+    }
 
-	if ($args{num} || $args{offset}) {
+    if ($num || $offset) {
+        $sql .= ' LIMIT ?';
+        push(@args, $num || -1);
 
-		$sql .= ' LIMIT ?';
-		push(@args, $args{num} || -1);
+        if ($offset) {
+            $sql .= ' OFFSET ?';
+            push(@args, $offset);
+        }
+    }
 
-		if ($args{offset}) {
-			$sql .= ' OFFSET ?';
-			push(@args, $args{offset});
-		}
-	}
+    my $sth = $self->_prepare($sql);
+    $self->_execute($sth, @args);
 
-	my $sth = $self->_prepare($sql);
-	$self->_execute($sth, @args);
+    while(my @sr = $sth->fetchrow_array()) {
+        push(@r, [ @sr ]);
+    }
 
-	my @R = ();
-
-	while(my @r = $sth->fetchrow_array()) {
-		push(@R, [ @r ]);
-	}
-
-	return @R;
+    return @r;
 }
 
 
