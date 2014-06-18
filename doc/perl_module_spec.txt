@@ -170,6 +170,14 @@ described in the comma-separated string $tag_spec, ordered by
 title. If $future is set stories with a pub date in the future
 can also be returned.
 
+untagged_stories
+~~~~~~~~~~~~~~~~
+
+ @story_list = $source->untagged_stories();
+
+Returns a list of [$topic_id, $story_id, $date] tuplets describing
+stories with no tags associated.
+
 stories_top_ten
 ~~~~~~~~~~~~~~~
 

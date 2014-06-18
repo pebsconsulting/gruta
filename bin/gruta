@@ -339,6 +339,17 @@ my $X = {
 			}
 		}
 	],
+	'untagged_stories' => [
+		'untagged_stories {src}',
+		'Searches stories without tags',
+		sub {
+			my $g		= init();
+
+			foreach my $s ($g->source->untagged_stories()) {
+				print join(' ', @{$s}), "\n";
+			}
+		}
+	],
     'rename_tag' => [
         'rename_tag {src} {tag} [new tag]',
         'Renames (or removes) a tag',

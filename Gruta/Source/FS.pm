@@ -1222,32 +1222,6 @@ sub stories_by_tag {
 
         @r = $self->story_set(%args);
     }
-    else {
-        # return all those stories without tags
-        my @topics = $topics ? @{$topics} : $self->topics();
-
-        my %r = ();
-
-        foreach my $topic_id (@topics) {
-            foreach my $story_id ($self->stories($topic_id)) {
-                my $story = $self->story($topic_id, $story_id);
-
-                # if no future stories are wanted, discard them
-                if (!$future) {
-                    if ($story->get('date') gt Gruta::Data::today()) {
-                        next;
-                    }
-                }
-    
-                if (!$story->tags()) {
-                    $r{$story->get('title')} =
-                        [ $topic_id, $story_id, $story->get('date') ];
-                }
-            }
-        }
-
-        @r = map { $r{$_} } sort keys %r;
-    }
 
     return @r;
 }
