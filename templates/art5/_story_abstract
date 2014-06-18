@@ -7,7 +7,7 @@
         {ne %t 'STORY'}
         {or
             {ne {story_date2 '%y%m%d' $0 $1} ''}
-            {ne {story_body $0 $1}{story_abstract $0 $1}}
+            {not {story_full_story $0 $1}}
         }
     }
     {?
