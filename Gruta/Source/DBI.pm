@@ -471,6 +471,11 @@ sub story_set {
         push(@args, Gruta::Data::today());
     }
 
+    if (@content) {
+        push(@sql_w, '(' . join(' OR ', map { 'content LIKE ?' } @content) . ')');
+        push(@args, map { '%' . $_ . '%' } @content);
+    }
+
     # end of conditions
     if (@sql_w) {
         $sql .= ' WHERE ' . join(' AND ', @sql_w);
@@ -502,83 +507,6 @@ sub story_set {
     }
 
     return @r;
-}
-
-
-sub search_stories {
-	my $self	= shift;
-	my $topic_id	= shift;
-	my $query	= shift;
-	my $future	= shift;
-
-	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
-	my $cond = 'AND content LIKE ? ' x scalar(@q);
-
-	unless ($future) {
-		$cond .= 'AND date <= ? ';
-		push(@q, Gruta::Data::today());
-	}
-
-	my $sql = 'SELECT id FROM stories WHERE topic_id = ? ' . $cond .
-		'ORDER BY title';
-
-	my $sth = $self->_prepare($sql);
-
-	$self->_execute($sth, $topic_id, @q);
-
-	my @r = ();
-
-	while(my $r = $sth->fetchrow_arrayref()) {
-		push(@r, $r->[0]);
-	}
-
-	return @r;
-}
-
-
-sub stories_by_text {
-	my $self	= shift;
-	my $topics	= shift;
-	my $query	= shift;
-	my $future	= shift;
-
-	my @q = map { '%' . $_ . '%' } split(/\s+/, $query);
-	my @cond;
-
-	if (scalar(@q)) {
-		push(@cond, 'content LIKE ?' x scalar(@q));
-	}
-
-	unless ($future) {
-		push(@cond, 'date <= ?');
-		push(@q, Gruta::Data::today());
-	}
-
-	if ($topics) {
-		push(@cond, '(' .
-			join(' OR ', map { 'topic_id = ?' } @{$topics}) .
-			')');
-		push(@q, @{$topics});
-	}
-
-	my $sql = 'SELECT topic_id, id FROM stories ' .
-		(scalar(@cond) ? 'WHERE ' : '') .
-		join(' AND ', @cond) .
-		'ORDER BY topic_id, title';
-
-	print STDERR $sql, "\n";
-
-	my $sth = $self->_prepare($sql);
-
-	$self->_execute($sth, @q);
-
-	my @r = ();
-
-	while(my $r = $sth->fetchrow_arrayref()) {
-		push(@r, [ $r->[0] , $r->[1] ]);
-	}
-
-	return @r;
 }
 
 
