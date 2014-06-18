@@ -33,13 +33,6 @@ sub new_source
 	if ($src_str =~ /^dbi:/) {
 		$src = Gruta::Source::DBI->new( string => $src_str );
 	}
-	elsif ($src_str =~ /^mbox:(.+)/) {
-		my $file = $1;
-
-		$src = Gruta::Source::Mbox->new(
-			file		=>	$file
-		);
-	}
 	else {
 		$src = Gruta::Source::FS->new( path => $src_str );
 	}
