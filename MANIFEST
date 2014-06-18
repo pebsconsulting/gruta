@@ -10,7 +10,6 @@ Gruta/Source
 Gruta/Source/BASE.pm
 Gruta/Source/DBI.pm
 Gruta/Source/FS.pm
-Gruta/Source/Mbox.pm
 Gruta/Template
 Gruta/Template/Art5.pm
 Gruta/Template/BASE.pm
