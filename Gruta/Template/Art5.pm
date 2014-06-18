@@ -193,12 +193,19 @@ sub _art5 {
             return $data->special_uris($a->exec($_[0]));
         };
 
-		$a->{op}->{story_abstract} = sub {
-			my $topic	= $a->exec(shift);
-			my $id		= $a->exec(shift);
+        $a->{op}->{story_abstract} = sub {
+            my $topic   = $a->exec(shift);
+            my $id      = $a->exec(shift);
 
-			my $story = $data->source->story($topic, $id);
-			return $data->special_uris($story->get('abstract'));
+            my $story   = $data->source->story($topic, $id);
+            my $a       = $story->get('abstract');
+
+            my $t = $story->get('title');
+            my $h = $data->url('STORY', topic => $topic, id => $id);
+
+            $a =~ s/$t/<a href='$h' class='story_title_link'>$t<\/a>/;
+
+            return $data->special_uris($a);
 		};
 
         $a->{op}->{touch_story} = sub {
