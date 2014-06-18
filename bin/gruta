@@ -592,6 +592,34 @@ my $X = {
             export_json(@_);
         }
     ],
+	'story_set' => [
+		'story_set {src} [{key} {value}...]',
+		'Searches stories with different criteria (see docs)',
+		sub {
+			my $g		= init();
+            my %args = ();
+
+            for (;;) {
+                my $k = arg_o();
+                my $v = arg_o();
+
+                if (!$k || !$v) {
+                    last;
+                }
+
+                if ($k eq 'topics' or $k eq 'tags') {
+                    $v = [ split(/\s*,\s*/, $v) ];
+                }
+
+                $args{$k} = $v;
+            }
+
+			foreach my $s ($g->source->story_set(%args)) {
+                my $story = $g->source->story($s->[0], $s->[1]);
+				print join(' ', @{$s}), " ", $story->get('hits'), "\n";
+			}
+		}
+	],
 	'import_rss'		=> [
 		'import_rss {src} {topic_id} [{tag(s)}]',
 		'Imports an RSS from STDIN into a topic',
