@@ -521,7 +521,7 @@ sub story_set {
         }
     }
 
-    print STDERR $sql, "\n";
+#    print STDERR $sql, "\n";
 
     my $sth = $self->_prepare($sql);
     $self->_execute($sth, @args);
