@@ -484,9 +484,13 @@ sub story_set {
     if ($order eq 'date') {
         $sql .= ' ORDER BY date DESC';
     }
+    elsif ($order eq 'hits') {
+        $sql .= ' ORDER BY hits DESC';
+    }
     else {
-        $sql .= ' ORDER by ?';
-        push(@args, $order);
+        if (grep(/^$order$/, Gruta::Data::Story::fields())) {
+            $sql .= " ORDER by $order";
+        }
     }
 
     if ($num || $offset) {
@@ -498,6 +502,8 @@ sub story_set {
             push(@args, $offset);
         }
     }
+
+    print STDERR $sql;
 
     my $sth = $self->_prepare($sql);
     $self->_execute($sth, @args);
