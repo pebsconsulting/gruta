@@ -203,7 +203,7 @@ sub _art5 {
             my $t = $story->get('title');
             my $h = $data->url('STORY', topic => $topic, id => $id);
 
-            $a =~ s/$t/<a href='$h' class='story_title_link'>$t<\/a>/;
+            $a =~ s/\Q$t\E/<a href='$h' class='story_title_link'>$t<\/a>/;
 
             return $data->special_uris($a);
 		};
