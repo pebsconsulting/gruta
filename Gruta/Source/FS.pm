@@ -1072,42 +1072,6 @@ sub story_set {
 }
 
 
-sub stories_by_date {
-	my $self	= shift;
-	my $topics	= shift;
-	my %args	= @_;
-
-    if ($topics) {
-        $args{topics} = $topics;
-    }
-    if ($args{tags}) {
-        $args{tags} = [split(/\s*,\s*/, $args{tags})];
-    }
-
-    return $self->story_set(%args);
-}
-
-
-sub stories_by_text {
-    my $self	= shift;
-    my $topics	= shift;
-    my $query	= shift;
-    my $future	= shift;
-
-    my %args = (
-        content => $query,
-        future  => $future,
-        order   => 'title'
-    );
-
-    if ($topics) {
-        $args{topics} = $topics;
-    }
-
-    return $self->story_set(%args);
-}
-
-
 sub stories_top_ten {
 	my $self	= shift;
 	my $num		= shift;
@@ -1201,29 +1165,6 @@ sub is_subset_of {
     }
 
     return $c && $c == scalar(@subset);
-}
-
-
-sub stories_by_tag {
-    my $self    = shift;
-    my $topics  = shift;
-    my $tag     = shift;
-    my $future  = shift;
-
-    my @r = ();
-
-    if ($tag) {
-        my %args = (
-            topics  => $topics,
-            future  => $future,
-            order   => 'title',
-            tags    => [map { lc($_) } split(/\s*,\s*/, $tag)]
-        );
-
-        @r = $self->story_set(%args);
-    }
-
-    return @r;
 }
 
 
