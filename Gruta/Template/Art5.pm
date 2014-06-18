@@ -815,6 +815,10 @@ sub _art5 {
 			return [ @ret ];
 		};
 
+        $a->{op}->{untagged_stories} = sub {
+            return [ $data->source->untagged_stories() ];
+        };
+
 		$a->{op}->{stories_by_text} = sub {
 			my $topic	= $a->exec(shift);
 			my $query	= $a->exec(shift);

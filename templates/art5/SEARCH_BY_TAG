@@ -12,11 +12,17 @@
 
 	<p><b><{%tag}></b> (<{link {url 'RSS' 'tag' %tag} 'RSS'}>):<br>
 
-	<ul>
-		<{foreach {stories_by_tag %topic %tag is_admin}
-			{li {link_to_story_with_edit $0 $1}}
-		}>
-	</ul>
+    <ul>
+        <{if
+            {ne '' %tag}
+            {foreach {stories_by_tag %topic %tag is_admin}
+                {li {link_to_story_with_edit $0 $1}}
+            }
+            {foreach {untagged_stories}
+                {li {link_to_story_with_edit $0 $1}}
+            }
+        }>
+    </ul>
 
 	<{search_hits}>
 
