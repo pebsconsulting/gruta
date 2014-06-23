@@ -1,7 +1,13 @@
-<div class = 'story_comments'>
-<{foreach {story_comments $0 $1 {is_topic_editor $0}}
-	{_comment $0 $1 $2}
-	'<p>'
-	{? '<h2>' @"Visitor comments" '</h2>'}
+<{if
+    {not cfg_facebook_comments}
+    {
+        ?
+        "<div class = 'story_comments'>"
+        {foreach {story_comments $0 $1 {is_topic_editor $0}}
+	       {_comment $0 $1 $2}
+	       '<p>'
+	       {? '<h2>' @"Visitor comments" '</h2>'}
+        }
+        "</div>"
+    }
 }>
-</div>

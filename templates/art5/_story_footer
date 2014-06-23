@@ -35,7 +35,7 @@
     </span>
 
     <span class = 'comment_link'>
-    <{if {size {story_comments $0 $1}} {
+    <{if {and {size {story_comments $0 $1}} {not cfg_facebook_comments}} {
         {?
             " · "
             {link
