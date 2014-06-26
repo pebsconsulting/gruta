@@ -459,7 +459,7 @@ sub story_set {
     }
 
     if (@topics) {
-        push(@sql_w, '(' . join(' OR ', map { 'topic_id = ?' } @topics) . ')');
+        push(@sql_w, '(' . join(' OR ', map { 'stories.topic_id = ?' } @topics) . ')');
         @args = (@topics);
     }
 
