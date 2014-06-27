@@ -1052,12 +1052,22 @@ sub story_set {
 
     # special sorting
     if ($order ne 'date') {
-        @r = sort {
-            my $sa = $self->story($a->[0], $a->[1]);
-            my $sb = $self->story($b->[0], $b->[1]);
+        if ($order eq 'hits') {
+            @r = sort {
+                my $sa = $self->story($a->[0], $a->[1]);
+                my $sb = $self->story($b->[0], $b->[1]);
 
-            $sa->get($order) cmp $sb->get($order);
-        } @r;
+                $sb->get($order) <=> $sa->get($order);
+            } @r;
+        }
+        else {
+            @r = sort {
+                my $sa = $self->story($a->[0], $a->[1]);
+                my $sb = $self->story($b->[0], $b->[1]);
+
+                $sa->get($order) cmp $sb->get($order);
+            } @r;
+        }
 
         # do slicing if needed
         if ($args{num} || $args{offset}) {
