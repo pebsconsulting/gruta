@@ -45,13 +45,11 @@
 		</option>
 	</select>
 
-	<p><{@"Number of stories shown in the index:"}><br>
-	<input type = 'text' name = 'cfg_index_num'
-		value = '<{cfg_index_num}>' size = '4'>
+    <{edit_config_text @"Number of stories shown in the index:"
+        'cfg_index_num' cfg_index_num 4}>
 
-	<p><{@"Topics to be shown in the index (Empty, all):"}><br>
-	<input type = 'text' name = 'cfg_index_topics'
-		value = '<{cfg_index_topics}>' size = '55'>
+    <{edit_config_text @"Topics to be shown in the index (Empty, all):"
+        'cfg_index_topics' cfg_index_topics}>
 
 	<p><{@"Topics to be shown in the main menu (Empty, all):"}><br>
 	<input type = 'text' name = 'cfg_main_menu_topics'
