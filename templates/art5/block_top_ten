@@ -2,7 +2,7 @@
 	'<h1>' @"Top stories" '</h1>'
 	'<ul>'
 	{foreach {stories_top_ten {or %num cfg_top_ten_num}}
-		{li {{link_to_story $1 $2} ' (' $0 ') '}}
+		{li {{link_to_story $0 $1} ' (' {story_hits $0 $1} ') '}}
 	}
 	'</ul>'
 }>

@@ -1073,25 +1073,26 @@ sub story_set {
 
 
 sub stories_top_ten {
-	my $self	= shift;
-	my $num		= shift;
+    my $self	= shift;
+    my $num		= shift;
 
-	my @r = ();
+    my @r = ();
 
-	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
+    my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
 
-	if (open F, $index) {
-		flock F, 1;
+    if (open F, $index) {
+        flock F, 1;
 
-		while (defined(my $l = <F>) and $num--) {
-			chomp($l);
-			push(@r, [ split(':', $l) ]);
-		}
+        while (defined(my $l = <F>) and $num--) {
+            chomp($l);
+            my @l = split(/:/, $l);
+            push(@r, [$l[1], $l[2], $l[0]]);
+        }
 
-		close F;
-	}
+        close F;
+    }
 
-	return @r;
+    return @r;
 }
 
 

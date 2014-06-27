@@ -184,7 +184,7 @@ stories_top_ten
  @story_list = $source->stories_top_ten();
  @story_list = $source->stories_top_ten($num);
 
-Returns a list of [$hits, $topic_id, $story_id] tuplets describing
+Returns a list of [$topic_id, $story_id, $hits] tuplets describing
 the 10 most read stories, ordered by hits. If $num is set, other
 than 10 can be queried.
 
