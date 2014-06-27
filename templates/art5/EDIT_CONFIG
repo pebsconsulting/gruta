@@ -23,8 +23,8 @@
     <{edit_config_text @"Copyright string to be shown in the footer:"
         'cfg_copyright' cfg_copyright}>
 
-	<p><{@"Site description (CANNOT contain HTML):"}><br>
-	<textarea name = 'cfg_site_description'
+	<p><label for='cfg_site_description'><{@"Site description (CANNOT contain HTML):"}></label><br>
+	<textarea name = 'cfg_site_description' id = 'cfg_site_description'
 	cols = '40' rows = '10'><{cfg_site_description}></textarea>
 
     <{edit_config_text @"URL to an icon for the site, in MS Windows icon format:"
@@ -70,154 +70,59 @@
     <{edit_config_bool @"Full stories by default:"
         'cfg_full_story' cfg_full_story}>
 
-    <p><label for = 'cfg_search_as_google_redirect'>
-        <{@"Search using a Google redirection:"}>
-    </label><br>
-    <select name = 'cfg_search_as_google_redirect' id = 'cfg_search_as_google_redirect'>
-        <option <{if {not cfg_search_as_google_redirect} 'selected'}> value = '0'>
-            <{@"no"}>
-        </option>
-        <option <{if cfg_search_as_google_redirect 'selected'}> value = '1'>
-            <{@"yes"}>
-        </option>
-    </select>
+    <{edit_config_bool @"Search using a Google redirection:"
+        'cfg_search_as_google_redirect' cfg_search_as_google_redirect}>
 
-    <p><label for = 'cfg_adsense_search'>
-        <{@"Use Google Adsense for searching (also fill <i>search_form_adsense</i> with content from Google):"}>
-    </label><br>
-    <select name = 'cfg_adsense_search' id = 'cfg_adsense_search'>
-        <option <{if {not cfg_adsense_search} 'selected'}> value = '0'>
-            <{@"no"}>
-        </option>
-        <option <{if cfg_adsense_search 'selected'}> value = '1'>
-            <{@"yes"}>
-        </option>
-    </select>
+    <{edit_config_bool @"Use Google Adsense for searching (also fill <i>search_form_adsense</i> with content from Google):"
+        'cfg_adsense_search' cfg_adsense_search}>
 
 	<h2><{@"Date formats"}></h2>
 
-	<p><{@"Global date format:"}><br>
-	<input type = 'text' name = 'cfg_date_format'
-		value = '<{cfg_date_format}>' size = '15'>
+    <{edit_config_text @"Global date format:"
+        'cfg_date_format' cfg_date_format 15}>
 
-	<p><{@"The format of dates for the <tt>intermixed_index</tt> template:"}><br>
-	<input type = 'text' name = 'cfg_index_date_format'
-		value = '<{cfg_index_date_format}>' size = '15'>
+    <{edit_config_text @"The format of dates for the <tt>intermixed_index</tt> template:"
+        'cfg_index_date_format' cfg_index_date_format 15}>
 
-	<p><{@"Date format for the stories:"}><br>
-	<input type = 'text' name = 'cfg_story_date_format'
-		value = '<{cfg_story_date_format}>' size = '15'>
+    <{edit_config_text @"Date format for the stories:"
+        'cfg_story_date_format' cfg_story_date_format 15}>
 
 	<h2><{@"Comment validation"}></h2>
 
-	<p><{@"Use blogspam.net:"}><br>
-	<select name = 'cfg_use_blogspam_net'>
-		<option <{if {not cfg_use_blogspam_net} 'selected'}> value = '0'>
-			<{@"no"}>
-		</option>
-		<option <{if cfg_use_blogspam_net 'selected'}> value = '1'>
-			<{@"yes"}>
-		</option>
-	</select>
+    <{edit_config_bool @"Use blogspam.net:"
+        'cfg_use_blogspam_net' cfg_use_blogspam_net}>
 
-	<p><{@"Akismet API key:"}><br>
-	<input type = 'text' name = 'cfg_akismet_api_key'
-		value = '<{cfg_akismet_api_key}>' size = 32>
+    <{edit_config_text @"Akismet API key:"
+        'cfg_akismet_api_key' cfg_akismet_api_key 32}>
 
-	<p><{@"Akismet blog URL:"}><br>
-	<input type = 'text' name = 'cfg_akismet_url'
-		value = '<{cfg_akismet_url}>' size = 32>
+    <{edit_config_text @"Akismet blog URL:"
+        'cfg_akismet_url' cfg_akismet_url 32}>
 
-    <p><label for = 'cfg_comment_email'>
-        <{@"Send a copy of new comments to this email address:"}>
-    </label><br>
-    <input
-        type    = 'text'
-        name    = 'cfg_comment_email'
-        id      = 'cfg_comment_email'
-        value   = '<{cfg_comment_email}>'
-        size    = 32
-    />
+    <{edit_config_text @"Send a copy of new comments to this email address:"
+        'cfg_comment_email' cfg_comment_email}>
 
-    <p><label for = 'cfg_comment_expire_days'>
-        <{@"Number of days for non-approved comments to expire:"}>
-    </label><br>
-	<input
-        type    = 'text'
-        name    = 'cfg_comment_expire_days'
-        id      = 'cfg_comment_expire_days'
-        value   = '<{cfg_comment_expire_days}>'
-        size    = 32
-    />
+    <{edit_config_text @"Number of days for non-approved comments to expire:"
+        'cfg_comment_expire_days' cfg_comment_expire_days 32}>
 
-	<p><label for = 'cfg_use_gravatars'>
-        <{@"Use 'Gravatars' on comments:"}>
-    </label><br>
-	<select name = 'cfg_use_gravatars' id = 'cfg_use_gravatars'>
-		<option <{if {not cfg_use_gravatars} 'selected'}> value = '0'>
-			<{@"no"}>
-		</option>
-		<option <{if cfg_use_gravatars 'selected'}> value = '1'>
-			<{@"yes"}>
-		</option>
-	</select>
+    <{edit_config_bool @"Use 'Gravatars' on comments:"
+        'cfg_use_gravatars' cfg_use_gravatars}>
 
 	<h2><{@"Social networks"}></h2>
 
-    <p><label for = 'cfg_share_links_as_text'>
-        <{@"Social network share links are text-only (no, as buttons):"}>
-    </label><br>
-    <select name = 'cfg_share_links_as_text' id = 'cfg_share_links_as_text'>
-        <option <{if {not cfg_share_links_as_text} 'selected'}> value = '0'>
-            <{@"no"}>
-        </option>
-        <option <{if cfg_share_links_as_text 'selected'}> value = '1'>
-            <{@"yes"}>
-        </option>
-    </select>
+    <{edit_config_bool @"Social network share links are text-only (no, as buttons):"
+        'cfg_share_links_as_text' cfg_share_links_as_text}>
 
-	<p><{@"Use Facebook comments:"}><br>
-	<select name = 'cfg_facebook_comments'>
-		<option <{if {not cfg_facebook_comments} 'selected'}> value = '0'>
-			<{@"no"}>
-		</option>
-		<option <{if cfg_facebook_comments 'selected'}> value = '1'>
-			<{@"yes"}>
-		</option>
-	</select>
+    <{edit_config_bool @"Use Facebook comments:"
+        'cfg_facebook_comments' cfg_facebook_comments}>
 
-    <p><label for = 'cfg_twitter_user'>
-        <{@"Twitter user (for adding 'via' to shares):"}>
-    </label><br>
-    <input
-        type    = 'text'
-        name    = 'cfg_twitter_user'
-        id      = 'cfg_twitter_user'
-        value   = '<{cfg_twitter_user}>'
-        size    = 32
-    />
+    <{edit_config_text @"Twitter user (for adding 'via' to shares):"
+        'cfg_twitter_user' cfg_twitter_user 32}>
 
-    <p><label for = 'cfg_facebook_user_id'>
-        <{@"Facebook user ID:"}>
-    </label><br>
-    <input
-        type    = 'text'
-        name    = 'cfg_facebook_user_id'
-        id      = 'cfg_facebook_user_id'
-        value   = '<{cfg_facebook_user_id}>'
-        size    = 32
-    />
+    <{edit_config_text @"Facebook user ID:"
+        'cfg_facebook_user_id' cfg_facebook_user_id 32}>
 
-    <p><label for = 'cfg_facebook_app_id'>
-        <{@"Facebook app ID:"}>
-    </label><br>
-    <input
-        type    = 'text'
-        name    = 'cfg_facebook_app_id'
-        id      = 'cfg_facebook_app_id'
-        value   = '<{cfg_facebook_app_id}>'
-        size    = 32
-    />
+    <{edit_config_text @"Facebook app ID:"
+        'cfg_facebook_app_id' cfg_facebook_app_id 32}>
 
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
