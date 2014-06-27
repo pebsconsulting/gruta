@@ -11,33 +11,27 @@
 
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
-	<p><{@"Host name:"}><br>
-	<input type = 'text' name = 'cfg_host_name'
-		value = '<{cfg_host_name}>' size = '55'>
+    <{edit_config_text @"Host name:"
+        'cfg_host_name' cfg_host_name}>
 
-	<p><{@"Site name:"}><br>
-	<input type = 'text' name = 'cfg_site_name'
-		value = '<{cfg_site_name}>' size = '55'>
+    <{edit_config_text @"Site name:"
+        'cfg_site_name' cfg_site_name}>
 
-	<p><{@"Slogan for the site:"}><br>
-	<input type = 'text' name = 'cfg_slogan'
-		value = "<{cfg_slogan}>" size = '55'>
+    <{edit_config_text @"Slogan for the site:"
+        'cfg_slogan' cfg_slogan}>
 
-	<p><{@"Copyright string to be shown in the footer:"}><br>
-	<input type = 'text' name = 'cfg_copyright'
-		value = '<{cfg_copyright}>' size = '55'>
+    <{edit_config_text @"Copyright string to be shown in the footer:"
+        'cfg_copyright' cfg_copyright}>
 
 	<p><{@"Site description (CANNOT contain HTML):"}><br>
 	<textarea name = 'cfg_site_description'
 	cols = '40' rows = '10'><{cfg_site_description}></textarea>
 
-	<p><{@"URL to an icon for the site, in MS Windows icon format:"}><br>
-	<input type = 'text' name = 'cfg_favicon_url'
-		value = '<{cfg_favicon_url}>' size = '55'>
+    <{edit_config_text @"URL to an icon for the site, in MS Windows icon format:"
+        'cfg_favicon_url' cfg_favicon_url}>
 
-	<p><{@"URL to an image to shown as logo:"}><br>
-	<input type = 'text' name = 'cfg_logo_url'
-		value = '<{cfg_logo_url}>' size = '55'>
+    <{edit_config_text @"URL to an image to shown as logo:"
+        'cfg_logo_url' cfg_logo_url}>
 
 	<h2><{@"Behaviour"}></h2>
 

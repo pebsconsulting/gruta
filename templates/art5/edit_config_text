@@ -1,0 +1,2 @@
+<p><{$0}><br>
+<input type='text' name='<{$1}>' value='<{$2}>' size='<{or $3 55}>'>
