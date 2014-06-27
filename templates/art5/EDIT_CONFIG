@@ -35,15 +35,8 @@
 
 	<h2><{@"Behaviour"}></h2>
 
-	<p><{@"Disable comments:"}><br>
-	<select name = 'cfg_disable_comments'>
-		<option <{if {not cfg_disable_comments} 'selected'}> value = '0'>
-			<{@"no"}>
-		</option>
-		<option <{if cfg_disable_comments 'selected'}> value = '1'>
-			<{@"yes"}>
-		</option>
-	</select>
+    <{edit_config_bool @"Disable comments:"
+        'cfg_disable_comments' cfg_disable_comments}>
 
     <{edit_config_text @"Number of stories shown in the index:"
         'cfg_index_num' cfg_index_num 4}>
@@ -51,52 +44,31 @@
     <{edit_config_text @"Topics to be shown in the index (Empty, all):"
         'cfg_index_topics' cfg_index_topics}>
 
-	<p><{@"Topics to be shown in the main menu (Empty, all):"}><br>
-	<input type = 'text' name = 'cfg_main_menu_topics'
-		value = '<{cfg_main_menu_topics}>' size = '55'>
+    <{edit_config_text @"Topics to be shown in the main menu (Empty, all):"
+        'cfg_main_menu_topics' cfg_main_menu_topics}>
 
-	<p><{@"Number of entries for the RSS feed:"}><br>
-	<input type = 'text' name = 'cfg_rss_num'
-		value = '<{cfg_rss_num}>' size = '4'>
+    <{edit_config_text @"Number of entries for the RSS feed:"
+        'cfg_rss_num' cfg_rss_num 4}>
 
-	<p><{@"Topics to be shown in the RSS feed (Empty, all):"}><br>
-	<input type = 'text' name = 'cfg_rss_topics'
-		value = '<{cfg_rss_topics}>' size = '55'>
+    <{edit_config_text @"Topics to be shown in the RSS feed (Empty, all):"
+        'cfg_rss_topics' cfg_rss_topics}>
 
-	<p><{@"Number of story abstracts to be listed in the TOPIC page:"}><br>
-	<input type = 'text' name = 'cfg_topic_num'
-		value = '<{cfg_topic_num}>' size = '4'>
+    <{edit_config_text @"Number of story abstracts to be listed in the TOPIC page:"
+        'cfg_topic_num' cfg_topic_num 4}>
 
-	<p><{@"Number of stories to be shown in the 'Top stories' option"}><br>
-		<{@"(If set to 0, this main menu option will not be shown)."}><br>
-	<input type = 'text' name = 'cfg_top_ten_num'
-		value = '<{cfg_top_ten_num}>' size = '4'>
+    <{edit_config_text
+        {? @"Number of stories to be shown in the 'Top stories' option"
+            '<br>' @"(If set to 0, this main menu option will not be shown)."}
+        'cfg_top_ten_num' cfg_top_ten_num 4}>
 
-	<p><{@"Maximum number of related stories:"}><br>
-	<input type = 'text' name = 'cfg_max_related_stories'
-		value = '<{cfg_max_related_stories}>' size = '4'>
+    <{edit_config_text @"Maximum number of related stories:"
+        'cfg_max_related_stories' cfg_max_related_stories 4}>
 
-	<p><{@"Show link to printable version:"}><br>
-	<select name = 'cfg_show_printable'>
-		<option <{if {not cfg_show_printable} 'selected'}> value = '0'>
-			<{@"no"}>
-		</option>
-		<option <{if cfg_show_printable 'selected'}> value = '1'>
-			<{@"yes"}>
-		</option>
-	</select>
+    <{edit_config_bool @"Show link to printable version:"
+        'cfg_show_printable' cfg_show_printable}>
 
-    <p><label for = 'cfg_full_story'>
-        <{@"Full stories by default:"}>
-    </label><br>
-    <select name = 'cfg_full_story' id = 'cfg_full_story'>
-        <option <{if {not cfg_full_story} 'selected'}> value = '0'>
-            <{@"no"}>
-        </option>
-        <option <{if cfg_full_story 'selected'}> value = '1'>
-            <{@"yes"}>
-        </option>
-    </select>
+    <{edit_config_bool @"Full stories by default:"
+        'cfg_full_story' cfg_full_story}>
 
     <p><label for = 'cfg_search_as_google_redirect'>
         <{@"Search using a Google redirection:"}>

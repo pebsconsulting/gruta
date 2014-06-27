@@ -1,0 +1,5 @@
+<p><label for='<{$1}>'><{$0}><label><br>
+    <select name = '<{$1}>'>
+        <option <{if {not $2} 'selected'}> value = '0'><{@"no"}></option>
+        <option <{if $2 'selected'}> value = '1'><{@"yes"}></option>
+    </select>

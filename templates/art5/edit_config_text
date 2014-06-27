@@ -1,8 +1,8 @@
 <p><label for='<{$1}>'><{$0}><label><br>
-<input
-    type='text'
-    name='<{$1}>'
-    id='<{$1}>'
-    value='<{$2}>'
-    size='<{or $3 55}>'
->
+    <input
+        type='text'
+        name='<{$1}>'
+        id='<{$1}>'
+        value='<{$2}>'
+        size='<{or $3 55}>'
+    >
