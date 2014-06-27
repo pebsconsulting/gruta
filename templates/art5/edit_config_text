@@ -1,4 +1,4 @@
-<p><label for='<{$1}>'><{$0}><label><br>
+<p><label for='<{$1}>'><{$0}></label><br>
     <input
         type='text'
         name='<{$1}>'
