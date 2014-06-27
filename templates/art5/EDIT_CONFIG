@@ -102,7 +102,7 @@
         'cfg_comment_email' cfg_comment_email}>
 
     <{edit_config_text @"Number of days for non-approved comments to expire:"
-        'cfg_comment_expire_days' cfg_comment_expire_days 32}>
+        'cfg_comment_expire_days' cfg_comment_expire_days 4}>
 
     <{edit_config_bool @"Use 'Gravatars' on comments:"
         'cfg_use_gravatars' cfg_use_gravatars}>
@@ -115,14 +115,14 @@
     <{edit_config_bool @"Use Facebook comments:"
         'cfg_facebook_comments' cfg_facebook_comments}>
 
-    <{edit_config_text @"Twitter user (for adding 'via' to shares):"
-        'cfg_twitter_user' cfg_twitter_user 32}>
-
     <{edit_config_text @"Facebook user ID:"
         'cfg_facebook_user_id' cfg_facebook_user_id 32}>
 
     <{edit_config_text @"Facebook app ID:"
         'cfg_facebook_app_id' cfg_facebook_app_id 32}>
+
+    <{edit_config_text @"Twitter user (for adding 'via' to shares):"
+        'cfg_twitter_user' cfg_twitter_user 32}>
 
 	<p><input type = 'submit' class = 'button' value = 'OK'>
 
