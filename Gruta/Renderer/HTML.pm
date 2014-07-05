@@ -87,6 +87,9 @@ sub story {
     $title =~ s/\s+$//g;
 
     # strip unacceptable tags
+    open(T, ">/tmp/gruta.html");
+    print T $content;
+    close T;
     $content =~ s/<\s*title[^>]*>.*<\s*\/\s*title\s*>//igs;
     $content =~ s/<\s*head[^>]*>.*<\s*\/\s*head\s*>//igs;
     $content =~ s/<\s*style[^>]*>.*<\s*\/\s*style\s*>//igs;
