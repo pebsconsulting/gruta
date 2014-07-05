@@ -60,6 +60,20 @@ sub story {
 
     my $content = $story->get('content');
 
+    if ($self->{pipe}) {
+        # pipe the content through the command
+        use File::Temp qw/tempfile/;
+
+        my ($fh, $filename) = tempfile();
+        print $fh $content;
+        close $fh;
+
+        open($fh, $self->{pipe} . ' ' . $filename . '|')
+            or die "Cannot pipe to " . $self->{pipe};
+        $content = join('', <$fh>);
+        close $fh;
+    }
+
     ($title) = ($content =~ /<\s*title[^>]*>(.*)<\/title>/is);
     ($title) = ($content =~ /<\s*h1[^>]*>(.*)<\/h1>/is) unless $title;
 
@@ -81,7 +95,7 @@ sub story {
     $content =~ s/<\s*\/?\s*link[^>]*>//ig;
 
     # if $tags filter is defined, is filtered_html
-    if($self->{valid_tags_h}) {
+    if(!$self->{pipe} && $self->{valid_tags}) {
         $content =~ s/<\s*h1[^>]*>.*<\/h1>//ig;
 
         $content = $self->_filter($content);
