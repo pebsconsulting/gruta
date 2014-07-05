@@ -72,6 +72,8 @@ sub story {
             or die "Cannot pipe to " . $self->{pipe};
         $content = join('', <$fh>);
         close $fh;
+
+        unlink $filename;
     }
 
     ($title) = ($content =~ /<\s*title[^>]*>(.*)<\/title>/is);
