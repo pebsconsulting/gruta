@@ -2,7 +2,7 @@
 <div class='story_comments'>
 <h2><{@"Visitor comments"}></h2>
 
-<{if cfg_disable_comments
+<{if {or cfg_disable_comments {not {story_has_comments $0 $1}}}
     {? "<p>" @"Comments have been disabled." "</p>" }
     {
         {if cfg_facebook_comments
@@ -14,23 +14,21 @@
                 '" data-num-posts="100" data-width="470"></div>'
                 '<p>'
             }
-            {if {story_has_comments $0 $1}
-                {?
-                    '<div class = "comment_form">'
-                    '<h2>' @"Add a comment" '</h2>'
+            {?
+                '<div class = "comment_form">'
+                '<h2>' @"Add a comment" '</h2>'
 
-                    '<form method = "post" action = "' {url} '">'
-                    '<p>' @"Author:" '<br><input name = "author">'
-                    '<p>' @"Email (optional, not shown):" '<br><input name = "email">'
-                    '<p>' @"Comment:" '<br><textarea name = "content" cols = "40" rows = "5" wrap = "virtual"></textarea>'
-                    '<p><input type = "submit" class = "button" value = "' @"Send" '">'
-                    '<input type = "hidden" name = "topic" value = "' $0 '">'
-                    '<input type = "hidden" name = "story" value = "' $1 '">'
-                    '<input type = "hidden" name = "t" value = "POST_COMMENT">'
-                    '</form><p>'
-                    @"<b>Note:</b> These comments won't be published until confirmed by a human being, so don't bother sending spam."
-                    '</div>'
-                }
+                '<form method = "post" action = "' {url} '">'
+                '<p>' @"Author:" '<br><input name = "author">'
+                '<p>' @"Email (optional, not shown):" '<br><input name = "email">'
+                '<p>' @"Comment:" '<br><textarea name = "content" cols = "40" rows = "5" wrap = "virtual"></textarea>'
+                '<p><input type = "submit" class = "button" value = "' @"Send" '">'
+                '<input type = "hidden" name = "topic" value = "' $0 '">'
+                '<input type = "hidden" name = "story" value = "' $1 '">'
+                '<input type = "hidden" name = "t" value = "POST_COMMENT">'
+                '</form><p>'
+                @"<b>Note:</b> These comments won't be published until confirmed by a human being, so don't bother sending spam."
+                '</div>'
             }
         }
     }
