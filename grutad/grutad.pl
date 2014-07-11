@@ -90,6 +90,10 @@ sub write_obj
             if (ref(\$v) eq 'SCALAR') {
                 $v =~ s/\n/\\n/g;
 
+                if ($k eq '.' || $k =~ /^>/) {
+                    $k = '>' . $k;
+                }
+
                 print $o $k, "\n";
                 print $o $v, "\n";
             }
@@ -118,6 +122,10 @@ sub write_array
             print $o join(":", @{$e}), "\n";
         }
         else {
+            if ($e eq '.' || $e =~ /^>/) {
+                $e = '>' . $e;
+            }
+
             print $o $e, "\n";
         }
     }
@@ -141,6 +149,8 @@ sub read_obj
         if ($k eq '.') {
             last;
         }
+
+        $k =~ s/^>//;
 
         my $v = <$i> || '';
         chomp($v);
@@ -169,6 +179,8 @@ sub read_array
         if ($k eq '.') {
             last;
         }
+
+        $k =~ s/^>//;
 
         push(@a, $k);
     }
