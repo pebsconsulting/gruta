@@ -73,7 +73,7 @@ sub usage
 }
 
 
-sub dump_as_hash
+sub write_obj
 {
     my $c = shift;
     my $h = shift;
@@ -103,7 +103,7 @@ sub dump_as_hash
 }
 
 
-sub dump_as_list
+sub write_array
 {
     my $c   = shift;
     my @l   = @_;
@@ -153,7 +153,7 @@ sub read_obj
 }
 
 
-sub store_result
+sub write_result
 {
     my $c = shift;
     my $e = shift;
@@ -192,7 +192,7 @@ sub dialog
             last;
         }
         elsif ($k eq 'version') {
-            dump_as_hash($c, {
+            write_obj($c, {
                 proto_version   => $PROTO_VERSION,
                 server_version  => $SERVER_VERSION,
                 server_id       => 'grutad.pl'
@@ -200,55 +200,55 @@ sub dialog
             );
         }
         elsif ($k eq 'topics') {
-            dump_as_list($c, $g->source->topics());
+            write_array($c, $g->source->topics());
         }
         elsif ($k eq 'users') {
-            dump_as_list($c, $g->source->users());
+            write_array($c, $g->source->users());
         }
         elsif ($k eq 'tags') {
-            dump_as_list($c, $g->source->tags());
+            write_array($c, $g->source->tags());
         }
         elsif ($k eq 'templates') {
-            dump_as_list($c, $g->source->templates());
+            write_array($c, $g->source->templates());
         }
         elsif ($k eq 'pending_comments') {
-            dump_as_list($c, $g->source->pending_comments());
+            write_array($c, $g->source->pending_comments());
         }
         elsif ($k eq 'comments') {
-            dump_as_list($c, $g->source->comments($args[0]));
+            write_array($c, $g->source->comments($args[0]));
         }
         elsif ($k eq 'stories') {
-            dump_as_list($c, $g->source->stories($args[0]));
+            write_array($c, $g->source->stories($args[0]));
         }
         elsif ($k eq 'stories_top_ten') {
-            dump_as_list($c, $g->source->stories_top_ten($args[0] || 10));
+            write_array($c, $g->source->stories_top_ten($args[0] || 10));
         }
         elsif ($k eq 'story') {
             my $obj = $g->source->story($args[0], $args[1]);
 
-            dump_as_hash($c, $obj, "Story '$args[0]/$args[1]' not found");
+            write_obj($c, $obj, "Story '$args[0]/$args[1]' not found");
         }
         elsif ($k eq 'topic') {
             my $obj = $g->source->topic($args[0]);
 
-            dump_as_hash($c, $obj, "Topic '$args[0]' not found");
+            write_obj($c, $obj, "Topic '$args[0]' not found");
         }
         elsif ($k eq 'user') {
             my $obj = $g->source->user($args[0]);
 
-            dump_as_hash($c, $obj, "User '$args[0]' not found");
+            write_obj($c, $obj, "User '$args[0]' not found");
         }
         elsif ($k eq 'template') {
             my $obj = $g->source->template($args[0]);
 
-            dump_as_hash($c, $obj, "Template '$args[0]' not found");
+            write_obj($c, $obj, "Template '$args[0]' not found");
         }
         elsif ($k eq 'store_template') {
             my $t = Gruta::Data::Template->new(read_obj($c));
 
             eval { $g->source->insert_template($t) };
 
-            store_result($c, $@);
+            write_result($c, $@);
         }
         elsif ($k eq 'store_story') {
             my %a = read_obj($c);
@@ -260,7 +260,7 @@ sub dialog
                 $o->tags($a{tags});
             };
 
-            store_result($c, $@, $o->get('id'));
+            write_result($c, $@, $o->get('id'));
         }
         elsif ($k eq 'story_set') {
             my %a = read_obj($c);
@@ -277,10 +277,10 @@ sub dialog
             eval { @r = $g->source->story_set(%a); };
 
             if ($@) {
-                store_result($c, $@);
+                write_result($c, $@);
             }
             else {
-                dump_as_list($c, @r);
+                write_array($c, @r);
             }
         }
         else {
