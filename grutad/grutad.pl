@@ -11,9 +11,6 @@ use File::Temp;
 use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
-use Gruta::Renderer::Grutatxt;
-use Gruta::Renderer::HTML;
-use Gruta::Renderer::Text;
 
 use threads;
 
@@ -30,13 +27,7 @@ sub gruta_obj
 	}
 
     my $g = Gruta->new(
-        source => $src,
-        renderers	=> [
-            Gruta::Renderer::Grutatxt->new(),
-            Gruta::Renderer::HTML->new(),
-            Gruta::Renderer::HTML->new( valid_tags => undef ),
-            Gruta::Renderer::Text->new(),
-        ]
+        source => $src
     );
 
     return $g;
@@ -319,7 +310,6 @@ my $dialog_ctl = {
                                     my $o = Gruta::Data::Story->new(%a);
 
                                     eval {
-                                        $c->{g}->render($o);
                                         $c->{g}->source->insert_story($o);
                                         $o->tags(split(/\s*,\s*/, $a{tags} || ''));
                                     };
