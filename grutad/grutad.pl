@@ -153,6 +153,30 @@ sub read_obj
 }
 
 
+sub read_array
+{
+    my $c = shift;
+    my @a = ();
+
+    my $i = $c->{i};
+    my $o = $c->{o};
+
+    print $o "OK Ready to receive array\n";
+
+    while (my $k = <$i>) {
+        chomp($k);
+
+        if ($k eq '.') {
+            last;
+        }
+
+        push(@a, $k);
+    }
+
+    return @a;
+}
+
+
 sub write_result
 {
     my $c = shift;
@@ -179,14 +203,12 @@ sub dialog
     my $i = $c->{i};
 
     for (;;) {
-        my $l = <$i>;
-        chomp($l);
+        my $k = <$i>;
+        chomp($k);
 
-        if (!$l) {
+        if (!$k) {
             last;
         }
-
-        my ($k, @args) = split(/ /, $l);
 
         if ($k eq 'bye') {
             last;
@@ -215,30 +237,36 @@ sub dialog
             write_array($c, $g->source->pending_comments());
         }
         elsif ($k eq 'comments') {
-            write_array($c, $g->source->comments($args[0]));
+            my @a = read_array($c);
+            write_array($c, $g->source->comments($a[0]));
         }
         elsif ($k eq 'stories') {
-            write_array($c, $g->source->stories($args[0]));
+            my @a = read_array($c);
+            write_array($c, $g->source->stories($a[0]));
         }
         elsif ($k eq 'story') {
-            my $obj = $g->source->story($args[0], $args[1]);
+            my @a = read_array($c);
+            my $obj = $g->source->story($a[0], $a[1]);
 
-            write_obj($c, $obj, "Story '$args[0]/$args[1]' not found");
+            write_obj($c, $obj, "Story '$a[0]/$a[1]' not found");
         }
         elsif ($k eq 'topic') {
-            my $obj = $g->source->topic($args[0]);
+            my @a = read_array($c);
+            my $obj = $g->source->topic($a[0]);
 
-            write_obj($c, $obj, "Topic '$args[0]' not found");
+            write_obj($c, $obj, "Topic '$a[0]' not found");
         }
         elsif ($k eq 'user') {
-            my $obj = $g->source->user($args[0]);
+            my @a = read_array($c);
+            my $obj = $g->source->user($a[0]);
 
-            write_obj($c, $obj, "User '$args[0]' not found");
+            write_obj($c, $obj, "User '$a[0]' not found");
         }
         elsif ($k eq 'template') {
-            my $obj = $g->source->template($args[0]);
+            my @a = read_array($c);
+            my $obj = $g->source->template($a[0]);
 
-            write_obj($c, $obj, "Template '$args[0]' not found");
+            write_obj($c, $obj, "Template '$a[0]' not found");
         }
         elsif ($k eq 'store_template') {
             my $t = Gruta::Data::Template->new(read_obj($c));
