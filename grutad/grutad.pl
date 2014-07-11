@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-my $PROTO_VERSION = '1.0';
+my $PROTO_VERSION = '0.9';
 my $SERVER_VERSION = '0.0';
 
 use strict;
@@ -222,7 +222,7 @@ sub dialog
         if ($k eq 'bye') {
             last;
         }
-        elsif ($k eq 'version') {
+        elsif ($k eq 'about') {
             write_obj($c, {
                 proto_version   => $PROTO_VERSION,
                 server_version  => $SERVER_VERSION,
