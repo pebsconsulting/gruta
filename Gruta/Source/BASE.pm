@@ -116,7 +116,7 @@ sub stories_by_tag {
 
 sub stories_top_ten {
     my $self    = shift;
-    my $num     = shift;
+    my $num     = shift || 10;
 
     my %args = (
         order   => 'hits',
