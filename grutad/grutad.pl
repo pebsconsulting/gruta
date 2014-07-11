@@ -62,7 +62,9 @@ sub chompr
 {
     my $s = shift;
 
-    $s =~ s/\r?\n$//;
+    if ($s) {
+        $s =~ s/\r?\n$//;
+    }
 
     return $s;
 }
@@ -202,6 +204,118 @@ sub write_result
 }
 
 
+my $dialog_ctl = {
+    about               => [0,  sub {
+                                    write_obj($_->[0], {
+                                        proto_version   => $PROTO_VERSION,
+                                        server_version  => $SERVER_VERSION,
+                                        server_id       => 'grutad.pl'
+                                    });
+                                }
+                            ],
+    topics              => [0,  sub {
+                                    my $c = shift;
+                                    write_list($c, $c->{g}->source->topics());
+                                }
+                            ],
+    users               => [0,  sub {
+                                    my $c = shift;
+                                    write_list($c, $c->{g}->source->users());
+                                }
+                            ],
+    tags                => [0,  sub {
+                                    my $c = shift;
+                                    write_list($c, $c->{g}->source->tags());
+                                }
+                            ],
+    templates           => [0,  sub {
+                                    my $c = shift;
+                                    write_list($c, $c->{g}->source->templates());
+                                }
+                            ],
+    pending_comments    => [0,  sub {
+                                    my $c = shift;
+                                    write_list($c, $c->{g}->source->pending_comments());
+                                }
+                            ],
+    comments            => [1,  sub {
+                                    my ($c , $n) = @_;
+                                    write_list($c, $c->{g}->source->comments($n));
+                                }
+                            ],
+    stories             => [1,  sub {
+                                    my ($c, $t) = @_;
+                                    write_list($c, $c->{g}->source->stories($t));
+                                }
+                            ],
+    story               => [2,  sub {
+                                    my ($c, $t, $s) = @_;
+                                    write_obj($c, $c->{g}->source->story($t, $s), "$t/$s story not found");
+                                }
+                            ],
+    topic               => [1,  sub {
+                                    my ($c, $i) = @_;
+                                    write_obj($c, $c->{g}->source->topic($i), "$i topic not found");
+                                }
+                            ],
+    user                => [1,  sub {
+                                    my ($c, $i) = @_;
+                                    write_obj($c, $c->{g}->source->user($i), "$i user not found");
+                                }
+                            ],
+    template            => [1,  sub {
+                                    my ($c, $i) = @_;
+                                    write_obj($c, $c->{g}->source->template($i), "$i template not found");
+                                }
+                            ],
+    store_story         => [-1, sub {
+                                    my ($c, %a) = @_;
+
+                                    my $o = Gruta::Data::Story->new(%a);
+
+                                    eval {
+                                        $c->{g}->render($o);
+                                        $c->{g}->source->insert_story($o);
+                                        $o->tags(split(/\s*,\s*/, $a{tags} || ''));
+                                    };
+
+                                    write_result($c, $@, $o->get('id'));
+                                }
+                            ],
+    store_template      => [-1, sub {
+                                    my ($c, %a) = @_;
+
+                                    my $t = Gruta::Data::Template->new(%a);
+
+                                    eval { $c->{g}->source->insert_template($t) };
+
+                                    write_result($c, $@);
+                                }
+                            ],
+    story_set           => [-1, sub {
+                                    my ($c, %a) = @_;
+
+                                    if ($a{topics}) {
+                                        $a{topics} = [split(/\s*,\s*/, $a{topics})];
+                                    }
+                                    if ($a{tags}) {
+                                        $a{tags} = [split(/\s*,\s*/, $a{tags})];
+                                    }
+
+                                    my @r;
+
+                                    eval { @r = $c->{g}->source->story_set(%a); };
+
+                                    if ($@) {
+                                        write_result($c, $@);
+                                    }
+                                    else {
+                                        write_list($c, @r);
+                                    }
+                                }
+                            ],
+};
+
 sub dialog
 {
     my $c = shift;
@@ -213,144 +327,40 @@ sub dialog
     for (;;) {
         my $k = <$i>;
 
-        if (!$k) {
-            last;
-        }
-
         $k = chompr($k);
 
-        if ($k eq 'bye') {
+        if (!$k || $k eq 'bye') {
             last;
         }
-        elsif ($k eq 'about') {
-            write_obj($c, {
-                proto_version   => $PROTO_VERSION,
-                server_version  => $SERVER_VERSION,
-                server_id       => 'grutad.pl'
+
+        my $s = $dialog_ctl->{$k};
+
+        if ($s) {
+            my $ac  = $s->[0];
+            my $f   = $s->[1];
+            my $ok = 1;
+            my @a;
+
+            if ($ac < 0) {
+                @a = read_obj($c);
+            }
+            elsif ($ac > 0) {
+                @a = read_list($c);
+
+                if (scalar(@a) < $ac) {
+                    $ok = 0;
                 }
-            );
-        }
-        elsif ($k eq 'topics') {
-            write_list($c, $g->source->topics());
-        }
-        elsif ($k eq 'users') {
-            write_list($c, $g->source->users());
-        }
-        elsif ($k eq 'tags') {
-            write_list($c, $g->source->tags());
-        }
-        elsif ($k eq 'templates') {
-            write_list($c, $g->source->templates());
-        }
-        elsif ($k eq 'pending_comments') {
-            write_list($c, $g->source->pending_comments());
-        }
-        elsif ($k eq 'comments') {
-            my @a = read_list($c);
-
-            if (@a) {
-                write_list($c, $g->source->comments($a[0]));
             }
             else {
-                write_result($c, "Not enough arguments");
-            }
-        }
-        elsif ($k eq 'stories') {
-            my @a = read_list($c);
-
-            if (@a) {
-                write_list($c, $g->source->stories($a[0]));
-            }
-            else {
-                write_result($c, "Not enough arguments");
-            }
-        }
-        elsif ($k eq 'story') {
-            my @a = read_list($c);
-
-            if (@a > 1) {
-                my $obj = $g->source->story($a[0], $a[1]);
-                write_obj($c, $obj, "Story '$a[0]/$a[1]' not found");
-            }
-            else {
-                write_result($c, "Not enough arguments");
-            }
-        }
-        elsif ($k eq 'topic') {
-            my @a = read_list($c);
-
-            if (@a > 0) {
-                my $obj = $g->source->topic($a[0]);
-                write_obj($c, $obj, "Topic '$a[0]' not found");
-            }
-            else {
-                write_result($c, "Not enough arguments");
-            }
-        }
-        elsif ($k eq 'user') {
-            my @a = read_list($c);
-
-            if (@a > 0) {
-                my $obj = $g->source->user($a[0]);
-                write_obj($c, $obj, "User '$a[0]' not found");
-            }
-            else {
-                write_result($c, "Not enough arguments");
-            }
-        }
-        elsif ($k eq 'template') {
-            my @a = read_list($c);
-
-            if (@a > 0) {
-                my $obj = $g->source->template($a[0]);
-                write_obj($c, $obj, "Template '$a[0]' not found");
-            }
-            else {
-                write_result($c, "Not enough arguments");
-            }
-        }
-        elsif ($k eq 'store_template') {
-            my $t = Gruta::Data::Template->new(read_obj($c));
-
-            eval { $g->source->insert_template($t) };
-
-            write_result($c, $@);
-        }
-        elsif ($k eq 'store_story') {
-            my %a = read_obj($c);
-            my $o = Gruta::Data::Story->new(%a);
-
-            eval {
-                $g->render($o);
-                $g->source->insert_story($o);
-                $o->tags(split(/\s*,\s*/, $a{tags} || ''));
-            };
-
-            write_result($c, $@, $o->get('id'));
-        }
-        elsif ($k eq 'story_set') {
-            my %a = read_obj($c);
-
-            if ($a{topics}) {
-                $a{topics} = [split(/\s*,\s*/, $a{topics})];
-            }
-            if ($a{tags}) {
-                $a{tags} = [split(/\s*,\s*/, $a{tags})];
+                @a = ();
             }
 
-            my @r;
-
-            eval { @r = $g->source->story_set(%a); };
-
-            if ($@) {
-                write_result($c, $@);
-            }
-            else {
-                write_list($c, @r);
+            if ($ok) {
+                $f->($c, @a);
             }
         }
         else {
-            print $o "ERROR '$k' command not found\n";
+            print $o "ERROR $k command not found\n";
         }
     }
 }
