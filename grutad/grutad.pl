@@ -276,6 +276,18 @@ my $dialog_ctl = {
                                     }
                                 }
                             ],
+    touch_story         => [2,  sub {
+                                    my ($c, $t, $s) = @_;
+                                    my $o = $c->{g}->source->story($t, $s);
+                                    if ($o) {
+                                        $o->touch();
+                                        write_result($c, undef, "Touched");
+                                    }
+                                    else {
+                                        write_result($c, "$t/$s story not found");
+                                    }
+                                }
+                            ],
     comment             => [3,  sub {
                                     my ($c, $t, $s, $i) = @_;
                                     write_obj($c, $c->{g}->source->comment($t, $s, $i), "$t/$s/$i comment not found");
