@@ -206,7 +206,8 @@ sub write_result
 
 my $dialog_ctl = {
     about               => [0,  sub {
-                                    write_obj($_->[0], {
+                                    my $c = shift;
+                                    write_obj($c, {
                                         proto_version   => $PROTO_VERSION,
                                         server_version  => $SERVER_VERSION,
                                         server_id       => 'grutad.pl'
