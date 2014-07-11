@@ -954,13 +954,20 @@ sub story_set {
     my $num     = $args{num}      || 0;
     my $offset  = $args{offset}   || 0;
 
-    if ($order ne 'date') {
+    if ($order ne 'date' && $order ne 'hits') {
         $num = $offset = 0;
     }
 
     my $o = 0;
+    my $index;
 
-    my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
+    if ($order eq 'hits') {
+        $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
+    }
+    else {
+        $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.INDEX';
+    }
+
     if (open I, $index) {
         flock I, 1;
 
@@ -1053,23 +1060,13 @@ sub story_set {
     }
 
     # special sorting
-    if ($order ne 'date') {
-        if ($order eq 'hits') {
-            @r = sort {
-                my $sa = $self->story($a->[0], $a->[1]);
-                my $sb = $self->story($b->[0], $b->[1]);
+    if ($order ne 'date' && $order ne 'hits') {
+        @r = sort {
+            my $sa = $self->story($a->[0], $a->[1]);
+            my $sb = $self->story($b->[0], $b->[1]);
 
-                $sb->get($order) <=> $sa->get($order);
-            } @r;
-        }
-        else {
-            @r = sort {
-                my $sa = $self->story($a->[0], $a->[1]);
-                my $sb = $self->story($b->[0], $b->[1]);
-
-                $sa->get($order) cmp $sb->get($order);
-            } @r;
-        }
+            $sa->get($order) cmp $sb->get($order);
+        } @r;
 
         # do slicing if needed
         if ($args{num} || $args{offset}) {
