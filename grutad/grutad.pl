@@ -107,7 +107,7 @@ sub write_obj
 }
 
 
-sub write_array
+sub write_list
 {
     my $c   = shift;
     my @l   = @_;
@@ -163,7 +163,7 @@ sub read_obj
 }
 
 
-sub read_array
+sub read_list
 {
     my $c = shift;
     my @a = ();
@@ -234,51 +234,71 @@ sub dialog
             );
         }
         elsif ($k eq 'topics') {
-            write_array($c, $g->source->topics());
+            write_list($c, $g->source->topics());
         }
         elsif ($k eq 'users') {
-            write_array($c, $g->source->users());
+            write_list($c, $g->source->users());
         }
         elsif ($k eq 'tags') {
-            write_array($c, $g->source->tags());
+            write_list($c, $g->source->tags());
         }
         elsif ($k eq 'templates') {
-            write_array($c, $g->source->templates());
+            write_list($c, $g->source->templates());
         }
         elsif ($k eq 'pending_comments') {
-            write_array($c, $g->source->pending_comments());
+            write_list($c, $g->source->pending_comments());
         }
         elsif ($k eq 'comments') {
-            my @a = read_array($c);
-            write_array($c, $g->source->comments($a[0]));
+            my @a = read_list($c);
+            write_list($c, $g->source->comments($a[0]));
         }
         elsif ($k eq 'stories') {
-            my @a = read_array($c);
-            write_array($c, $g->source->stories($a[0]));
+            my @a = read_list($c);
+            write_list($c, $g->source->stories($a[0]));
         }
         elsif ($k eq 'story') {
-            my @a = read_array($c);
-            my $obj = $g->source->story($a[0], $a[1]);
+            my @a = read_list($c);
 
-            write_obj($c, $obj, "Story '$a[0]/$a[1]' not found");
+            if (@a > 1) {
+                my $obj = $g->source->story($a[0], $a[1]);
+                write_obj($c, $obj, "Story '$a[0]/$a[1]' not found");
+            }
+            else {
+                write_result($c, "Not enough arguments");
+            }
         }
         elsif ($k eq 'topic') {
-            my @a = read_array($c);
-            my $obj = $g->source->topic($a[0]);
+            my @a = read_list($c);
 
-            write_obj($c, $obj, "Topic '$a[0]' not found");
+            if (@a > 0) {
+                my $obj = $g->source->topic($a[0]);
+                write_obj($c, $obj, "Topic '$a[0]' not found");
+            }
+            else {
+                write_result($c, "Not enough arguments");
+            }
         }
         elsif ($k eq 'user') {
-            my @a = read_array($c);
-            my $obj = $g->source->user($a[0]);
+            my @a = read_list($c);
 
-            write_obj($c, $obj, "User '$a[0]' not found");
+            if (@a > 0) {
+                my $obj = $g->source->user($a[0]);
+                write_obj($c, $obj, "User '$a[0]' not found");
+            }
+            else {
+                write_result($c, "Not enough arguments");
+            }
         }
         elsif ($k eq 'template') {
-            my @a = read_array($c);
-            my $obj = $g->source->template($a[0]);
+            my @a = read_list($c);
 
-            write_obj($c, $obj, "Template '$a[0]' not found");
+            if (@a > 0) {
+                my $obj = $g->source->template($a[0]);
+                write_obj($c, $obj, "Template '$a[0]' not found");
+            }
+            else {
+                write_result($c, "Not enough arguments");
+            }
         }
         elsif ($k eq 'store_template') {
             my $t = Gruta::Data::Template->new(read_obj($c));
@@ -317,7 +337,7 @@ sub dialog
                 write_result($c, $@);
             }
             else {
-                write_array($c, @r);
+                write_list($c, @r);
             }
         }
         else {
