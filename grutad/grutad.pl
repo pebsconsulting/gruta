@@ -254,6 +254,12 @@ my $dialog_ctl = {
                                     write_list($c, $c->{g}->source->untagged_stories());
                                 }
                             ],
+    purge_old_sessions  => [0, sub {
+                                    my ($c) = @_;
+                                    $c->{g}->source->purge_old_sessions();
+                                    write_result($c, undef, 'Purged');
+                                }
+                            ],
     story               => [2,  sub {
                                     my ($c, $t, $s) = @_;
                                     write_obj($c, $c->{g}->source->story($t, $s), "$t/$s story not found");
