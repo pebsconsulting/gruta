@@ -179,7 +179,8 @@ sub touch {
             $self->source->_update_top_ten(
                 $hits,
                 $self->get('topic_id'),
-                $self->get('id')
+                $self->get('id'),
+                $self->get('date')
             );
         }
     }
@@ -806,59 +807,60 @@ sub stories {
 
 
 sub _update_top_ten {
-	my $self	= shift;
-	my $hits	= shift;
-	my $topic_id	= shift;
-	my $id		= shift;
+    my $self        = shift;
+    my $hits        = shift;
+    my $topic_id    = shift;
+    my $id          = shift;
+    my $date        = shift;
 
-	my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
+    my $index = $self->{path} . Gruta::Data::FS::Topic::base() . '/.top_ten';
 
-	my $u = 0;
-	my @l = ();
+    my $u = 0;
+    my @l = ();
 
-	if (open F, $index) {
-		flock F, 1;
-		while (my $l = <F>) {
-			chomp($l);
+    if (open F, $index) {
+        flock F, 1;
+        while (my $l = <F>) {
+            chomp($l);
 
-			my ($h, $t, $i) = split(':', $l);
+            my ($d, $t, $i, $h) = split(':', $l);
 
-			if ($u == 0 && $h < $hits) {
-				$u = 1;
-				push(@l, "$hits:$topic_id:$id");
-			}
+            if ($u == 0 && $h < $hits) {
+                $u = 1;
+                push(@l, "$date:$topic_id:$id:$hits");
+            }
 
-			if ($i ne $id or $t ne $topic_id) {
-				push(@l, $l);
-			}
-		}
+            if ($i ne $id or $t ne $topic_id) {
+                push(@l, $l);
+            }
+        }
 
-		close F;
-	}
+        close F;
+    }
 
-	if ($u == 0 && scalar(@l) < $self->{hard_top_ten_limit}) {
-		$u = 1;
-		push(@l, "$hits:$topic_id:$id");
-	}
+    if ($u == 0 && scalar(@l) < $self->{hard_top_ten_limit}) {
+        $u = 1;
+        push(@l, "$date:$topic_id:$id:$hits");
+    }
 
-	if ($u) {
-		if (open F, '>' . $index) {
-			flock F, 2;
-			my $n = 0;
+    if ($u) {
+        if (open F, '>' . $index) {
+            flock F, 2;
+            my $n = 0;
 
-			foreach my $l (@l) {
-				print F $l, "\n";
+            foreach my $l (@l) {
+                print F $l, "\n";
 
-				if (++$n == $self->{hard_top_ten_limit}) {
-					last;
-				}
-			}
+                if (++$n == $self->{hard_top_ten_limit}) {
+                    last;
+                }
+            }
 
-			close F;
-		}
-	}
+            close F;
+        }
+    }
 
-	return undef;
+    return undef;
 }
 
 
