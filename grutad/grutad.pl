@@ -17,18 +17,14 @@ use threads;
 sub gruta_obj
 {
     my $src_str = shift;
-    my $src;
+    my $g;
 
-	if ($src_str =~ /^dbi:/) {
-		$src = Gruta::Source::DBI->new(string => $src_str);
-	}
-	else {
-		$src = Gruta::Source::FS->new(path => $src_str);
-	}
-
-    my $g = Gruta->new(
-        source => $src
-    );
+    if ($src_str =~ /^dbi:/) {
+        $g = Gruta::Source::DBI->new(string => $src_str);
+    }
+    else {
+        $g = Gruta::Source::FS->new(path => $src_str);
+    }
 
     return $g;
 }
@@ -207,60 +203,60 @@ my $dialog_ctl = {
                             ],
     topics              => [0,  sub {
                                     my $c = shift;
-                                    write_list($c, $c->{g}->source->topics());
+                                    write_list($c, $c->{g}->topics());
                                 }
                             ],
     users               => [0,  sub {
                                     my $c = shift;
-                                    write_list($c, $c->{g}->source->users());
+                                    write_list($c, $c->{g}->users());
                                 }
                             ],
     tags                => [0,  sub {
                                     my $c = shift;
-                                    write_list($c, $c->{g}->source->tags());
+                                    write_list($c, $c->{g}->tags());
                                 }
                             ],
     templates           => [0,  sub {
                                     my $c = shift;
-                                    write_list($c, $c->{g}->source->templates());
+                                    write_list($c, $c->{g}->templates());
                                 }
                             ],
     pending_comments    => [0,  sub {
                                     my $c = shift;
-                                    write_list($c, $c->{g}->source->pending_comments());
+                                    write_list($c, $c->{g}->pending_comments());
                                 }
                             ],
     comments            => [1,  sub {
                                     my ($c, $n) = @_;
-                                    write_list($c, $c->{g}->source->comments($n));
+                                    write_list($c, $c->{g}->comments($n));
                                 }
                             ],
     stories             => [1,  sub {
                                     my ($c, $t) = @_;
-                                    write_list($c, $c->{g}->source->stories($t));
+                                    write_list($c, $c->{g}->stories($t));
                                 }
                             ],
     untagged_stories    => [0, sub {
                                     my ($c) = @_;
-                                    write_list($c, $c->{g}->source->untagged_stories());
+                                    write_list($c, $c->{g}->untagged_stories());
                                 }
                             ],
     purge_old_sessions  => [0, sub {
                                     my ($c) = @_;
-                                    $c->{g}->source->purge_old_sessions();
+                                    $c->{g}->purge_old_sessions();
                                     write_result($c, undef, 'Purged');
                                 }
                             ],
     story               => [2,  sub {
                                     my ($c, $t, $s) = @_;
-                                    write_obj($c, $c->{g}->source->story($t, $s), "$t/$s story not found");
+                                    write_obj($c, $c->{g}->story($t, $s), "$t/$s story not found");
                                 }
                             ],
     story_comments      => [3,  sub {
                                     my ($c, $t, $s, $a) = @_;
-                                    my $o = $c->{g}->source->story($t, $s);
+                                    my $o = $c->{g}->story($t, $s);
                                     if ($o) {
-                                        write_list($c, $c->{g}->source->story_comments($o, $a));
+                                        write_list($c, $c->{g}->story_comments($o, $a));
                                     }
                                     else {
                                         write_result($c, "$t/$s story not found");
@@ -269,7 +265,7 @@ my $dialog_ctl = {
                             ],
     touch_story         => [2,  sub {
                                     my ($c, $t, $s) = @_;
-                                    my $o = $c->{g}->source->story($t, $s);
+                                    my $o = $c->{g}->story($t, $s);
                                     if ($o) {
                                         $o->touch();
                                         write_result($c, undef, "Touched");
@@ -281,27 +277,27 @@ my $dialog_ctl = {
                             ],
     comment             => [3,  sub {
                                     my ($c, $t, $s, $i) = @_;
-                                    write_obj($c, $c->{g}->source->comment($t, $s, $i), "$t/$s/$i comment not found");
+                                    write_obj($c, $c->{g}->comment($t, $s, $i), "$t/$s/$i comment not found");
                                 }
                             ],
     topic               => [1,  sub {
                                     my ($c, $i) = @_;
-                                    write_obj($c, $c->{g}->source->topic($i), "$i topic not found");
+                                    write_obj($c, $c->{g}->topic($i), "$i topic not found");
                                 }
                             ],
     user                => [1,  sub {
                                     my ($c, $i) = @_;
-                                    write_obj($c, $c->{g}->source->user($i), "$i user not found");
+                                    write_obj($c, $c->{g}->user($i), "$i user not found");
                                 }
                             ],
     template            => [1,  sub {
                                     my ($c, $i) = @_;
-                                    write_obj($c, $c->{g}->source->template($i), "$i template not found");
+                                    write_obj($c, $c->{g}->template($i), "$i template not found");
                                 }
                             ],
     session             => [1,  sub {
                                     my ($c, $i) = @_;
-                                    write_obj($c, $c->{g}->source->session($i), "$i session not found");
+                                    write_obj($c, $c->{g}->session($i), "$i session not found");
                                 }
                             ],
     store_story         => [-1, sub {
@@ -310,7 +306,7 @@ my $dialog_ctl = {
                                     my $o = Gruta::Data::Story->new(%a);
 
                                     eval {
-                                        $c->{g}->source->insert_story($o);
+                                        $c->{g}->insert_story($o);
                                         $o->tags(split(/\s*,\s*/, $a{tags} || ''));
                                     };
 
@@ -322,7 +318,7 @@ my $dialog_ctl = {
 
                                     my $o = Gruta::Data::Topic->new(%a);
 
-                                    eval { $c->{g}->source->insert_topic($o); };
+                                    eval { $c->{g}->insert_topic($o); };
 
                                     write_result($c, $@);
                                 }
@@ -332,7 +328,7 @@ my $dialog_ctl = {
 
                                     my $o = Gruta::Data::User->new(%a);
 
-                                    eval { $c->{g}->source->insert_user($o); };
+                                    eval { $c->{g}->insert_user($o); };
 
                                     write_result($c, $@);
                                 }
@@ -342,7 +338,7 @@ my $dialog_ctl = {
 
                                     my $t = Gruta::Data::Template->new(%a);
 
-                                    eval { $c->{g}->source->insert_template($t) };
+                                    eval { $c->{g}->insert_template($t) };
 
                                     write_result($c, $@);
                                 }
@@ -352,7 +348,7 @@ my $dialog_ctl = {
 
                                     my $t = Gruta::Data::Session->new(%a);
 
-                                    eval { $c->{g}->source->insert_session($t) };
+                                    eval { $c->{g}->insert_session($t) };
 
                                     write_result($c, $@);
                                 }
@@ -369,7 +365,7 @@ my $dialog_ctl = {
 
                                     my @r;
 
-                                    eval { @r = $c->{g}->source->story_set(%a); };
+                                    eval { @r = $c->{g}->story_set(%a); };
 
                                     if ($@) {
                                         write_result($c, $@);
