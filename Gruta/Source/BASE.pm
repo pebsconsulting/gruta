@@ -15,20 +15,9 @@ sub data {
 }
 
 sub dummy_touch {
-	my $self	= shift;
+    my $self = shift;
 
-	if (!exists $self->data->{args}->{dummy_touch}) {
-		my $r = 0;
-		my $t = $self->template('cfg_top_ten_num');
-
-		if ($t && $t->get('content') <= 0) {
-			$r = 1;
-		}
-
-		$self->data->{args}->{dummy_touch} = $r;
-	}
-
-	return $self->data->{args}->{dummy_touch};
+    return $self->data->{args}->{dummy_touch};
 }
 
 
