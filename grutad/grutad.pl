@@ -265,6 +265,17 @@ my $dialog_ctl = {
                                     write_obj($c, $c->{g}->source->story($t, $s), "$t/$s story not found");
                                 }
                             ],
+    story_comments      => [3,  sub {
+                                    my ($c, $t, $s, $a) = @_;
+                                    my $o = $c->{g}->source->story($t, $s);
+                                    if ($o) {
+                                        write_list($c, $c->{g}->source->story_comments($o, $a));
+                                    }
+                                    else {
+                                        write_result($c, "$t/$s story not found");
+                                    }
+                                }
+                            ],
     comment             => [3,  sub {
                                     my ($c, $t, $s, $i) = @_;
                                     write_obj($c, $c->{g}->source->comment($t, $s, $i), "$t/$s/$i comment not found");
