@@ -293,6 +293,16 @@ my $dialog_ctl = {
                                     write_result($c, $@);
                                 }
                             ],
+    store_user          => [-1, sub {
+                                    my ($c, %a) = @_;
+
+                                    my $o = Gruta::Data::User->new(%a);
+
+                                    eval { $c->{g}->source->insert_user($o); };
+
+                                    write_result($c, $@);
+                                }
+                            ],
     store_template      => [-1, sub {
                                     my ($c, %a) = @_;
 
