@@ -247,11 +247,23 @@ sub dialog
         }
         elsif ($k eq 'comments') {
             my @a = read_list($c);
-            write_list($c, $g->source->comments($a[0]));
+
+            if (@a) {
+                write_list($c, $g->source->comments($a[0]));
+            }
+            else {
+                write_result($c, "Not enough arguments");
+            }
         }
         elsif ($k eq 'stories') {
             my @a = read_list($c);
-            write_list($c, $g->source->stories($a[0]));
+
+            if (@a) {
+                write_list($c, $g->source->stories($a[0]));
+            }
+            else {
+                write_result($c, "Not enough arguments");
+            }
         }
         elsif ($k eq 'story') {
             my @a = read_list($c);
