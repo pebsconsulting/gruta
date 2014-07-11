@@ -283,6 +283,16 @@ my $dialog_ctl = {
                                     write_result($c, $@, $o->get('id'));
                                 }
                             ],
+    store_topic         => [-1, sub {
+                                    my ($c, %a) = @_;
+
+                                    my $o = Gruta::Data::Topic->new(%a);
+
+                                    eval { $c->{g}->source->insert_topic($o); };
+
+                                    write_result($c, $@);
+                                }
+                            ],
     store_template      => [-1, sub {
                                     my ($c, %a) = @_;
 
