@@ -387,7 +387,7 @@ sub dialog
         }
         else {
             if ($k eq 'commands') {
-                write_list($c, sort(keys(%{$dialog_ctl})));
+                write_list($c, sort(keys(%{$dialog_ctl}), 'commands', 'bye'));
             }
             else {
                 print $o "ERROR $k command not found\n";
