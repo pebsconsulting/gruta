@@ -15,46 +15,31 @@ use Gruta::Renderer::Grutatxt;
 use Gruta::Renderer::HTML;
 use Gruta::Renderer::Text;
 
-sub arg
+use threads;
+
+sub gruta_obj
 {
-	if (@ARGV) {
-		return shift(@ARGV);
-	}
-
-	usage();
-}
-
-
-sub new_source
-{
-	my $src_str = shift;
-	my $src;
+    my $src_str = shift;
+    my $src;
 
 	if ($src_str =~ /^dbi:/) {
-		$src = Gruta::Source::DBI->new( string => $src_str );
+		$src = Gruta::Source::DBI->new(string => $src_str);
 	}
 	else {
-		$src = Gruta::Source::FS->new( path => $src_str );
+		$src = Gruta::Source::FS->new(path => $src_str);
 	}
 
-	return $src;
-}
+    my $g = Gruta->new(
+        source => $src,
+        renderers	=> [
+            Gruta::Renderer::Grutatxt->new(),
+            Gruta::Renderer::HTML->new(),
+            Gruta::Renderer::HTML->new( valid_tags => undef ),
+            Gruta::Renderer::Text->new(),
+        ]
+    );
 
-
-sub init
-{
-	my $src = new_source(arg());
-	my $g	= Gruta->new(
-		source => $src,
-		renderers	=> [
-			Gruta::Renderer::Grutatxt->new(),
-			Gruta::Renderer::HTML->new(),
-			Gruta::Renderer::HTML->new( valid_tags => undef ),
-			Gruta::Renderer::Text->new(),
-		]
-	);
-
-	return $g;
+    return $g;
 }
 
 
@@ -70,6 +55,16 @@ sub usage
     print " * dbi:SQLite:/var/www/site_dir/var/gruta.db (Perl DBI type)\n";
 
     exit 1;
+}
+
+
+sub chompr
+{
+    my $s = shift;
+
+    $s =~ s/\r?\n$//;
+
+    return $s;
 }
 
 
@@ -144,7 +139,7 @@ sub read_obj
     print $o "OK Ready to receive object\n";
 
     while (my $k = <$i>) {
-        chomp($k);
+        $k = chompr($k);
 
         if ($k eq '.') {
             last;
@@ -153,7 +148,7 @@ sub read_obj
         $k =~ s/^>//;
 
         my $v = <$i> || '';
-        chomp($v);
+        $v = chompr($v);
         $v =~ s/\\n/\n/g;
 
         $h{$k} = $v;
@@ -174,7 +169,7 @@ sub read_list
     print $o "OK Ready to receive array\n";
 
     while (my $k = <$i>) {
-        chomp($k);
+        $k = chompr($k);
 
         if ($k eq '.') {
             last;
@@ -213,14 +208,16 @@ sub dialog
 
     my $g = $c->{g};
     my $i = $c->{i};
+    my $o = $c->{o};
 
     for (;;) {
         my $k = <$i>;
-        chomp($k);
 
         if (!$k) {
             last;
         }
+
+        $k = chompr($k);
 
         if ($k eq 'bye') {
             last;
@@ -341,13 +338,68 @@ sub dialog
             }
         }
         else {
-            print "ERROR '$k' command not found\n";
+            print $o "ERROR '$k' command not found\n";
         }
     }
 }
 
-my $c = {"g" => init(), "i" => *STDIN, "o" => *STDOUT};
 
-dialog($c);
+sub main
+{
+    my $stdio       = 0;
+    my $port        = 8045;
+    my $gruta_src   = undef;
+
+    while (my $e = shift(@ARGV)) {
+        if ($e eq '-s') {
+            $stdio = 1;
+        }
+        elsif ($e eq '-p') {
+            $port = shift(@ARGV);
+        }
+        elsif ($e !~ /^-/) {
+            $gruta_src = $e;
+        }
+        else {
+            print STDERR "Argument '$e' not recognized\n";
+        }
+    }
+
+    if (!defined($gruta_src)) {
+        usage();
+    }
+
+    my $gruta_obj = gruta_obj($gruta_src);
+
+    if ($stdio) {
+        my $o = {"g" => $gruta_obj, "i" => *STDIN, "o" => *STDOUT};
+        threads->create(sub { dialog($o); })->join();
+    }
+    else {
+        use IO::Socket::INET;
+
+        my $s = IO::Socket::INET->new(
+            Listen      => 5,
+            LocalPort   => $port,
+            Proto       => 'tcp',
+            ReuseAddr   => 1
+        ) or die "Cannot create socket ($!)";
+
+        for (;;) {
+            my $c = $s->accept();
+            my $o = {
+                g => $gruta_obj,
+                i => $c,
+                o => $c
+            };
+
+            threads->create(sub { dialog($o); $o->{i}->close(); });
+        }
+    }
+}
+
+##################
+
+main();
 
 exit 0;
