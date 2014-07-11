@@ -220,9 +220,6 @@ sub dialog
         elsif ($k eq 'stories') {
             write_array($c, $g->source->stories($args[0]));
         }
-        elsif ($k eq 'stories_top_ten') {
-            write_array($c, $g->source->stories_top_ten($args[0] || 10));
-        }
         elsif ($k eq 'story') {
             my $obj = $g->source->story($args[0], $args[1]);
 
