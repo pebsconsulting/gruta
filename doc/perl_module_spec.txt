@@ -122,10 +122,10 @@ tagged as such are returned. If content is set, only stories
 with the string in its content are returned. By default, order
 is 'date', with other options being 'title'.
 
-This method deprecates stories_by_date(), stories_by_text()
-and stories_by_tag().
+This method deprecates stories_by_date(), stories_by_text(),
+stories_by_tag() and stories_top_ten().
 
-Related to TODO item #1068.
+Related to TODO item #1078.
 
 stories_by_date
 ~~~~~~~~~~~~~~~
@@ -170,6 +170,16 @@ described in the comma-separated string $tag_spec, ordered by
 title. If $future is set stories with a pub date in the future
 can also be returned.
 
+stories_top_ten
+~~~~~~~~~~~~~~~
+
+ @story_list = $source->stories_top_ten();
+ @story_list = $source->stories_top_ten($num);
+
+Returns a list of [$topic_id, $story_id, $date] tuplets describing
+the 10 most read stories, ordered by hits. If $num is set, other
+than 10 can be queried.
+
 untagged_stories
 ~~~~~~~~~~~~~~~~
 
@@ -177,16 +187,6 @@ untagged_stories
 
 Returns a list of [$topic_id, $story_id, $date] tuplets describing
 stories with no tags associated.
-
-stories_top_ten
-~~~~~~~~~~~~~~~
-
- @story_list = $source->stories_top_ten();
- @story_list = $source->stories_top_ten($num);
-
-Returns a list of [$topic_id, $story_id, $hits] tuplets describing
-the 10 most read stories, ordered by hits. If $num is set, other
-than 10 can be queried.
 
 tags
 ~~~~
