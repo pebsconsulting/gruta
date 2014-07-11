@@ -249,6 +249,11 @@ my $dialog_ctl = {
                                     write_list($c, $c->{g}->source->stories($t));
                                 }
                             ],
+    untagged_stories    => [0, sub {
+                                    my ($c) = @_;
+                                    write_list($c, $c->{g}->source->untagged_stories());
+                                }
+                            ],
     story               => [2,  sub {
                                     my ($c, $t, $s) = @_;
                                     write_obj($c, $c->{g}->source->story($t, $s), "$t/$s story not found");
