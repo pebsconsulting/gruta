@@ -240,7 +240,7 @@ my $dialog_ctl = {
                                 }
                             ],
     comments            => [1,  sub {
-                                    my ($c , $n) = @_;
+                                    my ($c, $n) = @_;
                                     write_list($c, $c->{g}->source->comments($n));
                                 }
                             ],
@@ -252,6 +252,11 @@ my $dialog_ctl = {
     story               => [2,  sub {
                                     my ($c, $t, $s) = @_;
                                     write_obj($c, $c->{g}->source->story($t, $s), "$t/$s story not found");
+                                }
+                            ],
+    comment             => [3,  sub {
+                                    my ($c, $t, $s, $i) = @_;
+                                    write_obj($c, $c->{g}->source->comment($t, $s, $i), "$t/$s/$i comment not found");
                                 }
                             ],
     topic               => [1,  sub {
