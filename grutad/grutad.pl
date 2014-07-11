@@ -401,14 +401,22 @@ sub main
 {
     my $stdio       = 0;
     my $port        = 8045;
+    my $host        = 'localhost';
     my $gruta_src   = undef;
 
     while (my $e = shift(@ARGV)) {
         if ($e eq '-s') {
+            # use STDIN/OUT instead of TCP/IP
             $stdio = 1;
         }
         elsif ($e eq '-p') {
+            # set TCP/IP port
             $port = shift(@ARGV);
+        }
+        elsif ($e eq '-i') {
+            # bind to the 'internet'
+            # (instead of just localhost)
+            $host = undef;
         }
         elsif ($e !~ /^-/) {
             $gruta_src = $e;
@@ -435,6 +443,7 @@ sub main
             Listen      => 5,
             LocalPort   => $port,
             Proto       => 'tcp',
+            LocalHost   => $host,
             ReuseAddr   => 1
         ) or die "Cannot create socket ($!)";
 
