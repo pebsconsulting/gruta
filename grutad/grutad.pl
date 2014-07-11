@@ -285,6 +285,11 @@ my $dialog_ctl = {
                                     write_obj($c, $c->{g}->source->template($i), "$i template not found");
                                 }
                             ],
+    session             => [1,  sub {
+                                    my ($c, $i) = @_;
+                                    write_obj($c, $c->{g}->source->session($i), "$i session not found");
+                                }
+                            ],
     store_story         => [-1, sub {
                                     my ($c, %a) = @_;
 
@@ -325,6 +330,16 @@ my $dialog_ctl = {
                                     my $t = Gruta::Data::Template->new(%a);
 
                                     eval { $c->{g}->source->insert_template($t) };
+
+                                    write_result($c, $@);
+                                }
+                            ],
+    store_session       => [-1, sub {
+                                    my ($c, %a) = @_;
+
+                                    my $t = Gruta::Data::Session->new(%a);
+
+                                    eval { $c->{g}->source->insert_session($t) };
 
                                     write_result($c, $@);
                                 }
