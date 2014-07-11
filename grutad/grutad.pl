@@ -311,7 +311,7 @@ sub dialog
             eval {
                 $g->render($o);
                 $g->source->insert_story($o);
-                $o->tags($a{tags});
+                $o->tags(split(/\s*,\s*/, $a{tags} || ''));
             };
 
             write_result($c, $@, $o->get('id'));
