@@ -1245,6 +1245,9 @@ sub insert_story {
 	}
 
 	$self->_insert($story, 'Gruta::Data::FS::Story');
+
+	$self->cache_story($story->get('topic_id'), $story->get('id'), $story);
+
 	return $story;
 }
 
