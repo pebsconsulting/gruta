@@ -361,7 +361,12 @@ sub dialog
             }
         }
         else {
-            print $o "ERROR $k command not found\n";
+            if ($k eq 'commands') {
+                write_list($c, sort(keys(%{$dialog_ctl})));
+            }
+            else {
+                print $o "ERROR $k command not found\n";
+            }
         }
     }
 }
