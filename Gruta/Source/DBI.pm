@@ -534,26 +534,6 @@ sub story_set {
 }
 
 
-sub stories_top_ten {
-	my $self	= shift;
-	my $num		= shift;
-
-	my $sql = 'SELECT topic_id, id, hits FROM stories ' .
-		'ORDER BY hits DESC LIMIT ?';
-
-	my $sth = $self->_prepare($sql);
-	$self->_execute($sth, $num);
-
-	my @r = ();
-
-	while (my @a = $sth->fetchrow_array()) {
-		push(@r, [ @a ]);
-	}
-
-	return @r;
-}
-
-
 sub tags {
 	my $self	= shift;
 

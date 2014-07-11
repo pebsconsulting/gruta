@@ -114,6 +114,19 @@ sub stories_by_tag {
 }
 
 
+sub stories_top_ten {
+    my $self    = shift;
+    my $num     = shift;
+
+    my %args = (
+        order   => 'hits',
+        num     => $num
+    );
+
+    return $self->story_set(%args);
+}
+
+
 sub related_stories {
     my $self    = shift;
     my $story   = shift;
