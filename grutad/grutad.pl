@@ -421,6 +421,9 @@ sub dialog
             if ($ok) {
                 $f->($c, @a);
             }
+            else {
+                write_result($c, 'Invalid argument');
+            }
         }
         else {
             if ($k eq 'commands') {
