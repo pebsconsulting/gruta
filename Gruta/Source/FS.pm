@@ -1283,7 +1283,7 @@ sub new {
 
 	my $s = bless( { @_ }, $class);
 
-	$s->{hard_top_ten_limit} ||= 100;
+	$s->{hard_top_ten_limit} ||= 40;
 
 	$s->_assert();
 
