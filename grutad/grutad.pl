@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use threads;
+#use threads::shared;
+
 my $PROTO_VERSION = '0.9';
 my $SERVER_VERSION = '0.0';
 
@@ -11,8 +14,6 @@ use File::Temp;
 use Gruta;
 use Gruta::Source::DBI;
 use Gruta::Source::FS;
-
-use threads;
 
 sub gruta_obj
 {
@@ -493,7 +494,7 @@ sub main
                 o => $c
             };
 
-            threads->create(sub { dialog($o); $o->{i}->close(); });
+            threads->create(sub { dialog($o); $o->{i}->close(); })->detach();
         }
     }
 }
