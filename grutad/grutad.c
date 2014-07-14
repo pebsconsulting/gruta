@@ -208,9 +208,10 @@ void list_write(struct gd_val *l, FILE *i, FILE *o)
 }
 
 
-void obj_write(struct gd_val *l, FILE *i, FILE *o)
+void obj_write(struct gd_val *l, FILE *o, FILE *p)
 {
-    fprintf(o, "OK object follows\n");
+    if (p)
+        fprintf(p, "OK object follows\n");
 
     while (l) {
         char *s = l->k;
@@ -260,7 +261,7 @@ void cmd_set_get(struct gd_val *set, char *setname, FILE *i, FILE *o)
         struct gd_val *obj;
 
         if ((obj = gd_val_get(set, a->k)) != NULL) {
-            obj_write(obj->v, i, o);
+            obj_write(obj->v, o, o);
         }
         else
             fprintf(o, "ERROR %s %s not found\n", a->k, setname);
@@ -273,7 +274,31 @@ void cmd_set_get(struct gd_val *set, char *setname, FILE *i, FILE *o)
 
 
 struct gd_val *about        = NULL;
+struct gd_val *topics       = NULL;
+struct gd_val *users        = NULL;
+struct gd_val *sessions     = NULL;
 struct gd_val *templates    = NULL;
+
+
+void set_dump(struct gd_val *set, char *cmd, FILE *o)
+{
+    while (set) {
+        fprintf(o, "%s\n", cmd);
+        obj_write(set->v, o, NULL);
+        set = set->n;
+    }
+}
+
+
+void dump(FILE *o)
+{
+    set_dump(topics,    "store_topic",      o);
+    set_dump(users,     "store_user",       o);
+    set_dump(templates, "store_template",   o);
+
+    fprintf(o, "bye\n");
+}
+
 
 void dialog(FILE *i, FILE *o)
 {
@@ -287,7 +312,31 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "about") == 0) {
-            obj_write(about, i, o);
+            obj_write(about, o, o);
+        }
+        else
+        if (strcmp(cmd, "topic") == 0) {
+            cmd_set_get(topics, "topic", i, o);
+        }
+        else
+        if (strcmp(cmd, "store_topic") == 0) {
+            topics = cmd_set_store(topics, "id", i, o);
+        }
+        else
+        if (strcmp(cmd, "topics") == 0) {
+            list_write(topics, i, o);
+        }
+        else
+        if (strcmp(cmd, "user") == 0) {
+            cmd_set_get(users, "user", i, o);
+        }
+        else
+        if (strcmp(cmd, "store_user") == 0) {
+            users = cmd_set_store(users, "id", i, o);
+        }
+        else
+        if (strcmp(cmd, "users") == 0) {
+            list_write(users, i, o);
         }
         else
         if (strcmp(cmd, "template") == 0) {
@@ -301,6 +350,14 @@ void dialog(FILE *i, FILE *o)
         if (strcmp(cmd, "templates") == 0) {
             list_write(templates, i, o);
         }
+        else
+        if (strcmp(cmd, "_dump") == 0) {
+            FILE *f;
+
+            f = fopen("dump.bin", "w");
+            dump(f);
+            fclose(f);
+        }
         else {
             fprintf(o, "ERROR %s command not found\n", cmd);
         }
@@ -312,9 +369,16 @@ void dialog(FILE *i, FILE *o)
 
 int main(int argc, char *argv[])
 {
+    FILE *f;
+
     about = gd_val_set(about, "proto_version",  gd_val_new("0.9", NULL, NULL));
     about = gd_val_set(about, "server_version", gd_val_new("0.0", NULL, NULL));
     about = gd_val_set(about, "server_id",      gd_val_new("grutad.c", NULL, NULL));
+
+    if ((f = fopen("dump.bin", "r")) != NULL) {
+        dialog(f, stdout);
+        fclose(f);
+    }
 
     dialog(stdin, stdout);
 
