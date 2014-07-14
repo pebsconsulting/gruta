@@ -395,6 +395,14 @@ my $dialog_ctl = {
                                         print $d "store_topic\n";
                                         write_obj($cc, $cc->{g}->topic($e), "$e topic not found");
                                     }
+                                    foreach my $e ($cc->{g}->users()) {
+                                        print $d "store_user\n";
+                                        write_obj($cc, $cc->{g}->user($e), "$e user not found");
+                                    }
+                                    foreach my $e ($cc->{g}->templates()) {
+                                        print $d "store_template\n";
+                                        write_obj($cc, $cc->{g}->template($e), "$e template not found");
+                                    }
 
                                     print $d "bye\n";
                                     close $d;
