@@ -38,7 +38,14 @@ char *line_read(FILE *f)
     if (c == '\r')
         c = fgetc(f);
 
-    return line_poke(s, '\0', &z, &n);
+    s = line_poke(s, '\0', &z, &n);
+
+    if (c == EOF) {
+        free(s);
+        s = NULL;
+    }
+
+    return s;
 }
 
 
@@ -307,7 +314,7 @@ void dialog(FILE *i, FILE *o)
     while (!done) {
         char *cmd = line_read(i);
 
-        if (strcmp(cmd, "bye") == 0) {
+        if (cmd == NULL || strcmp(cmd, "bye") == 0) {
             done = 1;
         }
         else
