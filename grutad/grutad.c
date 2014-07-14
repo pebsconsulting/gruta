@@ -229,7 +229,51 @@ void obj_write(struct gd_val *l, FILE *i, FILE *o)
 }
 
 
-struct gd_val *templates = NULL;
+struct gd_val *cmd_set_store(struct gd_val *set, char *pk, FILE *i, FILE *o)
+{
+    struct gd_val *obj;
+    struct gd_val *key;
+
+    obj = obj_read(i, o);
+
+    if ((key = gd_val_get(obj, pk)) != NULL) {
+        set = gd_val_set(set, key->v->k, obj);
+        fprintf(o, "OK stored\n");
+    }
+    else {
+        fprintf(o, "ERROR '%s' field not found\n", pk);
+        gd_val_free(obj);
+    }
+
+    return set;
+}
+
+
+void cmd_set_get(struct gd_val *set, char *setname, FILE *i, FILE *o)
+{
+    struct gd_val *a;
+    int n;
+
+    a = list_read(i, o, &n);
+
+    if (n) {
+        struct gd_val *obj;
+
+        if ((obj = gd_val_get(set, a->k)) != NULL) {
+            obj_write(obj->v, i, o);
+        }
+        else
+            fprintf(o, "ERROR %s %s not found\n", a->k, setname);
+    }
+    else
+        fprintf(o, "ERROR too few arguments\n");
+
+    gd_val_free(a);
+}
+
+
+struct gd_val *about        = NULL;
+struct gd_val *templates    = NULL;
 
 void dialog(FILE *i, FILE *o)
 {
@@ -242,41 +286,16 @@ void dialog(FILE *i, FILE *o)
             done = 1;
         }
         else
+        if (strcmp(cmd, "about") == 0) {
+            obj_write(about, i, o);
+        }
+        else
         if (strcmp(cmd, "template") == 0) {
-            struct gd_val *a;
-            int n;
-
-            a = list_read(i, o, &n);
-
-            if (n) {
-                struct gd_val *obj;
-
-                if ((obj = gd_val_get(templates, a->k)) != NULL) {
-                    obj_write(obj->v, i, o);
-                }
-                else
-                    fprintf(o, "ERROR %s template not found\n", a->k);
-            }
-            else
-                fprintf(o, "ERROR too few arguments\n");
-
-            gd_val_free(a);
+            cmd_set_get(templates, "template", i, o);
         }
         else
         if (strcmp(cmd, "store_template") == 0) {
-            struct gd_val *obj;
-            struct gd_val *key;
-
-            obj = obj_read(i, o);
-
-            if ((key = gd_val_get(obj, "id")) != NULL) {
-                templates = gd_val_set(templates, key->v->k, obj);
-                fprintf(o, "OK stored\n");
-            }
-            else {
-                fprintf(o, "ERROR 'id' not found\n");
-                gd_val_free(obj);
-            }
+            templates = cmd_set_store(templates, "id", i, o);
         }
         else
         if (strcmp(cmd, "templates") == 0) {
@@ -293,8 +312,11 @@ void dialog(FILE *i, FILE *o)
 
 int main(int argc, char *argv[])
 {
+    about = gd_val_set(about, "proto_version",  gd_val_new("0.9", NULL, NULL));
+    about = gd_val_set(about, "server_version", gd_val_new("0.0", NULL, NULL));
+    about = gd_val_set(about, "server_id",      gd_val_new("grutad.c", NULL, NULL));
+
     dialog(stdin, stdout);
 
     return 0;
 }
-
