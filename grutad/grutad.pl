@@ -65,9 +65,12 @@ sub write_obj
     my $e = shift;
 
     my $o = $c->{o};
+    my $p = $c->{p};
 
     if ($h) {
-        print $o "OK Object follows\n";
+        if ($p) {
+            print $p "OK Object follows\n";
+        }
 
         foreach my $k (keys(%{$h})) {
             my $v = $h->{$k} || '';
@@ -376,6 +379,27 @@ my $dialog_ctl = {
                                     }
                                 }
                             ],
+    _dump               => [0, sub {
+                                    my $c = shift;
+                                    my $d;
+
+                                    open $d, ">dump.bin" or die "$!";
+
+                                    my $cc = {
+                                        g => $c->{g},
+                                        o => $d,
+                                        i => undef
+                                    };
+
+                                    foreach my $e ($cc->{g}->topics()) {
+                                        print $d "store_topic\n";
+                                        write_obj($cc, $cc->{g}->topic($e), "$e topic not found");
+                                    }
+
+                                    print $d "bye\n";
+                                    close $d;
+                                }
+                            ],
 };
 
 sub dialog
@@ -472,7 +496,7 @@ sub main
     my $gruta_obj = gruta_obj($gruta_src);
 
     if ($stdio) {
-        my $o = {"g" => $gruta_obj, "i" => *STDIN, "o" => *STDOUT};
+        my $o = {"g" => $gruta_obj, "i" => *STDIN, "o" => *STDOUT, "p" => *STDOUT};
         threads->create(sub { dialog($o); })->join();
     }
     else {
@@ -491,7 +515,8 @@ sub main
             my $o = {
                 g => $gruta_obj,
                 i => $c,
-                o => $c
+                o => $c,
+                p => $c
             };
 
             threads->create(sub { dialog($o); $o->{i}->close(); })->detach();
