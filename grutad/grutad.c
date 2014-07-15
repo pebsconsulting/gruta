@@ -245,7 +245,7 @@ struct gd_val *cmd_set_store(struct gd_val *set, char *pk, FILE *i, FILE *o)
     obj = obj_read(i, o);
 
     if ((key = gd_val_get(obj, pk)) != NULL) {
-        set = gd_val_set(set, key->v->k, obj);
+        set = gd_val_set(set, strdup(key->v->k), obj);
         fprintf(o, "OK stored\n");
     }
     else {
@@ -285,6 +285,7 @@ struct gd_val *topics       = NULL;
 struct gd_val *users        = NULL;
 struct gd_val *sessions     = NULL;
 struct gd_val *templates    = NULL;
+struct gd_val *stories      = NULL;
 
 
 void set_dump(struct gd_val *set, char *cmd, FILE *o)
@@ -358,6 +359,10 @@ void dialog(FILE *i, FILE *o)
             list_write(templates, i, o);
         }
         else
+        if (strcmp(cmd, "store_story") == 0) {
+            stories = cmd_set_store(stories, "id", i, o);
+        }
+        else
         if (strcmp(cmd, "_dump") == 0) {
             FILE *f;
 
@@ -378,9 +383,9 @@ int main(int argc, char *argv[])
 {
     FILE *f;
 
-    about = gd_val_set(about, "proto_version",  gd_val_new("0.9", NULL, NULL));
-    about = gd_val_set(about, "server_version", gd_val_new("0.0", NULL, NULL));
-    about = gd_val_set(about, "server_id",      gd_val_new("grutad.c", NULL, NULL));
+    about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup("0.9"), NULL, NULL));
+    about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup("0.0"), NULL, NULL));
+    about = gd_val_set(about, strdup("server_id"),      gd_val_new(strdup("grutad.c"), NULL, NULL));
 
     if ((f = fopen("dump.bin", "r")) != NULL) {
         dialog(f, stdout);

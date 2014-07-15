@@ -403,6 +403,10 @@ my $dialog_ctl = {
                                         print $d "store_template\n";
                                         write_obj($cc, $cc->{g}->template($e), "$e template not found");
                                     }
+                                    foreach my $e ($cc->{g}->story_set(future => 1)) {
+                                        print $d "store_story\n";
+                                        write_obj($cc, $cc->{g}->story($e->[0], $e->[1]), "$e->[0]/$e->[1] story not found");
+                                    }
 
                                     print $d "bye\n";
                                     close $d;
