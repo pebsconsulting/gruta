@@ -249,7 +249,34 @@ struct gd_val *cmd_set_store(struct gd_val *set, char *pk, FILE *i, FILE *o)
         fprintf(o, "OK stored\n");
     }
     else {
-        fprintf(o, "ERROR '%s' field not found\n", pk);
+        fprintf(o, "ERROR '%s' pk not found\n", pk);
+        gd_val_free(obj);
+    }
+
+    return set;
+}
+
+
+struct gd_val *cmd_set_store_2(struct gd_val *set, char *pk1, char *pk2, FILE *i, FILE *o)
+{
+    struct gd_val *obj;
+    struct gd_val *key1;
+    struct gd_val *key2;
+
+    obj = obj_read(i, o);
+
+    if ((key1 = gd_val_get(obj, pk1)) != NULL && (key2 = gd_val_get(obj, pk2)) != NULL) {
+        char *npk = malloc(strlen(key1->v->k) + strlen(key2->v->k) + 2);
+
+        strcpy(npk, key1->v->k);
+        strcat(npk, "/");
+        strcat(npk, key2->v->k);
+
+        set = gd_val_set(set, npk, obj);
+        fprintf(o, "OK %s stored\n", npk);
+    }
+    else {
+        fprintf(o, "ERROR '%s/%s' pk not found\n", pk1, pk2);
         gd_val_free(obj);
     }
 
@@ -360,7 +387,7 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "store_story") == 0) {
-            stories = cmd_set_store(stories, "id", i, o);
+            stories = cmd_set_store_2(stories, "topic_id", "id", i, o);
         }
         else
         if (strcmp(cmd, "_dump") == 0) {
