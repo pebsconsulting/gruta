@@ -5,51 +5,15 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+
+
+/** gd values **/
+
 struct gd_val {
     char *k;
     struct gd_val *v;
     struct gd_val *n;
 };
-
-
-
-#define POKE_STEP 16
-
-char *line_poke(char *s, int c, size_t *z, off_t *n)
-{
-    if (*z == *n) {
-        *z += POKE_STEP;
-        s = realloc(s, *z);
-    }
-
-    s[(*n)++] = c;
-
-    return s;
-}
-
-
-char *line_read(FILE *f)
-{
-    char *s = NULL;
-    size_t z = 0;
-    off_t n = 0;
-    int c;
-
-    while ((c = fgetc(f)) != EOF && c != '\r' && c != '\n')
-        s = line_poke(s, c, &z, &n);
-
-    if (c == '\r')
-        c = fgetc(f);
-
-    s = line_poke(s, '\0', &z, &n);
-
-    if (c == EOF) {
-        free(s);
-        s = NULL;
-    }
-
-    return s;
-}
 
 
 struct gd_val *gd_val_free(struct gd_val *o)
@@ -147,6 +111,47 @@ struct gd_val *gd_val_delete(struct gd_val *o, char *k)
     }
 
     return o;
+}
+
+
+/** grutad net proto **/
+
+#define POKE_STEP 16
+
+char *line_poke(char *s, int c, size_t *z, off_t *n)
+{
+    if (*z == *n) {
+        *z += POKE_STEP;
+        s = realloc(s, *z);
+    }
+
+    s[(*n)++] = c;
+
+    return s;
+}
+
+
+char *line_read(FILE *f)
+{
+    char *s = NULL;
+    size_t z = 0;
+    off_t n = 0;
+    int c;
+
+    while ((c = fgetc(f)) != EOF && c != '\r' && c != '\n')
+        s = line_poke(s, c, &z, &n);
+
+    if (c == '\r')
+        c = fgetc(f);
+
+    s = line_poke(s, '\0', &z, &n);
+
+    if (c == EOF) {
+        free(s);
+        s = NULL;
+    }
+
+    return s;
 }
 
 
@@ -314,6 +319,9 @@ struct gd_val *sessions     = NULL;
 struct gd_val *templates    = NULL;
 struct gd_val *stories      = NULL;
 
+
+/** gd sets **/
+
 struct gd_set {
     sem_t           sem;
     pthread_mutex_t mutex;
@@ -323,7 +331,6 @@ struct gd_set {
 int gd_max_threads = 256;
 
 enum {
-    SET_ABOUT,
     SET_TOPICS,
     SET_USERS,
     SET_SESSIONS,
