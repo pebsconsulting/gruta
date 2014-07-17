@@ -18,7 +18,7 @@ struct gd_val {
 };
 
 
-struct gd_val *gd_val_free(struct gd_val *o)
+static struct gd_val *gd_val_free(struct gd_val *o)
 {
     if (o) {
         free(o->k);
@@ -32,7 +32,7 @@ struct gd_val *gd_val_free(struct gd_val *o)
 }
 
 
-struct gd_val *gd_val_new(char *k, struct gd_val *v, struct gd_val *n)
+static struct gd_val *gd_val_new(char *k, struct gd_val *v, struct gd_val *n)
 {
     struct gd_val *o = (struct gd_val *)malloc(sizeof(*o));
 
@@ -44,7 +44,7 @@ struct gd_val *gd_val_new(char *k, struct gd_val *v, struct gd_val *n)
 }
 
 
-struct gd_val *gd_val_set(struct gd_val *o, char *k, struct gd_val *v)
+static struct gd_val *gd_val_set(struct gd_val *o, char *k, struct gd_val *v)
 {
     if (o) {
         int i = strcmp(k, o->k);
@@ -69,7 +69,7 @@ struct gd_val *gd_val_set(struct gd_val *o, char *k, struct gd_val *v)
 }
 
 
-struct gd_val *gd_val_get(struct gd_val *o, char *k)
+static struct gd_val *gd_val_get(struct gd_val *o, char *k)
 {
     if (o) {
         int i = strcmp(k, o->k);
@@ -85,7 +85,7 @@ struct gd_val *gd_val_get(struct gd_val *o, char *k)
 }
 
 
-struct gd_val *gd_val_append(struct gd_val *o, char *k, struct gd_val *v)
+static struct gd_val *gd_val_append(struct gd_val *o, char *k, struct gd_val *v)
 {
     if (o)
         o->n = gd_val_append(o->n, k, v);
@@ -96,7 +96,7 @@ struct gd_val *gd_val_append(struct gd_val *o, char *k, struct gd_val *v)
 }
 
 
-struct gd_val *gd_val_delete(struct gd_val *o, char *k)
+static struct gd_val *gd_val_delete(struct gd_val *o, char *k)
 {
     if (o) {
         int i = strcmp(k, o->k);
@@ -120,7 +120,7 @@ struct gd_val *gd_val_delete(struct gd_val *o, char *k)
 
 #define POKE_STEP 16
 
-char *line_poke(char *s, int c, size_t *z, off_t *n)
+static char *line_poke(char *s, int c, size_t *z, off_t *n)
 {
     if (*z == *n) {
         *z += POKE_STEP;
@@ -133,7 +133,7 @@ char *line_poke(char *s, int c, size_t *z, off_t *n)
 }
 
 
-char *line_read(FILE *f)
+static char *line_read(FILE *f)
 {
     char *s = NULL;
     size_t z = 0;
@@ -157,7 +157,7 @@ char *line_read(FILE *f)
 }
 
 
-struct gd_val *obj_read(FILE *i, FILE *o)
+static struct gd_val *obj_read(FILE *i, FILE *o)
 {
     struct gd_val *l = NULL;
 
@@ -196,7 +196,7 @@ struct gd_val *obj_read(FILE *i, FILE *o)
 
 
 
-struct gd_val *list_read(FILE *i, FILE *o, int *n)
+static struct gd_val *list_read(FILE *i, FILE *o, int *n)
 {
     struct gd_val *l = NULL;
     *n = 0;
@@ -226,7 +226,7 @@ struct gd_val *list_read(FILE *i, FILE *o, int *n)
 
 
 
-char *arg_read(FILE *i, FILE *o)
+static char *arg_read(FILE *i, FILE *o)
 {
     fprintf(o, "OK ready to receive argument\n");
 
@@ -234,7 +234,7 @@ char *arg_read(FILE *i, FILE *o)
 }
 
 
-void list_write(struct gd_val *l, FILE *i, FILE *o)
+static void list_write(struct gd_val *l, FILE *i, FILE *o)
 {
     fprintf(o, "OK list follows\n");
 
@@ -253,7 +253,7 @@ void list_write(struct gd_val *l, FILE *i, FILE *o)
 }
 
 
-void obj_write(struct gd_val *l, FILE *o, FILE *p)
+static void obj_write(struct gd_val *l, FILE *o, FILE *p)
 {
     if (p)
         fprintf(p, "OK object follows\n");
@@ -275,7 +275,7 @@ void obj_write(struct gd_val *l, FILE *o, FILE *p)
 }
 
 
-struct gd_val *cmd_set_store(struct gd_val *set, char *pk, FILE *i, FILE *o)
+static struct gd_val *cmd_set_store(struct gd_val *set, char *pk, FILE *i, FILE *o)
 {
     struct gd_val *obj;
     struct gd_val *key;
@@ -295,7 +295,7 @@ struct gd_val *cmd_set_store(struct gd_val *set, char *pk, FILE *i, FILE *o)
 }
 
 
-struct gd_val *cmd_set_store_2(struct gd_val *set, char *pk1, char *pk2, FILE *i, FILE *o)
+static struct gd_val *cmd_set_store_2(struct gd_val *set, char *pk1, char *pk2, FILE *i, FILE *o)
 {
     struct gd_val *obj;
     struct gd_val *key1;
@@ -344,7 +344,7 @@ int gd_max_threads = 256;
 
 /** sets **/
 
-struct gd_set *gd_set_new(char *name)
+static struct gd_set *gd_set_new(char *name)
 {
     struct gd_set *s;
 
@@ -366,7 +366,7 @@ enum {
     LOCK_RW
 };
 
-void gd_set_lock(struct gd_set *s, int type)
+static void gd_set_lock(struct gd_set *s, int type)
 {
     int n;
 
@@ -396,7 +396,7 @@ void gd_set_lock(struct gd_set *s, int type)
 }
 
 
-void gd_set_dump(struct gd_set *s, FILE *o)
+static void gd_set_dump(struct gd_set *s, FILE *o)
 {
     struct gd_val *v;
 
@@ -413,7 +413,7 @@ void gd_set_dump(struct gd_set *s, FILE *o)
 }
 
 
-void gd_set_list_write(struct gd_set *s, FILE *i, FILE *o)
+static void gd_set_list_write(struct gd_set *s, FILE *i, FILE *o)
 {
     gd_set_lock(s, LOCK_RO);
 
@@ -423,7 +423,7 @@ void gd_set_list_write(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
-void gd_set_get(struct gd_set *s, FILE *i, FILE *o)
+static void gd_set_get(struct gd_set *s, FILE *i, FILE *o)
 {
     struct gd_val *obj;
     char *a;
@@ -444,7 +444,7 @@ void gd_set_get(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
-void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
+static void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
 {
     struct gd_val *obj;
     struct gd_val *key;
@@ -466,7 +466,7 @@ void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
-void dump(FILE *o)
+static void dump(FILE *o)
 {
     gd_set_dump(topics,     o);
     gd_set_dump(users,      o);
@@ -477,7 +477,7 @@ void dump(FILE *o)
 }
 
 
-void dialog(FILE *i, FILE *o)
+static void dialog(FILE *i, FILE *o)
 {
     int done = 0;
 
@@ -548,7 +548,7 @@ void dialog(FILE *i, FILE *o)
 }
 
 
-void grutad_init(void)
+static void grutad_init(void)
 {
     about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup(PROTO_VERSION), NULL, NULL));
     about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup(SERVER_VERSION), NULL, NULL));
