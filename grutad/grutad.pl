@@ -268,12 +268,14 @@ my $dialog_ctl = {
                                 }
                             ],
     story               => [2,  sub {
-                                    my ($c, $t, $s) = @_;
+                                    my ($c, $id) = @_;
+                                    my ($t, $s) = split(/\//, $id);
                                     write_obj($c, $c->{g}->story($t, $s), "$t/$s story not found");
                                 }
                             ],
     story_comments      => [3,  sub {
-                                    my ($c, $t, $s, $a) = @_;
+                                    my ($c, $id) = @_;
+                                    my ($t, $s, $a) = split(/\//, $id);
                                     my $o = $c->{g}->story($t, $s);
                                     if ($o) {
                                         write_list($c, $c->{g}->story_comments($o, $a));
@@ -284,7 +286,8 @@ my $dialog_ctl = {
                                 }
                             ],
     touch_story         => [2,  sub {
-                                    my ($c, $t, $s) = @_;
+                                    my ($c, $id) = @_;
+                                    my ($t, $s) = split(/\//, $id);
                                     my $o = $c->{g}->story($t, $s);
                                     if ($o) {
                                         $o->touch();
@@ -296,7 +299,8 @@ my $dialog_ctl = {
                                 }
                             ],
     comment             => [3,  sub {
-                                    my ($c, $t, $s, $i) = @_;
+                                    my ($c, $id) = @_;
+                                    my ($t, $s, $i) = split(/\//, $id);
                                     write_obj($c, $c->{g}->comment($t, $s, $i), "$t/$s/$i comment not found");
                                 }
                             ],
