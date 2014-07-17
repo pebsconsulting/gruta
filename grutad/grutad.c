@@ -130,6 +130,26 @@ struct gd_val *gd_val_append(struct gd_val *o, char *k, struct gd_val *v)
 }
 
 
+struct gd_val *gd_val_delete(struct gd_val *o, char *k)
+{
+    if (o) {
+        int i = strcmp(k, o->k);
+
+        if (i == 0) {
+            struct gd_val *d = o;
+            o = o->n;
+            d->n = NULL;
+            gd_val_free(d);
+        }
+        else
+        if (i > 0)
+            o = gd_val_delete(o->n, k);
+    }
+
+    return o;
+}
+
+
 struct gd_val *obj_read(FILE *i, FILE *o)
 {
     struct gd_val *l = NULL;
