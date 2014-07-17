@@ -444,25 +444,55 @@ static void gd_set_get(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
-static void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
+static char *gd_build_pk(struct gd_val *o, char *pk1, char *pk2, char *pk3)
+{
+    struct gd_val *key;
+    char *pk = NULL;
+
+    if ((key = gd_val_get(o, pk1)) != NULL) {
+        pk = strdup(key->v->k);
+
+        if (pk2) {
+            pk = realloc(pk, strlen(pk) + 1);
+            strcat(pk, "/");
+
+            if ((key = gd_val_get(o, pk2)) != NULL) {
+                pk = realloc(pk, strlen(pk) + strlen(key->v->k) + 1);
+                strcat(pk, key->v->k);
+            }
+        }
+    }
+
+    return pk;
+}
+
+
+static void gd_set_store_3(struct gd_set *s, char *pk1, char *pk2, char *pk3, FILE *i, FILE *o)
 {
     struct gd_val *obj;
-    struct gd_val *key;
+    char *pk;
 
     obj = obj_read(i, o);
 
-    gd_set_lock(s, LOCK_RW);
+    if ((pk = gd_build_pk(obj, pk1, pk2, pk3)) != NULL) {
+        gd_set_lock(s, LOCK_RW);
 
-    if ((key = gd_val_get(obj, "id")) != NULL) {
-        s->set = gd_val_set(s->set, strdup(key->v->k), obj);
-        fprintf(o, "OK stored\n");
+        s->set = gd_val_set(s->set, pk, obj);
+
+        gd_set_lock(s, UNLOCK_RW);
+
+        fprintf(o, "OK %s stored\n", pk);
     }
     else {
         fprintf(o, "ERROR %s pk not found\n", s->name);
         gd_val_free(obj);
     }
+}
 
-    gd_set_lock(s, UNLOCK_RW);
+
+static void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
+{
+    gd_set_store_3(s, "id", NULL, NULL, i, o);
 }
 
 
@@ -547,7 +577,7 @@ static void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "store_story") == 0) {
-            gd_set_store(stories, i, o);
+            gd_set_store_3(stories, "topic_id", "id", NULL, i, o);
         }
         else
         if (strcmp(cmd, "delete_story") == 0) {
