@@ -5,6 +5,8 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+#define PROTO_VERSION   "0.1"
+#define SERVER_VERSION  "0.0"
 
 
 /** gd values **/
@@ -540,8 +542,8 @@ int main(int argc, char *argv[])
 
     grutad_init();
 
-    about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup("0.9"), NULL, NULL));
-    about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup("0.0"), NULL, NULL));
+    about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup(PROTO_VERSION), NULL, NULL));
+    about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup(SERVER_VERSION), NULL, NULL));
     about = gd_val_set(about, strdup("server_id"),      gd_val_new(strdup("grutad.c"), NULL, NULL));
 
     if ((f = fopen("dump.bin", "r")) != NULL) {

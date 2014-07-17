@@ -3,7 +3,7 @@
 use threads;
 #use threads::shared;
 
-my $PROTO_VERSION = '0.9';
+my $PROTO_VERSION = '0.1';
 my $SERVER_VERSION = '0.0';
 
 use strict;
