@@ -466,6 +466,24 @@ static void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
+static void gd_set_delete(struct gd_set *s, FILE *i, FILE *o)
+{
+    char *a;
+
+    a = arg_read(i, o);
+
+    gd_set_lock(s, LOCK_RW);
+
+    s->set = gd_val_delete(s->set, a);
+
+    gd_set_lock(s, UNLOCK_RW);
+
+    fprintf(o, "OK deleted\n");
+
+    free(a);
+}
+
+
 static void dump(FILE *o)
 {
     gd_set_dump(topics,     o);
@@ -530,6 +548,14 @@ static void dialog(FILE *i, FILE *o)
         else
         if (strcmp(cmd, "store_story") == 0) {
             gd_set_store(stories, i, o);
+        }
+        else
+        if (strcmp(cmd, "delete_story") == 0) {
+            gd_set_delete(stories, i, o);
+        }
+        else
+        if (strcmp(cmd, "story") == 0) {
+            gd_set_get(stories, i, o);
         }
         else
         if (strcmp(cmd, "_dump") == 0) {
