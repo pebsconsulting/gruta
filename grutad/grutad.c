@@ -226,6 +226,14 @@ struct gd_val *list_read(FILE *i, FILE *o, int *n)
 
 
 
+char *arg_read(FILE *i, FILE *o)
+{
+    fprintf(o, "OK ready to receive argument\n");
+
+    return line_read(i);
+}
+
+
 void list_write(struct gd_val *l, FILE *i, FILE *o)
 {
     fprintf(o, "OK list follows\n");
@@ -325,6 +333,7 @@ struct gd_val *stories      = NULL;
 /** gd sets **/
 
 struct gd_set {
+    char            *name;
     sem_t           sem;
     pthread_mutex_t mutex;
     struct gd_val   *set;
@@ -332,26 +341,21 @@ struct gd_set {
 
 int gd_max_threads = 256;
 
-enum {
-    SET_TOPICS,
-    SET_USERS,
-    SET_SESSIONS,
-    SET_TEMPLATES,
-    SET_STORIES,
-    SET_COMMENTS,
-    SET_NUM
-};
-
-struct gd_set gd_sets[SET_NUM];
-
 
 /** sets **/
 
-void gd_set_init(struct gd_set *s)
+struct gd_set *gd_set_new(char *name)
 {
+    struct gd_set *s;
+
+    s = (struct gd_set *)malloc(sizeof(*s));
+
+    s->name = name;
     sem_init(&s->sem, 0, gd_max_threads);
     pthread_mutex_init(&s->mutex, NULL);
     s->set = NULL;
+
+    return s;
 }
 
 
@@ -421,28 +425,22 @@ void gd_set_list_write(struct gd_set *s, FILE *i, FILE *o)
 
 void gd_set_get(struct gd_set *s, char *setname, FILE *i, FILE *o)
 {
-    struct gd_val *a;
-    int n;
+    struct gd_val *obj;
+    char *a;
 
-    a = list_read(i, o, &n);
+    a = arg_read(i, o);
 
     gd_set_lock(s, LOCK_RO);
 
-    if (n) {
-        struct gd_val *obj;
-
-        if ((obj = gd_val_get(s->set, a->k)) != NULL) {
-            obj_write(obj->v, o, o);
-        }
-        else
-            fprintf(o, "ERROR %s %s not found\n", a->k, setname);
+    if ((obj = gd_val_get(s->set, a)) != NULL) {
+        obj_write(obj->v, o, o);
     }
     else
-        fprintf(o, "ERROR too few arguments\n");
+        fprintf(o, "ERROR %s %s not found\n", a, setname);
 
     gd_set_lock(s, UNLOCK_RO);
 
-    gd_val_free(a);
+    free(a);
 }
 
 
