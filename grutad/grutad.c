@@ -143,7 +143,7 @@ struct gd_val *gd_val_delete(struct gd_val *o, char *k)
         }
         else
         if (i > 0)
-            o = gd_val_delete(o->n, k);
+            o->n = gd_val_delete(o->n, k);
     }
 
     return o;
