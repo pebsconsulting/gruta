@@ -3,7 +3,7 @@
 use threads;
 #use threads::shared;
 
-my $PROTO_VERSION = '0.1';
+my $PROTO_VERSION = '0.11';
 my $SERVER_VERSION = '0.0';
 
 use strict;
@@ -174,6 +174,22 @@ sub read_list
     }
 
     return @a;
+}
+
+
+sub read_scalar
+{
+    my $c = shift;
+
+    my $i = $c->{i};
+    my $o = $c->{o};
+
+    print $o "OK Ready to receive argument\n";
+
+    my $k = <$i>;
+    $k = chompr($k);
+
+    return $k;
 }
 
 
@@ -436,21 +452,14 @@ sub dialog
         if ($s) {
             my $ac  = $s->[0];
             my $f   = $s->[1];
-            my $ok = 1;
-            my @a;
+            my $ok  = 1;
+            my @a   = ();
 
             if ($ac < 0) {
                 @a = read_obj($c);
             }
             elsif ($ac > 0) {
-                @a = read_list($c);
-
-                if (scalar(@a) < $ac) {
-                    $ok = 0;
-                }
-            }
-            else {
-                @a = ();
+                @a = read_scalar($c);
             }
 
             if ($ok) {

@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 
-#define PROTO_VERSION   "0.1"
+#define PROTO_VERSION   "0.11"
 #define SERVER_VERSION  "0.0"
 
 
