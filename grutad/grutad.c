@@ -2,6 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <pthread.h>
+#include <semaphore.h>
+
 struct gd_val {
     char *k;
     struct gd_val *v;
@@ -284,17 +287,122 @@ struct gd_val *cmd_set_store_2(struct gd_val *set, char *pk1, char *pk2, FILE *i
 }
 
 
-void cmd_set_get(struct gd_val *set, char *setname, FILE *i, FILE *o)
+struct gd_val *about        = NULL;
+struct gd_val *topics       = NULL;
+struct gd_val *users        = NULL;
+struct gd_val *sessions     = NULL;
+struct gd_val *templates    = NULL;
+struct gd_val *stories      = NULL;
+
+struct gd_set {
+    sem_t           sem;
+    pthread_mutex_t mutex;
+    struct gd_val   *set;
+};
+
+int gd_max_threads = 256;
+
+enum {
+    SET_ABOUT,
+    SET_TOPICS,
+    SET_USERS,
+    SET_SESSIONS,
+    SET_TEMPLATES,
+    SET_STORIES,
+    SET_COMMENTS,
+    SET_NUM
+};
+
+struct gd_set gd_sets[SET_NUM];
+
+
+/** sets **/
+
+void gd_set_init(struct gd_set *s)
+{
+    sem_init(&s->sem, 0, gd_max_threads);
+    pthread_mutex_init(&s->mutex, NULL);
+    s->set = NULL;
+}
+
+
+enum {
+    UNLOCK_RO,
+    UNLOCK_RW,
+    LOCK_RO,
+    LOCK_RW
+};
+
+void gd_set_lock(struct gd_set *s, int type)
+{
+    int n;
+
+    switch (type) {
+    case LOCK_RO:
+        sem_wait(&s->sem);
+        break;
+
+    case UNLOCK_RO:
+        sem_post(&s->sem);
+        break;
+
+    case LOCK_RW:
+        pthread_mutex_lock(&s->mutex);
+
+        for (n = 0; n < gd_max_threads; n++)
+            sem_wait(&s->sem);
+
+        pthread_mutex_unlock(&s->mutex);
+        break;
+
+    case UNLOCK_RW:
+        for (n = 0; n < gd_max_threads; n++)
+            sem_post(&s->sem);
+        break;
+    }
+}
+
+
+void gd_set_dump(struct gd_set *s, char *cmd, FILE *o)
+{
+    struct gd_val *v;
+
+    gd_set_lock(s, LOCK_RO);
+
+    v = s->set;
+    while (v) {
+        fprintf(o, "%s\n", cmd);
+        obj_write(v->v, o, NULL);
+        v = v->n;
+    }
+
+    gd_set_lock(s, UNLOCK_RO);
+}
+
+
+void gd_set_list_write(struct gd_set *s, FILE *i, FILE *o)
+{
+    gd_set_lock(s, LOCK_RO);
+
+    list_write(s->set, i, o);
+
+    gd_set_lock(s, UNLOCK_RO);
+}
+
+
+void gd_set_get(struct gd_set *s, char *setname, FILE *i, FILE *o)
 {
     struct gd_val *a;
     int n;
 
     a = list_read(i, o, &n);
 
+    gd_set_lock(s, LOCK_RO);
+
     if (n) {
         struct gd_val *obj;
 
-        if ((obj = gd_val_get(set, a->k)) != NULL) {
+        if ((obj = gd_val_get(s->set, a->k)) != NULL) {
             obj_write(obj->v, o, o);
         }
         else
@@ -303,33 +411,17 @@ void cmd_set_get(struct gd_val *set, char *setname, FILE *i, FILE *o)
     else
         fprintf(o, "ERROR too few arguments\n");
 
+    gd_set_lock(s, UNLOCK_RO);
+
     gd_val_free(a);
-}
-
-
-struct gd_val *about        = NULL;
-struct gd_val *topics       = NULL;
-struct gd_val *users        = NULL;
-struct gd_val *sessions     = NULL;
-struct gd_val *templates    = NULL;
-struct gd_val *stories      = NULL;
-
-
-void set_dump(struct gd_val *set, char *cmd, FILE *o)
-{
-    while (set) {
-        fprintf(o, "%s\n", cmd);
-        obj_write(set->v, o, NULL);
-        set = set->n;
-    }
 }
 
 
 void dump(FILE *o)
 {
-    set_dump(topics,    "store_topic",      o);
-    set_dump(users,     "store_user",       o);
-    set_dump(templates, "store_template",   o);
+    gd_set_dump(&gd_sets[SET_TOPICS],    "store_topic",      o);
+    gd_set_dump(&gd_sets[SET_USERS],     "store_user",       o);
+    gd_set_dump(&gd_sets[SET_TEMPLATES], "store_template",   o);
 
     fprintf(o, "bye\n");
 }
@@ -351,7 +443,7 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "topic") == 0) {
-            cmd_set_get(topics, "topic", i, o);
+            gd_set_get(&gd_sets[SET_TOPICS], "topic", i, o);
         }
         else
         if (strcmp(cmd, "store_topic") == 0) {
@@ -359,11 +451,11 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "topics") == 0) {
-            list_write(topics, i, o);
+            gd_set_list_write(&gd_sets[SET_TOPICS], i, o);
         }
         else
         if (strcmp(cmd, "user") == 0) {
-            cmd_set_get(users, "user", i, o);
+            gd_set_get(&gd_sets[SET_USERS], "user", i, o);
         }
         else
         if (strcmp(cmd, "store_user") == 0) {
@@ -371,11 +463,11 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "users") == 0) {
-            list_write(users, i, o);
+            gd_set_list_write(&gd_sets[SET_USERS], i, o);
         }
         else
         if (strcmp(cmd, "template") == 0) {
-            cmd_set_get(templates, "template", i, o);
+            gd_set_get(&gd_sets[SET_TEMPLATES], "template", i, o);
         }
         else
         if (strcmp(cmd, "store_template") == 0) {
@@ -383,7 +475,7 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "templates") == 0) {
-            list_write(templates, i, o);
+            gd_set_list_write(&gd_sets[SET_TEMPLATES], i, o);
         }
         else
         if (strcmp(cmd, "store_story") == 0) {
@@ -406,9 +498,20 @@ void dialog(FILE *i, FILE *o)
 }
 
 
+void grutad_init(void)
+{
+    int n;
+
+    for (n = 0; n < SET_NUM; n++)
+        gd_set_init(&gd_sets[n]);
+}
+
+
 int main(int argc, char *argv[])
 {
     FILE *f;
+
+    grutad_init();
 
     about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup("0.9"), NULL, NULL));
     about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup("0.0"), NULL, NULL));
