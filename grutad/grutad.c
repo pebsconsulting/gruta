@@ -323,11 +323,11 @@ struct gd_val *cmd_set_store_2(struct gd_val *set, char *pk1, char *pk2, FILE *i
 
 
 struct gd_val *about        = NULL;
-struct gd_val *topics       = NULL;
-struct gd_val *users        = NULL;
-struct gd_val *sessions     = NULL;
-struct gd_val *templates    = NULL;
-struct gd_val *stories      = NULL;
+struct gd_set *topics       = NULL;
+struct gd_set *users        = NULL;
+struct gd_set *sessions     = NULL;
+struct gd_set *templates    = NULL;
+struct gd_set *stories      = NULL;
 
 
 /** gd sets **/
@@ -396,7 +396,7 @@ void gd_set_lock(struct gd_set *s, int type)
 }
 
 
-void gd_set_dump(struct gd_set *s, char *cmd, FILE *o)
+void gd_set_dump(struct gd_set *s, FILE *o)
 {
     struct gd_val *v;
 
@@ -404,7 +404,7 @@ void gd_set_dump(struct gd_set *s, char *cmd, FILE *o)
 
     v = s->set;
     while (v) {
-        fprintf(o, "%s\n", cmd);
+        fprintf(o, "store_%s\n", s->name);
         obj_write(v->v, o, NULL);
         v = v->n;
     }
@@ -423,7 +423,7 @@ void gd_set_list_write(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
-void gd_set_get(struct gd_set *s, char *setname, FILE *i, FILE *o)
+void gd_set_get(struct gd_set *s, FILE *i, FILE *o)
 {
     struct gd_val *obj;
     char *a;
@@ -436,7 +436,7 @@ void gd_set_get(struct gd_set *s, char *setname, FILE *i, FILE *o)
         obj_write(obj->v, o, o);
     }
     else
-        fprintf(o, "ERROR %s %s not found\n", a, setname);
+        fprintf(o, "ERROR %s %s not found\n", a, s->name);
 
     gd_set_lock(s, UNLOCK_RO);
 
@@ -444,11 +444,34 @@ void gd_set_get(struct gd_set *s, char *setname, FILE *i, FILE *o)
 }
 
 
+void gd_set_store(struct gd_set *s, FILE *i, FILE *o)
+{
+    struct gd_val *obj;
+    struct gd_val *key;
+
+    obj = obj_read(i, o);
+
+    gd_set_lock(s, LOCK_RW);
+
+    if ((key = gd_val_get(obj, "id")) != NULL) {
+        s->set = gd_val_set(s->set, strdup(key->v->k), obj);
+        fprintf(o, "OK stored\n");
+    }
+    else {
+        fprintf(o, "ERROR %s pk not found\n", s->name);
+        gd_val_free(obj);
+    }
+
+    gd_set_lock(s, UNLOCK_RW);
+}
+
+
 void dump(FILE *o)
 {
-    gd_set_dump(&gd_sets[SET_TOPICS],    "store_topic",      o);
-    gd_set_dump(&gd_sets[SET_USERS],     "store_user",       o);
-    gd_set_dump(&gd_sets[SET_TEMPLATES], "store_template",   o);
+    gd_set_dump(topics,     o);
+    gd_set_dump(users,      o);
+    gd_set_dump(templates,  o);
+    gd_set_dump(stories,    o);
 
     fprintf(o, "bye\n");
 }
@@ -470,43 +493,43 @@ void dialog(FILE *i, FILE *o)
         }
         else
         if (strcmp(cmd, "topic") == 0) {
-            gd_set_get(&gd_sets[SET_TOPICS], "topic", i, o);
+            gd_set_get(topics, i, o);
         }
         else
         if (strcmp(cmd, "store_topic") == 0) {
-            topics = cmd_set_store(topics, "id", i, o);
+            gd_set_store(topics, i, o);
         }
         else
         if (strcmp(cmd, "topics") == 0) {
-            gd_set_list_write(&gd_sets[SET_TOPICS], i, o);
+            gd_set_list_write(topics, i, o);
         }
         else
         if (strcmp(cmd, "user") == 0) {
-            gd_set_get(&gd_sets[SET_USERS], "user", i, o);
+            gd_set_get(users, i, o);
         }
         else
         if (strcmp(cmd, "store_user") == 0) {
-            users = cmd_set_store(users, "id", i, o);
+            gd_set_store(users, i, o);
         }
         else
         if (strcmp(cmd, "users") == 0) {
-            gd_set_list_write(&gd_sets[SET_USERS], i, o);
+            gd_set_list_write(users, i, o);
         }
         else
         if (strcmp(cmd, "template") == 0) {
-            gd_set_get(&gd_sets[SET_TEMPLATES], "template", i, o);
+            gd_set_get(templates, i, o);
         }
         else
         if (strcmp(cmd, "store_template") == 0) {
-            templates = cmd_set_store(templates, "id", i, o);
+            gd_set_store(templates, i, o);
         }
         else
         if (strcmp(cmd, "templates") == 0) {
-            gd_set_list_write(&gd_sets[SET_TEMPLATES], i, o);
+            gd_set_list_write(templates, i, o);
         }
         else
         if (strcmp(cmd, "store_story") == 0) {
-            stories = cmd_set_store_2(stories, "topic_id", "id", i, o);
+            gd_set_store(stories, i, o);
         }
         else
         if (strcmp(cmd, "_dump") == 0) {
@@ -527,10 +550,15 @@ void dialog(FILE *i, FILE *o)
 
 void grutad_init(void)
 {
-    int n;
+    about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup(PROTO_VERSION), NULL, NULL));
+    about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup(SERVER_VERSION), NULL, NULL));
+    about = gd_val_set(about, strdup("server_id"),      gd_val_new(strdup("grutad.c"), NULL, NULL));
 
-    for (n = 0; n < SET_NUM; n++)
-        gd_set_init(&gd_sets[n]);
+    topics      = gd_set_new("topic");
+    users       = gd_set_new("user");
+    sessions    = gd_set_new("session");
+    templates   = gd_set_new("template");
+    stories     = gd_set_new("story");
 }
 
 
@@ -539,10 +567,6 @@ int main(int argc, char *argv[])
     FILE *f;
 
     grutad_init();
-
-    about = gd_val_set(about, strdup("proto_version"),  gd_val_new(strdup(PROTO_VERSION), NULL, NULL));
-    about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup(SERVER_VERSION), NULL, NULL));
-    about = gd_val_set(about, strdup("server_id"),      gd_val_new(strdup("grutad.c"), NULL, NULL));
 
     if ((f = fopen("dump.bin", "r")) != NULL) {
         dialog(f, stdout);
