@@ -602,9 +602,12 @@ static void gd_story_set(FILE *i, FILE *o)
     struct gd_val *obj;
     struct gd_val *p;
     int c, max;
+    char *from, *to;
 
-    c   = 0;
-    max = 0x7fffffff;
+    c       = 0;
+    max     = 0x7fffffff;
+    from    = NULL;
+    to      = NULL;
 
     obj = obj_read(i, o);
 
@@ -615,6 +618,12 @@ static void gd_story_set(FILE *i, FILE *o)
         sscanf(p->v->k, "%d", &c);
         c *= -1;
     }
+    if ((p = gd_val_get(obj, "from")) != NULL) {
+        from = p->v->k;
+    }
+    if ((p = gd_val_get(obj, "to")) != NULL) {
+        to = p->v->k;
+    }
 
     gd_set_lock(stories_by_date, LOCK_RO);
 
@@ -623,8 +632,13 @@ static void gd_story_set(FILE *i, FILE *o)
     for (p = stories_by_date->set; c < max && p; p = p->n) {
         struct gd_val *sp;
 
-        for (sp = p->v; c < max && sp; sp = sp->n, c++) {
+        if (from && strcmp(from, p->k) > 0)
+            break;
 
+        if (to && strcmp(to, p->k) < 0)
+            continue;
+
+        for (sp = p->v; c < max && sp; sp = sp->n, c++) {
             if (c >= 0)
                 fprintf(o, "%s/%s\n", p->k, sp->k);
         }
