@@ -472,7 +472,7 @@ static char *gd_pk_build(struct gd_val *o, char **pks, int *l)
         pks++;
 
         if (*pks) {
-            pk[n + c] = '/';
+            pk[n + c] = ':';
             pk[n + c + 1] = '\0';
         }
 
@@ -671,13 +671,13 @@ static void gd_story_set(FILE *i, FILE *o)
                     gd_set_lock(stories, UNLOCK_RO);
 
                     if (story && (v = gd_val_get(story->v, order)) != NULL) {
-                        order_s = gd_val_set_r(order_s, v->v->k, gd_val_new(sp->k, NULL, NULL));
+                        order_s = gd_val_set_r(order_s, v->v->k, gd_val_new(sp->k, gd_val_new(p->k, NULL, NULL), NULL));
                     }
                     else
                         printf("no se\n");
                 }
                 else {
-                    fprintf(o, "%s/%s\n", p->k, sp->k);
+                    fprintf(o, "%s:%s\n", sp->k, p->k);
                 }
             }
         }
@@ -685,7 +685,7 @@ static void gd_story_set(FILE *i, FILE *o)
 
     if (order_s) {
         for (p = order_s; p; p = p->n) {
-            fprintf(o, ">>> %s\n", p->v->k);
+            fprintf(o, "%s:%s\n", p->v->k, p->v->v->k);
         }
 
         gd_val_free(order_s);
