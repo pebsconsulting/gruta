@@ -601,18 +601,32 @@ static void gd_story_set(FILE *i, FILE *o)
 {
     struct gd_val *obj;
     struct gd_val *p;
+    int c, max;
+
+    c   = 0;
+    max = 0x7fffffff;
 
     obj = obj_read(i, o);
+
+    if ((p = gd_val_get(obj, "num")) != NULL) {
+        sscanf(p->v->k, "%d", &max);
+    }
+    if ((p = gd_val_get(obj, "offset")) != NULL) {
+        sscanf(p->v->k, "%d", &c);
+        c *= -1;
+    }
 
     gd_set_lock(stories_by_date, LOCK_RO);
 
     fprintf(o, "OK list follows\n");
 
-    for (p = stories_by_date->set; p; p = p->n) {
+    for (p = stories_by_date->set; c < max && p; p = p->n) {
         struct gd_val *sp;
 
-        for (sp = p->v; sp; sp = sp->n) {
-            fprintf(o, "%s/%s\n", p->k, sp->k);
+        for (sp = p->v; c < max && sp; sp = sp->n, c++) {
+
+            if (c >= 0)
+                fprintf(o, "%s/%s\n", p->k, sp->k);
         }
     }
 
