@@ -101,6 +101,23 @@ static struct gd_val *gd_val_set(struct gd_val *o, char *k, struct gd_val *v)
 }
 
 
+static struct gd_val *gd_val_set_r(struct gd_val *o, char *k, struct gd_val *v)
+{
+    if (o) {
+        int i = strcmp(k, o->k);
+
+        if (i <= 0)
+            o = gd_val_new(k, v, o);
+        else
+            o->n = gd_val_set_r(o->n, k, v);
+    }
+    else
+        o = gd_val_new(k, v, NULL);
+
+    return o;
+}
+
+
 static struct gd_val *gd_val_set_i(struct gd_val *o, char *k, struct gd_val *v)
 {
     if (o) {
@@ -602,12 +619,14 @@ static void gd_story_set(FILE *i, FILE *o)
     struct gd_val *obj;
     struct gd_val *p;
     int c, max;
-    char *from, *to;
+    char *from, *to, *order;
+    struct gd_val *order_s = NULL;
 
     c       = 0;
     max     = 0x7fffffff;
     from    = NULL;
     to      = NULL;
+    order   = NULL;
 
     obj = obj_read(i, o);
 
@@ -624,6 +643,9 @@ static void gd_story_set(FILE *i, FILE *o)
     if ((p = gd_val_get(obj, "to")) != NULL) {
         to = p->v->k;
     }
+    if ((p = gd_val_get(obj, "order")) != NULL && strcmp(p->v->k, "date") != 0) {
+        order = p->v->k;
+    }
 
     gd_set_lock(stories_by_date, LOCK_RO);
 
@@ -631,6 +653,7 @@ static void gd_story_set(FILE *i, FILE *o)
 
     for (p = stories_by_date->set; c < max && p; p = p->n) {
         struct gd_val *sp;
+        struct gd_val *story;
 
         if (from && strcmp(from, p->k) > 0)
             break;
@@ -639,9 +662,33 @@ static void gd_story_set(FILE *i, FILE *o)
             continue;
 
         for (sp = p->v; c < max && sp; sp = sp->n, c++) {
-            if (c >= 0)
-                fprintf(o, "%s/%s\n", p->k, sp->k);
+            if (c >= 0) {
+                if (order) {
+                    struct gd_val *v;
+
+                    gd_set_lock(stories, LOCK_RO);
+                    story = gd_val_get(stories->set, sp->k);
+                    gd_set_lock(stories, UNLOCK_RO);
+
+                    if (story && (v = gd_val_get(story->v, order)) != NULL) {
+                        order_s = gd_val_set_r(order_s, v->v->k, gd_val_new(sp->k, NULL, NULL));
+                    }
+                    else
+                        printf("no se\n");
+                }
+                else {
+                    fprintf(o, "%s/%s\n", p->k, sp->k);
+                }
+            }
         }
+    }
+
+    if (order_s) {
+        for (p = order_s; p; p = p->n) {
+            fprintf(o, ">>> %s\n", p->v->k);
+        }
+
+        gd_val_free(order_s);
     }
 
     fprintf(o, ".\n");
