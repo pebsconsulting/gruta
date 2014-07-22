@@ -44,6 +44,38 @@ static struct gd_val *gd_val_new(char *k, struct gd_val *v, struct gd_val *n)
 }
 
 
+static struct gd_val *gd_val_get(struct gd_val *o, char *k)
+{
+    if (o) {
+        int i = strcmp(k, o->k);
+
+        if (i < 0)
+            o = NULL;
+        else
+        if (i > 0)
+            o = gd_val_get(o->n, k);
+    }
+
+    return o;
+}
+
+
+static struct gd_val *gd_val_get_i(struct gd_val *o, char *k)
+{
+    if (o) {
+        int i = strcmp(k, o->k);
+
+        if (i > 0)
+            o = NULL;
+        else
+        if (i < 0)
+            o = gd_val_get_i(o->n, k);
+    }
+
+    return o;
+}
+
+
 static struct gd_val *gd_val_set(struct gd_val *o, char *k, struct gd_val *v)
 {
     if (o) {
@@ -69,17 +101,26 @@ static struct gd_val *gd_val_set(struct gd_val *o, char *k, struct gd_val *v)
 }
 
 
-static struct gd_val *gd_val_get(struct gd_val *o, char *k)
+static struct gd_val *gd_val_set_i(struct gd_val *o, char *k, struct gd_val *v)
 {
     if (o) {
         int i = strcmp(k, o->k);
 
-        if (i < 0)
-            o = NULL;
+        if (i == 0) {
+            free(o->k);
+            gd_val_free(o->v);
+
+            o->k = k;
+            o->v = v;
+        }
         else
         if (i > 0)
-            o = gd_val_get(o->n, k);
+            o = gd_val_new(k, v, o);
+        else
+            o->n = gd_val_set_i(o->n, k, v);
     }
+    else
+        o = gd_val_new(k, v, NULL);
 
     return o;
 }
@@ -508,13 +549,13 @@ static void gd_set_store_story(FILE *i, FILE *o)
 
             gd_set_lock(stories_by_date, LOCK_RW);
 
-            if ((obj_t = gd_val_get(stories_by_date->set, s_date)) == NULL) {
+            if ((obj_t = gd_val_get_i(stories_by_date->set, s_date)) == NULL) {
                 stories_by_date->set =
-                    gd_val_set(stories_by_date->set, s_date,
+                    gd_val_set_i(stories_by_date->set, s_date,
                                 gd_val_new(strdup(pk), NULL, NULL));
             }
             else {
-                obj_t->v = gd_val_set(obj_t->v, strdup(pk), NULL);
+                obj_t->v = gd_val_set_i(obj_t->v, strdup(pk), NULL);
             }
 
             gd_set_lock(stories_by_date, UNLOCK_RW);
