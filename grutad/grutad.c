@@ -444,6 +444,31 @@ static void gd_set_get(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
+static char *gd_build_pk_v(struct gd_val *o, char **pks, int *l)
+{
+    struct gd_val *key;
+    char *pk = NULL;
+    int n = 0, c;
+
+    *l = 0;
+
+    while (*pks && (key = gd_val_get(o, *pks)) != NULL) {
+        c = strlen(key->v->k);
+        pk = realloc(pk, n + c + 2);
+        strcpy(&pk[n], key->v->k);
+
+        pk[n + c] = '/';
+        pk[n + c + 1] = '\0';
+        n += c + 1;
+
+        (*l)++;
+        pks++;
+    }
+
+    return pk;
+}
+
+
 static char *gd_build_pk(struct gd_val *o, char *pk1, char *pk2, char *pk3)
 {
     struct gd_val *key;
