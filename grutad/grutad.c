@@ -556,6 +556,33 @@ static void gd_set_delete(struct gd_set *s, FILE *i, FILE *o)
 }
 
 
+static void gd_story_set(FILE *i, FILE *o)
+{
+    struct gd_val *obj;
+    struct gd_val *p;
+
+    obj = obj_read(i, o);
+
+    gd_set_lock(stories_by_date, LOCK_RO);
+
+    fprintf(o, "OK list follows\n");
+
+    for (p = stories_by_date->set; p; p = p->n) {
+        struct gd_val *sp;
+
+        for (sp = p->v; sp; sp = sp->n) {
+            fprintf(o, "%s/%s\n", p->k, sp->k);
+        }
+    }
+
+    fprintf(o, ".\n");
+
+    gd_set_lock(stories_by_date, UNLOCK_RO);
+
+    gd_val_free(obj);
+}
+
+
 static void dump(FILE *o)
 {
     gd_set_dump(topics,     o);
@@ -628,6 +655,10 @@ static void dialog(FILE *i, FILE *o)
         else
         if (strcmp(cmd, "story") == 0) {
             gd_set_get(stories, i, o);
+        }
+        else
+        if (strcmp(cmd, "story_set") == 0) {
+            gd_story_set(i, o);
         }
         else
         if (strcmp(cmd, "_dump") == 0) {
