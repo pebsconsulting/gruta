@@ -275,13 +275,13 @@ static void obj_write(struct gd_val *l, FILE *o, FILE *p)
 }
 
 
-struct gd_val *about        = NULL;
-struct gd_set *topics       = NULL;
-struct gd_set *users        = NULL;
-struct gd_set *sessions     = NULL;
-struct gd_set *templates    = NULL;
-struct gd_set *stories      = NULL;
-
+struct gd_val *about            = NULL;
+struct gd_set *topics           = NULL;
+struct gd_set *users            = NULL;
+struct gd_set *sessions         = NULL;
+struct gd_set *templates        = NULL;
+struct gd_set *stories          = NULL;
+struct gd_set *stories_by_date  = NULL;
 
 /** gd sets **/
 
@@ -503,6 +503,23 @@ static void gd_set_store_story(FILE *i, FILE *o)
 
         gd_set_lock(stories, UNLOCK_RW);
 
+        if ((obj_t = gd_val_get(obj, "date")) != NULL) {
+            char *s_date = obj_t->v->k;
+
+            gd_set_lock(stories_by_date, LOCK_RW);
+
+            if ((obj_t = gd_val_get(stories_by_date->set, s_date)) == NULL) {
+                stories_by_date->set =
+                    gd_val_set(stories_by_date->set, s_date,
+                                gd_val_new(strdup(pk), NULL, NULL));
+            }
+            else {
+                obj_t->v = gd_val_set(obj_t->v, strdup(pk), NULL);
+            }
+
+            gd_set_lock(stories_by_date, UNLOCK_RW);
+        }
+
         fprintf(o, "OK %s story stored\n", pk);
     }
     else {
@@ -635,11 +652,12 @@ static void grutad_init(void)
     about = gd_val_set(about, strdup("server_version"), gd_val_new(strdup(SERVER_VERSION), NULL, NULL));
     about = gd_val_set(about, strdup("server_id"),      gd_val_new(strdup("grutad.c"), NULL, NULL));
 
-    topics      = gd_set_new("topic");
-    users       = gd_set_new("user");
-    sessions    = gd_set_new("session");
-    templates   = gd_set_new("template");
-    stories     = gd_set_new("story");
+    topics          = gd_set_new("topic");
+    users           = gd_set_new("user");
+    sessions        = gd_set_new("session");
+    templates       = gd_set_new("template");
+    stories         = gd_set_new("story");
+    stories_by_date = gd_set_new("stories_by_date");
 }
 
 
