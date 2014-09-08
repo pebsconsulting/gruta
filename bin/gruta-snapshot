@@ -19,7 +19,7 @@ use Gruta::Renderer::Text;
 use Gruta::Template::Art5;
 
 sub usage() {
-    print "Usage: $0 {src} {folder} {base url}\n";
+    print "Usage: $0 {src} {destination folder} {base url}\n";
     exit 1;
 }
 
