@@ -61,7 +61,7 @@ $Gruta::VERSION_CODENAME .= " (+ gruta-snapshot $VERSION)";
 
 my $g = Gruta->new(
     id          => '',
-    source      => Gruta::Source::FS->new( path => "${base}/var"),
+    source      => Gruta::Source::FS->new( path => "${base}/"),
     renderers   => [
         Gruta::Renderer::Grutatxt->new(),
         Gruta::Renderer::HTML->new(),
