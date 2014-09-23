@@ -234,10 +234,8 @@ sub new {
 }
 
 
-sub run {
+sub run_1 {
 	my $self	= shift;
-
-	$self->{cgi} = new CGI;
 
 	my $data = $self->data();
 	my $vars = $self->vars();
@@ -364,6 +362,15 @@ sub run {
 	print "\n";
 
 	print $body;
+}
+
+
+sub run {
+    my $self = shift;
+
+	$self->{cgi} = new CGI;
+
+    $self->run_1();
 }
 
 1;
