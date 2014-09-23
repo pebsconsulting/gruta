@@ -12,3 +12,5 @@ sub run {
         $self->run_1();
     }
 }
+
+1;
