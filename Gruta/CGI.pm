@@ -230,14 +230,14 @@ sub new {
 
 	$obj->{upload_dirs} ||= [];
 
-	$obj->{cgi} = CGI->new();
-
 	return $obj;
 }
 
 
 sub run {
 	my $self	= shift;
+
+	$self->{cgi} = new CGI;
 
 	my $data = $self->data();
 	my $vars = $self->vars();
