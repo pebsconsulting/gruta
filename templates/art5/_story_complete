@@ -1,5 +1,7 @@
 <div class = 'story_complete'>
+    <article>
 	<{story_body $0 $1 %hl}>
+    </article>
     <{_story_related $0 $1}>
 	</ul><{share_story $0 $1}><p>
 </div>
