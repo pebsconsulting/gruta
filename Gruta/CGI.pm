@@ -342,6 +342,9 @@ sub run_1 {
             );
         }
 	}
+    else {
+        $self->http_headers("X-Gruta-Logged" => 1);
+    }
 
 	# does the client accept compression?
 	if (length($body) > $self->{min_size_for_gzip} &&
