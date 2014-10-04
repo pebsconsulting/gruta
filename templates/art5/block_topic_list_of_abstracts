@@ -1,5 +1,5 @@
 <{
-	'<h1>' {topic_name $0} '</h1>'
+	'<h1><div class="grouped_topic">' {link {url 'TOPIC' 'topic' $0} {topic_name $0}} '</div></h1>'
 
 	{block_topic_list_of_future_links $0}
 
