@@ -1,5 +1,6 @@
 <{
-	'<h1>' {topic_name $0} '</h1>'
+	'<h1><div class="grouped_topic">' {link {url 'TOPIC' 'topic' $0} {topic_name $0}} '</div></h1>'
+
 	'<ul>'
 	{foreach {stories_by_date $0 $1}
 		{li {link_to_story $0 $1}}
