@@ -10,7 +10,7 @@
                 facebook_api
 
                 '<div class="fb-comments" data-href="'
-                    {url 'STORY' 'topic' $0 'id' $1}
+                    {aurl 'STORY' 'topic' $0 'id' $1}
                 '" data-num-posts="100" data-width="670"></div>'
                 '<p>'
             }
