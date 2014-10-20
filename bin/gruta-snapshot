@@ -59,6 +59,14 @@ my $url     = shift(@ARGV) or usage();
 
 $Gruta::VERSION_CODENAME .= " (+ gruta-snapshot $VERSION)";
 
+my $lang;
+if ($ENV{LANG}) {
+    ($lang) = ($ENV{LANG} =~ /^(..)/);
+}
+else {
+    $lang = 'en';
+}
+
 my $g = Gruta->new(
     id          => '',
     source      => Gruta::Source::FS->new( path => "${base}/"),
@@ -68,7 +76,7 @@ my $g = Gruta->new(
         Gruta::Renderer::HTML->new( valid_tags => undef ),
         Gruta::Renderer::Text->new(),
     ],
-    template    => Gruta::Template::Art5->new(lang => 'en'),
+    template    => Gruta::Template::Art5->new(lang => $lang),
     cgi         => Gruta::CGI->new(
             upload_dirs	=> [
                 "${base}/img",
