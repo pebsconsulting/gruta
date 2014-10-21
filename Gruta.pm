@@ -411,7 +411,7 @@ sub _thumb_special_uri {
         $src,
         $self->base_url(),
         $src,
-        ($self->{args}->{thumbnail_size} || 400)
+        ($self->{args}->{thumbnail_size} || 250)
     );
 
     if ($class) {
