@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $VERSION = '0.3';
+my $VERSION = '0.4';
 
 use locale;
 use POSIX qw (locale_h);
@@ -184,3 +184,6 @@ foreach my $t ($g->source->tags()) {
 }
 
 out($g, 'TOP_TEN',  'top/index.html');
+
+open F, '>' . $g->{_folder} . '/.timestamp';
+close F;
