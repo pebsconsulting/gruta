@@ -157,6 +157,9 @@ sub save {
     	$self->_rebuild_index();
     }
 
+    open F, '>' . $self->source->{path} . Gruta::Data::FS::Topic::base() . '/.timestamp';
+    close F;
+
 	return $self;
 }
 
