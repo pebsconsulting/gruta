@@ -3,11 +3,14 @@
 use strict;
 use warnings;
 
-my $VERSION = '0.4';
+my $VERSION = '0.5';
 
 use locale;
 use POSIX qw (locale_h);
 setlocale(LC_ALL, 'es_ES.UTF-8');
+
+use Digest::MD5;
+use Encode qw(encode_utf8);
 
 use Gruta;
 
@@ -41,10 +44,33 @@ sub out {
         print ("NOT Creating $file\n");
     }
     else {
-        printf("Creating $file\n");
-        open F, '>' . $g->{_folder} . '/' . $file or die;
-        print F $o;
-        close F;
+        my $ow = 1;
+        my $of = $g->{_folder} . '/' . $file;
+
+        if (open F, $of) {
+            my $md5_o = Digest::MD5->new();
+            my $md5_p = Digest::MD5->new();
+
+            my $p = join('', <F>);
+            close F;
+
+            $md5_o->add(encode_utf8($o));
+            $md5_p->add(encode_utf8($p));
+
+            if ($md5_o->hexdigest() eq $md5_p->hexdigest()) {
+                $ow = 0;
+            }
+        }
+
+        if ($ow) {
+            printf("Creating $file\n");
+            open F, '>' . $of or die;
+            print F $o;
+            close F;
+        }
+        else {
+            printf("Skipping $file (same content)\n");
+        }
     }
 }
 
