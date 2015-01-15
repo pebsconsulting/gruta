@@ -156,6 +156,10 @@ foreach my $t (sort $g->source->topics()) {
     my $today = Gruta::Data::today('%y%m%d');
 
     foreach my $s (sort @stories) {
+        if ($s eq 'index') {
+            next;
+        }
+
         out($g, 'STORY', "$t/$s.html", {
             topic   => $t,
             id      => $s
