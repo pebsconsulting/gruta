@@ -63,13 +63,13 @@ sub out {
         }
 
         if ($ow) {
-            printf("Creating $file\n");
+            print("Creating $file\n");
             open F, '>' . $of or die;
             print F $o;
             close F;
         }
         else {
-            printf("Skipping $file (same content)\n");
+            print("Skipping $file (same content)\n");
         }
     }
 }
