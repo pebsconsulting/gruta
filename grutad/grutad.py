@@ -1,16 +1,26 @@
 #!/usr/bin/env python
 
 import socket, threading
+import json
 
 class Grutad:
-    def __init__(self, host, port):
+    def __init__(self, host, port, file):
+        self.file = file
+
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s.bind((host, port))
         self.s.listen(4)
 
-        self.db = {}
+        try:
+            with open(file, "r") as f:
+                self.db = json.loads(f.read())
+        except:
+            self.db = {}
+
+#        print repr(self.db)
+
         self.db_lock = threading.Lock()
 
     def accept(self):
@@ -96,20 +106,20 @@ class Grutad_c(threading.Thread):
 
                 _i = False
 
-                if q.get(['_rev']):
+                if q.get('_rev'):
                     _i = True
 
                 l = sorted(s.keys(), reverse=_i)
 
-                if q.get(['_offset']):
+                if q.get('_offset'):
                     _o = int(q['_offset'])
                 else:
                     _o = 0
 
-                if q.get(['_num']):
+                if q.get('_num'):
                     _n = int(q['_num']) + _o
-                else
-                    _n = len(l) - _o
+                else:
+                    _n = len(l)
 
                 l = l[_o:_n]
 
@@ -161,7 +171,7 @@ class Grutad_c(threading.Thread):
 
         return True
 
-g = Grutad('', 8045)
+g = Grutad('', 8045, 'qq.json')
 
 while True:
     Grutad_c(g.accept(), g).start()
