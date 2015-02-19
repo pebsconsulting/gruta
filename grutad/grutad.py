@@ -7,6 +7,8 @@ class Grutad:
     def __init__(self, host, port, file):
         self.file = file
 
+        self.save_db_period = 60
+
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -19,12 +21,30 @@ class Grutad:
         except:
             self.db = {}
 
+        self.db_changed = False
+
 #        print repr(self.db)
 
         self.db_lock = threading.Lock()
 
+        threading.Timer(self.save_db_period, self.save_db).start()
+
     def accept(self):
         return self.s.accept()
+
+    def save_db(self):
+
+        if self.db_changed:
+            print "saving db"
+
+            self.db_lock.acquire()
+
+            with open(self.file, "w") as f:
+                f.write(json.dumps(self.db))
+
+            self.db_lock.release()
+
+        threading.Timer(self.save_db_period, self.save_db).start()
 
 class Grutad_c(threading.Thread):
     def __init__(self, (socket,address), grutad):
@@ -159,6 +179,7 @@ class Grutad_c(threading.Thread):
             s[o['_id']] = o
 
             self.grutad.db[o['_set']] = s
+            self.grutad.db_changed = True
 
             self.grutad.db_lock.release()
 
