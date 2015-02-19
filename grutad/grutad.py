@@ -89,9 +89,37 @@ class Grutad_c(threading.Thread):
     def get(self):
         q = self.read_obj()
 
-        if q.get('_from') or q.get('_num') or q.get('_offset') or q.get('_sort'):
+        if not q.get('_id'):
             # query
-            pass
+            try:
+                s = self.grutad.db[q['_set']]
+
+                _i = False
+
+                if q.get(['_rev']):
+                    _i = True
+
+                l = sorted(s.keys(), reverse=_i)
+
+                if q.get(['_offset']):
+                    _o = int(q['_offset'])
+                else:
+                    _o = 0
+
+                if q.get(['_num']):
+                    _n = int(q['_num']) + _o
+                else
+                    _n = len(l) - _o
+
+                l = l[_o:_n]
+
+                for i in l:
+                    self.write_obj(s[i])
+
+                self.sock.send(".\n")
+
+            except:
+                self.sock.send("ERROR\n")
 
         else:
             # single object
