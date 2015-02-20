@@ -182,14 +182,17 @@ class Grutad_c(threading.Thread):
         self.grutad.db_lock.acquire()
 
         try:
-            s = self.grutad.db.get(o['_set'])
+            _set = o['_set']
+
+            s = self.grutad.db.get(_set)
 
             if not s:
                 s = {}
 
+            del(o['_set'])
             s[o['_id']] = o
 
-            self.grutad.db[o['_set']] = s
+            self.grutad.db[_set] = s
             self.grutad.db_changed = True
 
             self.sock.send("OK\n")
