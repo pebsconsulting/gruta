@@ -123,13 +123,12 @@ class Grutad_c(threading.Thread):
             # query
             try:
                 s = self.grutad.db[q['_set']]
+                l = s.keys()
 
-                _i = False
+                _s = q.get('_sort')
 
-                if q.get('_rev'):
-                    _i = True
-
-                l = sorted(s.keys(), reverse=_i)
+                if _s is not None:
+                    l = sorted(l, reverse=(int(_s) < 0))
 
                 if q.get('_offset'):
                     _o = int(q['_offset'])
@@ -150,7 +149,7 @@ class Grutad_c(threading.Thread):
 
                 self.sock.send(".\n")
 
-            except:
+            except KeyError:
                 self.sock.send("ERROR\n")
 
         else:
