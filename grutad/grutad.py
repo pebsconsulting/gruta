@@ -11,7 +11,10 @@ class Grutad:
 
         try:
             with open(file, "r") as f:
+                self.log("Started loading db")
                 self.db = json.loads(f.read())
+                self.log("Finished loading db")
+
         except:
             self.db = {}
 
@@ -27,13 +30,16 @@ class Grutad:
         self.s.bind((host, port))
         self.s.listen(4)
 
+    def log(self, str):
+        print str
+
     def accept(self):
         return self.s.accept()
 
     def save_db(self):
 
         if self.db_changed:
-            print "saving db"
+            self.log("Started syncing db")
 
             self.db_lock.acquire()
 
@@ -41,6 +47,8 @@ class Grutad:
                 f.write(json.dumps(self.db))
 
             self.db_lock.release()
+
+            self.log("Finished syncing db")
 
         threading.Timer(self.save_db_period, self.save_db).start()
 
