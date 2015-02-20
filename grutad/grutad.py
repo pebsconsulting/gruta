@@ -9,12 +9,6 @@ class Grutad:
 
         self.save_db_period = 60
 
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.s.bind((host, port))
-        self.s.listen(4)
-
         try:
             with open(file, "r") as f:
                 self.db = json.loads(f.read())
@@ -23,11 +17,15 @@ class Grutad:
 
         self.db_changed = False
 
-#        print repr(self.db)
-
         self.db_lock = threading.Lock()
 
         threading.Timer(self.save_db_period, self.save_db).start()
+
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.s.bind((host, port))
+        self.s.listen(4)
 
     def accept(self):
         return self.s.accept()
