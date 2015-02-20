@@ -77,6 +77,8 @@ class Grutad_c(threading.Thread):
             ret = self.get()
         elif cmd == "put":
             ret = self.put()
+        elif cmd == "del":
+            ret = self.delete()
         else:
             self.sock.send("ERROR\n")
 
@@ -171,9 +173,9 @@ class Grutad_c(threading.Thread):
     def put(self):
         o = self.read_obj()
 
-        try:
-            self.grutad.db_lock.acquire()
+        self.grutad.db_lock.acquire()
 
+        try:
             s = self.grutad.db.get(o['_set'])
 
             if not s:
@@ -184,16 +186,37 @@ class Grutad_c(threading.Thread):
             self.grutad.db[o['_set']] = s
             self.grutad.db_changed = True
 
-            self.grutad.db_lock.release()
+            self.sock.send("OK\n")
+
+        except KeyError:
+            self.sock.send("ERROR\n")
+
+        self.grutad.db_lock.release()
+
+        return True
+
+    def delete(self):
+        o = self.read_obj()
+
+        self.grutad.db_lock.acquire()
+
+        try:
+            s = self.grutad.db[o['_set']]
+
+            del(s[o['_id']])
+
+            self.grutad.db[o['_set']] = s
+            self.grutad.db_changed = True
 
             self.sock.send("OK\n")
 
-            print repr(self.grutad.db)
-
-        except:
+        except KeyError:
             self.sock.send("ERROR\n")
 
+        self.grutad.db_lock.release()
+
         return True
+
 
 g = Grutad('', 8045, 'qq.json')
 
