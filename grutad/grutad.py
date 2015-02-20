@@ -143,6 +143,8 @@ class Grutad_c(threading.Thread):
 
                 l = l[_o:_n]
 
+                self.sock.send("LIST\n");
+
                 for i in l:
                     self.write_obj(s[i])
 
