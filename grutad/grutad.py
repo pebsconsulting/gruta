@@ -227,7 +227,8 @@ class Grutad_c(threading.Thread):
         return True
 
 
-g = Grutad('', 8045, 'qq.json')
+if __name__ == '__main__':
+    g = Grutad('', 8045, 'qq.json')
 
-while True:
-    Grutad_c(g.accept(), g).start()
+    while True:
+        Grutad_c(g.accept(), g).start()
