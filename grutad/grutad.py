@@ -126,17 +126,19 @@ class Grutad_c(threading.Thread):
                 l = s.keys()
 
                 _s = q.get('_sort')
+                _o = q.get('_offset')
+                _n = q.get('_num')
 
                 if _s is not None:
                     l = sorted(l, reverse=(int(_s) < 0))
 
-                if q.get('_offset'):
-                    _o = int(q['_offset'])
+                if _o is not None:
+                    _o = int(_o)
                 else:
                     _o = 0
 
-                if q.get('_num'):
-                    _n = int(q['_num']) + _o
+                if _n is not None:
+                    _n = int(_n) + _o
                 else:
                     _n = len(l)
 
@@ -159,7 +161,7 @@ class Grutad_c(threading.Thread):
 
                 self.write_obj(o)
 
-            except:
+            except KeyError:
                 self.sock.send("ERROR\n")
 
             pass
