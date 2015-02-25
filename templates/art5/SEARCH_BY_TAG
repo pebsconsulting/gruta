@@ -18,9 +18,6 @@
             {foreach {stories_by_tag %topic %tag is_admin}
                 {li {link_to_story_with_edit $0 $1}}
             }
-            {foreach {untagged_stories}
-                {li {link_to_story_with_edit $0 $1}}
-            }
         }>
     </ul>
 
