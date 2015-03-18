@@ -250,7 +250,7 @@ sub run_1 {
 		$data->auth( $u );
 	}
 	elsif (my $cookie = $self->cookie()) {
-		if (my ($sid) = ($cookie =~ /sid\s*=\s*(\d+)/)) {
+		if (my ($sid) = ($cookie =~ /gruta\s*=\s*(\d+)/)) {
 			$data->auth_from_sid( $sid );
 		}
 	}
@@ -288,7 +288,7 @@ sub run_1 {
 		my $session = Gruta::Data::Session->new(user_id => 'admin');
 		$u->source->insert_session($session);
 
-		$self->cookie('sid=' . $session->get('id'));
+		$self->cookie('gruta=' . $session->get('id'));
 
 		$data->auth($u);
 		$data->session($session);

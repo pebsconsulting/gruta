@@ -398,7 +398,7 @@ sub _art5 {
 				$error_msg = $a->exec( [ 'block_login' ]);
 			}
 			elsif (my $sid = $data->login($user_id, $password)) {
-				$data->cgi->cookie("sid=$sid");
+				$data->cgi->cookie("gruta=$sid");
 				$data->cgi->redirect('ADMIN');
 				$a->{abort} = 1;
 			}
@@ -407,7 +407,7 @@ sub _art5 {
 		};
 
 		$a->{op}->{logout} = sub {
-            $data->cgi->cookie("sid=0; expires=Thu, 01 Jan 1970 00:00:00 GMT");
+            $data->cgi->cookie("gruta=0; expires=Thu, 01 Jan 1970 00:00:00 GMT");
 			$data->logout();
 			$data->cgi->redirect('INDEX');
 			$a->{abort} = 1;
