@@ -187,13 +187,30 @@
         }>
     />
 
-	<p><label for = 'content'><{@"Content:"}></label><br>
+	<p><label for = 'content'><{@"Content:"}></label>
+    <span id='word_count'></span><br>
+
+    <script>
+    function count_words() {
+        t = document.getElementById('content');
+        l = document.getElementById('word_count');
+
+        s = t.value;
+
+        s = s.replace(/(^\s*)|(\s*$)/gi, "");
+        s = s.replace(/[ ]{2,}/gi, "");
+        s = s.replace(/\n /, "\n");
+
+        l.textContent = s.split(' ').length;
+    }
+    </script>
 
     <textarea
         name    = 'content'
         id      = 'content'
         cols    = '80'
         rows    = '30'
+        onkeyup = 'javascript:count_words();'
         wrap    = 'virtual'><{story_content %topic %id}></textarea>
 
     <p>
