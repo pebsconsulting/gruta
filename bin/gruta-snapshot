@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $VERSION = '0.5';
+my $VERSION = '0.6';
 
 use locale;
 use POSIX qw (locale_h);
@@ -116,6 +116,9 @@ my $g = Gruta->new(
     },
     _folder     => $folder
 );
+
+$index_num = $g->template->process('cfg_index_num');
+$topic_num = $g->template->process('cfg_topic_num');
 
 mkdir $folder, 0755;
 mkdir $folder . '/top/', 0755;
