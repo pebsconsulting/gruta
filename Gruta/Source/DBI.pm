@@ -25,7 +25,7 @@ sub _execute {
 	my $self	= shift;
 	my $sth		= shift;
 
-	return $sth->execute( @_ ) or croak $self->{dbh}->errstr;
+	return ($sth->execute( @_ ) or croak $self->{dbh}->errstr);
 }
 
 
