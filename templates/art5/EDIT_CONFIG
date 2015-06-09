@@ -76,6 +76,9 @@
     <{edit_config_bool @"Use Google Adsense for searching (also fill <i>search_form_adsense</i> with content from Google):"
         'cfg_adsense_search' cfg_adsense_search}>
 
+    <{edit_config_bool @"Use the abstract as description tag in stories:"
+        'cfg_abstract_as_description' cfg_abstract_as_description}>
+
 	<h2><{@"Date formats"}></h2>
 
     <{edit_config_text @"Global date format:"
