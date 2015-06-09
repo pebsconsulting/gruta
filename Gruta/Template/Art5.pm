@@ -1117,6 +1117,12 @@ sub process {
 		$ret =~ s!</head>!<meta name="keywords" content="$t"></head>!i;
 	}
 
+    # non-standard (Facebook)
+	if ($t = $self->{_art5}->{op}->{html_image}) {
+		$t = $self->_art5->exec($t);
+		$ret =~ s!</head>!<meta property="og:image" content="$t"></head>!i;
+	}
+
 	return $ret;
 }
 
