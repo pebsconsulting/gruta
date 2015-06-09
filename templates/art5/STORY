@@ -8,7 +8,7 @@
 	{= 'html_title'
 			{? cfg_site_name ': ' {story_title %topic %id}}}
 	{= 'html_description'
-			{story_description %topic %id}}
+			{if cfg_abstract_as_description {story_abstract %topic %id} {story_description %topic %id}}}
 	{= 'html_keywords'
 			{foreach {story_tags %topic %id} $0 ', '}}
 	{= 'html_image' {? 'http://' cfg_host_name {story_image %topic %id}}}
