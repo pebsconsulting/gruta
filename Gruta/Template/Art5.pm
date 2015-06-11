@@ -1110,6 +1110,7 @@ sub process {
 	if ($t = $self->{_art5}->{op}->{html_description}) {
 		$t = $self->_art5->exec($t);
         $t =~ s/<.*>//g;
+        $t =~ s/[\s]+/ /g;
 		$ret =~ s!</head>!<meta name="description" content="$t"></head>!i;
 	}
 
