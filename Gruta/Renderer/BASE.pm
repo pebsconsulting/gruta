@@ -9,9 +9,9 @@ sub story
     my $body = $story->get('body');
     my $img = '';
 
-    if ($body =~ /img:\/\/([^ \/]+)/) {
+    if ($body =~ /(img|thumb):\/\/([^ \/]+)/) {
         # img:// pseudo_url
-        $img = '/img/' . $1;
+        $img = '/img/' . $2;
     }
     elsif ($body =~ /<\s*img\s+src\s*=\s*"([^"]+)"/) {
         # pure HTML img tag
